@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  </head>
+<body>
+<!-- partial:index.partial.html -->
+  <style>
+    body {
+      background: transparent;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    .marquee {
+      transform: translateX(100%);
+      animation: cssmarquee 20s linear infinite;
+      filter: drop-shadow(1px 2px 1px rgb(0,0,0,.9));
+        }
+
+    @keyframes cssmarquee {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  </style>
+  <div class="marquee">
+    <div class="text">
+      <img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Moorhuhn/slepka2.gif"/></div>
+  </div>
+<!-- partial -->
+  </body>
+</html>
+
+
