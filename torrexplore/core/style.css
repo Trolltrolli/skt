@@ -56,15 +56,14 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .center:hover {
-transform: scale(1.3);
+transform: scale(1.3};
 position: fixed;
 width: 30%;
 height: 85%;
 padding-left: 45px;
+bottom: 4px!important;
 border: none;
-bottom: 5x !important;
 box-shadow:20px 20px 90px 50px #034885;
-
 }
 
 .tg-wrap {
