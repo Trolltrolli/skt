@@ -53,7 +53,6 @@ scrollbar-width: none;  /* Firefox */
   border-width: 2px;
   border: 2px solid black;
   box-shadow: 2px 2px 3px black;
-  transition: transform 0.2s ease-in-out, width 0.2s, height 0.2s;
 }
 
 .center:hover {
