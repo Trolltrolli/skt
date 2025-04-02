@@ -61,7 +61,7 @@ position: fixed;
 width: 30%;
 height: 85%;
 padding-left: 45px;
-padding-bottom: 20px;
+padding-bottom: 20px !important;
 border: none;
 box-shadow:20px 20px 90px 50px #034885;
 
