@@ -57,7 +57,7 @@ scrollbar-width: none;  /* Firefox */
 
 .center:hover {
 
-transform: scale(1);
+transform: scale(1.3);
 
 position: fixed;
 
