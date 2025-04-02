@@ -56,23 +56,24 @@ scrollbar-width: none;  /* Firefox */
 }
 
 .center:hover {
-
-transform: scale(1);
-
-position: fixed;
-
+transform: scale(1.2);
+position: absolute;
 width: 30%;
-
 height: 85%;
-
 padding-left: 45px;
-
 bottom: 4px!important;
-
 border: none;
-
 box-shadow:20px 20px 90px 50px #034885;
+}
 
+.center:nth-child(-n+3):hover {
+  will-change: transform, width, height;
+  animation: force-render 0.01s;
+}
+
+@keyframes force-render {
+  from { opacity: 0.99; }
+  to { opacity: 1; }
 }
 
 .tg-wrap {
