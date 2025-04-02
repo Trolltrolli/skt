@@ -1,0 +1,13 @@
+<div style="margin:0px; margin-top:-11px">
+
+<input type="button" value="" style="height:44px;width:444px;background-image: url(https://friendsmusic.monster/managerfiles/guest/torrexplore/core/sign.png);background-size:100% 100%;background-color:transparent;border-color:transparent;cursor:crosshair;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;this.innerText = ''; this.value = ' '; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = ' '; }"></div>
+
+<div class="alt2" style="margin-top: -11px; padding: 0px; border: 0px inset;"><div style="display: none;"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="900" height="222" style="background-color: silver;border-top: 6px solid silver;border-bottom: 7px solid silver;border-left: 0px solid transparent;border-right: 6px solid silver;"></div></div>
+
+
+
+nebo nejaka kombinace box shadow (v css by se muselo ještě vypnout hodnota min-width a max-width u TG
+
+jako třeba toto
+
+<embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="925" height="222" style="background-color: #000999;-webkit-box-shadow: 0px 0px 10px 10px #8B13FF;box-shadow: 0px 0px 10px 10px #000999, 0px 0px 15px 20px red;width: 900px;">
