@@ -1,0 +1,179 @@
+<div style="margin-left:2px;margin-top:-215px"><table style="border-collapse:collapse;aligned:center;mso-hide:all"width="70%"height="0"border="0"cellpadding="0"cellspacing="0"><td><table style="background-color:rgb(0,0,0,.3)!important;border:2px solid black;border-radius:30px;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-align:center;width;height;padding:10px 10px 0 10px;margin-top:-5px"><tr>
+
+<!-- INFO BUTTON -->
+<td style="padding-right:7px"><div><input type="button" value="INFO" title=" I N F O " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border-radius:20px;display:inline-block;font-family:verdena;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="INFO"data-alt-text="CSFD"data-default-value="INFO"data-alt-value="INFORMATION"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu1');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- INFO WINDOW -->
+<div id="menu1"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:25px;margin-left:-270px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:778px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px"><span style="display:inline-block;border: none;color:grey; text-align: left;">
+<span style="display: inline-block; border: 1px solid silver; color: grey;background-color:white;">
+                                                             INFO                                                                                  
+</span>
+
+  <a href="https://cs.wikipedia.org/wiki/Moorhuhn" title=" L I N K " target="_blank" style="color: red; background-color: grey"> Moorhuhn </a>  je německá videoherní série. Skládá se z více než 30 her, 
+  z nichž první hra, v žánru střílečka, byla nejoblíbenější německou počítačovou 
+  hrou na počátku 21. století. První tituly v sérii byly vydány jako freeware.
+  <font size="3"><i>Wikipedie</i>
+
+  <font color="limegreen">Vydavatelé:</font>            Phenomedia publishing gmbh, Ravensburger Interactive Media GmbH,
+                                   MumboJumbo
+  <font color="limegreen">Vývojáři:</font>                 Phenomedia publishing gmbh, Witan Entertainment BV,
+                                   Visual Imagination Software
+  <font color="limegreen">Rok vydání:</font>            1999 - 2008   <font color="red">/v packu 21 her/</font>
+  <font color="limegreen">Jazyk:</font>                       němčina (jen 3 hry - eng + multi)
+  <font color="limegreen">Místo na disku:</font>      4.6GB</font>
+  <font color="silver">-----------------------------------------------------------------------------------------------------</font>
+
+  Hry jsem upravil, aby byly hratelné na Windows 10 a přidal jsem <font color="fuchsia">Reshade</font> 
+  k vylepšení vzhledu.
+  <font color="orange">NAINSTALUJ a HREJ!</font> :)
+  Pro všechny jednotlivé hry se na ploše vytvoří zástupce.
+  Při sekání hry, povolte v nastavení grafické karty - preferovat maximální výkon.
+  V nastavení grafické karty zvolte: <b>Změna měřítka - Celá obrazovka</b>.
+  <font size="2.5" color="red">Odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</font>
+
+
+
+</p></div></td>
+
+<!-- SEZNAM HER BUTTON -->
+<td style="padding-right:7px"><div><input type="button" value="SEZNAM HER" title=" S E Z N A M  H E R " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border-radius:20px;display:inline-block;font-family:verdena;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="SEZNAM HER"data-alt-text="SEZNAM HER"data-default-value="SEZNAM HER"data-alt-value="LISTE DER SPIELE"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu2');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- SEZNAM HER WINDOW -->
+<div id="menu2"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:25px;margin-left:-245px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:778px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px"><span style="display:inline-block;border:1px solid silver;background-color:white;color:grey; text-align: center;">
+                                               SEZNAM HER V PACKU                                                                                 </span>
+
+
+1999: Die Original Moorhuhnjagd
+2000: Moorhuhn 2
+2001: Moorhuhn Winter-Edition
+2001: Moorhuhn 3
+2002: Moorhuhn Kart
+2003: Moorhuhn X
+2003: Moorhuhn Kart Extra
+2003: Moorhuhn Adventure - Der Schatz des Pharao
+2004: Moorhuhn Kart 2
+2004: Moorhuhn Wanted
+2005: Moorhuhn Adventure - Der Fluch des Goldes
+2005: Moorhuhn Remake
+2005: Moorhuhn Invasion
+2005: Moorhuhn Schatzjäger
+2006: Moorhuhn Piraten
+2006: Moorhuhn Schatzjäger 2
+2007: Moorhuhn Director's Cut   <font color="fuchsia">eng/multil</font>
+2007: Moorhuhn Kart 3
+2007: Moorhuhn Schatzjäger 3
+2008: Moorhuhn Atlantis            <font color="fuchsia">eng/multil</font>
+2008: Moorhuhn Kart Thunder   <font color="fuchsia">eng/multil</font>
+</p></div></td>
+
+<!-- RESHADE BUTTON -->
+<td><div><input type="button" value="RESHADE" title=" R E S H A D E " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border-radius:20px;display:inline-block;font-family:verdena;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="RESHADE"data-alt-text="RESHADE"data-default-value="RESHADE"data-alt-value="ein RESHADE shaders"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu3');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- RESHADE WINDOW -->
+<div id="menu3"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:25px;margin-left:-130px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:778px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px"><span style="display:inline-block;border:none;background-color:;color:grey; text-align: left; width: 700px;">
+<font size=6><b>*** GRAFICKÝ TUNING ***</b></font></font>
+<font color="silver">---------------------------------------------------------------------------------------------------</font>
+ <B><i>RESHADE - SHADERS</i></B>
+
+Ve hře můžete editovat po stisku - <font color=limegreen>HOME</font> - klávesové zkratky i cesty (<font color=red>Paths</font>) jdou nastavit přímo ve hře (gameplay).
+<i><font color="#01579b">Jak načíst skryté efekty</font> - Settings// <font color=limegreen>Load only enabled effects</font> -vyp</i>,
+nastavte nebo upravte, potom /<font color=limegreen>Reload</font>/ <font color=limegreen>Home</font>.
+
+Pokud by někomu reshade nefungovalo (<font color="fuchsia">vše by mělo fungovat</font>, umístění hry není rozhodující),
+nebo by si chtěl nastavení upravit, nebo doinstalovat další shadery, pokračujte podle návodů 
+níže.⇩ ;) 
+<font size="2">TIP: pokud nebude obraz správně "roztažený" na celou plochu obrazovky a nepomůže ani v 
+nastavení graf. karty - <i>Změna měřítka</i> - [b]Celá obrazovka[/b],
+můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
+
+* Reshade uninstall - smažte d3d9.dll ve složce hry *
+
+<a href="https://reshade.me/" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">link - reshade shaders</span></a>
+<a href="https://www.youtube.com/watch?v=u64ljsMG9Vc" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">ReShade Tutorial</span></a>
+<font color="silver">---------------------------------------------------------------------------------------------------</font>
+
+<div align="left">
+<details style="padding: 15px; border-radius: 5px; .border: 2px solid silver;">
+  <summary style="cursor: pointer; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none; border: 2px solid black; width: 380px; background-color: limegreen; margin-top: -355px; text-align: left; position: relative; z-index: 8;">
+    <span style="color: orange; font-size: 17px; text-shadow: 1px 1px 1.2px black;">POKUD RESHADE NEFUNGUJE - KLIK ZDE</span>
+    <audio id="1"></audio>
+  </summary>
+  <div style="background-color: black; color: orange; font-size: 16px; padding: 15px; border-radius: 5px;">
+    <font color="orange" font size="4">VE SLOŽCE HRY VYBERETE:</font>
+    <ul style="list-style-type: none; padding-left: 0;">
+      <li>1. Reshade_setup</li>
+      <li>2. Click here... - BROWSE - <font size="4" color="limegreen">.\hra\hra.exe"</font></li>
+      <li>3. Klik na directx9</li>
+      <li>4. UPDATE</li>
+      <li>5. SKIP</li>
+      <li>6. EDIT Reshade set</li>
+      <li>7. Preset - vyberte <font color="limegreen">ReshadePreset.ini</font></li>
+      <li>8. Effects <font color="red" size="3">Paths</font> - vyberte reshade-shaders/Shaders<font size=2 color=orange>(ve složce hry)</font></li>
+      <li>9. Texture <font color="red" size="3">Paths</font> - vyberte reshade-shaders/Textures<font size=2 color=orange>(ve složce hry)</font></li>
+      <li>10. Skip Tutorial</li>
+      <li>11. OK a zavřít</li>
+    </ul>
+    <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+  </div>
+</details>
+</p></div></td>
+</tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
