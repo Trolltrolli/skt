@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery fancyTable plugin
  * https://github.com/myspace-nu
  *
@@ -9,7 +9,7 @@
 	$.fn.fancyTable = function(options) {
 		var settings = $.extend({
 			inputStyle: "",
-			inputPlaceholder: "Hledat [mezera MB/GB, přívlastky XXX] [YES = Seeduji | NOT = Neseeduji | DEL! = Smazáno, Blinking = SeedBox] [Řazení Od - Do]",
+			inputPlaceholder: "Hledání + Filtr [KB,MB,GB,TB] -- řazení podle názvu, velikosti a čísla torrentu [klik na seznam mých torrentů, idt, apod.]",
 			pagination: false,
 			paginationClass: "btn btn-light",
 			paginationClassActive: "active",
@@ -197,13 +197,13 @@
 				if(settings.globalSearch){
 					var searchField = $("<input>",{
 						"placeholder": settings.inputPlaceholder,
-						style:"width:100%;font-family:arial narrow;background-color:#000;border:2px solid #fff;color: #fff;text-align: center;font-size: 14px;outline: none !important;font-weight:bold;line-height: 20px;"+settings.inputStyle
+						style:"width:100%;font-family:verdena; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); border:0px solid black;color: grey;text-shadow:1px 1px 2px black;border-shadow:3px 3px 6px black,-3px -3px 6px black;text-align: left;font-size: 12px;font-weight: bold; margin-left:5px;outline: none !important;line-height: 20px;"+settings.inputStyle
 					}).bind("change paste keyup",function(){
 						elm.fancyTable.search = $(this).val();
 						elm.fancyTable.page = 1;
 						instance.tableUpdate(elm);
 					});
-					var th = $("<th>",{ style:"z-index:1;padding:0px;background-color:#963400;position: sticky;top: 34px;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 2px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
+					var th = $("<th>",{ style:"padding:0px; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); position: sticky;top: 30px;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 2px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
 					$(searchField).appendTo($(th));
 					$(th).appendTo($(searchHeader));
 				} else {
@@ -213,7 +213,7 @@
 						var searchField = $("<input>",{
 							"data-n": n,
 							"placeholder": settings.inputPlaceholder,
-							style:"width:100%;background-color:#963400;border: 2px solid #963400;color: black;text-align: center;font-size: 11px;font-weight: bold;outline: none !important;"+settings.inputStyle
+							style:"width:100%;background-color: slategray;border: 2px solid #963400;color: black;text-align: left;font-size: 11px;font-weight: bold;outline: none !important;"+settings.inputStyle
 						}).bind("change paste keyup",function(){
 							elm.fancyTable.searchArr[$(this).data("n")] = $(this).val();
 							elm.fancyTable.page = 1;
