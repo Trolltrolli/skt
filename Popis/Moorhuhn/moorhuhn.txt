@@ -127,8 +127,8 @@ můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
       <li>11. OK a zavřít</li></ul><font color="silver">---------------------------------------------------------------------------------------------------</font></div></details>
 </p></div></td>
 </tr></table></div>
+
 <!----------------------------------------------------------------------------------------------------------------------------------->
-<center>
 <!--TABULKA PRO SCREEN------------------------------------------------------>
 <center><div style="margin-left: -10px; margin-top: 40px; line-height: 0px;">
 <div style="background-color: rgb(0,0,0,.5); border: 2px solid black; border-radius: 30px; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black; width: 940px; height: 190px"><div style=" display: inline-block; overflow-x: scroll; overflow-y: hidden; scroll-behavior: smooth; scrollbar-color: rgba(0,0,0,.7) rgba(0,0,0,.5) !important; scrollbar-width: auto; -webkit-scrollbar-width:auto; -webkit-overflow-scrolling: touch;cursor: auto;-webkit-scrollbar-corner: black; width: 870px; height: 140px; margin-top: 20px"><table style="border-collapse: collapse;"><tr style="background-color: black; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none;" >
@@ -276,7 +276,7 @@ můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
 <img id="a21" src="https://trolltrolli.github.io/SKT/Popis/Moorhuhn/21.jpg" width="400" height="233" style="visibility:hidden;position:fixed;z-index:5;display:block;left:50%;top: 219px;transform:translate(-50%,0);border:1px solid silver;box-shadow:.8px .9px 1px 1px black;" onmouseover="this.setAttribute('title','S C R E E N');clearTimeout(this.hideTimeout);this.showTimeout=setTimeout(()=>{this.style.visibility='visible';},300);" onmouseout="clearTimeout(this.showTimeout);this.hideTimeout=setTimeout(()=>{this.style.visibility='hidden';},500);"></a>
 <img id="b21" src="https://trolltrolli.github.io/SKT/Popis/Moorhuhn/21.jpg" width="147" height="97" style="position:flex;z-index:2;" onmouseover="clearTimeout(document.getElementById('a21').hideTimeout);clearTimeout(document.getElementById('a21').showTimeout);document.getElementById('a21').showTimeout=setTimeout(()=>{document.getElementById('a21').style.visibility='visible';},300);" onmouseout="clearTimeout(document.getElementById('a21').showTimeout);document.getElementById('a21').hideTimeout=setTimeout(()=>{document.getElementById('a21').style.visibility='hidden';},500);"></td>
 <!--konec kodu-------------------------->
-</tr></table></div></center></div>
+</tr></table></div></div>
 </div>
 <!------------------------------------------------------------------------->
 <div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -15px; margin-left: px"><embed style="height: 669px; width: 100%; position: absolute; z-index: -50" src="https://trolltrolli.github.io/SKT/Popis/Moorhuhn/slep2.html" frameborder="no" scrolling="no"></embed></div>
@@ -285,7 +285,15 @@ můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
 <!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;height:0px;margin-top: -50px;"><a href="#seznam"></a></div>
 <!--SEZNAM TORR--><div style="margin-left: -2px;cursor:auto;"><embed type="text/html" src="https://trolltrolli.github.io/SKT/torrexplorer/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; box-shadow: gold 0 0 1.5px 1.5px, black 0px 2px 2px 2px, grey 0px 0px 20px 2px, #000 0px 0px 20px 4px, black 0px 0px 5px 7px, orange 0 0 12px 20px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 20px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 27px!important;"></embed></div>
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .s8px 2px 1px black, 1px 1px 5px 5px black!important;"><a href="#"><img src="https://trolltrolli.github.io/SKT/Popis/mix/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
-<!--BAV+SEED--><br style="line-height:30px">
+<!--BAV+SEED--><br style="line-height:30px;">
 <embed src="https://trolltrolli.github.io/SKT/Popis/Moorhuhn/bav.html" style="width: 100%; margin-top: px;"></embed>
 <div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://trolltrolli.github.io/SKT/Popis/Moorhuhn/seed.html" frameborder="no" scrolling="no"></embed></div>
 <p style="text-size=10px;color:red;margin-top:260px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px"></div><div style="text-align:center;z-index:3;position-relative!important"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
+
+
+
+
+
+
+
+</center>
