@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Záložní přehrávač s médiem</title>
+</head>
+<body>
+  <div id="iframe-container">
+    <iframe
+      id="primary-frame"
+      src="https://fmcloud.pro/embed.php?id=347&autoplay=true"
+      width="940"
+      height="128"
+      allow="autoplay"
+      style="border: none;">
+    </iframe>
+  </div>
+
+  <script>
+    const iframe = document.getElementById('primary-frame');
+    const container = document.getElementById('iframe-container');
+    let isMediaPlayable = false;
+
+    // Funkce pro nahrazení iframe záložním přehrávačem
+    function replaceWithFallback() {
+      const fallbackIframe = document.createElement('iframe');
+      fallbackIframe.src = './backup.html'; // Záložní stránka s MP3 přehrávačem
+      fallbackIframe.width = 940;
+      fallbackIframe.height = 128;
+      fallbackIframe.style.border = 'none';
+      fallbackIframe.allow = 'autoplay';
+      container.innerHTML = ''; // Vymazání původního iframe
+      container.appendChild(fallbackIframe); // Přidání záložního iframe
+      console.log('Záložní přehrávač aktivován.');
+    }
+
+    // Monitorování načítání média pomocí událostí
+    iframe.onload = function () {
+      console.log('Primární iframe byl načten.');
+      const mediaElement = iframe.contentWindow.document.querySelector('audio, video');
+      if (mediaElement) {
+        mediaElement.oncanplay = function () {
+          isMediaPlayable = true;
+          console.log('Primární médium je připraveno k přehrávání.');
+        };
+        mediaElement.onstalled = function () {
+          console.log('Médium bylo přerušeno.');
+          replaceWithFallback();
+        };
+        mediaElement.onwaiting = function () {
+          console.log('Médium čeká na data.');
+          setTimeout(() => {
+            if (!isMediaPlayable) {
+              console.log('Příliš dlouhé čekání na médium. Přepnutí na záložní přehrávač.');
+              replaceWithFallback();
+            }
+          }, 5000); // Čeká 5 sekund na obnovu přehrávání
+        };
+      } else {
+        console.log('Médium nebylo nalezeno v iframe.');
+        replaceWithFallback();
+      }
+    };
+
+    iframe.onerror = function () {
+      console.log('Chyba při načítání primárního iframe.');
+      replaceWithFallback();
+    };
+  </script>
+</body>
+</html>
