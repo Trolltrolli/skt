@@ -37,34 +37,38 @@
 <body>
 
 <div class="player-container" id="playerBox">
-  <p>🎵 HL2 - Hazardous Environments</p>
-  <iframe id="fmPlayer" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+  <p id="status">🎵 HL2 - Hazardous Environments</p>
+  <iframe id="fmPlayer" style="display: none;" allow="autoplay"></iframe>
   <audio id="backupPlayer" src="./audio.mp3" autoplay loop controls style="display: none;"></audio>
 </div>
 
 <script>
-  const iframe = document.getElementById('fmPlayer');
-  const backup = document.getElementById('backupPlayer');
+  const fmUrl = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  const iframe = document.getElementById("fmPlayer");
+  const backup = document.getElementById("backupPlayer");
+  const status = document.getElementById("status");
 
-  // Zkusíme detekovat chybu načtení iframe
-  iframe.onerror = () => {
-    console.warn("FMCloud nejde načíst, přepínám na zálohu...");
-    iframe.style.display = 'none';
-    backup.style.display = 'block';
-    backup.play().catch(() => {
-      console.warn("Autoplay blokován, musíš kliknout.");
-    });
-  };
-
-  // Alternativně timeout pro jistotu (např. když server visí a nic se neděje)
-  setTimeout(() => {
-    const loaded = iframe.contentDocument || iframe.contentWindow.document;
-    if (!loaded || loaded.body.innerHTML.trim() === "") {
-      console.warn("FMCloud se zřejmě nezobrazil, přepínám na zálohu...");
-      iframe.style.display = 'none';
-      backup.style.display = 'block';
+  // Testujeme dostupnost FMCloud
+  fetch(fmUrl, { method: 'HEAD', mode: 'no-cors' }) // no-cors kvůli CORS limitům
+    .then(() => {
+      iframe.src = fmUrl;
+      iframe.style.display = "block";
+    })
+    .catch(() => {
+      status.textContent = "🎵 FMCloud nedostupný – přehrávám zálohu";
+      backup.style.display = "block";
       backup.play().catch(() => {
-        console.warn("Autoplay blokován, musíš kliknout.");
+        console.warn("Autoplay blokován, klikni pro přehrání.");
+      });
+    });
+
+  // Fallback timeout pro případ, že server visí bez odpovědi
+  setTimeout(() => {
+    if (!iframe.src) {
+      status.textContent = "🎵 FMCloud timeout – přehrávám zálohu";
+      backup.style.display = "block";
+      backup.play().catch(() => {
+        console.warn("Autoplay blokován, klikni pro přehrání.");
       });
     }
   }, 5000);
