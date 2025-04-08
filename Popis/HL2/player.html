@@ -2,41 +2,42 @@
 <html>
 <head>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const fmIframe = document.getElementById('fmIframe');
+        window.onload = function() {
+            const embedPlayer = document.getElementById('fmEmbed');
             const backupPlayer = document.getElementById('backupPlayer');
+            const audioSrc = './audio.mp3';
 
-            // Pokud iframe selže
-            fmIframe.onerror = function () {
-                fmIframe.style.display = 'none';
+            // Zkusíme načíst FMcloud embed
+            embedPlayer.onerror = function() {
+                embedPlayer.style.display = 'none';
                 backupPlayer.style.display = 'block';
-                const audioElement = document.getElementById('audioPlayer');
-                audioElement.play().catch(() => {
-                    console.log('Autoplay blocked. User interaction required.');
-                });
+                document.getElementById('audioPlayer').src = audioSrc;
             };
-        });
+        };
     </script>
 </head>
 <body>
-    <!-- FMcloud Embed -->
-    <iframe 
-        id="fmIframe" 
-        src="https://fmcloud.pro/embed.php?id=347&autoplay=true" 
+    <!-- FMcloud Embed (primární) -->
+    <embed 
+        id="fmEmbed"
         width="940" 
         height="128" 
-        frameborder="0" 
-        scrolling="no">
-    </iframe>
-
-    <!-- Záložní přehrávač (skrytý na začátku) -->
-    <div id="backupPlayer" style="display: none; width: 940px; height: 128px;">
+        frameborder="no" 
+        scrolling="no" 
+        autoplay="autoplay" 
+        loop="loop" 
+        src="https://fmcloud.pro/embed.php?id=347&autoplay=true"
+        style="margin-left: -10px; margin-top: -10px; border: 1px solid #444; border-radius: 10px; box-shadow: 0 0 20px 20px black; opacity: .8">
+    
+    <!-- Záloha (skrytá inicializací) -->
+    <div id="backupPlayer" style="display: none; background-color:#222; color:#fff; padding:15px; width:910px; height:98px; border-radius:8px; box-shadow:0px 4px 10px rgba(0,0,0,0.5); font-family:Arial,sans-serif; text-align:center;">
+        <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
         <audio 
             id="audioPlayer" 
-            src="./audio.mp3" 
             controls 
-            autoplay 
-            style="width: 100%; height: 100%;">
+            autoplay
+            style="width:100%; border-radius:5px;">
+            <source src="./audio.mp3" type="audio/mpeg">
         </audio>
     </div>
 </body>
