@@ -24,17 +24,15 @@
   const fmcloud = document.getElementById('fmcloud');
   const fmUrl = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
 
-  fetch(fmUrl, { method: 'HEAD' })
-    .then(res => {
-      if (res.ok) {
-        fmcloud.src = fmUrl;
-        fmcloud.style.display = 'block';
-      } else {
-        throw new Error("FMCloud selhal");
-      }
+  // Pošleme požadavek a čekáme jen na stav (nechceme obsah)
+  fetch(fmUrl, { method: 'HEAD', mode: 'no-cors' })
+    .then(() => {
+      // I když není CORS, předpokládáme že odpověď přišla
+      fmcloud.src = fmUrl;
+      fmcloud.style.display = 'block';
     })
     .catch(() => {
-      // Vytvoříme záložní player až při chybě
+      // Server selhal – vytvoříme záložní player
       const div = document.createElement('div');
       div.style.cssText = `
         width: 940px;
