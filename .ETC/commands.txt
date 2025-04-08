@@ -1,0 +1,98 @@
+
+    onload – Spouští se, když se element (např. iframe, obrázek, stránka) úspěšně načte.
+
+    onerror – Spouští se, pokud se element nenahrál kvůli chybě.
+
+    onbeforeunload – Spouští se těsně před opuštěním stránky (užitečné pro upozornění na neuložené změny).
+
+    onunload – Spouští se, když se uživatel opravdu rozhodne opustit stránku.
+
+Události pro interakce uživatele:
+
+    onclick – Spouští se, když uživatel klikne na element.
+
+    ondblclick – Spouští se při dvojkliku na element.
+
+    onmousedown – Spouští se při stisknutí tlačítka myši.
+
+    onmouseup – Spouští se při uvolnění tlačítka myši.
+
+    onmousemove – Spouští se při pohybu kurzoru myši nad elementem.
+
+    onmouseover – Spouští se, když kurzor vstoupí do oblasti elementu.
+
+    onmouseout – Spouští se, když kurzor opustí oblast elementu.
+
+    oncontextmenu – Spouští se při otevření kontextového menu (pravé tlačítko myši).
+
+Události klávesnice:
+
+    onkeydown – Spouští se při stisknutí klávesy.
+
+    onkeyup – Spouští se při uvolnění klávesy.
+
+    onkeypress – Spouští se při stisknutí klávesy, která generuje znak (deprecated, používejte raději onkeydown nebo onkeyup).
+
+Události formuláře:
+
+    onsubmit – Spouští se při odesílání formuláře.
+
+    onchange – Spouští se při změně hodnoty v inputu, textarea nebo selectu.
+
+    oninput – Spouští se při změně hodnoty inputu okamžitě (narozdíl od onchange).
+
+    onfocus – Spouští se při zaostření na element (např. input).
+
+    onblur – Spouští se při ztrátě zaostření elementu.
+
+    onreset – Spouští se při resetování formuláře.
+
+Události médií:
+
+    onplay – Spouští se při spuštění přehrávání videa nebo audia.
+
+    onpause – Spouští se při pauze přehrávání.
+
+    onended – Spouští se, když přehrávání skončí.
+
+    onvolumechange – Spouští se při změně hlasitosti.
+
+    onseeked – Spouští se, když je přehrávač přesunut na nové místo.
+
+Události pro dotyková zařízení:
+
+    ontouchstart – Spouští se při dotknutí obrazovky.
+
+    ontouchend – Spouští se při ukončení dotyku.
+
+    ontouchmove – Spouští se při pohybu prstu po obrazovce.
+
+Události pro síť:
+
+    onprogress – Spouští se při načítání dat (např. pro XMLHttpRequest).
+
+    onloadstart – Spouští se na začátku načítání dat.
+
+    onloadend – Spouští se na konci načítání dat.
+
+Události globálního okna:
+
+    onresize – Spouští se při změně velikosti okna.
+
+    onscroll – Spouští se při posouvání stránky nebo elementu.
+
+    onhashchange – Spouští se při změně fragmentu (hash) v URL.
+
+    onpopstate – Spouští se při navigaci v historii pomocí history.pushState nebo history.back.
+
+
+onprogress
+
+onerror
+
+oncanplay
+
+onloadend
+
+onsuccess/onfail
+
