@@ -1,1 +1,44 @@
-<div style="background-color:#222;color:#fff;padding:15px;width:910px;height:98px;border-radius:8px;box-shadow:0px 4px 10px rgba(0,0,0,0.5);font-family:Arial,sans-serif;text-align:center;"><p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p><audio id="audioPlayer" src="https://trolltrolli.github.io/SKT/Popis/HL2/Hazardous Environments.mp3" controls style="width:100%;border-radius:5px;"></audio></div>
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        window.onload = function() {
+            const embedPlayer = document.getElementById('fmEmbed');
+            const backupPlayer = document.getElementById('backupPlayer');
+            const audioSrc = './audio.mp3';
+
+            // Zkusíme načíst FMcloud embed
+            embedPlayer.onerror = function() {
+                embedPlayer.style.display = 'none';
+                backupPlayer.style.display = 'block';
+                document.getElementById('audioPlayer').src = audioSrc;
+            };
+        };
+    </script>
+</head>
+<body>
+    <!-- FMcloud Embed (primární) -->
+    <embed 
+        id="fmEmbed"
+        width="940" 
+        height="128" 
+        frameborder="no" 
+        scrolling="no" 
+        autoplay="autoplay" 
+        loop="loop" 
+        src="https://fmcloud.pro/embed.php?id=347&autoplay=true"
+        style="margin-left: -10px; margin-top: -10px; border: 1px solid #444; border-radius: 10px; box-shadow: 0 0 20px 20px black; opacity: .8">
+    
+    <!-- Záloha (skrytá inicializací) -->
+    <div id="backupPlayer" style="display: none; background-color:#222; color:#fff; padding:15px; width:910px; height:98px; border-radius:8px; box-shadow:0px 4px 10px rgba(0,0,0,0.5); font-family:Arial,sans-serif; text-align:center;">
+        <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
+        <audio 
+            id="audioPlayer" 
+            controls 
+            autoplay
+            style="width:100%; border-radius:5px;">
+            <source src="./audio.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</body>
+</html>
