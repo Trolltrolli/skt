@@ -2,46 +2,58 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player Fallback</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
       background-color: black;
     }
-    #fmPlayer, #backupPlayer {
+    #fmcloud, #backup {
       width: 940px;
       height: 128px;
-      display: none;
       border: none;
+      display: none;
+    }
+    #backup {
+      background-color: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    audio {
+      width: 100%;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
-<iframe id="fmPlayer" allow="autoplay"></iframe>
-<audio id="backupPlayer" src="./audio.mp3" autoplay loop controls></audio>
+<iframe id="fmcloud" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+
+<div id="backup">
+  <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
+  <audio id="audioPlayer" src="./audio.mp3" autoplay loop controls></audio>
+</div>
 
 <script>
-  const fmUrl = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
-  const fmPlayer = document.getElementById("fmPlayer");
-  const backupPlayer = document.getElementById("backupPlayer");
+  const fmcloud = document.getElementById('fmcloud');
+  const backup = document.getElementById('backup');
 
-  // Pokusíme se nejdřív načíst FMCloud iframe
-  fetch(fmUrl, { method: 'HEAD' })
-    .then(response => {
-      if (response.ok) {
-        fmPlayer.src = fmUrl;
-        fmPlayer.style.display = "block";
+  // Zkusíme načíst FMCloud přehrávač
+  fetch("https://fmcloud.pro/embed.php?id=347&autoplay=true", { method: 'HEAD' })
+    .then(res => {
+      if (res.ok) {
+        fmcloud.style.display = 'block';
       } else {
         throw new Error("FMCloud nedostupný");
       }
     })
     .catch(() => {
-      // FMCloud selhal → přehráváme zálohu
-      backupPlayer.style.display = "block";
-      backupPlayer.play().catch(() => {
-        console.warn("Autoplay zablokován, klikni pro přehrání.");
-      });
+      backup.style.display = 'block';
+      document.getElementById('audioPlayer').play().catch(() => {});
     });
 </script>
 
