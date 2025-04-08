@@ -5,73 +5,53 @@
   <title>Audio Player</title>
   <style>
     body {
-      background-color: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      background-color: black;
     }
-    .player-container {
+    #fmcloud, #backup {
       width: 940px;
-      padding: 15px;
+      height: 128px;
+      border: none;
+      display: none;
+    }
+    #backup {
       background-color: #222;
+      color: #fff;
+      padding: 15px;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-      text-align: center;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
     }
     audio {
       width: 100%;
       border-radius: 5px;
     }
-    iframe {
-      width: 940px;
-      height: 128px;
-      border: none;
-      border-radius: 10px;
-    }
   </style>
 </head>
 <body>
 
-<div class="player-container" id="playerBox">
-  <p id="status">🎵 HL2 - Hazardous Environments</p>
-  <iframe id="fmPlayer" style="display: none;" allow="autoplay"></iframe>
-  <audio id="backupPlayer" src="./audio.mp3" autoplay loop controls style="display: none;"></audio>
+<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+
+<div id="backup">
+  <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
+  <audio src="./audio.mp3" autoplay loop controls></audio>
 </div>
 
 <script>
-  const fmUrl = ".https://fmcloud.pro/embed.php?id=347&autoplay=true";
-  const iframe = document.getElementById("fmPlayer");
-  const backup = document.getElementById("backupPlayer");
-  const status = document.getElementById("status");
+  const fm = document.getElementById('fmcloud');
+  const backup = document.getElementById('backup');
 
-  // Testujeme dostupnost FMCloud
-  fetch(fmUrl, { method: 'HEAD', mode: 'no-cors' }) // no-cors kvůli CORS limitům
-    .then(() => {
-      iframe.src = fmUrl;
-      iframe.style.display = "block";
-    })
-    .catch(() => {
-      status.textContent = "🎵 FMCloud nedostupný – přehrávám zálohu";
-      backup.style.display = "block";
-      backup.play().catch(() => {
-        console.warn("Autoplay blokován, klikni pro přehrání.");
-      });
-    });
+  // Počkej až se iframe načte nebo failne
+  fm.onload = () => {
+    // Načtení OK, zobrazíme FMCloud
+    fm.style.display = 'block';
+  };
 
-  // Fallback timeout pro případ, že server visí bez odpovědi
-  setTimeout(() => {
-    if (!iframe.src) {
-      status.textContent = "🎵 FMCloud timeout – přehrávám zálohu";
-      backup.style.display = "block";
-      backup.play().catch(() => {
-        console.warn("Autoplay blokován, klikni pro přehrání.");
-      });
-    }
-  }, 5000);
+  fm.onerror = () => {
+    // FMCloud selhal → zobrazíme záložní přehrávač
+    backup.style.display = 'block';
+  };
 </script>
 
 </body>
