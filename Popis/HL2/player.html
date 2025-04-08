@@ -1,44 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
-    <script>
-        window.onload = function() {
-            const embedPlayer = document.getElementById('fmEmbed');
-            const backupPlayer = document.getElementById('backupPlayer');
-            const audioSrc = './audio.mp3';
-
-            // Zkusíme načíst FMcloud embed
-            embedPlayer.onerror = function() {
-                embedPlayer.style.display = 'none';
-                backupPlayer.style.display = 'block';
-                document.getElementById('audioPlayer').src = audioSrc;
-            };
-        };
-    </script>
+  <meta charset="UTF-8">
+  <title>Audio Player</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .player-container {
+      width: 940px;
+      padding: 15px;
+      background-color: #222;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+      text-align: center;
+    }
+    audio {
+      width: 100%;
+      border-radius: 5px;
+    }
+    iframe {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-    <!-- FMcloud Embed (primární) -->
-    <embed 
-        id="fmEmbed"
-        width="940" 
-        height="128" 
-        frameborder="no" 
-        scrolling="no" 
-        autoplay="autoplay" 
-        loop="loop" 
-        src=".https://fmcloud.pro/embed.php?id=347&autoplay=true"
-        style="margin-left: -10px; margin-top: -10px; border: 1px solid #444; border-radius: 10px; box-shadow: 0 0 20px 20px black; opacity: .8">
-    
-    <!-- Záloha (skrytá inicializací) -->
-    <div id="backupPlayer" style="display: none; background-color:#222; color:#fff; padding:15px; width:910px; height:98px; border-radius:8px; box-shadow:0px 4px 10px rgba(0,0,0,0.5); font-family:Arial,sans-serif; text-align:center;">
-        <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
-        <audio 
-            id="audioPlayer" 
-            controls 
-            autoplay
-            style="width:100%; border-radius:5px;">
-            <source src="./audio.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+
+<div class="player-container" id="playerBox">
+  <p id="title">🎵 HL2 - Hazardous Environments</p>
+  <div id="fmPlayerBox">
+    <iframe id="fmPlayer" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+  </div>
+  <audio id="backupPlayer" src="./audio.mp3" autoplay loop controls style="display: none;"></audio>
+</div>
+
+<script>
+  const fmPlayer = document.getElementById('fmPlayer');
+  const fmBox = document.getElementById('fmPlayerBox');
+  const backupPlayer = document.getElementById('backupPlayer');
+
+  // Timeout fallback - 5 sekund
+  setTimeout(() => {
+    // Zkusíme zjistit, jestli iframe načetl obsah
+    if (!fmPlayer.contentWindow || fmPlayer.contentDocument?.readyState === 'complete') return;
+
+    // Když je problém, přepneme na záložní audio
+    fmBox.style.display = 'none';
+    backupPlayer.style.display = 'block';
+    backupPlayer.play().catch(() => {
+      // Autoplay může být blokován prohlížečem
+      console.warn("Autoplay blokován, uživatel musí kliknout.");
+    });
+  }, 5000); // Po 5s přepínáme na zálohu
+</script>
+
 </body>
 </html>
