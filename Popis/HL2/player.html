@@ -37,31 +37,37 @@
 <body>
 
 <div class="player-container" id="playerBox">
-  <p id="title">🎵 HL2 - Hazardous Environments</p>
-  <div id="fmPlayerBox">
-    <iframe id="fmPlayer" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
-  </div>
+  <p>🎵 HL2 - Hazardous Environments</p>
+  <iframe id="fmPlayer" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
   <audio id="backupPlayer" src="./audio.mp3" autoplay loop controls style="display: none;"></audio>
 </div>
 
 <script>
-  const fmPlayer = document.getElementById('fmPlayer');
-  const fmBox = document.getElementById('fmPlayerBox');
-  const backupPlayer = document.getElementById('backupPlayer');
+  const iframe = document.getElementById('fmPlayer');
+  const backup = document.getElementById('backupPlayer');
 
-  // Timeout fallback - 5 sekund
-  setTimeout(() => {
-    // Zkusíme zjistit, jestli iframe načetl obsah
-    if (!fmPlayer.contentWindow || fmPlayer.contentDocument?.readyState === 'complete') return;
-
-    // Když je problém, přepneme na záložní audio
-    fmBox.style.display = 'none';
-    backupPlayer.style.display = 'block';
-    backupPlayer.play().catch(() => {
-      // Autoplay může být blokován prohlížečem
-      console.warn("Autoplay blokován, uživatel musí kliknout.");
+  // Zkusíme detekovat chybu načtení iframe
+  iframe.onerror = () => {
+    console.warn("FMCloud nejde načíst, přepínám na zálohu...");
+    iframe.style.display = 'none';
+    backup.style.display = 'block';
+    backup.play().catch(() => {
+      console.warn("Autoplay blokován, musíš kliknout.");
     });
-  }, 5000); // Po 5s přepínáme na zálohu
+  };
+
+  // Alternativně timeout pro jistotu (např. když server visí a nic se neděje)
+  setTimeout(() => {
+    const loaded = iframe.contentDocument || iframe.contentWindow.document;
+    if (!loaded || loaded.body.innerHTML.trim() === "") {
+      console.warn("FMCloud se zřejmě nezobrazil, přepínám na zálohu...");
+      iframe.style.display = 'none';
+      backup.style.display = 'block';
+      backup.play().catch(() => {
+        console.warn("Autoplay blokován, musíš kliknout.");
+      });
+    }
+  }, 5000);
 </script>
 
 </body>
