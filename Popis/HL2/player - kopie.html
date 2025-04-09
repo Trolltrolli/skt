@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    #fmcloud, #backup {
+      width: 940px;
+      height: 128px;
+      border: none;
+      display: none;
+    }
+    #backup {
+      background-color: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    audio {
+      width: 100%;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+
+<div id="backup">
+  <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
+  <audio src="./audio.mp3" autoplay loop controls></audio>
+</div>
+
+<script>
+  const fm = document.getElementById('fmcloud');
+  const backup = document.getElementById('backup');
+
+  // Počkej až se iframe načte nebo failne
+  fm.onload = () => {
+    // Načtení OK, zobrazíme FMCloud
+    fm.style.display = 'block';
+  };
+
+  fm.onerror = () => {
+    // FMCloud selhal → zobrazíme záložní přehrávač
+    backup.style.display = 'block';
+  };
+</script>
+
+</body>
+</html>
