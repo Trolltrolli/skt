@@ -31,28 +31,39 @@
 </head>
 <body>
 
-<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+<!-- Pokus o načtení FMCloud -->
+<iframe id="fmcloud" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
 
+<!-- Záložní přehrávač (přímo mp3!) -->
 <div id="backup">
   <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
-  <audio src="https://trolltrolli.github.io/SKT/Popis/HL2/player_backup.html" autoplay loop controls></audio>
+  <audio src="https://trolltrolli.github.io/SKT/Popis/HL2/audio.mp3" autoplay loop controls muted></audio>
 </div>
 
 <script>
   const fm = document.getElementById('fmcloud');
   const backup = document.getElementById('backup');
 
-  // Počkej až se iframe načte nebo failne
+  let fallbackTimeout = setTimeout(() => {
+    // Když se fmcloud nenačte do 4 sekund → záloha
+    fm.style.display = 'none';
+    backup.style.display = 'block';
+  }, 4000); // čekej max 4 sekundy
+
   fm.onload = () => {
-    // Načtení OK, zobrazíme FMCloud
+    clearTimeout(fallbackTimeout);
     fm.style.display = 'block';
+    backup.style.display = 'none';
   };
 
-  fm.onerror = () => {
-    // FMCloud selhal → zobrazíme záložní přehrávač
-    backup.style.display = 'block';
+  // Případná ruční kontrola i načtení audio
+  window.onload = () => {
+    const audio = document.querySelector('#backup audio');
+    audio.muted = false;
+    audio.play().catch(e => {
+      console.warn("Záložní audio nejde přehrát automaticky:", e);
+    });
   };
 </script>
-
 </body>
 </html>
