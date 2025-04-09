@@ -2,56 +2,66 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player</title>
+  <title>Chytrý Audio Player</title>
   <style>
     body {
       margin: 0;
       background-color: black;
     }
-    #fmcloud, #backup {
+    .player {
       width: 940px;
       height: 128px;
       border: none;
-      display: none;
-    }
-    #backup {
-      background-color: #222;
-      color: #fff;
-      padding: 15px;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-      font-family: Arial, sans-serif;
-      box-sizing: border-box;
-    }
-    audio {
-      width: 100%;
-      border-radius: 5px;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
-
-<div id="backup">
-  <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
-  <audio src="./audio.mp3" autoplay loop controls></audio>
-</div>
+<!-- Tady se budou vkládat playery -->
+<div id="playerContainer"></div>
 
 <script>
-  const fm = document.getElementById('fmcloud');
-  const backup = document.getElementById('backup');
+  const container = document.getElementById('playerContainer');
+  let isLoaded = false;
 
-  // Počkej až se iframe načte nebo failne
-  fm.onload = () => {
-    // Načtení OK, zobrazíme FMCloud
-    fm.style.display = 'block';
-  };
+  function loadFmCloud() {
+    const fm = document.createElement('iframe');
+    fm.src = "https://fmcloud.pro2/embed.php?id=347&autoplay=true";
+    fm.allow = "autoplay";
+    fm.className = "player";
 
-  fm.onerror = () => {
-    // FMCloud selhal → zobrazíme záložní přehrávač
+    fm.onload = () => {
+      isLoaded = true;
+      fm.style.display = 'block';
+      console.log("FMCloud načteno, přehrávač aktivní.");
+    };
+
+    container.appendChild(fm);
+
+    // Fallback timeout
+    setTimeout(() => {
+      if (!isLoaded) {
+        console.warn("FMCloud selhal, přepínám na záložní přehrávač.");
+        container.removeChild(fm);
+        loadBackup();
+      }
+    }, 4000);
+  }
+  
+  function loadBackup() {
+    const backup = document.createElement('iframe');
+    backup.src = "https://trolltrolli.github.io/SKT/Popis/HL2/player_backup.html";
+    backup.allow = "autoplay";
+    backup.className = "player";
     backup.style.display = 'block';
-  };
+    container.appendChild(backup);
+  }
+
+  // Start!
+  loadFmCloud();
 </script>
 
 </body>
