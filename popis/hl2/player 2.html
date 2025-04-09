@@ -25,44 +25,36 @@
 
 <script>
   const container = document.getElementById('playerContainer');
-  let isLoaded = false;
 
-  function loadFmCloud() {
-    const fm = document.createElement('iframe');
-    fm.src = "https://trolltrolli.github.io/skt/popis/hl2/play.html";
-    fm.allow = "autoplay";
-    fm.className = "player";
-
-    fm.onload = () => {
-      isLoaded = true;
-      fm.style.display = 'block';
-      console.log("FMCloud načteno, přehrávač aktivní.");
-    };
-
-    container.appendChild(fm);
-
-    // Fallback timeout
-    setTimeout(() => {
-      if (!isLoaded) {
-        console.warn("FMCloud selhal, přepínám na záložní přehrávač.");
-        container.removeChild(fm);
-        loadBackup();
-      }
-    }, 3000);
+  function loadIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    iframe.style.display = 'block';
+    container.appendChild(iframe);
   }
-  
-  function loadBackup() {
-    const backup = document.createElement('iframe');
-    backup.src = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
-    backup.allow = "autoplay";
-    backup.className = "player";
-    backup.style.display = 'block';
-    container.appendChild(backup);
+
+  async function checkAndLoad() {
+    try {
+      const response = await fetch("https://trolltrolli.github.io/skt/popis/hl2/play.html", { method: 'HEAD' });
+      if (response.ok) {
+        console.log("FMCloud existuje, načítám.");
+        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/play.html");
+      } else {
+        console.warn("FMCloud neexistuje, přepínám na záložní.");
+        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+      }
+    } catch (err) {
+      console.error("Chyba při kontrole FMCloud:", err);
+      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+    }
   }
 
   // Start!
-  loadFmCloud();
+  checkAndLoad();
 </script>
+
 
 </body>
 </html>
