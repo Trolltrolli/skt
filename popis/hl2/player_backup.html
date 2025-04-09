@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>HL2 Player</title>
+  <style>
+    body {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div style="background-color:#222;color:#fff;padding:15px;width:910px;height:98px;border-radius:8px;box-shadow:0px 4px 10px rgba(0,0,0,0.5);font-family:Arial,sans-serif;text-align:center;">
+    <p style="margin:0 0 10px;">🎵 Theme music</p>
+    <audio id="audioPlayer" src=".//audio.mp3" controls autoplay muted style="width:100%;border-radius:5px;height:36px;"></audio>
+  </div>
+  
+  <script>
+    document.body.onload = function() {
+      const audio = document.getElementById('audioPlayer');
+      audio.muted = false;
+      audio.play();
+    };
+  </script>
+</body>
+</html>

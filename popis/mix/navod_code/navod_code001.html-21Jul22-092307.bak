@@ -1,0 +1,176 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+  </head>
+<center>
+<body style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/macro/macrob.jpg) repeat fixed;width: 100%;height:100%;height:auto;background-repeat: no-repeat;background-position:center;background-size:cover;overflow-x:hidden">
+    <div style="background-color: #212121; border-radius: 10px; -webkit-box-shadow: black 0 0 7px 4px; margin-top: 20px; webkit-text-stroke:.5px black; text-shadow: #363636 .5px .5px 1px;text-align: left; width: 1520px">
+    <font face="verdena">
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: px">
+<font color="red"><b></b>FONTY</b></font><br>
+Fonty lze měnit jednoduše i v <font color="#5190fc">BBCode</font>, tím že se jen přepíše název fontu (k tomu níže). Tady je seznam fontů, které by měly fungovat na SKT a nejsou v editoru:<br>
+
+<button onclick="odkaz" style="border: 1px intial grey; background-color: #404040; border-radius: 5px; box-shadow: black .5px .5px 1px 1px; margin-top: 10px; width: auto"><a href="https://friendsmusic.monster/managerfiles/trolltrolli/ZZZ/FONTS_BBCODE.txt" target="_blank"><span style=" color: silver; text-shadow: black .5px .5px 1px; display:inline-block; text-decoration: none"><b>ODKAZ-FONTY</b></span></a></button></p>
+
+<p style="border: 1px dotted silver; width: auto; text-align: center; margin-top: -25px"></p>
+
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: -25px">
+
+<font color="red"><b></b>BARVY</b></font><br>
+Barvy se dají zapisovat buď "slovně" nebo číselně.<br>
+<span style="background-color: yellow; color: black">&nbsp;Black nebo #000000&nbsp;</span><br>
+<span style="background-color: yellow; color: black">&nbsp;Iron Gray nebo #52595D&nbsp;</span><br>
+atd...<br>
+--<br>
+POZOR NA VOLBU VZHLED (skinu) NA SKT. Většina uživatelů používá base nebo skt, který ma defaultně světle modré pozadí s modrým písmem.<br>
+Já popužívám dark, kde je pozadí tm. šedé a písmo oranžové.<br>
+Tím chci říct, že je vždy vhodné zadat barvu písma i backgroundu, protože vzniká velká pravděpodobnost, že může být popis pod jiným skinem nečitelný.<br><br>
+
+
+Seznam barev:<br>
+<button onclick="odkaz" style="border: 1px intial grey; background-color: #404040; border-radius: 5px; box-shadow: black .5px .5px 1px 1px; margin-top: 5.5px; width: auto"><a href="https://www.computerhope.com/htmcolor.htm#color-codes" target="_blank"><span style=" color: silver; text-shadow: black .5px .5px 1px; display:inline-block; text-decoration: none"><b>ODKAZ-BARVY</b></span></a></button><br><br>
+Běžně používám i color picker od google:<br>
+<button onclick="odkaz" style="border: 1px intial grey; background-color: #404040; border-radius: 5px; box-shadow: black .5px .5px 1px 1px; margin-top: 5.5px; width: auto"><a href="https://www.google.com/search?client=firefox-b-d&q=color+picker" target="_blank"><span style=" color: silver; text-shadow: black .5px .5px 1px; display:inline-block; text-decoration: none"><b>ODKAZ-PICKER</b></span></a></button><br></br>
+
+Popř. když už to chci použít určitou barvu přímo z pozadí (obrázku), tak použiju kapátko ve photoshopu a v paletě barev si kód zkopíruju.<br>
+Je potřeba před něj přidat <font color="red">#</font>.</p>
+
+<p style="border: 1px dotted silver; width: auto; text-align: center; margin-top: -20px"></p><br>
+<p style="border: 1px dotted silver; width: auto; text-align: center; margin-top: -20px"></p>
+
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: -25px">
+<font color="red"><u><b></b>BACKGROUND</b></u></font><br>
+<font color="orange"><u style="text-decoration:underline dotted;text-underline-position:under">Div style background</u></font><br /><br />
+
+
+<!------------------------------------1. code---------------------->
+<textarea rows="" cols="" style=" display: inline-block; border: 2px solid grey; resize: none; min-width: 1450px; width: 1450px; max-width: 15000px; min-height: 50px; height: 55px; max-height: 70px" readonly>
+<div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/macro/macrob.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size: cover; background-position: center; opacity:.99; -webkit-box-shadow: black -0.5px 0 5px 20px!important; font-family:; color:; font-size: px; text-shadow: barva 0px 0px 0px; width: 940px; cursor: url('urlprozmenucursoru'),default; margin-top: -7px">&nbsp;</textarea><br><br>
+
+
+
+Tohle je první, nejjednodušší varianta, kde tento kód vložíme jen na začátek popisu a pak můžeme pokračovat v jednoduchém <font color="#5190fc">BBCode</font> pomocí editoru v PM na SKT.<br>
+<i>Po vložení kódu do PM odenterujte několik řádků, aby se background zobrazil.</i><br><br>
+V tomto kódu měníme pozadí popisu, můžeme tady mít defaultně nastavené písmo, jeho velikost, barvu a stínování pro celou stránku našeho popisu.<br>
+Dále můžeme pomocí box-shadow - stínu objektu skrýt obvodovou lištu popisu, nebo popis dozdobit.<br><br>
+Budu to vysvětlovat lajcky, tak jak jsem to sám pochopil. Podotýkám, jsem úplný amatér. Kdo neumí, učí.&nbsp;&#128516;<br /><br>
+<font color="orange">Div style</font> je v tomhle případě "hlavní příkaz" - oddíl. V něm jsou naskládané jednotlivé příkazy. Ty jsou pak odděleny středníkem.<br> 
+Vyjímka je tady jen mezera za barvou - před url, ta musí být zachována.<br />
+<i>&lt;div&gt; nebo &lt;div style&gt; se běžně používá v kódu popisu, ale pokud nejde jen o změnu backgroundu (obrázku), tak se ukončuje &lt;/div&gt;, tzn. že takto by měl být každý popis ukončen,<br> 
+ale k tomu se dostaneme později.</i><br>
+<span style="line-height:100px"></span>
+<font size="2"><i>HTML tag &lt;div&gt; ( z angl. divission = "oddíl, oddělení" ) Tento tag obklopuje určitou logickou oblast stránky. Je to blokový element, takže za sebou zalomí řádek. Hojně se využívá k navržení struktury HTML stránky a je tagem párovým. (zdroj: webdev.wiki)</i><br></font></p>
+
+
+<p style="border: 1px dotted silver; width: auto; text-align: center; margin-top: -20px"></p>
+
+
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: -25px">
+<font color="orange"><u><b></b>BACKGROUND</b></u></font><br>
+Když chceme změnit barvu pozadí, přepíšeme v kódu <span style="background-color: yellow; color: black"><b>&nbsp;#000&nbsp;</b></span> na jiný kód nebo název barvy (viz. barvy). <br>
+Aby se zobrazila jen jednoduchá barva, nesmí být v závorkách pro URL žádný (kompletní) odkaz.<br>
+
+Bude to vypadat třeba takto: ...="background: red url() repeat...<br>Pokud chceme změnit obrázek, nahradíme URL v závorce. Černou (<span style="background-color: yellow; color: black"><b>&nbsp;#000&nbsp;</b></span>) necháme, popř. můžeme přizpůsobit barvě obrázku, který se bude načítat. Při pomalejším otevírání popisu to vypadá líp.<br>--<br>
+Pozadí je vycentrované a nastavené jako statické. Dá se říct, že se "scrolluje zbytek stránky kolem obrázku".<br>
+Obrázek na pozadí se může scrolovat i jinak, nebo by se mohl v popisu opakovat, ale zatím bych u toho zůstal a funkční nastavení obrázku bych neměnil.<br>
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<font color="orange">ZAMĚŘÍME SE NA PŘIDANÉ "FUNKCE":</font><br>
+
+<font color="#736AFF">Opacity (neprůhlednost)</font> - default je 1, ale pokud tady chceme použít box-shadow k překrytí okrajů popisu, tak musí být hodnota nastavena na 0.99 a míň.<br>
+Pozor, ať to nepřeženete, popis by nemusel být vůbec vidět. &#127761; Ideální je hodnota do 0.85.<br><br>
+
+<font color="#736AFF">Box-shadow (stín okolo rámečku popisu)</font> - tímto stínem můžeme zamaskovat rámeček popisku a tím můžem popis i dozdobit.&nbsp;<font size="3"><i>Pokud se vám nelíbí, jen umažte hodnoty (čísla a px).</i></font><br>
+Jedná se vlastně o stín objektu a běžně má široké využití, ať jsou to stíny obrázků, nabídek, rámečků, či tlačítek. Stíny se dají vrstvit a další se přidávají za <span style="color: red; font-size: 30px">&#44;</span>.<br>
+Stín objektu, tedy <font color="#5190fc">box-shadow</FONT> funguje takto:<br>
+<i>jde o nastavení pozice: mínusová hodnota - doleva, plusová - doprava<br>
+např.: <span style="background-color: yellow; color: black">&nbsp;box-shadow: -.5px 0 5px 20px black;</i></span><br>
+<font size="2"><i>Z důvodu kompatibility v různých prohlížečích, mám v kódu nahoře zapsáno takto: -webkit-box-shadow: black -0.5px 0 5px 20px!important.</i></font><br>   
+1. číslo je pozice délková X/ -0.5px, nebo lze taky zapsat -.5px<br>
+2. výšková pozice Y/ 0, při nulové hodnotě se nemusí přidávat px<br>
+3. rozmazání (blur)/ 5px<br>
+4. síla efektu (tloušťka)/ 20px<br>
+5. barva/ zapíšeme barvu kódem nebo názvem = plná barva (neprůhledná), pro průhlednost se barva zapisuje např.: rgba(0,0,0,0.5)<br>
+
+<i>Pro lepší pochopení si vyzkoušejte generátor. Výsledný kód můžete pak zkopírovat a vložit do popisu.</i><br>
+<button onclick="odkaz" style="border: 1px intial grey; background-color: #404040; border-radius: 5px; box-shadow: black .5px .5px 1px 1px; margin-top: 10px; width: AUTO"><a href="https://html-css-js.com/css/generator/box-shadow/" target="_blank"><span style=" color: silver; text-shadow: black .5px .5px 1px; display:inline-block; text-decoration: none"><b>ODKAZ-GENERÁTOR</b></span></a></button></p><br>
+
+
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: -85px">Styly stínů, příklady:</p>
+
+<p style=" font-size: 19px; color: #F3E3C3; letter-spacing: 0.02em; line-height:27px;text-align:left;padding:35px; margin-left:px; margin-top: -85px">   
+
+<button onclick="odkaz" style="border: 1px intial grey; background-color: #404040; border-radius: 5px; box-shadow: black .5px .5px 1px 1px; margin-top: 5.5px; width: AUTO"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow" target="_blank"><span style=" color: silver; text-shadow: black .5px .5px 1px; display:inline-block; text-decoration: none"><b>ODKAZ-SHADOWS</b></span></a></button><br></br>
+
+<font color="#736AFF">Výběr fontu - font:family</font> - Pokud budeme používat na popis jeden typ písma, tak si jej můžeme defaultně nastavit přímo v "hlavním kódu"<br>
+např.: <span style="background-color: yellow; color: black">&nbsp;font-family: arial, verdena;</i></span><br>
+Běžně stačí zadat jeden typ písma, ale můžete zadat i další náhradní písma, které by byly načteny, kdyby bylo první (druhé, třetí) nefunkční.<br>
+Platnost typu písma opět ukončí &lt;/div&gt; (který by měl být na konci popisu).<br>
+Tento příkaz nahrazuje <span style="background-color: yellow; color: black">&nbsp;[font=arial]text[/font]</span> pro <font color="#736AFF">BBcode</font> nebo taky <span style="background-color: yellow; color: black">&nbsp;&lt;font face="arial"&gt;text&lt;/font&gt;</span> pro <font color="#736AFF">HTML</font>.<br>
+Výše zmíněný příkaz (font=..) můžeme využít pro změnu typu písma daného řádku, tzn. pokud příkaz uzavřeme, tak na dalším řádku opět platí původní defaultní písmo.<br>
+<i>Pro úpravu a efekty písma je pak lepší používat &lt;span style&gt;, nebo lépe &lt;p style&gt;, ale tohle si taky necháme na později a zatím zůstaneme u klasického <font color="#736AFF">BBCode</font>.</i><br><br>
+
+<font color="#736AFF">Barva písma - color</font> - Mění barvu písma. Tohle může být defaltní nastavení. Pokud chcete dále v popisu změnit barvu písma, tak můžete použít:<br>
+<span style="background-color: yellow; color: black">&nbsp;[color=barva] text [/color]</span> nebo <span style="background-color: yellow; color: black">&nbsp;&lt;font color="barva"&gt;text &lt;/font&gt;</span>. Po uzavření příkazu opět funguje dafaultní barva.<br>
+
+<font color="#736AFF">font-size - velikost písma</font> - <br>
+
+<font color="#736AFF">text-shadow</font><br>
+
+<font color="#736AFF">width</font><br>
+
+<font color="#736AFF">Kurzor v popisu</font> - ...cursor: url(odkaz)... Doporučuji nejlépe .png 64x64px. Bez zadané url se bude zobrazovat kurzor vašeho systému.<br>
+
+<font color="#736AFF">margin</font><br>
+
+
+<br>
+...tady je zatím konec<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br style="margin-top: 150px">
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br>
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------<br>
+<textarea rows="" cols="" style="display: inline-block; border: 2px solid grey; resize: none; min-width: 1450px; width: 1450px; max-width: 15000px; min-height: 150px; height: 150px; max-height: 160px" readonly>
+<!-- BODY BACK--NEVERHOOD--><body style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/neverhood/neverhood_b.jpg) repeat fixed;width: 100%;height:100%;height:auto; background-repeat: no-repeat;background-position:center;background-size:cover;opacity:.96;text-shadow:black .35px .35px 0;-webkit-box-shadow: 0px 0px 0px 0px #000;cursor: url(''),default; overflow-x:hidden; position:absolute!important; z-index:-2"></body>
+<!-- DIV BACK 1------><div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/neverhood/neverhood_b.jpg) repeat fixed;width:100%;height:100%;overflow:fixed;background-repeat:no-repeat;background-size:cover;background-position:center;opacity:0.99;cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/neverhood/cu.png'),default;margin-left:-11px;width:940px">
+<!-- DIV BACK 2------><div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/neverhood/neverhood_b.jpg) repeat fixed;width:100%;height:100%;overflow:fixed;background-repeat:no-repeat;background-size:cover;background-position:center;opacity:1;cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/neverhood/cu.png'),default;margin-left:11px!important;margin-top:-13px;width:940px"</textarea><br /><br>
+
+<font color="orange">Body background</font> je na SKT vlastně to pozadí po stranách i pod popisem, které je běžně nevyužité. Můžeme vložit obrázek (nejlépe 1920x1080), jednoduchou barvu, nebo barevný přechod složený z barev.<br>
+
+
+
+
+
+
+
+
+
+
+
+</p>
+    </font>
+    </div>
+  </body>
+</center>
+</html>
