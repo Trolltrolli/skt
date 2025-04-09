@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Chytrý Audio Player</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
@@ -29,7 +29,7 @@
 
   function loadFmCloud() {
     const fm = document.createElement('iframe');
-    fm.src = "https://fmcloud.pro2/embed.php?id=347&autoplay=true";
+    fm.src = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
     fm.allow = "autoplay";
     fm.className = "player";
 
@@ -48,7 +48,7 @@
         container.removeChild(fm);
         loadBackup();
       }
-    }, 4000);
+    }, 3000);
   }
   
   function loadBackup() {
