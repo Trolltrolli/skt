@@ -24,52 +24,49 @@
 
 <script>
   const container = document.getElementById('playerContainer');
-  let isLoaded = false;
 
-  function loadIframe(src, callback) {
+  function loadIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
-
     iframe.onload = () => {
-      console.log("Načteno:", src);
+      console.log(`Načteno: ${src}`);
       iframe.style.display = 'block';
-      isLoaded = true;
-      if (callback) callback(true);
     };
-
     iframe.onerror = () => {
-      console.warn("Chyba načtení iframe:", src);
-      if (callback) callback(false);
+      console.error(`Chyba při načítání: ${src}`);
     };
-
     container.appendChild(iframe);
-    return iframe;
   }
 
-  function loadPlayers() {
-    console.log("Zkouším načíst FMCloud player...");
-    const fmIframe = loadIframe("https://trolltrolli.github.io/skt/popis/hl2/play.html", (success) => {
-      if (!success) {
-        console.warn("Nepovedlo se, spouštím záložní přehrávač.");
-        container.removeChild(fmIframe);
+  async function loadPlayers() {
+    const cacheBuster = `nocache=${Date.now()}`;
+    const statusUrl = `https://trolltrolli.github.io/skt/popis/hl2/status.json?${cacheBuster}`;
+
+    try {
+      console.log("Kontroluju status soubor:", statusUrl);
+      const res = await fetch(statusUrl, { cache: "no-store" });
+      
+      if (!res.ok) throw new Error("Status soubor nedostupný");
+      
+      const data = await res.json();
+      
+      if (data.fmcloud_ok === true) {
+        console.log("FMCloud OK, načítám hlavní přehrávač.");
+        loadIframe("https://fmcloud.pro/embed.php?id=347&autoplay=true");
+      } else {
+        console.warn("FMCloud není OK, načítám záložní přehrávač.");
         loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
       }
-    });
-    // Watchdog – pokud onload nenastane do 5 sekund → fail
-    setTimeout(() => {
-      if (!isLoaded) {
-        console.warn("Timeout – FMCloud asi nefunguje, přepínám.");
-        try {
-          container.removeChild(fmIframe);
-        } catch (e) { }
-        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
-      }
-    }, 5000);
+    } catch (err) {
+      console.error("Nastala chyba při načítání status.json nebo jeho zpracování:", err);
+      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+    }
   }
 
   loadPlayers();
 </script>
+
 </body>
 </html>
