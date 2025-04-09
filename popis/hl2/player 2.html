@@ -40,7 +40,7 @@
       const response = await fetch("https://fmcloud.pro/embed.php?id=347&autoplay=true", { method: 'HEAD' });
       if (response.ok) {
         console.log("FMCloud existuje, načítám.");
-        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/play.html");
+        loadIframe("https://fmcloud.pro/embed.php?id=347&autoplay=true");
       } else {
         console.warn("FMCloud neexistuje, přepínám na záložní.");
         loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
