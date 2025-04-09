@@ -8,62 +8,51 @@
       margin: 0;
       background-color: black;
     }
-    #fmcloud, #backup {
+    iframe {
       width: 940px;
       height: 128px;
       border: none;
-      display: none;
-    }
-    #backup {
-      background-color: #222;
-      color: #fff;
-      padding: 15px;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-      font-family: Arial, sans-serif;
-      box-sizing: border-box;
     }
-    audio {
-      width: 100%;
-      border-radius: 5px;
+    #fmcloud, #backup {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-<!-- Pokus o načtení FMCloud -->
-<iframe id="fmcloud" src="https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
-
-<!-- Záložní přehrávač (přímo mp3!) -->
-<div id="backup">
-  <p style="margin:0 0 10px;">🎵 HL2 - Hazardous Environments</p>
-  <audio src="https://trolltrolli.github.io/SKT/Popis/HL2/audio.mp3" autoplay loop controls muted></audio>
-</div>
+<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
+<iframe id="backup" src="" allow="autoplay"></iframe>
 
 <script>
   const fm = document.getElementById('fmcloud');
   const backup = document.getElementById('backup');
 
-  let fallbackTimeout = setTimeout(() => {
-    // Když se fmcloud nenačte do 4 sekund → záloha
+  let fallbackTimer = null;
+
+  // Zobrazíme FMCloud iframe
+  fm.style.display = 'block';
+
+  // Spustíme čekání (např. 4 sekundy)
+  fallbackTimer = setTimeout(() => {
+    // Pokud FMCloud iframe je PRÁZDNÝ nebo obsahuje chybový stav, přepneme na zálohu
+    console.warn("FMCloud neodpovídá – přepínám na zálohu");
     fm.style.display = 'none';
+    backup.src = "https://trolltrolli.github.io/SKT/Popis/HL2/player_backup.html";
     backup.style.display = 'block';
-  }, 4000); // čekej max 4 sekundy
+  }, 4000);
 
+  // Když se iframe fakt načte bez failu, zrušíme timeout
   fm.onload = () => {
-    clearTimeout(fallbackTimeout);
-    fm.style.display = 'block';
-    backup.style.display = 'none';
-  };
+    clearTimeout(fallbackTimer);
 
-  // Případná ruční kontrola i načtení audio
-  window.onload = () => {
-    const audio = document.querySelector('#backup audio');
-    audio.muted = false;
-    audio.play().catch(e => {
-      console.warn("Záložní audio nejde přehrát automaticky:", e);
-    });
+    // ALE! Ještě musíme zjistit, jestli je obsah iframe fakt validní.
+    // Bohužel do cizí domény nemůžeme vlézt – tak budeme riskovat.
+    // → Pokud se načte, tak necháme být. Ale můžeš sem dát další kontrolu, např. pomocí postMessage z fmcloud (pokud podporuje).
+    console.log("FMCloud načten – timeout zrušen.");
   };
 </script>
+
 </body>
 </html>
