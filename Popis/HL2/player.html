@@ -2,56 +2,66 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player</title>
+  <title>Chytrý Audio Player</title>
   <style>
     body {
       margin: 0;
       background-color: black;
     }
-    iframe {
+    .player {
       width: 940px;
       height: 128px;
       border: none;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-    }
-    #fmcloud, #backup {
       display: none;
     }
   </style>
 </head>
 <body>
 
-<iframe id="fmcloud" src=".https://fmcloud.pro/embed.php?id=347&autoplay=true" allow="autoplay"></iframe>
-<iframe id="backup" src="" allow="autoplay"></iframe>
+<!-- Tady se budou vkládat playery -->
+<div id="playerContainer"></div>
 
 <script>
-  const fm = document.getElementById('fmcloud');
-  const backup = document.getElementById('backup');
+  const container = document.getElementById('playerContainer');
+  let isLoaded = false;
 
-  let fallbackTimer = null;
+  function loadFmCloud() {
+    const fm = document.createElement('iframe');
+    fm.src = "https://fmcloud.pro2/embed.php?id=347&autoplay=true";
+    fm.allow = "autoplay";
+    fm.className = "player";
 
-  // Zobrazíme FMCloud iframe
-  fm.style.display = 'block';
+    fm.onload = () => {
+      isLoaded = true;
+      fm.style.display = 'block';
+      console.log("FMCloud načteno, přehrávač aktivní.");
+    };
 
-  // Spustíme čekání (např. 4 sekundy)
-  fallbackTimer = setTimeout(() => {
-    // Pokud FMCloud iframe je PRÁZDNÝ nebo obsahuje chybový stav, přepneme na zálohu
-    console.warn("FMCloud neodpovídá – přepínám na zálohu");
-    fm.style.display = 'none';
+    container.appendChild(fm);
+
+    // Fallback timeout
+    setTimeout(() => {
+      if (!isLoaded) {
+        console.warn("FMCloud selhal, přepínám na záložní přehrávač.");
+        container.removeChild(fm);
+        loadBackup();
+      }
+    }, 4000);
+  }
+
+  function loadBackup() {
+    const backup = document.createElement('iframe');
     backup.src = "https://trolltrolli.github.io/SKT/Popis/HL2/player_backup.html";
+    backup.allow = "autoplay";
+    backup.className = "player";
     backup.style.display = 'block';
-  }, 4000);
+    container.appendChild(backup);
+  }
 
-  // Když se iframe fakt načte bez failu, zrušíme timeout
-  fm.onload = () => {
-    clearTimeout(fallbackTimer);
-
-    // ALE! Ještě musíme zjistit, jestli je obsah iframe fakt validní.
-    // Bohužel do cizí domény nemůžeme vlézt – tak budeme riskovat.
-    // → Pokud se načte, tak necháme být. Ale můžeš sem dát další kontrolu, např. pomocí postMessage z fmcloud (pokud podporuje).
-    console.log("FMCloud načten – timeout zrušen.");
-  };
+  // Start!
+  loadFmCloud();
 </script>
 
 </body>
