@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player</title>
+  <title>Detekce nefunkčního přehrávače</title>
   <style>
     body {
       margin: 0;
@@ -21,63 +21,57 @@
 <body>
 
 <div id="playerContainer"></div>
+
 <script>
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
   const container = document.getElementById('playerContainer');
+
+  let iframe; // uložíme si iframe pro pozdější práci
+
   function loadIframe(src) {
-    const iframe = document.createElement('iframe');
+    iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
     container.appendChild(iframe);
-    return iframe;
   }
 
-  function removeAllIframes() {
-    container.innerHTML = "";
-  }
-
-  function checkIfAnyAudioPlays(timeout = 3000) {
-    return new Promise((resolve) => {
-      const ctx = new AudioContext();
-      const analyser = ctx.createAnalyser();
-      const source = ctx.createMediaElementSource(new Audio());
-      source.connect(analyser);
-      analyser.connect(ctx.destination);
-
-      setTimeout(() => {
-        const data = new Uint8Array(analyser.frequencyBinCount);
-        analyser.getByteFrequencyData(data);
-        const maxVolume = Math.max(...data);
-        console.log("Max volume detected:", maxVolume);
-        resolve(maxVolume > 5); // prahová hodnota detekce zvuku
-      }, timeout);
-    });
-  }
-
-  async function loadPlayerWithSoundCheck() {
-    console.log("Načítám FMCloud přehrávač...");
-    const primaryIframe = loadIframe("https://fmcloud.pro/embed.php?id=347&autoplay=true");
-
-    await new Promise(r => setTimeout(r, 3000)); // čekáme 3s na načtení přehrávače
-
-    try {
-      const audioPlays = await checkIfAnyAudioPlays();
-      if (audioPlays) {
-        console.log("Detekován zvuk. FMCloud jede.");
-        return;
-      } else {
-        console.warn("Žádný zvuk detekován. Přepínám na záložní přehrávač.");
-        removeAllIframes();
-        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
-      }
-    } catch (err) {
-      console.error("Chyba při kontrole zvuku:", err);
-      removeAllIframes();
-      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+  function removeIframe() {
+    if (iframe) {
+      iframe.remove();
+      iframe = null;
     }
   }
-  loadPlayerWithSoundCheck();
+
+  function loadPrimaryWithTimeout() {
+    console.log("🩸 Načítám primární přehrávač...");
+    removeIframe();
+    loadIframe(PRIMARY_URL);
+
+    let loaded = false;
+
+    // Posloucháme, jestli se iframe načetl
+    iframe.onload = () => {
+      loaded = true;
+      console.log("🦇 Primární iframe načten. Čekám na projev života...");
+    };
+
+    // Po 5 sekundách zkontrolujeme, jestli iframe reagoval
+    setTimeout(() => {
+      if (!loaded || iframe.clientHeight < 50) {
+        console.warn("⚰️ Přehrávač zřejmě selhal, přepínám na zálohu.");
+        removeIframe();
+        loadIframe(BACKUP_URL);
+      } else {
+        console.log("🎶 Primární přehrávač žije, ponechávám.");
+      }
+    }, 5000);
+  }
+
+  loadPrimaryWithTimeout();
 </script>
+
 </body>
 </html>
