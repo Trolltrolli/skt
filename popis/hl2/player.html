@@ -2,11 +2,12 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player</title>
+  <title>FMCloud Audio Player</title>
   <style>
     body {
       margin: 0;
       background-color: black;
+      color: white;
     }
     .player {
       width: 940px;
@@ -20,89 +21,106 @@
 </head>
 <body>
 
-<!-- Tady se budou vkládat playery -->
 <div id="playerContainer"></div>
 
 <script>
   const container = document.getElementById('playerContainer');
-  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
-  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
-  let iframe, fallbackTriggered = false;
+  let fallbackLoaded = false;
+  let autoplayAttempted = false;
 
-  function loadIframe(src) {
-    iframe = document.createElement('iframe');
+  function loadIframe(src, callback) {
+    const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
-
     iframe.onload = () => {
-      console.log("Iframe načten:", src);
-      // Zkusíme navíc detekovat zvuk
-      detectAudioPlayback();
+      console.log(`Iframe ${src} načten.`);
+      if (callback) callback();
     };
-
     container.appendChild(iframe);
   }
 
-  function switchToBackup(reason) {
-    if (fallbackTriggered) return;
-    fallbackTriggered = true;
-    console.warn("Přepínám na záložní přehrávač – důvod:", reason);
-    container.innerHTML = "";
-    loadIframe(BACKUP_URL);
-  }
-
-  function detectAudioPlayback() {
+  function tryAutoplayInsideIframe(iframe) {
     try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 256;
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
+      const iframeWindow = iframe.contentWindow;
+      const iframeDoc = iframe.contentDocument || iframeWindow.document;
 
-      // Detekujeme výstupní zvuk v systému (ne přímo z iframe, protože nelze propojit z cizí domény)
-      const checkSilence = () => {
-        analyser.getByteFrequencyData(dataArray);
-        let sum = dataArray.reduce((a, b) => a + b, 0);
-        if (sum > 1000) {
-          console.log("Zvuk detekován.");
-        } else {
-          console.warn("Žádný zvuk nedetekován, přepínám.");
-          switchToBackup("Žádný zvuk");
-        }
-      };
-
-      // Zkusit získat výstupní media stream
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-          const source = audioCtx.createMediaStreamSource(stream);
-          source.connect(analyser);
-          setTimeout(checkSilence, 3000);
-        })
-        .catch(err => {
-          console.error("Nelze detekovat zvuk:", err);
-          switchToBackup("Chyba audio streamu");
+      const audio = iframeDoc.querySelector('audio');
+      if (audio && typeof audio.play === 'function') {
+        audio.play().then(() => {
+          console.log("Autoplay v iframe OK.");
+        }).catch((err) => {
+          console.warn("Autoplay fail (běžné v některých prohlížečích):", err);
         });
+      } else {
+        console.warn("Audio tag v iframe nenalezen.");
+      }
     } catch (e) {
-      console.error("AudioContext selhal:", e);
-      switchToBackup("Chyba Audio API");
+      console.warn("Nemůžu přistoupit k obsahu iframe (CORS):", e);
     }
   }
 
-  function startPlayer() {
-    loadIframe(PRIMARY_URL);
+  function checkAudioPresence() {
+    const iframe = container.querySelector('iframe');
+    if (!iframe) return;
 
-    // Timeout pokud se iframe nenačte vůbec (do 5 sekund)
-    setTimeout(() => {
-      if (!iframe || iframe.contentWindow.length === 0) {
-        switchToBackup("Timeout - iframe se nenačetl");
+    try {
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      const audioTags = iframeDoc.getElementsByTagName('audio');
+      if (audioTags.length > 0) {
+        console.log("Audio přehrávač detekován.");
+        if (!autoplayAttempted) {
+          autoplayAttempted = true;
+          tryAutoplayInsideIframe(iframe);
+        }
+      } else {
+        console.warn("Audio přehrávač nebyl detekován, spouštím fallback.");
+        if (!fallbackLoaded) {
+          fallbackLoaded = true;
+          loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+        }
       }
-    }, 5000);
+    } catch (e) {
+      console.warn("Nelze zkontrolovat obsah iframe (CORS).");
+    }
   }
 
-  // Start
-  startPlayer();
+  async function checkAndLoad() {
+    const primaryURL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+
+    try {
+      const response = await fetch(primaryURL, { method: 'HEAD' });
+      if (response.ok) {
+        console.log("FMCloud existuje, načítám.");
+        loadIframe(primaryURL, () => {
+          // Zpožděná kontrola přítomnosti audio přehrávače
+          setTimeout(checkAudioPresence, 2500);
+        });
+
+        // Bezpečnostní druhá vlna zálohy
+        setTimeout(() => {
+          if (!fallbackLoaded) {
+            console.warn("Záložní kontrola: žádný přehrávač se neprojevil, spouštím fallback.");
+            fallbackLoaded = true;
+            loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+          }
+        }, 5000); // 5 sekund timeout
+      } else {
+        console.warn("FMCloud není dostupný, spouštím fallback.");
+        fallbackLoaded = true;
+        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+      }
+    } catch (err) {
+      console.error("Chyba při kontrole FMCloud:", err);
+      fallbackLoaded = true;
+      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+    }
+  }
+
+  window.onload = () => {
+    checkAndLoad();
+  };
 </script>
 
 </body>
