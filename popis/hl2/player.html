@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>FM Player Detektor</title>
+  <title>Přesný Player Detector</title>
   <style>
     body { margin: 0; background: black; }
     .player {
@@ -11,6 +11,7 @@
       border: none;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
+      display: block;
     }
   </style>
 </head>
@@ -20,6 +21,8 @@
 
 <script>
   const container = document.getElementById('playerContainer');
+
+  // Wrapper stránka – z té si načte FMCloud + detekci
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
 
@@ -28,63 +31,57 @@
     iframe.className = 'player';
     iframe.src = src;
     iframe.allow = "autoplay";
+    container.appendChild(iframe);
     return iframe;
   }
 
-  function analyzeFrameContent(iframe) {
-    try {
-      const doc = iframe.contentDocument || iframe.contentWindow.document;
-      
-      // Logování základních informací
-      console.log("=== FMCloud Diagnostika ===");
-      console.log("URL iframe:", doc.location.href);
-      console.log("Title stránky:", doc.title);
-      
-      // Detekce specifických prvků
-      const playerElements = doc.querySelectorAll('audio, video, .player-wrapper, #player');
-      console.log("Počet detekovaných přehrávačových prvků:", playerElements.length);
-      
-      // Kontrola chybových hlášek
-      const errorText = doc.body?.textContent?.includes('error') 
-        || doc.body?.innerHTML?.includes('nedostupn');
-      console.log("Detekce chybové hlášky:", errorText ? 'ANO' : 'NE');
-
-      return playerElements.length > 0;
-    } catch (e) {
-      console.warn("CORS chyba při analýze obsahu:", e.message);
-      return false;
-    }
-  }
-
-  async function loadPlayer() {
-    console.log("🏁 Startuji načítání FMCloud...");
-    const primaryIframe = createIframe(PRIMARY_URL);
-    container.appendChild(primaryIframe);
-
-    // Čekáme na načtení iframe
-    await new Promise(resolve => primaryIframe.onload = resolve);
-    console.log("✅ FMCloud iframe načten");
-
-    // Analýza obsahu
-    const hasPlayer = analyzeFrameContent(primaryIframe);
-    
-    if(hasPlayer) {
-      console.log("🎯 Přehrávač byl detekován v iframe!");
-    } else {
-      console.warn("⚠️ Přehrávač nebyl nalezen! Spouštím záložní...");
-      container.removeChild(primaryIframe);
-      container.appendChild(createIframe(BACKUP_URL));
-      console.log("🔄 Záložní přehrávač aktivován");
-    }
-  }
-
-  // Spuštění s ošetřením chyb
-  loadPlayer().catch(err => {
-    console.error("💥 Kritická chyba:", err);
+  function loadBackupPlayer() {
     container.innerHTML = '';
-    container.appendChild(createIframe(BACKUP_URL));
-  });
+    createIframe(BACKUP_URL);
+    console.log("🚨 Přepnuto na záložní přehrávač.");
+  }
+
+  function waitForMessage(iframe, timeout = 5000) {
+    return new Promise((resolve) => {
+      let done = false;
+
+      function handleMessage(event) {
+        if (event.data && event.data.type === "fmcloud-status") {
+          done = true;
+          window.removeEventListener("message", handleMessage);
+          resolve(event.data.status === "ok");
+        }
+      }
+
+      window.addEventListener("message", handleMessage);
+
+      setTimeout(() => {
+        if (!done) {
+          window.removeEventListener("message", handleMessage);
+          console.warn("⏱ Timeout čekání na postMessage!");
+          resolve(false);
+        }
+      }, timeout);
+    });
+  }
+
+  async function loadPlayerWithFailsafe() {
+    console.log("⏳ Načítám wrapper pro FMCloud...");
+    container.innerHTML = '';
+    const iframe = createIframe(PRIMARY_URL);
+    const success = await waitForMessage(iframe);
+
+    if (success) {
+      console.log("✅ FMCloud detekován správně, player běží.");
+    } else {
+      console.warn("❌ Chyba detekce FMCloud – přepínám.");
+      loadBackupPlayer();
+    }
+  }
+
+  loadPlayerWithFailsafe();
 </script>
 
 </body>
 </html>
+
