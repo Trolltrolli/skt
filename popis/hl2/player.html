@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Přesný Player Detector</title>
+  <title>FM Player Detektor</title>
   <style>
     body { margin: 0; background: black; }
     .player {
@@ -23,37 +23,67 @@
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
 
-  // 1. Načítáme primární player
-  const primaryIframe = document.createElement('iframe');
-  primaryIframe.className = 'player';
-  primaryIframe.src = PRIMARY_URL;
-  primaryIframe.allow = "autoplay";
-  container.appendChild(primaryIframe);
-
-  // 2. Detekujeme jestli iframe vůbec načetl obsah
-  let frameLoaded = false;
-  primaryIframe.onload = () => {
-    frameLoaded = true;
-    console.log("FMCloud iframe načten");
-  };
-
-  // 3. Po 5s kontrolujeme stav
-  setTimeout(() => {
-    if (!frameLoaded) {
-      console.warn("FMCloud se nenačetl, spouštím záložní...");
-      container.removeChild(primaryIframe);
-      loadBackupPlayer();
-    } else {
-      console.log("FMCloud je přítomný (i když třeba nehraje)");
-    }
-  }, 5000);
-
-  function loadBackupPlayer() {
-    const backupIframe = document.createElement('iframe');
-    backupIframe.className = 'player';
-    backupIframe.src = BACKUP_URL;
-    container.appendChild(backupIframe);
+  function createIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'player';
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    return iframe;
   }
+
+  function analyzeFrameContent(iframe) {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      
+      // Logování základních informací
+      console.log("=== FMCloud Diagnostika ===");
+      console.log("URL iframe:", doc.location.href);
+      console.log("Title stránky:", doc.title);
+      
+      // Detekce specifických prvků
+      const playerElements = doc.querySelectorAll('audio, video, .player-wrapper, #player');
+      console.log("Počet detekovaných přehrávačových prvků:", playerElements.length);
+      
+      // Kontrola chybových hlášek
+      const errorText = doc.body?.textContent?.includes('error') 
+        || doc.body?.innerHTML?.includes('nedostupn');
+      console.log("Detekce chybové hlášky:", errorText ? 'ANO' : 'NE');
+
+      return playerElements.length > 0;
+    } catch (e) {
+      console.warn("CORS chyba při analýze obsahu:", e.message);
+      return false;
+    }
+  }
+
+  async function loadPlayer() {
+    console.log("🏁 Startuji načítání FMCloud...");
+    const primaryIframe = createIframe(PRIMARY_URL);
+    container.appendChild(primaryIframe);
+
+    // Čekáme na načtení iframe
+    await new Promise(resolve => primaryIframe.onload = resolve);
+    console.log("✅ FMCloud iframe načten");
+
+    // Analýza obsahu
+    const hasPlayer = analyzeFrameContent(primaryIframe);
+    
+    if(hasPlayer) {
+      console.log("🎯 Přehrávač byl detekován v iframe!");
+    } else {
+      console.warn("⚠️ Přehrávač nebyl nalezen! Spouštím záložní...");
+      container.removeChild(primaryIframe);
+      container.appendChild(createIframe(BACKUP_URL));
+      console.log("🔄 Záložní přehrávač aktivován");
+    }
+  }
+
+  // Spuštění s ošetřením chyb
+  loadPlayer().catch(err => {
+    console.error("💥 Kritická chyba:", err);
+    container.innerHTML = '';
+    container.appendChild(createIframe(BACKUP_URL));
+  });
 </script>
 
 </body>
