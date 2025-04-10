@@ -44,21 +44,29 @@
 
   function tryAutoplayInsideIframe(iframe) {
     try {
-      const iframeWindow = iframe.contentWindow;
-      const iframeDoc = iframe.contentDocument || iframeWindow.document;
-      const audio = iframeDoc.querySelector('audio');
-
+      const audio = iframe.contentDocument?.querySelector('audio');
       if (audio && typeof audio.play === 'function') {
         audio.play().then(() => {
           console.log("Autoplay v iframe OK.");
         }).catch((err) => {
-          console.warn("Autoplay selhal (normální u některých prohlížečů):", err);
+          console.warn("Autoplay selhal (asi blokováno):", err);
         });
-      } else {
-        console.warn("V iframe nebyl nalezen <audio> element.");
       }
     } catch (e) {
-      console.warn("Nemůžu přistoupit k iframe kvůli CORS:", e);
+      console.warn("Nemůžu přistoupit k iframe (CORS):", e);
+    }
+  }
+
+  function detectPlayerInsideIframe(iframe) {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      // Hledáme audio, video nebo třeba div s class "player" apod.
+      const playerFound = doc.querySelector('audio, video, .player, #player') !== null;
+      console.log("Detekce přehrávače v iframe:", playerFound);
+      return playerFound;
+    } catch (e) {
+      console.warn("Nemůžu detekovat obsah iframe kvůli CORS:", e);
+      return false;
     }
   }
 
@@ -111,21 +119,22 @@
 
     await new Promise(r => setTimeout(r, 3000));
 
-    // Pokus o autoplay (může selhat, ale nevadí)
     tryAutoplayInsideIframe(iframe);
 
     try {
       const audioDetected = await checkIfAnyAudioPlays();
-      if (audioDetected) {
-        console.log("Zvuk detekován. FMCloud funguje.");
+      const playerDetected = detectPlayerInsideIframe(iframe);
+
+      if (audioDetected || playerDetected) {
+        console.log("FMCloud přehrávač detekován (zvuk nebo přehrávač). Všechno cajk.");
         return;
       } else {
-        console.warn("FMCloud je tichý. Přepínám na záložní přehrávač.");
+        console.warn("FMCloud je tichý a přehrávač nenačten. Přepínám na záložní.");
         removeAllIframes();
         loadIframe(BACKUP_URL);
       }
     } catch (err) {
-      console.error("Chyba při detekci zvuku:", err);
+      console.error("Chyba při detekci:", err);
       removeAllIframes();
       loadIframe(BACKUP_URL);
     }
