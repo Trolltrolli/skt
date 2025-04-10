@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Chytrý Audio Player</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
@@ -20,49 +20,64 @@
 </head>
 <body>
 
-<!-- Tady se budou vkládat playery -->
 <div id="playerContainer"></div>
-
 <script>
   const container = document.getElementById('playerContainer');
-  let isLoaded = false;
+  function loadIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    iframe.style.display = 'block';
+    container.appendChild(iframe);
+    return iframe;
+  }
 
-  function loadFmCloud() {
-    const fm = document.createElement('iframe');
-    fm.src = "https://fmcloud.pro2/embed.php?id=347&autoplay=true";
-    fm.allow = "autoplay";
-    fm.className = "player";
+  function removeAllIframes() {
+    container.innerHTML = "";
+  }
 
-    fm.onload = () => {
-      isLoaded = true;
-      fm.style.display = 'block';
-      console.log("FMCloud načteno, přehrávač aktivní.");
-    };
+  function checkIfAnyAudioPlays(timeout = 3000) {
+    return new Promise((resolve) => {
+      const ctx = new AudioContext();
+      const analyser = ctx.createAnalyser();
+      const source = ctx.createMediaElementSource(new Audio());
+      source.connect(analyser);
+      analyser.connect(ctx.destination);
 
-    container.appendChild(fm);
+      setTimeout(() => {
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(data);
+        const maxVolume = Math.max(...data);
+        console.log("Max volume detected:", maxVolume);
+        resolve(maxVolume > 5); // prahová hodnota detekce zvuku
+      }, timeout);
+    });
+  }
 
-    // Fallback timeout
-    setTimeout(() => {
-      if (!isLoaded) {
-        console.warn("FMCloud selhal, přepínám na záložní přehrávač.");
-        container.removeChild(fm);
-        loadBackup();
+  async function loadPlayerWithSoundCheck() {
+    console.log("Načítám FMCloud přehrávač...");
+    const primaryIframe = loadIframe("https://fmcloud.pro/embed.php?id=347&autoplay=true");
+
+    await new Promise(r => setTimeout(r, 3000)); // čekáme 3s na načtení přehrávače
+
+    try {
+      const audioPlays = await checkIfAnyAudioPlays();
+      if (audioPlays) {
+        console.log("Detekován zvuk. FMCloud jede.");
+        return;
+      } else {
+        console.warn("Žádný zvuk detekován. Přepínám na záložní přehrávač.");
+        removeAllIframes();
+        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
       }
-    }, 4000);
+    } catch (err) {
+      console.error("Chyba při kontrole zvuku:", err);
+      removeAllIframes();
+      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+    }
   }
-  
-  function loadBackup() {
-    const backup = document.createElement('iframe');
-    backup.src = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
-    backup.allow = "autoplay";
-    backup.className = "player";
-    backup.style.display = 'block';
-    container.appendChild(backup);
-  }
-
-  // Start!
-  loadFmCloud();
+  loadPlayerWithSoundCheck();
 </script>
-
 </body>
 </html>
