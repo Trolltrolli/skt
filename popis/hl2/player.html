@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Detekce nefunkčního přehrávače</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
@@ -26,8 +26,16 @@
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
   const container = document.getElementById('playerContainer');
+  const EXPECTED_HEIGHT = 128; // Normální výška přehrávače
 
-  let iframe; // uložíme si iframe pro pozdější práci
+  let iframe;
+
+  function removeIframe() {
+    if (iframe) {
+      iframe.remove();
+      iframe = null;
+    }
+  }
 
   function loadIframe(src) {
     iframe = document.createElement('iframe');
@@ -38,39 +46,36 @@
     container.appendChild(iframe);
   }
 
-  function removeIframe() {
-    if (iframe) {
-      iframe.remove();
-      iframe = null;
-    }
-  }
-
-  function loadPrimaryWithTimeout() {
-    console.log("🩸 Načítám primární přehrávač...");
+  function loadPrimaryWithCheck() {
+    console.log("🦇 Načítám primární přehrávač...");
     removeIframe();
     loadIframe(PRIMARY_URL);
 
-    let loaded = false;
-
-    // Posloucháme, jestli se iframe načetl
     iframe.onload = () => {
-      loaded = true;
-      console.log("🦇 Primární iframe načten. Čekám na projev života...");
-    };
+      console.log("🩸 Iframe načten, kontroluji výšku...");
 
-    // Po 5 sekundách zkontrolujeme, jestli iframe reagoval
-    setTimeout(() => {
-      if (!loaded || iframe.clientHeight < 50) {
-        console.warn("⚰️ Přehrávač zřejmě selhal, přepínám na zálohu.");
-        removeIframe();
-        loadIframe(BACKUP_URL);
-      } else {
-        console.log("🎶 Primární přehrávač žije, ponechávám.");
-      }
-    }, 5000);
+      setTimeout(() => {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          const scrollHeight = doc.documentElement.scrollHeight;
+
+          console.log("🎩 Detekovaná výška obsahu:", scrollHeight);
+
+          if (scrollHeight > EXPECTED_HEIGHT + 50) {
+            console.warn("⚠️ Obsah iframu je příliš vysoký – pravděpodobně chyba nebo reklama.");
+            removeIframe();
+            loadIframe(BACKUP_URL);
+          } else {
+            console.log("🎶 Výška odpovídá, ponechávám přehrávač.");
+          }
+        } catch (e) {
+          console.warn("👻 Nemohu přistoupit k obsahu iframu (CORS). Ponechávám.");
+        }
+      }, 100); // Krátká prodleva po onload
+    };
   }
 
-  loadPrimaryWithTimeout();
+  loadPrimaryWithCheck();
 </script>
 
 </body>
