@@ -2,89 +2,24 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Záložní Přehrávač – HL2</title>
+  <title>HL2 Player</title>
   <style>
     body {
       background-color: #000;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #fff;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .player-box {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 20px rgba(0,0,0,0.7);
-      width: 95%;
-      max-width: 720px;
-      text-align: center;
-    }
-
-    .player-box p {
-      margin: 0 0 10px;
-      font-size: 18px;
-      color: #ccc;
-    }
-
-    audio {
-      width: 100%;
-      border-radius: 6px;
-      height: 36px;
-    }
-
-    .note {
-      font-size: 14px;
-      margin-top: 10px;
-      color: #aaa;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .btn-refresh {
-      margin-top: 12px;
-      padding: 6px 12px;
-      background-color: #444;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.2s ease-in-out;
-    }
-
-    .btn-refresh:hover {
-      background-color: #666;
     }
   </style>
 </head>
 <body>
-  <div class="player-box">
-    <p>🎵 Záložní přehrávač aktivní</p>
-    <audio id="audioPlayer" src="audio.mp3" controls autoplay muted></audio>
-    <div class="note">Primární přehrávač nebyl dostupný. Toto je záložní verze.</div>
-    <button class="btn-refresh" onclick="window.location.reload()">Zkusit znovu načíst hlavní přehrávač</button>
+  <div style="background-color:#222;color:#fff;padding:0px;width:auto;height:90px;min-height: 90px;border-radius:8px;box-shadow:0px 4px 10px rgba(0,0,0,0.5);font-family:Arial,sans-serif;text-align:center;">
+    <p style="margin:0 0 10px;">🎵 Theme music</p>
+    <audio id="audioPlayer" src="audio.mp3" controls autoplay muted style="width:95%;border-radius:5px;height:36px;"></audio>
   </div>
-
+  
   <script>
     document.body.onload = function() {
       const audio = document.getElementById('audioPlayer');
       audio.muted = false;
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          console.warn("Přehrávání bylo zablokováno:", err);
-        });
-      }
+      audio.play();
     };
   </script>
 </body>
