@@ -22,7 +22,6 @@
 <script>
   const container = document.getElementById('playerContainer');
 
-  // Wrapper stránka – z té si načte FMCloud + detekci
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
 
@@ -31,34 +30,34 @@
     iframe.className = 'player';
     iframe.src = src;
     iframe.allow = "autoplay";
+    container.innerHTML = '';
     container.appendChild(iframe);
     return iframe;
   }
 
   function loadBackupPlayer() {
-    container.innerHTML = '';
     createIframe(BACKUP_URL);
-    console.log("🚨 Přepnuto na záložní přehrávač.");
+    console.warn("❌ FM player selhal – přepínám na záložní přehrávač.");
   }
 
-  function waitForMessage(iframe, timeout = 5000) {
+  function waitForMessage(timeout = 5000) {
     return new Promise((resolve) => {
-      let done = false;
+      let received = false;
 
-      function handleMessage(event) {
-        if (event.data && event.data.type === "fmcloud-status") {
-          done = true;
-          window.removeEventListener("message", handleMessage);
+      function handler(event) {
+        if (event.data?.type === "fmcloud-status") {
+          received = true;
+          window.removeEventListener("message", handler);
           resolve(event.data.status === "ok");
         }
       }
 
-      window.addEventListener("message", handleMessage);
+      window.addEventListener("message", handler);
 
       setTimeout(() => {
-        if (!done) {
-          window.removeEventListener("message", handleMessage);
-          console.warn("⏱ Timeout čekání na postMessage!");
+        if (!received) {
+          window.removeEventListener("message", handler);
+          console.warn("⏱ Timeout čekání na zprávu z FM playeru.");
           resolve(false);
         }
       }, timeout);
@@ -66,15 +65,13 @@
   }
 
   async function loadPlayerWithFailsafe() {
-    console.log("⏳ Načítám wrapper pro FMCloud...");
-    container.innerHTML = '';
-    const iframe = createIframe(PRIMARY_URL);
-    const success = await waitForMessage(iframe);
+    console.log("⏳ Načítám FMCloud přehrávač...");
+    createIframe(PRIMARY_URL);
+    const success = await waitForMessage();
 
     if (success) {
-      console.log("✅ FMCloud detekován správně, player běží.");
+      console.log("✅ FMCloud přehrávač detekován v pořádku.");
     } else {
-      console.warn("❌ Chyba detekce FMCloud – přepínám.");
       loadBackupPlayer();
     }
   }
@@ -84,4 +81,3 @@
 
 </body>
 </html>
-
