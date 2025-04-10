@@ -36,6 +36,8 @@
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
 
+  let played = false; // TEĎ JE DEFINOVANÝ SPRÁVNĚ! Mimo funkce
+
   function loadIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
@@ -54,33 +56,28 @@
     removeAllIframes();
     status.textContent = "🦇 Načítám primární přehrávač...";
 
-    const iframe = loadIframe(PRIMARY_URL);
+    loadIframe(PRIMARY_URL);
 
-    // Předpokládáme, že autoplay je povolen
-    let played = false;
-
-    // Naslepo čekáme 3 sekundy, jako upír na opilou turistku
+    // Čekáme jako vampýří dědek na krvavou svatbu
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    // Jestli se nic nezměnilo, jdeme na plán B
     if (!played) {
-      status.textContent = "☠️ Primární nehraje! Spouštím záložní přehrávač...";
+      status.textContent = "☠️ Primární nehraje (aspoň si to myslím)... přepínám!";
       removeAllIframes();
       loadIframe(BACKUP_URL);
     } else {
-      status.textContent = "🎶 Primární hraje jako hřbitovní orchestr!";
+      status.textContent = "🎶 Primární přehrávač hraje, pohřeb může začít!";
     }
   }
 
-  // Tahle část se stará o přijímání zpráv z iframe (pokud podporuje postMessage)
+  // POSLOUCHÁME, zda player pošle zprávu, že hraje
   window.addEventListener("message", (event) => {
     if (event.data.playing === true) {
-      console.log("Zpráva z iframe: hraje!");
+      console.log("Zpráva z iframe: přehrávání bylo detekováno!");
       played = true;
     }
   });
 
-  // Spustíme hlavní pekelný plán
   loadPlayerWithFailsafe();
 </script>
 
