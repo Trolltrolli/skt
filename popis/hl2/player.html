@@ -2,12 +2,11 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>FMCloud Audio Player</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
       background-color: black;
-      color: white;
     }
     .player {
       width: 940px;
@@ -25,102 +24,114 @@
 
 <script>
   const container = document.getElementById('playerContainer');
-  let fallbackLoaded = false;
-  let autoplayAttempted = false;
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
 
-  function loadIframe(src, callback) {
+  function loadIframe(src, onLoadCallback = null) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
-    iframe.onload = () => {
-      console.log(`Iframe ${src} načten.`);
-      if (callback) callback();
-    };
+    if (onLoadCallback) iframe.onload = onLoadCallback;
     container.appendChild(iframe);
+    return iframe;
+  }
+
+  function removeAllIframes() {
+    container.innerHTML = "";
   }
 
   function tryAutoplayInsideIframe(iframe) {
     try {
       const iframeWindow = iframe.contentWindow;
       const iframeDoc = iframe.contentDocument || iframeWindow.document;
-
       const audio = iframeDoc.querySelector('audio');
+
       if (audio && typeof audio.play === 'function') {
         audio.play().then(() => {
           console.log("Autoplay v iframe OK.");
         }).catch((err) => {
-          console.warn("Autoplay fail (běžné v některých prohlížečích):", err);
+          console.warn("Autoplay selhal (normální u některých prohlížečů):", err);
         });
       } else {
-        console.warn("Audio tag v iframe nenalezen.");
+        console.warn("V iframe nebyl nalezen <audio> element.");
       }
     } catch (e) {
-      console.warn("Nemůžu přistoupit k obsahu iframe (CORS):", e);
+      console.warn("Nemůžu přistoupit k iframe kvůli CORS:", e);
     }
   }
 
-  function checkAudioPresence() {
-    const iframe = container.querySelector('iframe');
-    if (!iframe) return;
+  function checkIfAnyAudioPlays(timeout = 3000) {
+    return new Promise((resolve) => {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = ctx.createAnalyser();
+      const source = ctx.createMediaElementSource(new Audio());
+      source.connect(analyser);
+      analyser.connect(ctx.destination);
 
-    try {
-      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-      const audioTags = iframeDoc.getElementsByTagName('audio');
-      if (audioTags.length > 0) {
-        console.log("Audio přehrávač detekován.");
-        if (!autoplayAttempted) {
-          autoplayAttempted = true;
-          tryAutoplayInsideIframe(iframe);
-        }
-      } else {
-        console.warn("Audio přehrávač nebyl detekován, spouštím fallback.");
-        if (!fallbackLoaded) {
-          fallbackLoaded = true;
-          loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
-        }
-      }
-    } catch (e) {
-      console.warn("Nelze zkontrolovat obsah iframe (CORS).");
-    }
+      setTimeout(() => {
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(data);
+        const maxVolume = Math.max(...data);
+        console.log("Detekce hlasitosti:", maxVolume);
+        resolve(maxVolume > 5);
+      }, timeout);
+    });
   }
 
-  async function checkAndLoad() {
-    const primaryURL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  async function loadPlayerWithFailsafe() {
+    console.log("Načítám FMCloud přehrávač...");
+    removeAllIframes();
+
+    let iframeLoaded = false;
+    const iframe = loadIframe(PRIMARY_URL, () => {
+      iframeLoaded = true;
+      console.log("FMCloud iframe načten.");
+    });
+
+    const loadTimeout = new Promise((resolve) => {
+      setTimeout(() => {
+        if (!iframeLoaded) {
+          console.warn("FMCloud iframe se nenačetl včas. Přepínám na záložní.");
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      }, 5000);
+    });
+
+    const iframeOk = await loadTimeout;
+
+    if (!iframeOk) {
+      removeAllIframes();
+      loadIframe(BACKUP_URL);
+      return;
+    }
+
+    await new Promise(r => setTimeout(r, 3000));
+
+    // Pokus o autoplay (může selhat, ale nevadí)
+    tryAutoplayInsideIframe(iframe);
 
     try {
-      const response = await fetch(primaryURL, { method: 'HEAD' });
-      if (response.ok) {
-        console.log("FMCloud existuje, načítám.");
-        loadIframe(primaryURL, () => {
-          // Zpožděná kontrola přítomnosti audio přehrávače
-          setTimeout(checkAudioPresence, 2500);
-        });
-
-        // Bezpečnostní druhá vlna zálohy
-        setTimeout(() => {
-          if (!fallbackLoaded) {
-            console.warn("Záložní kontrola: žádný přehrávač se neprojevil, spouštím fallback.");
-            fallbackLoaded = true;
-            loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
-          }
-        }, 5000); // 5 sekund timeout
+      const audioDetected = await checkIfAnyAudioPlays();
+      if (audioDetected) {
+        console.log("Zvuk detekován. FMCloud funguje.");
+        return;
       } else {
-        console.warn("FMCloud není dostupný, spouštím fallback.");
-        fallbackLoaded = true;
-        loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+        console.warn("FMCloud je tichý. Přepínám na záložní přehrávač.");
+        removeAllIframes();
+        loadIframe(BACKUP_URL);
       }
     } catch (err) {
-      console.error("Chyba při kontrole FMCloud:", err);
-      fallbackLoaded = true;
-      loadIframe("https://trolltrolli.github.io/skt/popis/hl2/player_backup.html");
+      console.error("Chyba při detekci zvuku:", err);
+      removeAllIframes();
+      loadIframe(BACKUP_URL);
     }
   }
 
-  window.onload = () => {
-    checkAndLoad();
-  };
+  loadPlayerWithFailsafe();
 </script>
 
 </body>
