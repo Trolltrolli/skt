@@ -199,7 +199,7 @@
 
 <!--sipka--><p style="font-family: arial; font-size: 30px; position: fixed; color: red; position: absolute; margin-left: 400px; margin-top: 23px; transform: rotate(210deg); list-style-type:none; user-select: none;-webkit-user-select:none; -moz-user-select:none;-webkit-touch-callout:none; list-style-type:none; pointer-events:none; z-index: 5; display: none;" id="sipka">??</p>
 
-<!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: 290px; z-index: 2;"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="892" height="347" style="position: relative; cursor: pointer; pointer-events: auto; background-color: silver; filter:contrast(120%); box-shadow: 0 0 0 10px grey; 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5; border-radius: 5px; pointer-events: auto;"></embed></div>
+<!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: 290px; z-index: 2;"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="position: relative; cursor: pointer; pointer-events: auto; background-color: silver; filter:contrast(120%); box-shadow: 0 0 0 10px grey; 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5; border-radius: 5px; pointer-events: auto;"></embed></div>
 
 <!--TL NAHORU--><button style="background-color: #666564; margin-top:40px; margin-left:-35px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
