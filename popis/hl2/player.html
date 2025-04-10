@@ -24,16 +24,18 @@
 
 <script>
   const container = document.getElementById('playerContainer');
-
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
 
-  function loadIframe(src) {
+  let playerIsPlaying = false;  // Flag pro detekci přehrávání
+
+  function loadIframe(src, onLoadCallback = null) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
+    if (onLoadCallback) iframe.onload = onLoadCallback;
     container.appendChild(iframe);
     return iframe;
   }
@@ -42,71 +44,52 @@
     container.innerHTML = "";
   }
 
-  async function checkIfAnyAudioPlays(timeout = 4000) {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = ctx.createAnalyser();
-    analyser.fftSize = 256;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    let source;
-
+  // Funkce pro detekci přehrávání v iframe
+  function detectPlayback(iframe) {
     try {
-      const silence = new Audio();
-      silence.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=";
-      silence.loop = true;
-      silence.volume = 0;
-      await silence.play().catch(() => {});
-
-      source = ctx.createMediaElementSource(silence);
-      source.connect(analyser);
-      analyser.connect(ctx.destination);
-    } catch (err) {
-      console.warn("Audio detekce selhala:", err);
-      return false;
-    }
-
-    return new Promise((resolve) => {
-      let detected = false;
-      const start = performance.now();
-
-      function analyze() {
-        analyser.getByteFrequencyData(dataArray);
-        const max = Math.max(...dataArray);
-        if (max > 10) {
-          detected = true;
-          resolve(true);
-        } else if (performance.now() - start > timeout) {
-          resolve(false);
-        } else {
-          requestAnimationFrame(analyze);
-        }
+      // Pokud máme přístup k audio elementu uvnitř iframe, zkusíme zjistit, jestli je přehráváno
+      const audio = iframe.contentDocument?.querySelector('audio');
+      if (audio && typeof audio.play === 'function') {
+        audio.play().then(() => {
+          console.log("Autoplay v iframe OK.");
+          playerIsPlaying = true;  // Pokud se přehrávání spustí
+        }).catch((err) => {
+          console.warn("Autoplay selhal (možná blokováno):", err);
+          playerIsPlaying = false;  // Pokud autoplay selže
+        });
+      } else {
+        playerIsPlaying = false;  // Když není audio nebo není možné spustit
       }
-
-      analyze();
-    });
-  }
-
-  async function loadPlayerWithSoundDetection() {
-    console.log("Zkouším načíst primární přehrávač...");
-    removeAllIframes();
-    const iframe = loadIframe(PRIMARY_URL);
-
-    // Počkáme než se iframe načte
-    await new Promise(r => setTimeout(r, 3000));
-
-    const isPlaying = await checkIfAnyAudioPlays();
-
-    if (isPlaying) {
-      console.log("Zvuk detekován z primárního přehrávače. Všechno cajk.");
-    } else {
-      console.warn("Žádný zvuk → přepínám na záložní přehrávač...");
-      removeAllIframes();
-      loadIframe(BACKUP_URL);
+    } catch (e) {
+      console.warn("Nemůžu přistoupit k iframe (CORS):", e);
+      playerIsPlaying = false;  // Pokud CORS blokuje přístup
     }
   }
 
-  loadPlayerWithSoundDetection();
+  async function loadPlayerWithFailsafe() {
+    console.log("Načítám FMCloud přehrávač...");
+    removeAllIframes();  // Zpočátku vymažeme případně přítomné iframy
+
+    const iframe = loadIframe(PRIMARY_URL, () => {
+      console.log("FMCloud iframe načten.");
+    });
+
+    // Čekáme 3 sekundy na spuštění přehrávání
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    detectPlayback(iframe);  // Detekujeme, jestli přehrávač začne hrát
+
+    if (playerIsPlaying) {
+      console.log("FMCloud přehrávač hraje, vše OK.");
+    } else {
+      console.warn("FMCloud nehraje, přepínám na záložní přehrávač.");
+      removeAllIframes();
+      loadIframe(BACKUP_URL);  // Pokud FMCloud nehraje, přepneme na záložní
+    }
+  }
+
+  // Načteme přehrávač
+  loadPlayerWithFailsafe();
 </script>
 
 </body>
