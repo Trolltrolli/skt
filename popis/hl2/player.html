@@ -61,7 +61,7 @@
 
           console.log("🎩 Detekovaná výška obsahu:", scrollHeight);
 
-          if (scrollHeight > EXPECTED_HEIGHT + 50) {
+          if (scrollHeight > EXPECTED_HEIGHT + 5) {
             console.warn("⚠️ Obsah iframu je příliš vysoký – pravděpodobně chyba nebo reklama.");
             removeIframe();
             loadIframe(BACKUP_URL);
