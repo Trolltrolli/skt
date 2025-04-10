@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Audio Player</title>
+  <title>Upíří Přehrávač</title>
   <style>
     body {
       margin: 0;
@@ -16,26 +16,32 @@
       box-shadow: 0 0 20px 10px black;
       display: none;
     }
+    #status {
+      color: red;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
 
+<div id="status">🦇 Načítám primární přehrávač... blé ble blé</div>
 <div id="playerContainer"></div>
 
 <script>
   const container = document.getElementById('playerContainer');
+  const status = document.getElementById('status');
+
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
 
-  let playerIsPlaying = false;  // Flag pro detekci přehrávání
-
-  function loadIframe(src, onLoadCallback = null) {
+  function loadIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
-    if (onLoadCallback) iframe.onload = onLoadCallback;
     container.appendChild(iframe);
     return iframe;
   }
@@ -44,51 +50,37 @@
     container.innerHTML = "";
   }
 
-  // Funkce pro detekci přehrávání v iframe
-  function detectPlayback(iframe) {
-    try {
-      // Pokud máme přístup k audio elementu uvnitř iframe, zkusíme zjistit, jestli je přehráváno
-      const audio = iframe.contentDocument?.querySelector('audio');
-      if (audio && typeof audio.play === 'function') {
-        audio.play().then(() => {
-          console.log("Autoplay v iframe OK.");
-          playerIsPlaying = true;  // Pokud se přehrávání spustí
-        }).catch((err) => {
-          console.warn("Autoplay selhal (možná blokováno):", err);
-          playerIsPlaying = false;  // Pokud autoplay selže
-        });
-      } else {
-        playerIsPlaying = false;  // Když není audio nebo není možné spustit
-      }
-    } catch (e) {
-      console.warn("Nemůžu přistoupit k iframe (CORS):", e);
-      playerIsPlaying = false;  // Pokud CORS blokuje přístup
-    }
-  }
-
   async function loadPlayerWithFailsafe() {
-    console.log("Načítám FMCloud přehrávač...");
-    removeAllIframes();  // Zpočátku vymažeme případně přítomné iframy
+    removeAllIframes();
+    status.textContent = "🦇 Načítám primární přehrávač...";
 
-    const iframe = loadIframe(PRIMARY_URL, () => {
-      console.log("FMCloud iframe načten.");
-    });
+    const iframe = loadIframe(PRIMARY_URL);
 
-    // Čekáme 3 sekundy na spuštění přehrávání
+    // Předpokládáme, že autoplay je povolen
+    let played = false;
+
+    // Naslepo čekáme 3 sekundy, jako upír na opilou turistku
     await new Promise(resolve => setTimeout(resolve, 3000));
 
-    detectPlayback(iframe);  // Detekujeme, jestli přehrávač začne hrát
-
-    if (playerIsPlaying) {
-      console.log("FMCloud přehrávač hraje, vše OK.");
-    } else {
-      console.warn("FMCloud nehraje, přepínám na záložní přehrávač.");
+    // Jestli se nic nezměnilo, jdeme na plán B
+    if (!played) {
+      status.textContent = "☠️ Primární nehraje! Spouštím záložní přehrávač...";
       removeAllIframes();
-      loadIframe(BACKUP_URL);  // Pokud FMCloud nehraje, přepneme na záložní
+      loadIframe(BACKUP_URL);
+    } else {
+      status.textContent = "🎶 Primární hraje jako hřbitovní orchestr!";
     }
   }
 
-  // Načteme přehrávač
+  // Tahle část se stará o přijímání zpráv z iframe (pokud podporuje postMessage)
+  window.addEventListener("message", (event) => {
+    if (event.data.playing === true) {
+      console.log("Zpráva z iframe: hraje!");
+      played = true;
+    }
+  });
+
+  // Spustíme hlavní pekelný plán
   loadPlayerWithFailsafe();
 </script>
 
