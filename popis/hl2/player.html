@@ -26,15 +26,14 @@
   const container = document.getElementById('playerContainer');
 
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
-  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
 
-  function loadIframe(src, onLoadCallback = null) {
+  function loadIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
-    if (onLoadCallback) iframe.onload = onLoadCallback;
     container.appendChild(iframe);
     return iframe;
   }
@@ -43,111 +42,71 @@
     container.innerHTML = "";
   }
 
-  function tryAutoplayInsideIframe(iframe) {
+  async function checkIfAnyAudioPlays(timeout = 4000) {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    let source;
+
     try {
-      const audio = iframe.contentDocument?.querySelector('audio');
-      if (audio && typeof audio.play === 'function') {
-        audio.play().then(() => {
-          console.log("Autoplay v iframe OK.");
-        }).catch((err) => {
-          console.warn("Autoplay selhal (asi blokováno):", err);
-        });
-      }
-    } catch (e) {
-      console.warn("Nemůžu přistoupit k iframe (CORS):", e);
-    }
-  }
+      const silence = new Audio();
+      silence.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=";
+      silence.loop = true;
+      silence.volume = 0;
+      await silence.play().catch(() => {});
 
-  function detectPlayerInsideIframe(iframe) {
-    try {
-      const doc = iframe.contentDocument || iframe.contentWindow.document;
-      const playerFound = doc.querySelector('audio, video, .player, #player') !== null;
-      console.log("Detekce přehrávače v iframe:", playerFound);
-      return playerFound;
-    } catch (e) {
-      console.warn("Nemůžu detekovat obsah iframe kvůli CORS:", e);
-      return false;
-    }
-  }
-
-  async function checkIfAnyAudioPlays(timeout = 3000) {
-    return new Promise((resolve) => {
-      const audio = new Audio();
-      audio.src = "silence.mp3"; // krátký tichý mp3 soubor (ideálně hostovaný)
-      audio.volume = 0;
-      document.body.appendChild(audio);
-
-      audio.play().catch(() => {});
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = ctx.createAnalyser();
-      const source = ctx.createMediaElementSource(audio);
+      source = ctx.createMediaElementSource(silence);
       source.connect(analyser);
       analyser.connect(ctx.destination);
+    } catch (err) {
+      console.warn("Audio detekce selhala:", err);
+      return false;
+    }
 
-      setTimeout(() => {
-        const data = new Uint8Array(analyser.frequencyBinCount);
-        analyser.getByteFrequencyData(data);
-        const maxVolume = Math.max(...data);
-        console.log("Detekce hlasitosti:", maxVolume);
-        resolve(maxVolume > 5);
-        audio.remove();
-      }, timeout);
-    });
-  }
+    return new Promise((resolve) => {
+      let detected = false;
+      const start = performance.now();
 
-  async function loadPlayerWithFailsafe() {
-    console.log("Načítám FMCloud přehrávač...");
-    removeAllIframes();
-
-    let iframeLoaded = false;
-    const iframe = loadIframe(PRIMARY_URL, () => {
-      iframeLoaded = true;
-      console.log("FMCloud iframe načten.");
-    });
-
-    const loadTimeout = new Promise((resolve) => {
-      setTimeout(() => {
-        if (!iframeLoaded) {
-          console.warn("FMCloud iframe se nenačetl včas. Přepínám na záložní.");
+      function analyze() {
+        analyser.getByteFrequencyData(dataArray);
+        const max = Math.max(...dataArray);
+        if (max > 10) {
+          detected = true;
+          resolve(true);
+        } else if (performance.now() - start > timeout) {
           resolve(false);
         } else {
-          resolve(true);
+          requestAnimationFrame(analyze);
         }
-      }, 5000);
+      }
+
+      analyze();
     });
+  }
 
-    const iframeOk = await loadTimeout;
+  async function loadPlayerWithSoundDetection() {
+    console.log("Zkouším načíst primární přehrávač...");
+    removeAllIframes();
+    const iframe = loadIframe(PRIMARY_URL);
 
-    if (!iframeOk) {
-      removeAllIframes();
-      loadIframe(BACKUP_URL);
-      return;
-    }
-
+    // Počkáme než se iframe načte
     await new Promise(r => setTimeout(r, 3000));
 
-    tryAutoplayInsideIframe(iframe);
+    const isPlaying = await checkIfAnyAudioPlays();
 
-    try {
-      const audioDetected = await checkIfAnyAudioPlays();
-      const playerDetected = detectPlayerInsideIframe(iframe);
-
-      if (audioDetected || playerDetected) {
-        console.log("FMCloud přehrávač detekován (zvuk nebo přehrávač). Všechno cajk.");
-        return;
-      } else {
-        console.warn("FMCloud je tichý a přehrávač nenačten. Přepínám na záložní.");
-        removeAllIframes();
-        loadIframe(BACKUP_URL);
-      }
-    } catch (err) {
-      console.error("Chyba při detekci:", err);
+    if (isPlaying) {
+      console.log("Zvuk detekován z primárního přehrávače. Všechno cajk.");
+    } else {
+      console.warn("Žádný zvuk → přepínám na záložní přehrávač...");
       removeAllIframes();
       loadIframe(BACKUP_URL);
     }
   }
 
-  loadPlayerWithFailsafe();
+  loadPlayerWithSoundDetection();
 </script>
 
 </body>
