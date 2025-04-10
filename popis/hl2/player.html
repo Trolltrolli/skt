@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Upíří Přehrávač</title>
+  <title>Detekce nefunkčního přehrávače</title>
   <style>
     body {
       margin: 0;
@@ -16,69 +16,61 @@
       box-shadow: 0 0 20px 10px black;
       display: none;
     }
-    #status {
-      color: red;
-      text-align: center;
-      font-family: "Courier New", monospace;
-      padding: 10px;
-    }
   </style>
 </head>
 <body>
 
-<div id="status">🦇 Načítám primární přehrávač... blé ble blé</div>
 <div id="playerContainer"></div>
 
 <script>
-  const container = document.getElementById('playerContainer');
-  const status = document.getElementById('status');
-
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
+  const container = document.getElementById('playerContainer');
 
-  let played = false; // TEĎ JE DEFINOVANÝ SPRÁVNĚ! Mimo funkce
+  let iframe; // uložíme si iframe pro pozdější práci
 
   function loadIframe(src) {
-    const iframe = document.createElement('iframe');
+    iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
     iframe.style.display = 'block';
     container.appendChild(iframe);
-    return iframe;
   }
 
-  function removeAllIframes() {
-    container.innerHTML = "";
+  function removeIframe() {
+    if (iframe) {
+      iframe.remove();
+      iframe = null;
+    }
   }
 
-  async function loadPlayerWithFailsafe() {
-    removeAllIframes();
-    status.textContent = "🦇 Načítám primární přehrávač...";
-
+  function loadPrimaryWithTimeout() {
+    console.log("🩸 Načítám primární přehrávač...");
+    removeIframe();
     loadIframe(PRIMARY_URL);
 
-    // Čekáme jako vampýří dědek na krvavou svatbu
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    let loaded = false;
 
-    if (!played) {
-      status.textContent = "☠️ Primární nehraje (aspoň si to myslím)... přepínám!";
-      removeAllIframes();
-      loadIframe(BACKUP_URL);
-    } else {
-      status.textContent = "🎶 Primární přehrávač hraje, pohřeb může začít!";
-    }
+    // Posloucháme, jestli se iframe načetl
+    iframe.onload = () => {
+      loaded = true;
+      console.log("🦇 Primární iframe načten. Čekám na projev života...");
+    };
+
+    // Po 5 sekundách zkontrolujeme, jestli iframe reagoval
+    setTimeout(() => {
+      if (!loaded || iframe.clientHeight < 50) {
+        console.warn("⚰️ Přehrávač zřejmě selhal, přepínám na zálohu.");
+        removeIframe();
+        loadIframe(BACKUP_URL);
+      } else {
+        console.log("🎶 Primární přehrávač žije, ponechávám.");
+      }
+    }, 5000);
   }
 
-  // POSLOUCHÁME, zda player pošle zprávu, že hraje
-  window.addEventListener("message", (event) => {
-    if (event.data.playing === true) {
-      console.log("Zpráva z iframe: přehrávání bylo detekováno!");
-      played = true;
-    }
-  });
-
-  loadPlayerWithFailsafe();
+  loadPrimaryWithTimeout();
 </script>
 
 </body>
