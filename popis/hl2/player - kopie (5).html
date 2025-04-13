@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    .player {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="playerContainer"></div>
+
+<script>
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
+  const STATUS_URL = "https://trolltrolli.github.io/skt/player/service.html";
+  const container = document.getElementById('playerContainer');
+  const EXPECTED_HEIGHT = 128;
+
+  let iframe;
+
+  function removeIframe() {
+    if (iframe) {
+      iframe.remove();
+      iframe = null;
+    }
+  }
+
+  function loadIframe(src) {
+    iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    iframe.style.display = 'block';
+    container.appendChild(iframe);
+  }
+
+  function checkStatusAndLoadPlayer() {
+    console.log("🦇 Kontroluji stav přes service.html...");
+    fetch(STATUS_URL)
+      .then(response => response.text())
+      .then(text => {
+        if (text.includes("The repayment works")) {
+          console.log("🩸 Service hlásí OK, načítám přehrávač...");
+          loadPrimaryWithCheck();
+        } else {
+          console.warn("⚠️ Service neodpověděla správně, pouštím záložní přehrávač.");
+          loadIframe(BACKUP_URL);
+        }
+      })
+      .catch(error => {
+        console.error("👻 Chyba při kontrole service:", error);
+        loadIframe(BACKUP_URL);
+      });
+  }
+
+  function loadPrimaryWithCheck() {
+    console.log("🦇 Načítám primární přehrávač...");
+    removeIframe();
+    loadIframe(PRIMARY_URL);
+
+    iframe.onload = () => {
+      console.log("🩸 Iframe načten, kontroluji výšku...");
+
+      setTimeout(() => {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          const scrollHeight = doc.documentElement.scrollHeight;
+
+          console.log("🎩 Detekovaná výška obsahu:", scrollHeight);
+
+          if (scrollHeight > EXPECTED_HEIGHT + 5) {
+            console.warn("⚠️ Obsah iframu je příliš vysoký – pravděpodobně chyba nebo reklama.");
+            removeIframe();
+            loadIframe(BACKUP_URL);
+          } else {
+            console.log("🎶 Výška odpovídá, ponechávám přehrávač.");
+          }
+        } catch (e) {
+          console.warn("👻 Nemohu přistoupit k obsahu iframu (CORS). Ponechávám.");
+        }
+      }, 100);
+    };
+  }
+
+  // Přijímání zpráv z iframe (embed.php)
+  window.addEventListener("message", (event) => {
+    if (event.data === "The repayment works") {
+      console.log("🦇 Přehrávač hlásí OK přes postMessage!");
+      // Můžeš zde případně skrýt záložní player nebo dělat jiné věci
+    }
+  }, false);
+
+  // Spustíme kontrolu a načítání
+  checkStatusAndLoadPlayer();
+
+</script>
+
+</body>
+</html>
