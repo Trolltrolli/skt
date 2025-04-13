@@ -14,7 +14,6 @@
       border: none;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-      display: none;
     }
   </style>
 </head>
@@ -26,10 +25,17 @@
   const PRIMARY_URL = "https://trolltrolli.top/embed.php?id=2&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
   const STATUS_URL = "https://trolltrolli.github.io/skt/player/service.html";
-  const container = document.getElementById('playerContainer');
-  const EXPECTED_HEIGHT = 128;
+  const MESSAGE_TIMEOUT = 1500;
 
+  const container = document.getElementById('playerContainer');
   let iframe;
+  let messageReceived = false;
+  let timeoutHandle;
+
+  function log(msg) {
+    const time = new Date().toLocaleTimeString();
+    console.log(`[${time}] ${msg}`);
+  }
 
   function removeIframe() {
     if (iframe) {
@@ -39,73 +45,56 @@
   }
 
   function loadIframe(src) {
+    removeIframe();
     iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
-    iframe.style.display = 'block';
     container.appendChild(iframe);
   }
 
-  function checkStatusAndLoadPlayer() {
-    console.log("🦇 Kontroluji stav přes service.html...");
+  function loadPrimaryWithTimeout() {
+    log("Načítám primární přehrávač...");
+    loadIframe(PRIMARY_URL);
+
+    timeoutHandle = setTimeout(() => {
+      if (!messageReceived) {
+        log("⚠️ Nepřišla žádná zpráva z primárního přehrávače. Přepínám na záložní.");
+        loadIframe(BACKUP_URL);
+      }
+    }, MESSAGE_TIMEOUT);
+  }
+
+  function checkStatusAndLoad() {
+    log("Kontroluji stav přes service.html...");
     fetch(STATUS_URL)
-      .then(response => response.text())
+      .then(res => res.text())
       .then(text => {
         if (text.includes("The repayment works")) {
-          console.log("🩸 Service hlásí OK, načítám přehrávač...");
-          loadPrimaryWithCheck();
+          log("Service hlásí OK. Pokračuji s primárním přehrávačem.");
+          loadPrimaryWithTimeout();
         } else {
-          console.warn("⚠️ Service neodpověděla správně, pouštím záložní přehrávač.");
+          log("⚠️ Service neodpověděl správně. Pouštím záložní přehrávač.");
           loadIframe(BACKUP_URL);
         }
       })
-      .catch(error => {
-        console.error("👻 Chyba při kontrole service:", error);
+      .catch(err => {
+        log("❌ Chyba při načítání service.html: " + err);
         loadIframe(BACKUP_URL);
       });
   }
 
-  function loadPrimaryWithCheck() {
-    console.log("🦇 Načítám primární přehrávač...");
-    removeIframe();
-    loadIframe(PRIMARY_URL);
-
-    iframe.onload = () => {
-      console.log("🩸 Iframe načten, kontroluji výšku...");
-
-      setTimeout(() => {
-        try {
-          const doc = iframe.contentDocument || iframe.contentWindow.document;
-          const scrollHeight = doc.documentElement.scrollHeight;
-
-          console.log("🎩 Detekovaná výška obsahu:", scrollHeight);
-
-          if (scrollHeight > EXPECTED_HEIGHT + 5) {
-            console.warn("⚠️ Obsah iframu je příliš vysoký – pravděpodobně chyba nebo reklama.");
-            removeIframe();
-            loadIframe(BACKUP_URL);
-          } else {
-            console.log("🎶 Výška odpovídá, ponechávám přehrávač.");
-          }
-        } catch (e) {
-          console.warn("👻 Nemohu přistoupit k obsahu iframu (CORS). Ponechávám.");
-        }
-      }, 100);
-    };
-  }
-
-  // Přijímání zpráv z iframe (embed.php)
   window.addEventListener("message", (event) => {
     if (event.data === "The repayment works") {
-      console.log("🦇 Přehrávač hlásí OK přes postMessage!");
-      // Můžeš zde případně skrýt záložní player nebo dělat jiné věci
+      messageReceived = true;
+      clearTimeout(timeoutHandle);
+      log("✅ Zpráva 'The repayment works' přijata z přehrávače. Vše je v pořádku.");
+    } else {
+      log(`ℹ️ Přijatá neznámá zpráva: ${event.data}`);
     }
-  }, false);
+  });
 
-  // Spustíme kontrolu a načítání
-  checkStatusAndLoadPlayer();
-
+  checkStatusAndLoad();
 </script>
 
 </body>
