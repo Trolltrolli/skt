@@ -25,9 +25,8 @@
 <script>
   const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
-  const STATUS_URL = "https://trolltrolli.github.io/skt/player/service.html";
   const container = document.getElementById('playerContainer');
-  const EXPECTED_HEIGHT = 128;
+  const EXPECTED_HEIGHT = 128; // Normální výška přehrávače
 
   let iframe;
 
@@ -45,25 +44,6 @@
     iframe.className = "player";
     iframe.style.display = 'block';
     container.appendChild(iframe);
-  }
-
-  function checkStatusAndLoadPlayer() {
-    console.log("🦇 Kontroluji stav přes service.html...");
-    fetch(STATUS_URL)
-      .then(response => response.text())
-      .then(text => {
-        if (text.includes("The repayment works")) {
-          console.log("🩸 Service hlásí OK, načítám přehrávač...");
-          loadPrimaryWithCheck();
-        } else {
-          console.warn("⚠️ Service neodpověděla správně, pouštím záložní přehrávač.");
-          loadIframe(BACKUP_URL);
-        }
-      })
-      .catch(error => {
-        console.error("👻 Chyba při kontrole service:", error);
-        loadIframe(BACKUP_URL);
-      });
   }
 
   function loadPrimaryWithCheck() {
@@ -91,21 +71,11 @@
         } catch (e) {
           console.warn("👻 Nemohu přistoupit k obsahu iframu (CORS). Ponechávám.");
         }
-      }, 100);
+      }, 100); // Krátká prodleva po onload
     };
   }
 
-  // Přijímání zpráv z iframe (embed.php)
-  window.addEventListener("message", (event) => {
-    if (event.data === "The repayment works") {
-      console.log("🦇 Přehrávač hlásí OK přes postMessage!");
-      // Můžeš zde případně skrýt záložní player nebo dělat jiné věci
-    }
-  }, false);
-
-  // Spustíme kontrolu a načítání
-  checkStatusAndLoadPlayer();
-
+  loadPrimaryWithCheck();
 </script>
 
 </body>
