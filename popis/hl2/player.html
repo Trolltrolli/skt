@@ -66,11 +66,17 @@
 
 window.addEventListener("message", (event) => {
   log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
-  
-  messageReceived = true;
-  clearTimeout(timeoutHandle);
-  log("✅ Jakákoli zpráva přijata – přehrávač OK.");
+
+  // přijmeme jen konkrétní hlášku "ready"
+  if (event.data === "ready") {
+    messageReceived = true;
+    clearTimeout(timeoutHandle);
+    log("✅ Potvrzeno: přehrávač je připraven.");
+  } else {
+    log("ℹ️ Zpráva ignorována (nebyla 'ready'):", event.data);
+  }
 });
+
 
 
   // 🔥 Přímo načti primární přehrávač (žádné service.php)
