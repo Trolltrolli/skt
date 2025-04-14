@@ -24,7 +24,6 @@
 <script>
   const PRIMARY_URL = "https://trolltrolli.top/embed.php?id=2&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
-  const STATUS_URL = "https://trolltrolli.top/service.php";
   const MESSAGE_TIMEOUT = 1500;
 
   const container = document.getElementById('playerContainer');
@@ -65,42 +64,20 @@
     }, MESSAGE_TIMEOUT);
   }
 
-  function checkStatusAndLoad() {
-    log("Kontroluji stav přes service.php...");
-    fetch(STATUS_URL)
-      .then(res => res.text())
-      .then(text => {
-        if (text.includes("The repayment works")) {
-          log("Service hlásí OK. Pokračuji s primárním přehrávačem.");
-          loadPrimaryWithTimeout();
-        } else {
-          log("⚠️ Service neodpověděl správně. Pouštím záložní.");
-          loadIframe(BACKUP_URL);
-        }
-      })
-      .catch(err => {
-        log("❌ Chyba při kontrole service.php:", err);
-        loadIframe(BACKUP_URL);
-      });
-  }
-
   window.addEventListener("message", (event) => {
     log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
 
-    // 💡 Pokud chceš akceptovat JAKOUKOLIV zprávu (i když není přesně "The repayment works"),
-    // odkomentuj následující řádek a zakomentuj podmínku níže
-    // if (typeof event.data === "string" && event.data.trim() !== "") {
-
-	if (typeof event.data === "string" && event.data.trim() !== "") {
-	  messageReceived = true;
-	  clearTimeout(timeoutHandle);
-	  log("✅ Zpráva přijata – přehrávač OK.");
-	} else {
-	  log("ℹ️ Zpráva byla prázdná nebo nečitelná:", event.data);
-	}
+    if (typeof event.data === "string" && event.data.trim() !== "") {
+      messageReceived = true;
+      clearTimeout(timeoutHandle);
+      log("✅ Zpráva přijata – přehrávač OK.");
+    } else {
+      log("ℹ️ Zpráva byla prázdná nebo nečitelná:", event.data);
+    }
   });
 
-  checkStatusAndLoad();
+  // 🔥 Přímo načti primární přehrávač (žádné service.php)
+  loadPrimaryWithTimeout();
 </script>
 
 </body>
