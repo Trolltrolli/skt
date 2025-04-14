@@ -64,17 +64,14 @@
     }, MESSAGE_TIMEOUT);
   }
 
-  window.addEventListener("message", (event) => {
-    log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
+window.addEventListener("message", (event) => {
+  log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
+  
+  messageReceived = true;
+  clearTimeout(timeoutHandle);
+  log("✅ Jakákoli zpráva přijata – přehrávač OK.");
+});
 
-    if (typeof event.data === "string" && event.data.trim() !== "") {
-      messageReceived = true;
-      clearTimeout(timeoutHandle);
-      log("✅ Zpráva přijata – přehrávač OK.");
-    } else {
-      log("ℹ️ Zpráva byla prázdná nebo nečitelná:", event.data);
-    }
-  });
 
   // 🔥 Přímo načti primární přehrávač (žádné service.php)
   loadPrimaryWithTimeout();
