@@ -1,0 +1,62 @@
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("📻 Skript spuštěn – čekám na jPlayer...");
+
+    if (window.jQuery && jQuery().jPlayer) {
+        console.log("✅ jPlayer je načten");
+
+        const player = jQuery(".jp-jplayer");
+
+        if (player.length > 0) {
+            console.log("▶️ Hledám přehrávač... nalezen");
+
+            // MP3 přehrává
+            player.bind($.jPlayer.event.playing, function () {
+                console.log("✅ MP3 se přehrává – posílám OK");
+                window.parent.postMessage({ fm_status: "ok" }, "*");
+            });
+
+            // Chyba při přehrání
+            player.bind($.jPlayer.event.error, function (e) {
+                console.log("❌ Chyba jPlayeru:", e.jPlayer.error.type);
+                window.parent.postMessage({ fm_status: "fail" }, "*");
+            });
+
+            // Zjištění, že je MP3 skutečně načtena (loadedmetadata)
+            player.bind($.jPlayer.event.loadeddata, function (e) {
+                const dur = player.data("jPlayer").status.duration;
+                if (dur > 0) {
+                    console.log("🎵 MP3 načtena, délka:", dur, "sekund");
+					window.parent.postMessage({ mp3_status: "ok" }, "*");
+
+                } else {
+                    console.log("⚠️ MP3 nebyla správně načtena (duration = 0)");
+                    window.parent.postMessage({ fm_status: "fail" }, "*");
+                }
+            });
+
+            // Zkusíme automatické přehrání
+            console.log("🔈 Pokus o přehrání s hlasitostí 0");
+            player.jPlayer("volume", 0).jPlayer("play");
+
+        } else {
+            console.warn("⚠️ .jp-jplayer nenalezen – kontrola chybového textu");
+            const errCheck = setInterval(() => {
+                if (document.body.innerText.includes("Sorry, we couldn't find the requested track")) {
+                    clearInterval(errCheck);
+                    console.log("❌ Textová chyba detekována – posílám FAIL");
+                    window.parent.postMessage({ fm_status: "fail" }, "*");
+                }
+            }, 500);
+            setTimeout(() => {
+                clearInterval(errCheck);
+                console.log("🕒 Konec čekání na chybový text");
+            }, 5000);
+        }
+    } else {
+        console.warn("❗ jPlayer nenalezen – posílám FAIL");
+        window.parent.postMessage({ fm_status: "fail" }, "*");
+    }
+});
+</script>
