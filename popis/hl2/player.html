@@ -24,83 +24,38 @@
 <script>
   const PRIMARY_URL = "https://trolltrolli.top/embed.php?id=2&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
-  const STATUS_URL = "https://trolltrolli.top/service.php";
-  const MESSAGE_TIMEOUT = 1500;
+  const TIMEOUT = 3000;
 
   const container = document.getElementById('playerContainer');
-  let iframe;
-  let messageReceived = false;
-  let timeoutHandle;
-
-  function log(...args) {
-    const time = new Date().toLocaleTimeString();
-    console.log(`[${time}]`, ...args);
-  }
-
-  function removeIframe() {
-    if (iframe) {
-      iframe.remove();
-      iframe = null;
-    }
-  }
+  let mp3Ok = false;
 
   function loadIframe(src) {
-    removeIframe();
-    iframe = document.createElement('iframe');
+    const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
+    container.innerHTML = "";
     container.appendChild(iframe);
   }
 
-  function loadPrimaryWithTimeout() {
-    log("Načítám primární přehrávač...");
-    loadIframe(PRIMARY_URL);
+  // Spustíme přehrávač
+  loadIframe(PRIMARY_URL);
 
-    timeoutHandle = setTimeout(() => {
-      if (!messageReceived) {
-        log("⚠️ Nepřišla žádná zpráva z přehrávače. Přepínám na záložní.");
-        loadIframe(BACKUP_URL);
-      }
-    }, MESSAGE_TIMEOUT);
-  }
-
-  function checkStatusAndLoad() {
-    log("Kontroluji stav přes service.php...");
-    fetch(STATUS_URL)
-      .then(res => res.text())
-      .then(text => {
-        if (text.includes("The repayment works")) {
-          log("Service hlásí OK. Pokračuji s primárním přehrávačem.");
-          loadPrimaryWithTimeout();
-        } else {
-          log("⚠️ Service neodpověděl správně. Pouštím záložní.");
-          loadIframe(BACKUP_URL);
-        }
-      })
-      .catch(err => {
-        log("❌ Chyba při kontrole service.php:", err);
-        loadIframe(BACKUP_URL);
-      });
-  }
-
+  // Posloucháme zprávy z embed playeru
   window.addEventListener("message", (event) => {
-    log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
-
-    // 💡 Pokud chceš akceptovat JAKOUKOLIV zprávu (i když není přesně "The repayment works"),
-    // odkomentuj následující řádek a zakomentuj podmínku níže
-    // if (typeof event.data === "string" && event.data.trim() !== "") {
-
-	if (typeof event.data === "string" && event.data.trim() !== "") {
-	  messageReceived = true;
-	  clearTimeout(timeoutHandle);
-	  log("✅ Zpráva přijata – přehrávač OK.");
-	} else {
-	  log("ℹ️ Zpráva byla prázdná nebo nečitelná:", event.data);
-	}
+    if (event.data?.mp3_status === "ok") {
+      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      mp3Ok = true;
+    }
   });
 
-  checkStatusAndLoad();
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      loadIframe(BACKUP_URL);
+    }
+  }, TIMEOUT);
 </script>
 
 </body>
