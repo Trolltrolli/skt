@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Detekce nefunkčního přehrávače</title>
+  <title>Audio Player</title>
   <style>
     body {
       margin: 0;
@@ -14,7 +14,6 @@
       border: none;
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
-      display: none;
     }
   </style>
 </head>
@@ -23,54 +22,76 @@
 <div id="playerContainer"></div>
 
 <script>
-  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=347&autoplay=true";
+  const PRIMARY_URL = "https://trolltrolli.top/embed.php?id=2&autoplay=true";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
-  const container = document.getElementById('playerContainer');
+<<<<<<< HEAD
+  const TIMEOUT = 3000;
+=======
+  const MESSAGE_TIMEOUT = 1500;
+>>>>>>> d6b0b1386c3520f4f27c03c9a0dbff4795535306
 
-  let iframe; // uložíme si iframe pro pozdější práci
+  const container = document.getElementById('playerContainer');
+  let mp3Ok = false;
 
   function loadIframe(src) {
-    iframe = document.createElement('iframe');
+    const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
-    iframe.style.display = 'block';
+    container.innerHTML = "";
     container.appendChild(iframe);
   }
 
-  function removeIframe() {
-    if (iframe) {
-      iframe.remove();
-      iframe = null;
-    }
-  }
+<<<<<<< HEAD
+  // Spustíme přehrávač
+  loadIframe(PRIMARY_URL);
 
+  // Posloucháme zprávy z embed playeru
+  window.addEventListener("message", (event) => {
+    if (event.data?.mp3_status === "ok") {
+      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      mp3Ok = true;
+    }
+  });
+
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      loadIframe(BACKUP_URL);
+    }
+  }, TIMEOUT);
+=======
   function loadPrimaryWithTimeout() {
-    console.log("🩸 Načítám primární přehrávač...");
-    removeIframe();
+    log("Načítám primární přehrávač...");
     loadIframe(PRIMARY_URL);
 
-    let loaded = false;
-
-    // Posloucháme, jestli se iframe načetl
-    iframe.onload = () => {
-      loaded = true;
-      console.log("🦇 Primární iframe načten. Čekám na projev života...");
-    };
-
-    // Po 5 sekundách zkontrolujeme, jestli iframe reagoval
-    setTimeout(() => {
-      if (!loaded || iframe.clientHeight < 50) {
-        console.warn("⚰️ Přehrávač zřejmě selhal, přepínám na zálohu.");
-        removeIframe();
+    timeoutHandle = setTimeout(() => {
+      if (!messageReceived) {
+        log("⚠️ Nepřišla žádná zpráva z přehrávače. Přepínám na záložní.");
         loadIframe(BACKUP_URL);
-      } else {
-        console.log("🎶 Primární přehrávač žije, ponechávám.");
       }
-    }, 5000);
+    }, MESSAGE_TIMEOUT);
   }
 
+window.addEventListener("message", (event) => {
+  log("📩 Přijatá zpráva z:", event.origin, "→", event.data);
+
+  // přijmeme jen konkrétní hlášku "ready"
+  if (event.data === "ready") {
+    messageReceived = true;
+    clearTimeout(timeoutHandle);
+    log("✅ Potvrzeno: přehrávač je připraven.");
+  } else {
+    log("ℹ️ Zpráva ignorována (nebyla 'ready'):", event.data);
+  }
+});
+
+
+
+  // 🔥 Přímo načti primární přehrávač (žádné service.php)
   loadPrimaryWithTimeout();
+>>>>>>> d6b0b1386c3520f4f27c03c9a0dbff4795535306
 </script>
 
 </body>
