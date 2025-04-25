@@ -140,6 +140,20 @@ Příjemnou zábavu! :-)
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important;"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix//nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
 <!--BAV+SEED--><br style="line-height:30px;">
-<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/bav.html" style="width: 100%; margin-top: px;"></embed></div>
-<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px;"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://trolltrolli.github.io/skt/popis/hl2/seed.html" frameborder="no" scrolling="no"></embed></div>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:px; margin-left: px; ;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/bav.html" style="width: 100%; margin-top: px;"></embed></div>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px;;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://trolltrolli.github.io/skt/popis/hl2/seed.html" frameborder="no" scrolling="no"></embed></div>
 <p style="text-size=10px;color:red;margin-top:260px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px;"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px;"></div><div style="text-align:center;z-index:3;position-relative!important;"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center;"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
