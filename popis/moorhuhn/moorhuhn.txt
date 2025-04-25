@@ -198,7 +198,7 @@ můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
 <!--konec kodu-------------------------->
 </tr></table></div></div></div></center>
 <!--GLOBÁLNÍ NÁHLEDOVÝ OBRÁZEK-->
-<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:51%;transform:translateX(-50%);margin-top:395px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
+<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:51%;transform:translateX(-50%);margin-top:390px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
 
 <!------------------------------------------------------------------------->
 <div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -35px; margin-left: px"><embed style="height: 669px; width: 100%; position: absolute; z-index: -50" src="https://trolltrolli.github.io/skt/popis/moorhuhn/slep2.html" frameborder="no" scrolling="no"></embed></div>
