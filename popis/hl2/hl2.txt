@@ -97,7 +97,7 @@ Příjemnou zábavu! :-)
 
 <!------------------------------------------------------------------------------------------------>
 <!--TABULKA PRO SCREEN-->
-<center><div style="margin-left:-10px;margin-top:10px;line-height:0px;cursor:col-resize;z-index:10;"><div style="background-image:url('https://trolltrolli.github.io/skt/popis/hl2/t.jpg');border-radius:5px;box-shadow:0 0 2px black,1px 2px 3px black;width:800px;height:190px;"><div style="display:inline-block;overflow-x:scroll;overflow-y:hidden;scroll-behavior:smooth;scrollbar-color:rgba(0,0,0,.7) rgba(0,0,0,.5) !important;scrollbar-width:auto;-webkit-scrollbar-width:auto;-webkit-overflow-scrolling:touch;-webkit-scrollbar-corner:black;width:758px;height:140px;margin-top:20px;cursor:col-resize;" onwheel="event.preventDefault();this.scrollLeft+=event.deltaY"><table style="border-collapse:collapse;"><tr style="background-color:black;user-select:none;-webkit-user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;outline:none;" onmouseover="var d=document.querySelectorAll('details[open]');if(d.length){for(var i=0;i<d.length;i++){d[i].open=false;}window.scrollBy(0,-400);}">
+<center><div style="margin-left:-10px;margin-top:10px;line-height:0px;cursor:col-resize;z-index:10;"><div style="background-image:url('https://trolltrolli.github.io/skt/popis/hl2/t.jpg');border-radius:5px;box-shadow:0 0 2px black,1px 2px 3px black;width:800px;height:190px;"><div style="display:inline-block;overflow-x:scroll;overflow-y:hidden;scroll-behavior:smooth;scrollbar-color:rgba(0,0,0,.7) rgba(0,0,0,.5) !important;scrollbar-width:auto;-webkit-scrollbar-width:auto;-webkit-overflow-scrolling:touch;-webkit-scrollbar-corner:black;width:758px;height:140px;margin-top:20px;cursor:col-resize;" onwheel="event.preventDefault();this.scrollLeft+=event.deltaY"><table style="border-collapse:collapse;"><tr style="background-color:black;user-select:none;-webkit-user-select:none;-ms-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;outline:none;" onmouseover="var d=document.querySelectorAll('details[open]');if(d.length){setTimeout(function(){for(var i=0;i<d.length;i++){d[i].open=false;}setTimeout(function(){window.scrollBy(0,-400);}, 100);}, 100);}">
 
 <!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
 <td style="border:2px solid black;width:147px;height:97px;text-align:center;"><img src="https://trolltrolli.github.io/skt/popis/hl2/01.jpg" width="147" height="97" style="cursor:ew-resize;" onmouseover="(()=>{var i=document.getElementById('preview');var l=document.getElementById('preview-link');clearTimeout(i.hideTimeout);clearTimeout(i.showTimeout);i.showTimeout=setTimeout(()=>{i.src='https://trolltrolli.github.io/skt/popis/hl2/01.jpg';l.href='https://trolltrolli.github.io/skt/popis/hl2/01.jpg';l.style.visibility='visible'},300)})()" onmouseout="(()=>{var i=document.getElementById('preview');i.hideTimeout=setTimeout(()=>{document.getElementById('preview-link').style.visibility='hidden'},500)})()"></td>
@@ -140,20 +140,6 @@ Příjemnou zábavu! :-)
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important;"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix//nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
 <!--BAV+SEED--><br style="line-height:30px;">
-<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:px; margin-left: px; ;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/bav.html" style="width: 100%; margin-top: px;"></embed></div>
-<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px;;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://trolltrolli.github.io/skt/popis/hl2/seed.html" frameborder="no" scrolling="no"></embed></div>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/bav.html" style="width: 100%; margin-top: px;"></embed></div>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px;"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://trolltrolli.github.io/skt/popis/hl2/seed.html" frameborder="no" scrolling="no"></embed></div>
 <p style="text-size=10px;color:red;margin-top:260px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px;"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px;"></div><div style="text-align:center;z-index:3;position-relative!important;"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center;"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
