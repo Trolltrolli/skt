@@ -74,7 +74,7 @@
 <div id="menu1" style="display: none;">
     <img id="backgroundImage" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
 
-    <div id="textContainer" style="margin-top: -480px; margin-left: 70px; position: absolute; z-index: 1; transition: transform 0.00001s ease-in-out;">
+    <div id="textContainer" style="margin-top: -500px; margin-left: 70px; position: absolute; z-index: 1; transition: transform 0.00001s ease-in-out;">
         <span style="line-height: 25px; font-size: 19px; margin-top: -520x; margin-left: 250px; text-align: center; padding: 20px 0 20px 0; text-shadow: 0 0 1px black, .8px .9px 1.5px black,1px 1.5px 2.3px black; width: 650px; filter: blur(.5px);">
             <font color="silver">::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</font>
             <font color="#9c9696" size="5">SUPER MARIO WORLD 1+2</font>
@@ -91,7 +91,7 @@
             Režim:               singleplayer, multiplayer
             <font color="#78a777">Místo na disku:   23 MB</font>
 
-         ?<font style="" size="3"> Super Mario World... je kultovní plošinovka z počátku devádesátek. 
+         &#10041;<font style="" size="3"> Super Mario World... je kultovní plošinovka z počátku devádesátek. 
              O omlazení se postaraly shadery Reshade (více v Návodu
              a Reshade v popisu torr.). 
              <font color="red" size="2">Při sekání klikni na tlač. HOME a vypni některé efekty.</font></font></div>
@@ -105,7 +105,7 @@
 
 <!-- MENU2 -->
 <div id="menu2" style="display: none;">
-    <img id="backgroundImage2" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
+    <img id="backgroundImage2" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 125px; position: relative; z-index: 0;">
  <div id="textContainer2" style="color: #D8D8D8; font-size: 15px; font-family: monospace; line-height: 19.4px; text-align: left; margin-top: -480px; margin-left: 147.5px; padding: 0 0 0 0; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; width: 680px; position: absolute; z-index: 1; background: transparent; opacity: .8; filter: blur(.5px); transition: transform 0.00001s ease-in-out;">   --------------------------------------------
     <b>Nainstaluj a hrej!</b>
    --------------------------------------------
@@ -146,7 +146,7 @@
 
 <!-- MENU4 -->
 <div id="menu4" style="display: none;"
-<div style="margin-left: 140px;margin-top: 20px; width: 665px; height:480px; position: relative; z-index: 0;"><video style="width: 100%; height: 100%; object-fit: fill;" autoplay="autoplay" loop="loop"><source src="https://trolltrolli.github.io/skt/popis/marioworld/mario.mp4" type="video/mp4"></video></div></div>
+<div style="margin-left: 140px;margin-top: 22px; width: 665px; height:480px; position: relative; z-index: 0;"><video style="width: 100%; height: 100%; object-fit: fill;" autoplay="autoplay" loop="loop"><source src="https://trolltrolli.github.io/skt/popis/marioworld/video.mp4" type="video/mp4"></video></div></div>
 
 <!-- MENU5 -->
 <div id="menu5" style="display: none;">
@@ -173,7 +173,7 @@
 <div align="left">
     <div id="resh" style="margin-top: -30px; margin-left: 55px; cursor: pointer; pointer-events: auto; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none; border: 2px solid black; background-color: white; text-align: left; position: relative; z-index: 3; display: block; color: black; font-size: 16px; text-shadow: 1px 1px 1.2px black; height: 23px; width: 390px;" onclick="document.getElementById('reshContent').style.display = (document.getElementById('reshContent').style.display === 'none' || document.getElementById('reshContent').style.display === '') ? 'block' : 'none'">  POKUD RESHADE NEFUNGUJE - KLIK ZDE/ zpět</div>
 
-    <p id="reshContent" style="font-size: 19px; color: white; line-height: 25px; position: absolute; margin-top: -517px; margin-left: 39px; background: #0000ff; width: 653px; height: 457px; filter: blur(.3px); display: none">  VE SLOŽCE HRY VYBERETE:
+    <p id="reshContent" style="font-size: 19px; color: white; line-height: 25px; position: absolute; margin-top: -518.5px; margin-left: 39px; background: #0000ff; width: 653px; height: 457px; filter: blur(.3px); display: none">  VE SLOŽCE HRY VYBERETE:
   <font color="silver">------------------------------------------------------------</font>
 
   1. Reshade_setup
