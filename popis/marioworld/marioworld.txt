@@ -33,17 +33,17 @@
 <!--Game--name--><div style="position:relative;"><p style="line-height:0px;position:absolute;background:rgba(0,0,0,.5);filter:blur(1px);width:864px;max-height:15px;margin-top:126.6px;margin-left:250px;z-index:1;"><p style="font-size:37px; font-family:impact;font-weight:700;letter-spacing:.4em;margin-top:104px;margin-left:190px;position:absolute;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;z-index:0;text-shadow:1px -2px 5px black,0 0 15px blue;-webkit-text-stroke:2px #222222;"><span style="color:#E52521;">S</span><span style="color:#005B7F;">U</span><span style="color:#43B047;">P</span><span style="color:#005B7F;">E</span><span style="color:#E52521;">R</span> <span style="color:#43B047;">M</span><span style="color:#005B7F;">A</span><span style="color:#FBD000;">R</span><span style="color:#E52521;">I</span><span style="color:#43B047;">O</span> <span style="color:#FBD000;">W</span><span style="color:#005B7F;">O</span><span style="color:#43B047;">R</span><span style="color:#E52521;">L</span><span style="color:#43B047;">D</span></p></p></div>
 
 <div class="tv" style="margin-top: 85px;">
-<!--/case--><img src="https://trolltrolli.github.io/skt/popis/warlock/tvcrt.png" id="logo" style="list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;z-index:1; position: relative; filter: drop-shadow(rgba(0, 0, 0, 0.67) 1px 6px 11px), 0 -10px 5px rgba(0,255,0,.5);">
+<!--/case--><img src="https://trolltrolli.github.io/skt/popis/marioworld/tvcrt.png" id="logo" style="list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;z-index:1; position: relative; filter: drop-shadow(rgba(0, 0, 0, 0.67) 1px 6px 11px), 0 -10px 5px rgba(0,255,0,.5);">
 
 
 <!-- /button-ON -->
 <button style="display:block;left:0;top:0;margin-top:-95px;margin-left:-208px;width:1px;height:1px;background-color:red;cursor:pointer;padding:3px 3px 3px 3px;border:6px solid #373737;border-radius:30px;position:relative;z-index:1;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;filter:blur(.8px); transition: none;" onclick="var buttons=document.querySelectorAll('div[data-default-color]');buttons.forEach(function(button){button.style.backgroundColor=button.getAttribute('data-default-color');});var noise=document.getElementById('noise');var animatedGif=document.getElementById('animated-gif');var panel=document.getElementById('panel');if(this.getAttribute('data-active')!=='true'){this.style.backgroundColor='limegreen';var starton=document.getElementById('starton');var otherMenus=document.querySelectorAll('div[id^=menu]:not(#starton)');otherMenus.forEach(function(menu){menu.style.display='none';});starton.style.display='block';this.setAttribute('data-active','true');panel.style.pointerEvents='auto';panel.style.visibility='visible';noise.style.visibility='visible';animatedGif.style.display='none';setTimeout(function(){noise.style.visibility='hidden';animatedGif.style.display='block';},1000);}else{this.style.backgroundColor='red';var starton=document.getElementById('starton');var otherMenus=document.querySelectorAll('div[id^=menu]:not(#starton)');otherMenus.forEach(function(menu){menu.style.display='none';});starton.style.display='none';panel.style.pointerEvents='none';panel.style.visibility='visible';this.removeAttribute('data-active');noise.style.visibility='visible';animatedGif.style.display='none';setTimeout(function(){noise.style.visibility='hidden';},500);}" data-default-color="red" onmouseover="this.style.filter='brightness(85%)';" onmouseout="this.style.filter='brightness(100%)';" type="button" title=" P O W E R "></button>
 
 <!--/noise-->
-<div style="margin-top: -640px; position: relative;"><div id="noise" style="display:block; visibility: hidden;"><img src="https://trolltrolli.github.io/skt/popis/warlock/noise.gif" style="position:absolute;z-index:0;width:700px;height:520px;margin-top:60px;margin-left:-350px;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"></div></div>
+<div style="margin-top: -640px; position: relative;"><div id="noise" style="display:block; visibility: hidden;"><img src="https://trolltrolli.github.io/skt/popis/marioworld/noise.gif" style="position:absolute;z-index:0;width:700px;height:520px;margin-top:60px;margin-left:-350px;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"></div></div>
 
 <!--/crt-off-->
-<img src="https://trolltrolli.github.io/skt/popis/warlock/crtoff.jpg" style="position: relative; z-index: -1; width:700px; height:500px; margin-top:50px; margin-left: 0px;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"></img>
+<img src="https://trolltrolli.github.io/skt/popis/marioworld/crtoff.jpg" style="position: relative; z-index: -1; width:700px; height:500px; margin-top:50px; margin-left: 0px;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"></img>
 
 <!---/Animat--><div id="starton" style="display:none; position: relative;"><div style="margin-top:-588px; margin-left: 105px; .line-height:28px; position:absolute; z-index:0;"><img id="animated-gif" src="https://trolltrolli.github.io/skt/popis/marioworld/anim.gif" style="width:700px; height:500px;margin-top:85px;margin-left:-5px; object-fit: fill;list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none;"></div></div>
 
@@ -72,7 +72,7 @@
 
 <!-- MENU1 -->
 <div id="menu1" style="display: none;">
-    <img id="backgroundImage" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
+    <img id="backgroundImage" src="https://trolltrolli.github.io/skt/popis/marioworld/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
 
     <div id="textContainer" style="margin-top: -500px; margin-left: 70px; position: absolute; z-index: 1; transition: transform 0.00001s ease-in-out;">
         <span style="line-height: 25px; font-size: 19px; margin-top: -520x; margin-left: 250px; text-align: center; padding: 20px 0 20px 0; text-shadow: 0 0 1px black, .8px .9px 1.5px black,1px 1.5px 2.3px black; width: 650px; filter: blur(.5px);">
@@ -105,7 +105,7 @@
 
 <!-- MENU2 -->
 <div id="menu2" style="display: none;">
-    <img id="backgroundImage2" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 125px; position: relative; z-index: 0;">
+    <img id="backgroundImage2" src="https://trolltrolli.github.io/skt/popis/marioworld/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 125px; position: relative; z-index: 0;">
  <div id="textContainer2" style="color: #D8D8D8; font-size: 15px; font-family: monospace; line-height: 19.4px; text-align: left; margin-top: -480px; margin-left: 147.5px; padding: 0 0 0 0; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; width: 680px; position: absolute; z-index: 1; background: transparent; opacity: .8; filter: blur(.5px); transition: transform 0.00001s ease-in-out;">   --------------------------------------------
     <b>Nainstaluj a hrej!</b>
    --------------------------------------------
@@ -150,7 +150,7 @@
 
 <!-- MENU5 -->
 <div id="menu5" style="display: none;">
-   <img id="backgroundImage5" src="https://trolltrolli.github.io/skt/popis/warlock/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
+   <img id="backgroundImage5" src="https://trolltrolli.github.io/skt/popis/marioworld/crton.jpg" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 100px; position: relative; z-index: 0;">
     <div id="textContainer5" style="color: #D8D8D1; font-size: 15px; font-family: monospace; line-height: 21px; text-align: left; margin-top: -485px; margin-left: 106px; padding: 0 0 0 0; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 5px black, 1px 2px 4px black, 1.2px 1.8px 2.5px black; width: 680px; position: absolute; z-index: 1; background: transparent; opacity: .8; filter: blur(.5px);">
         <font size=6><b>*** GRAFICKÝ TUNING ***</b></font>
 
@@ -173,7 +173,7 @@
 <div align="left">
     <div id="resh" style="margin-top: -30px; margin-left: 55px; cursor: pointer; pointer-events: auto; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none; border: 2px solid black; background-color: white; text-align: left; position: relative; z-index: 3; display: block; color: black; font-size: 16px; text-shadow: 1px 1px 1.2px black; height: 23px; width: 390px;" onclick="document.getElementById('reshContent').style.display = (document.getElementById('reshContent').style.display === 'none' || document.getElementById('reshContent').style.display === '') ? 'block' : 'none'">  POKUD RESHADE NEFUNGUJE - KLIK ZDE/ zpět</div>
 
-    <p id="reshContent" style="font-size: 19px; color: white; line-height: 25px; position: absolute; margin-top: -518.5px; margin-left: 39px; background: #0000ff; width: 653px; height: 457px; filter: blur(.3px); display: none">  VE SLOŽCE HRY VYBERETE:
+    <p id="reshContent" style="font-size: 19px; color: white; line-height: 25px; position: absolute; margin-top: -518.5px; margin-left: 38px; background: #0000ff; width: 653px; height: 457px; filter: blur(.3px); display: none">  VE SLOŽCE HRY VYBERETE:
   <font color="silver">------------------------------------------------------------</font>
 
   1. Reshade_setup
