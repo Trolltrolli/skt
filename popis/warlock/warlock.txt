@@ -126,8 +126,8 @@
 </div>
 
 <!-- MENU4 -->
-<div id="menu4" style="display: none;">
-<img src="https://trolltrolli.github.io/skt/popis/warlock/video.gif" style="width: 700px; height: 490px; margin-top: 20px; margin-left: 120px; position: relative; z-index: 0; object-fit: fill;"></div>
+<div id="menu4" style="display: none;"
+<div style="margin-left: 140px;margin-top: 20px; width: 665px; height:480px; position: relative; z-index: 0;"><video style="width: 100%; height: 100%; object-fit: fill;" autoplay="autoplay" loop="loop"><source src="https://trolltrolli.github.io/skt/popis/warlock/video.mp4" type="video/mp4"></video></div></div>
 
 <!-- MENU5 -->
 <div id="menu5" style="display: none;">
@@ -145,7 +145,7 @@
 
         Pokud by někomu reshade nefungovalo <font size="2"><font color="fuchsia">(vše by mělo fungovat</font>- umístění hry
           není rozhodující)</font>, nebo by si chtěl nastavení upravit, nebo doinstalovat
-        další shadery, pokračujte podle návodů níže. ;) <img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/mix/downar.png" style="margin-top: 5px" />
+        další shadery, pokračujte podle návodů níže. ;) <img src="https://trolltrolli.github.io/skt/popis/mix/downar.png" style="margin-top: 5px" />
         // Reshade uninstall - smažte d3d9.dll ze složky Data // 
 
         <span style="cursor: pointer; pointer-events: auto;"><a href="https://reshade.me/" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen !important;" onmouseover="style='text-decoration: underline; text-decoration-color: red  !important;'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen !important;'"><font color="red">link - reshade shaders</font></a>
