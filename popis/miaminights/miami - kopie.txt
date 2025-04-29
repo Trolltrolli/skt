@@ -11,7 +11,9 @@
 <a href="https://www.databaze-her.cz/hry/miami-nights-singles-in-the-city-2006/" title="  L I N K  " target="_blank"><img src="https://trolltrolli.github.io/skt/popis/miaminights/img.gif" style="border: 2px double black; position: relative; border: 2px outset rgba(47,134,100,0.9); outline: 1px solid black;"><p style=" font-size: 35px; font-family: monospace; color: fuchsia; text-shadow: 0 0 1px black, .5px .6px 1.2px black, 1px 2px 2px black; filter: drop-shadow(0 0 1px black); transform: rotate(-25deg); position: absolute; margin-top: -40px; margin-left: 540px;">Link</p></a>
 
 <div>
-<!---HREF NVOD---><div class="main" id="nahoru" style="scroll-behavior: smooth"></div>
+
+<!---HREF NAVOD---><div class="main" id="nahoru" style="scroll-behavior: smooth;"></div>
+
 <!-- BUTTONS ----------------->
 <div style="position: relative; z-index: 1;">
   <table style="border-collapse: collapse; align: center; text-align: center; margin-top: -160px;" width="50%" height="0" border="0" cellpadding="0" cellspacing="0">
