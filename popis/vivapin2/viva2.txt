@@ -194,56 +194,9 @@ Obsahuje i ikony a zálohovaný config emulátoru.
 <a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:51%;transform:translateX(-50%);margin-top:990px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
 
 
-
-
-
-
-
-
-
-
-
-<!--TABULKA PRO SCREEN------------------------------------------------------>
-<center><div style="margin-left: px; margin-top: -20px">
-<div style="background: linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet, red); border: 2px solid black; border-radius: 30px; box-shadow: inset .7px .8px 1px 1px white, 1px 1px 2px 2px black, outset 1px 1.2px 1px 1px red, 0 0 2px 10px black; width: 940px; height: 190px"><div style=" display: inline-block; overflow-x: scroll; overflow-x: idden; overflow-y: hidden; scroll-behavior: smooth; scrollbar-color: rgba(0,0,0,.7) rgba(0,0,0,.5) !important; -webkit-scrollbar-width: thin; -webkit-scrollbar-corner: black; width: 870px; height: 140px; margin-top: 20px">
-<div style="background-color: black; width: 885px; height: 125px; border: 1px solid #404040; border-radius: 5px; position: absolute; z-index: -5; margin-top: -25px; margin-left: -6px"></div>
-<!--skt-fix--><p style="margin-top: -288px"><table><tr style="background-color: black; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none">
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://friendsmusic.monster/managerfiles/trolltrolli/SKT//vivapin2/sc/1.jpg" title=" S C R E E N " target="_blank"><img id="a1" src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT//vivapin2/sc/1.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a1').style.visibility = 'hidden'"></a>
-<img id="b1" src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT//vivapin2/sc/1.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a1').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://trolltrolli.github.io/skt/popis/vivapin2/sc/2.jpg" title=" S C R E E N " target="_blank"><img id="a2" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/2.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a2').style.visibility = 'hidden'"></a>
-<img id="b2" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/2.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a2').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://trolltrolli.github.io/skt/popis/vivapin2/sc/3.jpg" title=" S C R E E N " target="_blank"><img id="a3" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/3.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a3').style.visibility = 'hidden'"></a>
-<img id="b3" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/3.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a3').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://trolltrolli.github.io/skt/popis/vivapin2/sc/4.jpg" title=" S C R E E N " target="_blank"><img id="a4" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/4.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a4').style.visibility = 'hidden'"></a>
-<img id="b4" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/4.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a4').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://trolltrolli.github.io/skt/popis/vivapin2/sc/5.jpg" title=" S C R E E N " target="_blank"><img id="a5" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/5.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a5').style.visibility = 'hidden'"></a>
-<img id="b5" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/5.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a5').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-<!--obrázek--začátek kodu pro kopírování------------------------------------------------------------------------------>
-<td style=" border: 2px solid black; width: 147px; height: 97px; border-spacing: 20px">
-<!--odkaz-URL na obrázek se vloží 3x na pro jeden obr...----za písmeno /-a-/ se píše číslo obrázku--v kódu 3x (na jeden obrázek)---/-b-/je v kódu pro obrázek jen jednou...zase se napíše číslo obrázku...-->
-<a href="https://trolltrolli.github.io/skt/popis/vivapin2/sc/6.jpg" title=" S C R E E N " target="_blank"><img id="a6" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/6.jpg" width="167" height="97" title=" S C R E E N " style="visibility:hidden; transform: scale(250%); position: absolute; z-index: 5; display: block; top: ; right: 0; bottom: ; left: 0; margin: auto; margin-top: px; border: 1px solid silver; box-shadow: .8px .9px 1px 1px black" onmouseout="document.getElementById('a6').style.visibility = 'hidden'"></a>
-<img id="b6" src="https://trolltrolli.github.io/skt/popis/vivapin2/sc/6.jpg" width="147" height="97" title=" S C R E E N " style="position: flex; z-index: 1" onmouseover="document.getElementById('a6').style.visibility = 'visible'"></td><!--konec kodu-------------------------->
-</tr></table></p></div></center>
-
-
 <br style="line-height: 60px">
 <!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;height:0px;margin-top: -50px;"></div>
-<!--SEZNAM TORR--><div style="margin-left: -2px"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; box-shadow: #e740d1 0 0 1.5px 1.5px, black 0px 2px 2px 4px, #4a2445 0px 0px 20px 2px, #4a2445 0px 0px 20px 4px, black 0px 0px 5px 7px, #e740d1 0 0 8px 20px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 20px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 27px!important"></embed></div>
+<!--SEZNAM TORR--><div style="margin-left: -2px"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; box-shadow: #e740d1 0 0 1.5px 1.5px, black 0px 2px 2px 4px, #4a2445 0px 0px 20px 2px, #4a2445 0px 0px 20px 4px, black 0px 0px 5px 7px, #e740d1 0 0 8px 20px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 20px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 27px!important"></embed></div>
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://e-posta.eu/torrent/obrazky/files/kari1989/Obrazky/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 <!--BAV+SEED--><br style="line-height:50px">
 <embed src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Fable%202/bav.html" style="width: 100%; margin-top: px"></embed>
