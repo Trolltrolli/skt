@@ -1,0 +1,96 @@
+<!--miami--><body style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/miaminights/back.jpg) repeat fixed; width: 100%; height:100%; height:auto; background-repeat: no-repeat; background-position: center; background-size:cover; opacity:.96; text-shadow: black .11px .14px .2px; cursor: url(''), default; overflow-x: ; position: absolute !important; z-index :-2"></body><!-- DIV BACK 1------><div style="background: url('https://trolltrolli.github.io/skt/popis/miaminights/back.jpg'); background-repeat: fixed; background-attachment: fixed; width: 100%; height: 100%; overflow: fixed; background-repeat: no-repeat; background-size: cover; background-position:center; opacity: .999; cursor: url(''),default; margin-left: -11px; width: 940px"><!-- DIV BACK 2------><div style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/miaminights/back.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size:cover; background-position: center; opacity: .999; cursor: url(''),default; margin-left: 11px!important; margin-top:-13px; font-family: Palatino Linotype; width:940px">
+<font face="Showcard Gothic">
+<!--HORNI LISTA----------><div style="border:1.3px solid silver;margin-top:-28px;margin-left:-11.7px; width: 945px; box-shadow: 0px 0px 1px 2px grey, 1px 1px 3px 2px black!important"></div>
+<!--BUTTON NAVOD-------><div class="main" id="dolu" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:27px; width:90px; background: #464547; border-radius:5px; margin-top:-46.5px; margin-left:842px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#nahoru"><p style="color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration: none; display: inline-block" onmouseover="style='color: grey; font-size:20px; margin-top:-6.791px; font-weight: 450; text-shadow: 1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'">NVOD</p></a></div>
+<!--BUTTON SEZNAM------><div class="main2" id="prd" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:29px; width:280px; background: #464547; border-radius:5px; margin-top:-44.2px; margin-left:-679px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#seznam"><p style="color: #F1EBEF; font-size:20px; margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block;text-align:left" onmouseover="style='color: grey; font-size:20px; margin-top: -5.55px; font-weight: 450; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #F1EBEF;font-size:20px; margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black;text-decoration:none;display:inline-block;text-align:left'">SEZNAM MCH TORRENT</p></a></div></font>
+
+<p style="font-size: 25px; font-family: monospace; color: limegreen; text-shadow: 1px 2px 3px black; margin-top: -10px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;">*N A  P   N *</p>
+<!---LOGO---><body name="logo" onmouseover="document.getElementById('logo').style=' position: absolute; font-family: monospace; font-size: 50px; color: rgba(47,134,100,0.9); font-weight: 700; -webkit-text-stroke: .4px black; text-shadow: 1px 2px 1.5px limegreen, 1.3px 2.1px 2px black, 0 0 4px black; filter: drop-shadow(0 0 2px limegreen); width: 650px; height: 280x; line-height: 45px; margin-top: -40px; margin-left: 130px; transform: rotate(2turn); transition: all .5s linear; transition-duration: 1.2s; position: absolute; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;'" name="logo">
+<p style="font-size: 80px; color: rgba(255,255,255,.3);" id="logo" style="width: 650px; height: 380px; position: absolute; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none; ">M I A M I  N I G H T S  1 + 2</p></body>
+<br style="line-height:50px">
+<a href="https://www.databaze-her.cz/hry/miami-nights-singles-in-the-city-2006/" title="  L I N K  " target="_blank"><img src="https://trolltrolli.github.io/skt/popis/miaminights/img.gif" style="border: 2px double black; position: relative; border: 2px outset rgba(47,134,100,0.9); outline: 1px solid black;"><p style=" font-size: 35px; font-family: monospace; color: fuchsia; text-shadow: 0 0 1px black, .5px .6px 1.2px black, 1px 2px 2px black; filter: drop-shadow(0 0 1px black); transform: rotate(-25deg); position: absolute; margin-top: -40px; margin-left: 540px;">Link</p></a>
+
+<div>
+<!---HREF NVOD---><div class="main" id="nahoru" style="scroll-behavior: smooth"></div>
+<!-- BUTTONS ----------------->
+<div style="position: relative; z-index: 1;">
+  <table style="border-collapse: collapse; align: center; text-align: center; margin-top: -160px;" width="50%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+        <input type="button" value="I N F O" title=" I N F O " style="display: inline-block; background-color: rgba(0,0,0,0.6); color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; border: 2px outset rgba(47,134,100,0.9); padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = 'rgba(0,0,0,0.8)'; var menu1 = document.getElementById('menu1'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu1)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu1.style.display === 'none') { menu1.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu1.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="rgba(0,0,0,0.6)" onmouseover="this.style.filter = 'brightness(90%) contrast(90%)'" onmouseout="this.style.filter = 'none';">
+      </td>
+      <td>
+        <input type="button" value="N  V O D" title=" N  V O D " style="display: inline-block; background-color: rgba(0,0,0,0.6); color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; border: 2px outset rgba(47,134,100,0.9); padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = 'rgba(0,0,0,0.8)'; var menu2 = document.getElementById('menu2'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu2)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu2.style.display === 'none') { menu2.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu2.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="rgba(0,0,0,0.6)" onmouseover="this.style.filter = 'brightness(90%) contrast(90%)';" onmouseout="this.style.filter = 'none';">
+      </td>
+    </tr>
+  </table>
+
+  <!-- jednotlive nabidky --------------------------------------------------------------------------->
+  <!--MENU1-->
+  <div id="menu1" style="display: none; position: absolute; z-index: 3;">
+    <p style="color: white; font-size: 19px; background-color: rgba(0,0,0,.95); margin-top: -100px; margin-left: 0px; line-height: 28px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 918px; height: auto; border: 1px solid silver;">
+      <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+      <font color="orange" size="5">Miami Nights 1: Single In The City
+     Miami Nights 2: The City is Yours</font>
+      <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+      
+      Vvoj:                 	Gameloft Bucharest
+      Vydavatel:             	Gameloft
+      Platforma:              Windows (java emul)
+      Rok vydn:           2006/ 2009
+      Dabing:                  etina, anglitina
+      nr:                       sociln strategie
+      Reim:                    singleplayer
+      <font color="limegreen">Msto na disku:     42.5 MB</font>
+
+      <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+      <font size="3.5">    odzkoueno na sestav: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</font>
+      <embed width="340" height="180" style="border: 4px solid grey; outline: solid black; border-radius: 2px; position: absolute; margin-left: 420px; margin-top: -290px" src="https://www.youtube.com/embed/9kX8UHL6VVU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></embed></p></div>
+
+  <!--MENU2-->
+  <div id="menu2" style="display: none; position: absolute; z-index: 3;">
+    <p style="color: white; font-size: 20px; background-color: rgba(0,0,0,.95); margin-top: -142px; margin-left: px; line-height: 28px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 918px; height: auto; border: 1px solid silver; font-stretch: 150%;">
+      <font color="silver">--------------------------------------------------------------------------------------------------------------------------------------</font>
+      Nainstaluj a hrej!  :-)
+      <font color="silver">--------------------------------------------------------------------------------------------------------------------------------------</font>
+      Hra je upravena pro Windows 10
+      Ovldn:  klvesnice  +  my  (<i>joystick  jsem  nerozjel</i>)
+      Instaltor funguje i jako unistaller
+      <i>Ve sloce <b>Data\Bat_backup</b> je kd pro vytvoen launcheru pro libovolnou hru (batch, python, c++)
+      a i jednotliv .bat pro sputn samostatn hry.</i>
+      <font color="silver">--------------------------------------------------------------------------------------------------------------------------------------</font>
+      BAV SE!  :-)
+    </p>
+  </div>
+</div>
+
+
+
+<!--Nabidka---popis----->
+<div style="position: relative; margin-top: -160px; margin-left: px; background: rgba(0,0,0,0.6); border: 2px outset rgba(47,134,100,0.9); outline: 1px solid black; width: 750px; padding: 0px 12px 10px 20px; height: 250px; overflow: hidden; backdrop-filter: blur(5px);">
+  <p id="text" style="color: rgb(255,255,255) !important; font-size: 18px; text-align: left; -webkit-text-stroke: .37px black; text-shadow: 0 0 1px black, .2px .3px 1.2px black; position: relative; height: 100%; margin-top: -52px;">
+<b>Verky v luxusnch vilch, drah alkohol, soukrom DJ na kad prty a vybran spolenost z ad nejvtch celebrit msta Miami. Ne, to nen v ivot, ale pouh sen, kter se rozplyne v moment, kdy otevete oi v neupraven posteli v garsonce pro chudky a uvdomte si, e k takovmu ivotu mte daleko. Nikdo ale nen vt snlek ne vy a pokud si za nm tvrd jdete, lze sny promnit v realitu.
+
+Miami Nights: Singles in the City je stejn jako pedchdce opt simultorem ivota, kde se snate z naprost nuly vyplhat nahoru spoleenskho ebku. Npl hry je tak starn se o svou postavu, udrovn vztah s lidmi a vylepovn svch dovednost prostednictvm mnoha dostupnch innost. Novinkou jsou upraviteln byty, kter lze vybavit nbytkem a dekoracemi dle vlastnho vkusu, podstatn vt mapa umoujc voln pohyb nebo monost podat house party.
+
+S dalm dlem se srie pesouv do Las Vegas, nicmn samotn Miami Nights dostalo pozdji pokraovn s podtitulem The City is Yours. Sv verze se dokal i handheld Nintendo DS, kde hra disponuje 3D grafikou a nabz i zmny v hratelnosti.</b></p>
+  <button style="position: absolute; bottom: 2px; right: 2px; background: transparent; border: none; color: fuchsia; text-shadow: 0 0 1px black, .2px .3px 1.2px black; font-size: 16px; cursor: pointer;" onclick="if (this.parentNode.style.height === '250px') { this.parentNode.style.height = 'auto'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Mn'; } else { this.parentNode.style.height = '250px'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Vce'; }">Vce</button>
+</div>
+</div>
+<!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth; top: 200px !important;"></div>
+
+
+
+
+<center>
+<!-- Obrazek -->
+<img src="https://trolltrolli.github.io/skt/popis/miaminights/1+.png" style="position: absolute; margin-top: px; margin-left: -530px; transform: rotate(10deg) scale(1.5); pointer-events: none; z-index: -10; filter: drop-shadow(#000 0 0 5px) drop-shadow(#468f44 -1px 5px 5px) drop-shadow(rgba(54, 54, 54, 0.59) 6px 3px 4px);">
+<img src="https://trolltrolli.github.io/skt/popis/miaminights/2+.png" style="position: absolute; margin-top: -80px; margin-left: 430px; transform: rotate(-15deg) scale(1.5); pointer-events: none; z-index: -10; filter: drop-shadow(#000 0 0 5px) drop-shadow(#468f44 -1px 5px 5px) drop-shadow(rgba(54, 54, 54, 0.59) 6px 3px 4px);">
+<!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: -100px; pointer-events: auto;"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); box-shadow: 0 0 5px 3px black, 0 0 15px 1px limegreen; border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; pointer-events: auto;"></embed></div>
+<!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.8); margin-top:30px; margin-left:-35px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://trolltrolii.github.io/skt/popis/mix/nahorubila.gif" title="Zpt nahoru" width="33" height="33"></a></button>
+
+<!--BAV+SEED--><br style="line-height:50px">
+
+<embed src="https://trolltrolli.github.io/skt/popis/miaminights/bav.html" style="width: 100%; margin-top: px"></embed>
+
+<div style="display: flex; justify-content: center; background: transparent; height: 200px; overflow-y: hidden; margin-top: -145px; margin-left: px"><embed style="height: 569px; width: 100%; position: ; z-index: -8" src="https://trolltrolli.github.io/skt/popis/miaminights/seed.html" frameborder="no" scrolling="no"></embed></div><div style="font-family: rockwell; font-size: 19px; color: limegreen; position: relative; text-shadow: 0 0 1px black, .6px .7px .8px black, .5px .5px 1px black, 1px 2px 2px black, 1.5px 1.5px 3px black; margin-top: -180px"></center>
