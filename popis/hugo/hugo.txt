@@ -85,7 +85,7 @@ Režim:                    singleplayer
 
    Pokud by někomu reshade nefungovalo (<font color="fuchsia">vše by mělo fungovat</font> - umístění hry není rozhodující),
    nebo by si chtěl nastavení upravit, nebo doinstalovat další shadery, pokračujte podle návodů níže. ;) 
-   <img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/mix/downar.png" style="margin-top: 5px"/> 
+   <img src="https://trolltrolli.github.io/skt/popis/mix/downar.png" style="margin-top: 5px"/> 
     // Reshade uninstall - smažte d3d9.dll ze složky Data //
    <a href="https://reshade.me/" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">link - reshade shaders</span></a>
    <a href="https://www.youtube.com/watch?v=u64ljsMG9Vc" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">ReShade Tutorial</span></a>
@@ -94,7 +94,7 @@ Režim:                    singleplayer
 
 <div align="left">
 
-<details><summary style="cursor: pointer; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: ; border: 2px solid black; width: 380px; background-color: limegreen; margin-top: -40px; text-align: left; position: relative; z-index: 6"><span style="color: orange; font-size: 17px; text-shadow: 1px 1px 1.2px black">  POKUD RESHADE NEFUNGUJE - KLIK ZDE  </font><audio id="1"></audio></summary>
+<details><summary style="cursor: pointer; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: ; border: 2px solid black; width: 380px; background-color: limegreen; margin-top: -40px; text-align: left; position: relative; z-index: 6;"><span style="color: orange; font-size: 17px; text-shadow: 1px 1px 1.2px black">  POKUD RESHADE NEFUNGUJE - KLIK ZDE  </font><audio id="1"></audio></summary>
 
     <font color="orange" font size="4">VE SLOŽCE HRY VYBERETE:
 
@@ -111,7 +111,7 @@ Režim:                    singleplayer
    11.OK a zavřít</font>
 <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
 
-</details></div></div></div></div><center><!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth"></div>
+</details></div></div></div></div><center><!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;"></div>
 
 
 
@@ -123,8 +123,7 @@ Režim:                    singleplayer
 
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.8); margin-top:30px; margin-left:-35px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
-<!--BAV+SEED--><br style="line-height:50px">
-
-<embed src="https://trolltrolli.github.io/skt/popis/hugo/bav.html" style="width: 100%; margin-top: px"></embed>
-
+<!--BAV+SEED--><br style="line-height:50px;">
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/hugo/bav.html" style="width: 100%; margin-top: px"></embed></div>
 <div style="display: flex; justify-content: center; background: transparent; height: 200px; overflow-y: hidden; margin-top: -145px; margin-left: px"><embed style="height: 569px; width: 100%; position: ; z-index: -8" src="https://trolltrolli.github.io/skt/popis/hugo/seed.html" frameborder="no" scrolling="no"></embed></div><div style="font-family: rockwell; font-size: 19px; color: limegreen; position: relative; text-shadow: 0 0 1px black, .6px .7px .8px black, .5px .5px 1px black, 1px 2px 2px black, 1.5px 1.5px 3px black; margin-top: -180px"></center>
+
