@@ -1,0 +1,122 @@
+<button onclick="var x = document.getElementById('myDropdown'); if (x.style.display === 'none') { x.style.display = 'block'; } else { x.style.display = 'none'; }">Klikni na mě</button>
+<div id="myDropdown" style="display: none;">
+  <a href="#">Odkaz 1</a>
+  <a href="#">Odkaz 2</a>
+  <a href="#">Odkaz 3</a>
+</div>
+
+
+-------------------------------------------------------------------
+
+2. verze:
+-------------------------------------------------------------------
+<button style="background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%;" onclick="var menu = document.getElementById('menu1'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu1)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}">Menu 1</button>
+<div id="menu1" style="display:none">
+  <a href="#">Option 1</a>
+  <a href="#">Option 2</a>
+  <a href="#">Option 3</a>
+</div>
+
+<button style="background-color: #008CBA; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%;" onclick="var menu = document.getElementById('menu2'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu2)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}">Menu 2</button>
+<div id="menu2" style="display:none">
+  <a href="#">Option 1</a>
+  <a href="#">Option 2</a>
+  <a href="#">Option 3</a>
+</div>
+
+<button style="background-color: #f44336; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%;" onclick="var menu = document.getElementById('menu3'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu3)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}">Menu 3</button>
+<div id="menu3" style="display:none">
+  <a href="#">Option 1</a>
+  <a href="#">Option 2</a>
+  <a href="#">Option 3</a>
+</div>
+
+333
+
+
+----------------------------------------------------------------
+
+<table style="border-collapse: collapse; aligned: center; mso-hide:all" width="70%" height="0" border="0" cellpadding="0" cellspacing="0"><td><table style="background-image: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Hon%20na%20my%C5%A1/drevoa.jp'); text-align: center; width: 100%; height: px; padding: 10px 10px 0 10px"><tr>
+
+<!--INFO--><td style="padding-right: 7px"><div><input type="button" value="I N F O" title=" I N F O " style="display: inline-block; background-color: #007bff; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 276.5px;  list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var menu = document.getElementById('menu1'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu1)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}"></div><div id="menu1" style="display:none"><p style="background-color: rgba(0,0,0,.9); border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 1px 1px; padding: 0 15px 0 15px; width: 700px; min-height: 850px; height: 850px; position: absolute; z-index: 3;">
+
+666666699999
+
+
+</p></button></div></td>
+
+<!--NAVOD--><td style="padding-right: 7px"><div><input type="button" value="N Á V O D" title=" N Á V O D " style="display: inline-block; background-color: green; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 276.5px;  list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var menu = document.getElementById('menu2'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu2)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}"></div><div id="menu2" style="display:none"><p style="background-color: rgba(0,0,0,.9); border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 1px 1px; padding: 0 15px 0 15px; width: 700px; min-height: 850px; height: 850px; position: absolute; z-index: 3;">
+
+hzrtddrrd
+
+
+</p></button></div></td>
+
+<!--RESHADE--><td style="padding-right: 7px"><div><input type="button" value="R E S H A D E" title=" R E S H A D E " style="display: inline-block; background-color: fuchsia; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 276.5px;  list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var menu = document.getElementById('menu3'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu3)'); for (var i = 0; i < otherMenus.length; i++) {otherMenus[i].style.display = 'none';}; if (menu.style.display === 'none') {menu.style.display = 'block';} else {menu.style.display = 'none';}"></div><div id="menu3" style="display:none"><p style="background-color: rgba(0,0,0,.9); border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 1px 1px; padding: 0 15px 0 15px; width: 700px; min-height: 850px; height: 850px; position: absolute; z-index: 3;">
+
+6666
+
+
+</p></button></div></td>
+</table></div>
+
+
+
+
+-------------------------------------------------------------------
+complete????
+<table style="border-collapse: collapse; align: center; text-align: center; margin-top: 80px;" width="50%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <input type="button" value="I N F O" title="I N F O" style="display: inline-block; background-color: blue; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = 'red'; var menu1 = document.getElementById('menu1'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu1)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu1.style.display === 'none') { menu1.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu1.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="blue">
+    </td>
+    <td>
+      <input type="button" value="Tlačítko 2" style="display: inline-block; background-color: green; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = 'red'; var menu2 = document.getElementById('menu2'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu2)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu2.style.display === 'none') { menu2.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu2.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="green">
+    </td>
+    <td>
+     <input type="button" value="Tlačítko 3" style="display: inline-block; background-color: orange; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = 'red'; var menu3 = document.getElementById('menu3'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu3)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu3.style.display === 'none') { menu3.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu3.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="orange">
+    </td>
+</tr></table>
+<div style="font-size: 40px; text-align: center">
+<div id="menu1" style="display: none;">Patrik</div>
+<div id="menu2" style="display: none;">to</div>
+<div id="menu3" style="display: none;">čumíš :-D</div>
+
+</div>
+
+
+
+
+
+
+
+<body style="color: red;" onmouseover="var targetElements = document.querySelectorAll('.target-element'); targetElements.forEach(function(element) { element.style.color = this.style.color; }, this);">Klikni mě</body>
+
+<div class="target-element">První cílový element</div>
+<div class="target-element">Druhý cílový element</div>
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+<div><table style="border-collapse: collapse; align: center; text-align: center; margin-top: 80px;" width="50%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <input type="button" value="I N F O" title=" I N F O " style="display: inline-block; background-color: blue; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = '#1414a0'; var menu1 = document.getElementById('menu1'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu1)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu1.style.display === 'none') { menu1.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu1.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="blue" onmouseover="this.style.filter = 'brightness(90%) contrast(90%)'" onmouseout="this.style.filter = 'none';">
+    </td>
+    <td>
+      <input type="button" value="N Á V O D" title=" N Á V O D " style="display: inline-block; background-color: green; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = '#0D740D'; var menu2 = document.getElementById('menu2'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu2)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu2.style.display === 'none') { menu2.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu2.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="green" onmouseover="this.style.filter = 'brightness(90%) contrast(90%)';" onmouseout="this.style.filter = 'none';">
+    </td>
+    <td>
+<input type="button" value="R E S H A D E" title=" R E S H A D E " style="display: inline-block; background-color: orange; color: #fff; font-size: 15px; font-weight: bold; border-radius: 5px; outline: 1px solid black; padding: 10px 15px; cursor: pointer; width: 280px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; list-style-type: none;" onclick="var buttons = document.querySelectorAll('input[type=button]'); buttons.forEach(function(button) { button.style.backgroundColor = button.getAttribute('data-default-color'); }); this.style.backgroundColor = '#dc930d'; var menu3 = document.getElementById('menu3'); var otherMenus = document.querySelectorAll('div[id^=menu]:not(#menu3)'); otherMenus.forEach(function(menu) { menu.style.display = 'none'; }); if (menu3.style.display === 'none') { menu3.style.display = 'block'; this.setAttribute('data-active', 'true'); } else { menu3.style.display = 'none'; this.removeAttribute('data-active'); this.style.backgroundColor = this.getAttribute('data-default-color'); }" data-default-color="orange" onmouseover="this.style.filter = 'brightness(90%) contrast(90%)';" onmouseout="this.style.filter = 'none';"></div></td></tr></table>
+
+
+<div id="menu1" style="display: none;">Patrik</div>
+<div id="menu2" style="display: none;">to</div>
+<div id="menu3" style="display: none;">čumíš :-D</div>
+
+</div>
+
