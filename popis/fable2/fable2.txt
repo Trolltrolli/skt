@@ -212,7 +212,7 @@ Obsahuje i ikony a zálohovaný config emulátoru.
 <!--konec kodu-------------------------->
 </tr></table></div></div></div></center>
 <!--GLOBÁLNÍ NÁHLEDOVÝ OBRÁZEK-->
-<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:50%;transform:translateX(-50%);margin-top:850px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
+<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:50%;transform:translateX(-50%);margin-top:805px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
 
 
 <br style="line-height: 60px">
