@@ -1,0 +1,113 @@
+-------------------------------------------------------------------------------------------------
+    Nainstaluj a hrej! :-)
+------------------------------------------------------------------------------------------------
+   Nastavení hry:
+   Hra by měla být správně nastavená...
+   F11 = fullscreen/ window
+   ESC = exit
+   Fable 2 se nejlépe ovládá Xbox ovladačem, ale lze použít i obyč. kompatibilní drátový ovladač.
+   Vyzkoušel jsem ovladač pro XboxOne a drátový Genius MaxFire Blaze 3.
+   ---------------------------------------------------------------------------------------------
+   Fable 2 byl vydán jen na xbox a jede přes Xenia emulator, tudíž buďte shovívaví,
+   textury můžou někdy probliknout. Na vině může být, ale i problém v nastavení
+   grafické karty, např. zapnutý - MFAA.
+   Největší problém je, ale blikající video, které se po nějaké době samo spouští,
+   ještě dřívé, než se dostanete do MENU. Řešení = hned odkliknout a
+   přepnout se do MENU. Úvodní INTRO hry, již funguje bez problémů.
+   Patch odemyká 60 FPS. V patchi lze popř. i zakázat MMSA (níže popsáno).
+   ----------------------------------------------------------------------------------------------
+   V nastavení grafické karty vyberte:  PREFEROVAT MAXIMÁLNÍ VÝKON.
+-------------------------------------------------------------------------------------------------
+   Pod tlačítkem INFO (tady v popisu) je vypsána moje sestava, na které jsem testoval.
+   Dá se říct, že pro tuto hru to je téměř minimum. A to mám vše nataktované... 
+   Vesměs mi hra jela na 50-60 FPS jen s občasným trhnutím, ale CPU skoro na 100%
+   zatížení. Důležitý je solidní procesor, ten bývá u emulátoru většinou více zatěžovaný,
+   než grafická karta.
+-------------------------------------------------------------------------------------------------
+   Natavení pro "herní" počítač:
+   ------------------------------
+   Pokud vlastníte lepší počítač, můžete zkusit overscaling na rozlišení
+   2560x1440 nebo 3840x2150.
+   Ve složce hry najdete Settings lite.exe. Nastavte jen škálování na požadované
+   rozlišení a potvrďte Save The Config. 
+   Jestli se hra bude zasekávat, opět se vraťte k původnímu rozlišení 1280x720 a potvrďte.
+   Nic jiného raději v Settings lite neměňte.
+   Ve spuštěném emulátoru, po stisknutí F6 můžete přidat další graf. efekty, ale není to
+   nutností, protože instalace, již obsahuje Reshade-shaders a ta, už podobné efekty využívá
+   a možná s menším zatížením. Více v návodu pro Reshade.
+--------------------------------------------------------------------------------------------------
+   Natavení pro slabší počítač:
+   ------------------------------
+   Samozřejmostí je, že graf. karta musí být v herním nebo perfomance režimu -  max výkon
+   a musí být vypnuty funkce jako filtrování a vyhlazování textůr. 
+   Ve složce hry Fable 2 také najdete Fable 2_low_cpu.exe.
+   Můžete vyzkoušet hru spustit s nízkou prioritou procesoru, tohle by mohlo pomoct
+   s trháním obrazu. Možná budute muset na okno po spuštění kliknout myší (nebo F11).
+    
+   Dále je možné ručně vypnout v config. souboru patche vyhlazování - MSAA.
+   Ve složce: .\Fable 2\Data\patches\ otevřete v textovém editoru soubor:
+   4D5307F1 - Fable II (GOTY_Platinum Edition).patch.toml a u pložky Disable MSAA,
+   jen přepíšete z:   is_enabled = false   na   is_enabled = true.
+   Poslední možnost je hraní v okně - F11...
+---------------------------------------------------------------------------------------------------
+   Skoro všechna nastavení emulátoru se provádějí ručně v configu:
+   xenia-canary.config.toml, který je ve složce \Data\.
+   Např. default. změna jazyka [XConfig] user_country = 23 (čeština),
+   jen změníte číslo podle tabulky. Ale já už bych kromě nastavení tlačítek klávesnice
+   raději nic dalšího neměnil... 
+----------------------------------------------------------------------------------------------------
+   Nastavení klávesnice (bez podpory myši):
+   Názvy kláves se zapisují v config souboru (ručně) většinou v kódu. Ve složce \Data\
+   je utilitka KeyboardStateView_TOOL. Spusťte ji, klikejte na požadované klávesy,
+   kopírujte kódy a vložte do configu. Pozor! Výběr určitých kláves může zapříčinit pád hry.
+   Např. CTRL nebo +. Config si zálohujte, popř. obnovte z backup.rar.
+   Pokud config smažete, po spuštění emulátoru se automaticky vytvoří default, ale ten
+   nemusí fungovat správně. Jediné co by bylo použitelné je defaultní nastavení kláves
+   - pro představu zadávání.
+   Např. nastavení klávesy O (pravý trigger), pro běh u hry Viva Pinata Party Animals,
+   kterou budu taky nahazovat (pozor - spoiler!), vypadá takto:
+   keybind_right_trigger = "E O". 
+   Bez přidaného E se musí klávesa O při změně směru promačkávat, nelze držet v kuse.
+   Teoreticky při zadání O v kódu 0x4F by problém nastat nemusel...
+   -
+   --
+   --- 
+----------------------------------------------------------------------------------------------------------------------------
+  
+   GRAFICKÝ TUNING ***
+------------------------------------------------------------------------------------------------------------------------------
+   RESHADE - SHADERS
+   ------------------
+   Ve hře můžete editovat po stisku - HOME - klávesové zkratky i cesty (Paths) jdou nastavit
+   přímo ve hře (gameplay).
+   Jak načíst skryté efekty - Settings// Load only enabled effects -vyp,
+   nastavte nebo upravte, potom /Reload/ Home.
+   --
+   Pokud by někomu reshade nefungovalo (vše by mělo fungovat - umístění hry není rozhodující),
+   nebo by si chtěl nastavení upravit, nebo doinstalovat další shadery, pokračujte podle návodů níže. ;) 
+   
+   // Reshade uninstall - smažte dxgi.dll ze složky Data //
+   
+   https://reshade.me/ link - reshade shaders
+   www.youtube.com/watch?v=u64ljsMG9Vc - ReShade Tutorial
+   -----------------------------------------------------------------------------------------------------
+
+   POKUD RESHADE NEFUNGUJE:
+---------------------------------------   
+   VE SLOŽCE HRY VYBERETE:
+   -------------------------
+   1. Reshade_setup
+   2. Click here... - BROWSE - ".\Fable 2\Data\xenia_canary.exe"
+   3. klik na directx10/11
+   4. UPDATE
+   5. SKIP
+   6. EDIT Reshade set
+   7. Preset - vyberte ReshadePreset.ini
+   8. Effects   Paths - vyberte reshade-shaders/Shaders  (ve složce hry)
+   9. Texture   Paths - vyberte reshade-shaders/Textures (ve složce hry)
+   10.Skip Tutorial
+   11.OK a zavřít
+-------------------------------------------------------------------------------------------------------
+  
+   Příjemnou zábavu!
+-------------------------------------------------------------------------------------------------------
