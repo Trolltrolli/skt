@@ -91,7 +91,7 @@
             Režim:               singleplayer, multiplayer
             <font color="#78a777">Místo na disku:   23 MB</font>
 
-         &#10041;<font style="" size="3"> Super Mario World... je kultovní plošinovka z počátku devádesátek. 
+         ✹<font style="" size="3"> Super Mario World... je kultovní plošinovka z počátku devádesátek. 
              O omlazení se postaraly shadery Reshade (více v Návodu
              a Reshade v popisu torr.). 
              <font color="red" size="2">Při sekání klikni na tlač. HOME a vypni některé efekty.</font></font></div>
@@ -122,7 +122,7 @@
    SHIFT+F1 - F12  = save
    --
     <font size="3"><i>Kdyby vám zlobil zvuk, zkuste nastavit kratší, anebo delší buffer.
-    Mě nejlépe fungovalo 80ms (Xaudio2, popř. (Snesx). Pokud máte zvukovku
+    Mě nejlépe fungovalo 80ms (Xaudio2, popř. Snesx). Pokud máte zvukovku
     s podporou ASIO, tak ji určitě vyberte. Můžete pak zadat i nižší zpoždění
     a to bez rizika vzniku praskání a jiných pazvuků. //Alt+Enter/ Sound/ Settings//</i></font>
    <p style="margin-top: -40px; line-heght: 20.2px;">
@@ -197,7 +197,7 @@
 
 <!--title--><img src="https://trolltrolli.github.io/skt/popis/marioworld/title1.png" style="position: absolute; width: 158px; height: 56px; list-style-type:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-webkit-touch-callout:none;list-style-type:none;pointer-events:none; margin-top: -56px; margin-left: -76px; z-index: 2; filter: brightness(80%) blur(.5px);">
 
-<!--sipka--><p style="font-family: arial; font-size: 30px; position: fixed; color: red; position: absolute; margin-left: 400px; margin-top: 16px; list-style-type:none; user-select: none;-webkit-user-select:none; -moz-user-select:none;-webkit-touch-callout:none; list-style-type:none; pointer-events:none; z-index: 5; display: none;" id="sipka">&#8599</p>
+<!--sipka--><p style="font-family: arial; font-size: 30px; position: fixed; color: red; position: absolute; margin-left: 400px; margin-top: 16px; list-style-type:none; user-select: none;-webkit-user-select:none; -moz-user-select:none;-webkit-touch-callout:none; list-style-type:none; pointer-events:none; z-index: 5; display: none;" id="sipka">↗</p>
 
 <!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: 310px; z-index: 2;"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="position: relative; cursor: pointer; pointer-events: auto; background-color: silver; filter:contrast(120%); box-shadow: 0 0 0 10px grey; 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5; border-radius: 5px; pointer-events: auto;"></embed></div>
 
