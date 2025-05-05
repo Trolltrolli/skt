@@ -146,7 +146,7 @@
 
 <!-- MENU4 -->
 <div id="menu4" style="display: none;"
-<div style="margin-left: 140px;margin-top: 22px; width: 665px; height:480px; position: relative; z-index: 0;"><video style="width: 100%; height: 100%; object-fit: fill;" autoplay="autoplay" loop="loop"><source src="https://trolltrolli.github.io/skt/popis/marioworld/video.mp4" type="video/mp4"></video></div></div>
+<div style="margin-left: 140px;margin-top: 22px; width: 665px; height:480px; position: relative; z-index: 0;"><video style="width: 100%; height: 100%; object-fit: fill;" autoplay="none" loop="loop"><source src="https://trolltrolli.github.io/skt/popis/marioworld/video.mp4" type="video/mp4"></video></div></div>
 
 <!-- MENU5 -->
 <div id="menu5" style="display: none;">
