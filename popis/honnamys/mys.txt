@@ -6,6 +6,170 @@
 <!--BUTTON NAVOD-------><div class="main" id="dolu" style="scroll-behavior:smooth; height:27px; width:90px; background-color:#353432; background-image:url('https://trolltrolli.github.io/skt/honnamys/but.jpg');border-radius:5px; margin-top:-46.5px; margin-left:842px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#nahoru"><p style="color: #d47c00; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block" onmouseover="style='color: #a86200; font-size:20px; margin-top:-6.791px; font-weight: 450; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #d47c00; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'">SCREEN</p></a></div>
 <!--BUTTON SEZNAM------><div class="main2" id="prd" style="scroll-behavior:smooth; height:29px; width:280px; background-color:#353432; background-image:url('https://trolltrolli.github.io/skt/honnamys/but.jpg'); border-radius:5px; margin-top:-44.2px; margin-left:-679px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#seznam"><p style="color: #d47c00; font-size:20px; margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block;text-align:left" onmouseover="style='color: #a86200;font-size:20px;margin-top: -5.55px; font-weight: 450; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #d47c00;font-size:20px;margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black;text-decoration:none;display:inline-block;text-align:left'">SEZNAM MÝCH TORRENTŮ</p></a></div></font><font face="papyrus">
 <!-- AUDIO---------><embed width="100%" height="auto" frameborder="no" scrolling="no" autoplay="autoplay" loop="loop" src="https://trolltrolli.github.io/skt/popis/honnamys/player.html" style="margin-left: -10px; margin-top: -10px; borde: 1px Solid range; border-radius: 10px; -webkit-box-shadow: 0 0 20px 20px black!important; opacity: .8;position: relative; cursor: pointer; pointer-events: auto;"></embed>
+
+
+
+
+<!--BUTTONS------------------------------------------------------------------------------------------------------------------------------->
+<div style="margin-left:10px;margin-top:-300px;"><table style="border-collapse:collapse;aligned:center;" border="0" cellpadding="0" cellspacing="0"><td><table style="background-color:rgb(0,0,0,.3)!important;border:2px solid black;border-radius:30px;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-align:center;padding: 10px 10px 10px 10px;margin-top:13px; width: 70%;line-height: 0px;"><tr>
+<!-- CSFD BUTTON -->
+<td style="padding-right:7px"><div><input type="button" value="CSFD" title=" C S F D " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border: 2px outset grey; border-radius: 20px;display:inline-block;font-family:Garamond;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="CSFD"data-alt-text="CSFD"data-default-value="CSFD"data-alt-value="CSFD"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu1');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- CSFD WINDOW -->
+<div id="menu1"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:30px;margin-left:100px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:778px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px;">
+<embed width="720" height="772" frameborder="no" scrolling="no" src="https://www.csfd.cz/film/16555-hon-na-mys/prehled/" style="margin-left: -25px; margin-top: -25px; borde: 1px solid silver; bordr-radius: 10px; -webkit-box-shado:0 0 1px 2px black!important; z-index: 5"></embed>
+
+</p></div></td>
+<!---HREF NÁVOD---><div class="main" id="nahoru" style="scroll-behavior:smooth;height:0px;margin-top:0px;"><a href="#dolu"></a></div>
+<!-- OBSAH BUTTON -->
+<td style="padding-right:7px;"><div><input type="button" value="OBSAH" title=" O B S A H " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border: 2px outset grey;border-radius:20px;display:inline-block;font-family:Garamond;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="OBSAH"data-alt-text="OBSAH"data-default-value="OBSAH"data-alt-value="OBSAH"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu2');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- OBSAH WINDOW -->
+<div id="menu2"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:30px;margin-left:-210px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:820px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px;">
+<span style="display: inline-block; border: 1px solid silver; background-color: white; color: grey">                                         
+                                                            O B S A H                                                                                  </span>
+
+Probíhá pohřeb starého Smuntze. Jenže dochází k nehodě - a jeho mrtvola končí v kanále.
+Synové zesnulého přebírají dědictví, mimo továrny, domu nebo lžiček také keramické vejce.
+Jeden z bratrů, Ernie, obsluhuje v restauraci starostu, ale nevšimne si švába. Toho starosta sní a pak jej „klepne pepka“.
+Larse se v továrně na provázky snaží dva muži přesvědčit k jejímu prodeji. Nabízejí spoustu peněz, ale Lars si vzpomene na to, co slíbili otci, a neprodá. Což vytočí jeho ženu April, která ho vyhodí z domu. Nezbývá než jít do toho zděděného. Oba bratři tam naleznou jednu postel a spoustu nepořádku. A také listiny, které říkají, že dům patřil nějakému slavnému architektovi, to z něj činí unikát. A tak tedy bratři chtějí udělat aukci. Jenže je zde obyvatelka - myš. Ta je příčinou mnoha neštěstí, například jízdy ve vaně a jejímu pádu s oběma bratry do ledové vody. Bratři zjistí, že za dům musí zaplatit měsíční splátku, jinak propadne věřiteli. Pak se rozhodnou sehnat kočku, aby myš chytila. Koupí kočkodzillu, ale ani ta neuspěje. Lars chce ušetřit na výplatách dělníků, ale ti se bouří. Přitom najde Ernie návrh smlouvy o prodeji továrny těm dvěma. Dá si s nimi schůzku, ale jen autonehoda zabrání dalšímu jednání. Lars zatím maká v továrně sám, když jej tam navštíví April, která se dozvěděla o chystané kauci a „ucítila“ peníze. Mezitím myš zlikvidovala povolaného odborníka na hubení hlodavců a žije si v domě v poklidu. Když se sem oba bratři vrátí, zjistí, že je dům po boji myši a jejího hubitele značně zdemolován. Boj s myší pokračuje, když se ji náhodou povede omráčit. Myš je zabalena a poslána na Kubu Fidelovi. Dům je opraven, načančán a dražba může začít. Sejde se několik milionářů a už to běží. Jenže Lars najde venku prokousanou krabici z Kuby, která byla poštou vrácena…
+
+</p></div></td>
+
+<!-- RESHADE BUTTON -->
+<td><div><input type="button" value="RESHADE" title=" R E S H A D E " style="color:#ff7526;background-color:rgb(0,0,0,.0);border:2px solid black;box-shadow:.7px .8px 1px 1px black,1px 1px 2px 2px black;text-shadow:.8px .9px 1px black,1.2px 1.2px 5px rgba(0,0,0,.8);-webkit-text-stroke-width:.4px;-webkit-text-stroke-color:black;filter:contrast(120%);border: 2px outset grey;border-radius:20px;display:inline-block;font-family:Garamond;font-size:25px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;cursor:pointer"data-default-text="RESHADE"data-alt-text="RESHADE"data-default-value="RESHADE"data-alt-value="RESHADE-Einstellungen"onmouseover="this.style.backgroundColor='rgb(0,0,0,.2)';this.style.filter='brightness(90%) contrast(90%)';this.style.color='#ff6c4f';"onmouseout="this.style.backgroundColor='rgb(0,0,0,.0)';this.style.filter='contrast(120%)';this.style.color='#ff7526';"onclick="document.querySelectorAll('input[type=button]').forEach(b=>{b.innerText=b.getAttribute('data-default-text');b.value=b.getAttribute('data-default-value')});var m=document.getElementById('menu3');var v=m.style.display==='block';document.querySelectorAll('div[id^=menu]').forEach(a=>a.style.display='none');m.style.display=v?'none':'block';this.style.backgroundColor=v?'rgb(0,0,0,.0)':'rgb(0,0,0,.3)';if(!v){this.innerText=this.getAttribute('data-alt-text');this.value=this.getAttribute('data-alt-value')}"></div>
+
+<!-- RESHADE WINDOW -->
+<div id="menu3"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:30px;margin-left:-520px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:778px;position:absolute;z-index:6"><p style="color:silver;font-size:19px;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px"><span style="display:inline-block;border:none;color:grey; text-align: left; width: 700px;font-family:Garamond;">
+M̶̶҉̳͈̺͟͢͠͠ͅE҉̰̰͎̆͞D҉̣͍̓̎͗͜͜I҉̡̯̺̜̅́͋̃͢͜A҉҉̦̣̤͔̟̩̋̿̏ͦ̈́̍͟͠ i҉̧̯̤̙͔̑ͧ̅̔ͦ́͜͟͢͝͠n̸͐̈́͟͟͝f҉̴̥͎̰̰̒͌͛͐ͧ̕͜͝͡͞o҉̢̡̲͇̌͗̀͢͝
+</font>
+
+//BEZ TITULKŮ//
+Hlavní
+Unique ID                                : 194815441170317837749816323476802986534 (0x929016D45CC3D5F20005FFA2D65B6226)
+Celý název a cesta                       : .\Hon na myš (1997) 1080p cz,sk dab.mkv
+Formát                                   : Matroska
+Format version                           : Version 4
+Velikost souboru                         : 15,2 GiB
+Duration                                 : 1 h 37 min
+Overall bit rate mode                    : Variable
+Celkový BitRate                          : 22,3 Mb/s
+Encoded date                             : UTC 2021-02-04 21:36:46
+Použitý software                         : mkvmerge v52.0.0 ('Secret For The Mad') 64-bit
+Enkódoval                                : libebml v1.4.1 + libmatroska v1.6.2
+-----------
+Video
+ID                                       : 1
+Formát                                   : AVC
+Formát/Info                              : Advanced Video Codec
+Format profile                           : High@L4.1
+Format settings                          : CABAC / 4 Ref Frames
+Format settings, CABAC                   : Ano
+Format settings, Reference frames        : 4 frames
+Codec ID                                 : V_MPEG4/ISO/AVC
+Duration                                 : 1 h 37 min
+Bit rate                                 : 19,0 Mb/s
+Šířka                                    : 1 920pixely
+Výška                                    : 1 038pixely
+Poměr stran                              : 1,85:1
+Frame rate mode                          : Constant
+Frame rate                               : 23,976 (24000/1001) FPS
+Color space                              : YUV
+Chroma subsampling                       : 4:2:0
+Bit depth                                : 8 bits
+Scan type                                : Progressive
+Bits/(Pixel*Frame)                       : 0.398
+Stream size                              : 13,0 GiB (85%)
+Enkódoval                                : x264 core 161 r3043 59c0609
+Nastavení enkoderu                       : cabac=1 / ref=4 / deblock=1:-3:-3 / analyse=0x3:0x133 / me=umh / subme=9 / psy=1 / psy_rd=1.10:0.00 / mixed_ref=1 / me_range=32 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=0 / chroma_qp_offset=-2 / threads=32 / lookahead_threads=2 / sliced_threads=0 / nr=0 / decimate=0 / interlaced=0 / bluray_compat=0 / constrained_intra=0 / bframes=3 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=0 / weightp=2 / keyint=250 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc_lookahead=60 / rc=crf / mbtree=1 / crf=17.0 / qcomp=0.60 / qpmin=0 / qpmax=69 / qpstep=4 / ip_ratio=1.40 / aq=3:0.70
+Jazyk                                    : English
+Default                                  : Ano
+Forced                                   : Ne
+Color range                              : Limited
+Matrix coefficients                      : BT.709
+-----------------
+Audio #1
+ID                                       : 2
+Formát                                   : AC-3
+Formát/Info                              : Audio Coding 3
+Commercial name                          : Dolby Digital
+Codec ID                                 : A_AC3
+Duration                                 : 1 h 37 min
+Bit rate mode                            : Constant
+Bit rate                                 : 448 kb/s
+Kanál(y)                                 : 6 kanály
+Channel layout                           : L R C LFE Ls Rs
+Sampling rate                            : 48,0 kHz
+Frame rate                               : 31,250 FPS (1536 SPF)
+Compression mode                         : Lossy
+Stream size                              : 313 MiB (2%)
+Jazyk                                    : Czech
+Service kind                             : Complete Main
+Default                                  : Ano
+Forced                                   : Ne
+
+Audio #2
+ID                                       : 3
+Formát                                   : AC-3
+Formát/Info                              : Audio Coding 3
+Commercial name                          : Dolby Digital
+Codec ID                                 : A_AC3
+Duration                                 : 1 h 37 min
+Bit rate mode                            : Constant
+Bit rate                                 : 192 kb/s
+Kanál(y)                                 : 2 kanály
+Channel layout                           : L R
+Sampling rate                            : 48,0 kHz
+Frame rate                               : 31,250 FPS (1536 SPF)
+Compression mode                         : Lossy
+Stream size                              : 134 MiB (1%)
+Jazyk                                    : Slovak
+Service kind                             : Complete Main
+Default                                  : Ne
+Forced                                   : Ne
+
+Audio #3
+ID                                       : 4
+Formát                                   : DTS XLL
+Formát/Info                              : Digital Theater Systems
+Commercial name                          : DTS-HD Master Audio
+Codec ID                                 : A_DTS
+Duration                                 : 1 h 37 min
+Bit rate mode                            : Variable
+Bit rate                                 : 2 661 kb/s
+Kanál(y)                                 : 6 kanály
+Channel layout                           : C L R Ls Rs LFE
+Sampling rate                            : 48,0 kHz
+Frame rate                               : 93,750 FPS (512 SPF)
+Bit depth                                : 24 bits
+Compression mode                         : Lossless
+Stream size                              : 1,82 GiB (12%)
+Jazyk                                    : English
+Default                                  : Ne
+Forced                                   : Ne</div></details>
+</p></div></td>
+</tr></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--buttons-------------------->
 <div style="margin-left: -12px; margin-top: -50px">
 <table style="border-collapse: collapse; aligned: center; mso-hide:all" width="70%" height="0" border="0" cellpadding="0" cellspacing="0"><td><table style="background-image: url('https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg'); border: 1px solid grey; border-radius: 5px; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black; text-align: center; width: 100%; height: px; padding: 10px 10px 0 10px"><tr>
@@ -15,13 +179,34 @@
 
 </p></button></div></td>
 <!--OBSAH--><td style="padding-right: 7px"><div><input type="button" value="OBSAH" title=" O B S A H " style="background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8), 0 0 7px rgba(0,0,0,.5); -webkit-text-stroke-width: .4px; -webkit-text-stroke-color: black; filter: contrast(120%); border: 2px outset grey; border-radius: 5px; color: #ff7526; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer" onmouseover="style='background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8); -webkit-text-stroke-width: .6px; -webkit-text-stroke-color:black; filter: contrast(120%) brightness(70%); border: 2px outset grey; border-radius: 5px; color:#ff6c4f; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer'" onmouseout="style='background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8); -webkit-text-stroke-width: .4px; -webkit-text-stroke-color:black; filter: contrast(120%); border: 2px outset grey; border-radius: 5px; color: #ff7526; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer'" onClick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';            this.innerText = 'OBSAH'; this.value = 'OBSAH'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = 'OBSAH'; this.value = 'OBSAH'; }"></div>
-<div class="alt2"><div style="display: none;"><p style="color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 4px, black .1px .12px .8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 8px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 3; margin-top: 25px; margin-left: -245px" onmouseover="style='color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: #d61d00 0 0 3px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 4; margin-top: 25px; margin-left: -245px'" onmouseout="style='color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 8px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 3; margin-top: 25px; margin-left: -245px'"><span style="display: inline-block; border: 1px solid silver; background-color: white; color: grey">                                         
-                                                            O B S A H                                                                                  </span>
+<div class="alt2"><div style="display: none;"><p style="color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 4px, black .1px .12px .8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 8px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 3; margin-top: 25px; margin-left: -245px" onmouseover="style='color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: #d61d00 0 0 3px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 4; margin-top: 25px; margin-left: -245px'" onmouseout="style='color: silver; font-size: 20px; font-family: Garamond 50px; letter-spacing: 0.15px; font-weight:.9px; line-height: 27px; text-shadow: black 0 0 .2px, black 0 0 1px, black .2px .3px 1.2px, black 1.5px 2px 3.2px, black 2px 2.2px 7px, black 0 0 8px, grey 2px 3px 4px, black 0 0 8px; background-color: rgba(0,0,0,.9); text-align: left; border-radius: 5px; border: 1px solid silver; box-shadow: black 0 0 8px 3px; padding: 20px 40px 10px 45px; width: 700px; height: 820px; position: absolute; z-index: 3; margin-top: 25px; margin-left: -245px'"><span style="display: inline-block; border: 1px solid silver; background-color: white; color: grey">
+                               
+<span style="display: inline-block; border: 1px solid silver; color: grey;background-color:white;">
+                                                             INFO                                                                                  
+</span>
 
-Probíhá pohřeb starého Smuntze. Jenže dochází k nehodě - a jeho mrtvola končí v kanále.
-Synové zesnulého přebírají dědictví, mimo továrny, domu nebo lžiček také keramické vejce.
-Jeden z bratrů, Ernie, obsluhuje v restauraci starostu, ale nevšimne si švába. Toho starosta sní a pak jej „klepne pepka“.
-Larse se v továrně na provázky snaží dva muži přesvědčit k jejímu prodeji. Nabízejí spoustu peněz, ale Lars si vzpomene na to, co slíbili otci, a neprodá. Což vytočí jeho ženu April, která ho vyhodí z domu. Nezbývá než jít do toho zděděného. Oba bratři tam naleznou jednu postel a spoustu nepořádku. A také listiny, které říkají, že dům patřil nějakému slavnému architektovi, to z něj činí unikát. A tak tedy bratři chtějí udělat aukci. Jenže je zde obyvatelka - myš. Ta je příčinou mnoha neštěstí, například jízdy ve vaně a jejímu pádu s oběma bratry do ledové vody. Bratři zjistí, že za dům musí zaplatit měsíční splátku, jinak propadne věřiteli. Pak se rozhodnou sehnat kočku, aby myš chytila. Koupí kočkodzillu, ale ani ta neuspěje. Lars chce ušetřit na výplatách dělníků, ale ti se bouří. Přitom najde Ernie návrh smlouvy o prodeji továrny těm dvěma. Dá si s nimi schůzku, ale jen autonehoda zabrání dalšímu jednání. Lars zatím maká v továrně sám, když jej tam navštíví April, která se dozvěděla o chystané kauci a „ucítila“ peníze. Mezitím myš zlikvidovala povolaného odborníka na hubení hlodavců a žije si v domě v poklidu. Když se sem oba bratři vrátí, zjistí, že je dům po boji myši a jejího hubitele značně zdemolován. Boj s myší pokračuje, když se ji náhodou povede omráčit. Myš je zabalena a poslána na Kubu Fidelovi. Dům je opraven, načančán a dražba může začít. Sejde se několik milionářů a už to běží. Jenže Lars najde venku prokousanou krabici z Kuby, která byla poštou vrácena…
+  <a href="https://cs.wikipedia.org/wiki/Moorhuhn" title=" L I N K " target="_blank" style="color: red; background-color: grey;"> Moorhuhn </a>  je německá videoherní série. Skládá se z více než 30 her, 
+  z nichž první hra, v žánru střílečka, byla nejoblíbenější německou počítačovou 
+  hrou na počátku 21. století. První tituly v sérii byly vydány jako freeware.
+  <font size="3"><i>Wikipedie</i>
+
+  <font color="limegreen">Vydavatelé:</font>            Phenomedia publishing gmbh, Ravensburger Interactive Media GmbH,
+                                 MumboJumbo
+  <font color="limegreen">Vývojáři:</font>                Phenomedia publishing gmbh, Witan Entertainment BV,
+                                 Visual Imagination Software
+  <font color="limegreen">Rok vydání:</font>            1999 - 2008   <font color="red">/v packu 21 her/</font>
+  <font color="limegreen">Jazyk:</font>                     němčina (jen 3 hry - eng + multi)
+  <font color="limegreen">Místo na disku:</font>      4.6GB</font>
+  <font color="silver">-----------------------------------------------------------------------------------------------------</font>
+
+  Hry jsem upravil, aby byly hratelné na Windows 10 a přidal jsem <font color="fuchsia">Reshade</font> 
+  k vylepšení vzhledu.
+  <font color="orange">NAINSTALUJ a HREJ!</font> :)
+  Pro všechny jednotlivé hry se na ploše vytvoří zástupce.
+  Při sekání hry, povolte v nastavení grafické karty - preferovat maximální výkon.
+  V nastavení grafické karty zvolte: <b>Změna měřítka - Celá obrazovka</b>.
+  <font size="2.5" color="red">Odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</font>
+
 
 </p></button></div></td>
 <!--MEDIA--><td><div><input type="button" value="MEDIAinfo" title=" M E D I A i n f o " style="background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8), 0 0 7px rgba(0,0,0,.5); -webkit-text-stroke-width: .4px; -webkit-text-stroke-color: black; filter: contrast(120%); border: 2px outset grey; border-radius: 5px; color: #ff7526; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer" onmouseover="style='background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8); -webkit-text-stroke-width: .6px; -webkit-text-stroke-color:black; filter: contrast(120%) brightness(70%); border: 2px outset grey; border-radius: 5px; color: #ff6c4f; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer'" onmouseout="style='background-color: #b1ac8c; background-image: url(https://trolltrolli.github.io/skt/popis/honnamys/drevoa.jpg); border: 1px solid grey; box-shadow: .7px .8px 1px 1px black, 1px 1px 2px 2px black, 1px 1px 3px 2px black; text-shadow: .8px .9px 1px black, 1px 2px 3px black, 1.2px 1.2px 5px rgba(0,0,0,.8); -webkit-text-stroke-width: .4px; -webkit-text-stroke-color:black; filter: contrast(120%); border: 2px outset grey; border-radius: 5px; color: #ff7526; display:inline-block; font-family: verdena; font-size: 25px; font-weight:bold; line-height:40px; text-align:center; text-decoration:none; width: 300px; -webkit-text-size-adjust:none; cursor: pointer'" onClick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';            this.innerText = 'MEDIAinfo'; this.value = 'MEDIAinfo'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = 'MEDIAinfo'; this.value = 'MEDIAinfo'; }"></div>
