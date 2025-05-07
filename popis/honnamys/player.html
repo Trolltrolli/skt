@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    .player {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+    }
+  </style>
+</head>
+<body>
+
+<div id="playerContainer"></div>
+
+<script>
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=346&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
+  const TIMEOUT = 3000;
+
+  const container = document.getElementById('playerContainer');
+  let mp3Ok = false;
+
+  function loadIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    container.innerHTML = "";
+    container.appendChild(iframe);
+  }
+
+  // Spustíme přehrávač
+  loadIframe(PRIMARY_URL);
+
+  // Posloucháme zprávy z embed playeru
+  window.addEventListener("message", (event) => {
+    if (event.data?.mp3_status === "ok") {
+      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      mp3Ok = true;
+    }
+  });
+
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      loadIframe(BACKUP_URL);
+    }
+  }, TIMEOUT);
+</script>
+
+</body>
+</html>
