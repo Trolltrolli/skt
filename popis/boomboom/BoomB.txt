@@ -1,0 +1,117 @@
+<!-- BoomBoom--><body style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/BoomBoom/back.jpg) repeat fixed; width: 100%; height:100%; height:auto; background-repeat: no-repeat; background-position:center; background-size:cover; opacity:.96; text-shadow: black .11px .14px .2px; -webkit-box-shadow: rgb(0,0,0,.6) 0px 0px 150px 20px; cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Moorhuhn/crossek.pn'), default; overflow-x: hidden; position: absolute!important; z-index :-2"></body>
+<!-- DIV BACK 1------><div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/BoomBoom/back.jpg) repeat fixed; width: 100%; height: 100%; overflow: fixed; background-repeat: no-repeat; background-size: cover; background-position:center; opacity: .999; cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Moorhuhn/crossek.pn'),default; margin-left: -11px; width: 940px">
+<!-- DIV BACK 2------><div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/BoomBoom/back.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size:cover; background-position: center; opacity: .999; cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Moorhuhn/crossek.pn'),default; margin-left: 11px!important; margin-top:-13px; font-family: Palatino Linotype; width:940px">
+<font face="Showcard Gothic">
+<!--HORNI LISTA----------><div style="border:1.3px solid silver;margin-top:-28px;margin-left:-11.7px;width:945px;box-shadow:0px 0px 1px 2px grey,1px 1px 3px 2px black!important"></div>
+<!--BUTTON NAVOD-------><div class="main" id="dolu" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:27px; width:90px; background-color: #B32D77; border-radius:5px; margin-top:-46.5px; margin-left:842px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#nahoru"><p style="color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration: none; display: inline-block" onmouseover="style='color: #333333; font-size:20px; margin-top:-6.791px; font-weight: 450; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'">NÁVOD</p></a></div>
+<!--BUTTON SEZNAM------><div class="main2" id="prd" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:29px; width:280px; background-color: #B32D77; border-radius:5px; margin-top:-44.2px; margin-left:-679px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#seznam"><p style="color: #F1EBEF; font-size:20px; margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block;text-align:left" onmouseover="style='color: #333333; font-size:20px; margin-top: -5.55px; font-weight: 450; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #F1EBEF;font-size:20px; margin-top:-6px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black;text-decoration:none;display:inline-block;text-align:left'">SEZNAM MÝCH TORRENTŮ</p></a></div></font>
+<!-- AUDIO---------><audio autoplay="autoplay" loop="loop" style="display: none;"><source src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/BoomBoom/1.mp3"></audio>
+<p style=" margin-top: 10px; color: blue; font-family: optima; font-size: 30px; font-weight: 450; -webkit-text-stroke-width: .6px; -webkit-text-stroke-color: black; text-shadow: 0 0 1px silver, 0 0 1px red, 0 0 5px black, 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; 0 0 20px black, 5px 5px 5px black">NA PŘÁNÍ</p>
+<p style=" margin-top: -50px; color: fuchsia; font-family: optima; font-size: 80px; font-weight: 450; -webkit-text-stroke-width: 1.5px; -webkit-text-stroke-color: white; text-shadow: 0 0 2px black, .5px .5px 6px black, .8px .8px 8px black, 0 0 1px red, 0 0 5px black, 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa; 0 0 20px black, 5px 5px 5px black"><font size="6">&#127878;</font>Boom Boom Rocket<font size="6">&#127878;</font></p>
+
+<br style="line-height: 120px">
+
+<!--Buttons--><div align="left" style="margin-top: -150px; margin-left: 380px">
+<details><summary style="cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; margin-top: -20px; width: 150px" title=" I N F O " onclick="document.getElementById('1').play()"><audio id="1"><source src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/HL2/button.mp"></audio>
+<p style=" color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; width: 150px" onmouseover="style='color: grey; font-size: 21px; text-align: center; background-color: #B32D77; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filte: contrast(130%); width: 150.1px'" onmouseout="style='color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filter: contrast(100%); width: 150.1px'">I N F O</p></summary>
+<p style="color: white; font-size: 19px; background-color: rgba(0,0,0,.8); margin-top: -10px; margin-left: -350px; line-height: 25px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 820px; height: auto; border: 1px solid silver"><font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+<a href="https://www.youtube.com/watch?v=_gX2QVPMe1U" target="_blank" title=" L I N K " style="color: red; font-style: italic; text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='color: red; font-style: italic; text-decoration: underline; text-decoration-color: red'" onmouseout="style='color: red; font-style: italic; text-decoration: underline; text-decoration-color: limegreen'"> Boom <font color="fuchsia"> Boom</font> <font color="#50faf4">Rocket </font><font color="white">- odkaz na Youtube</font></a>
+ 
+Vývojář:	        Bizarre Creations
+Vydavatel:	      Electronic Arts
+Datum vydáni:  15. dubna 2007
+Jazyk menu:     angličtina
+Žánr:           hudební
+Platforma:       Xbox360 (Xenia emulator)
+<font color="limegreen">Místo na disku:  113MB</font>
+<font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+<font size="3.5">  odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</font>
+</p></details>
+
+<!---HREF NÁVOD---><div class="main" id="nahoru" style="scroll-behavior:smooth;height:0px;margin-top:-20px"><a href="#dolu"></a></div>
+<details><summary style="cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; margin-top: -20px; width: 150px" title=" N Á V O D " onclick="document.getElementById('1').play()"><audio id="1"></audio>
+<p style=" color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; width: 150px" onmouseover="style='color: grey; font-size: 21px; text-align: center; background-color: #B32D77; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filte: contrast(130%); width: 150.1px'" onmouseout="style='color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filter: contrast(100%); width: 150.1px'">N Á V O D</p></summary>
+<p style="color: white; font-size: 20px; background-color: rgba(0,0,0,.8); margin-top: -10px; margin-left: -350px; line-height: 25px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 820px; height: auto; border: 1px solid silver"><font color="silver">-----------------------------------------------------------------------------------------------------------------------</font>
+Nainstaluj a hrej! <img border=0 src=http://sktorrent.eu/torrent/images/smilies/smile1.gif>
+
+<font color="limegreen" size="4">Spouštěcí soubor .exe může být v antiviru <font color="red">detekován jako hrozba.</font>
+Udělte vyjímku, nebo antivir vypněte.
+Boom Boom Rocket.exe jsem sám vytvořil z .bat souboru.
+Pokud by vám antivir .exe smazal, ve složce hry - <b>DATA</b> najdete <font color="color">backup bat_exe.rar,</font>
+kde je .exe (popř. bat) zálohován. 
+</font>
+-----------------------------------------------------------------------------------------------------------------------
+<font color="orange">Nastavení hry:</font> 
+Hra by měla být správně nastavená...
+V <font color="limegreen">Setting Lite.exe</font> je pár položek k nastavení, např. škálování, Vsync, render. 
+Zbytek se nastavuje ručně v souboru - <i>xenia-canary.config.toml</i> ve složce <b>DATA</b>.
+</font>
+<font color="orange">Hra se ovládá xbox <b>gamepadem</b>, popř. na <b>klávesnici</b>:</font>
+<font color="limegreen">---------------------------------------
+START - spacebar (mezerník)
+Menu UP  - W
+Menu Down - S
+XYAB - arrows (šipky)
+LT - N
+RT - M
+---------------------------------------</font>
+
+Příjemnou zábavu! &#127918; <img border=0 src=http://sktorrent.eu/torrent/images/smilies/smile1.gif> &#127918;
+<font color="silver">-----------------------------------------------------------------------------------------------------------------------</font></p></details>
+<!----------------------------------------------------------------------------------------------------------------------------------->
+<div><details><summary style="cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; margin-top: -25.5px; width: 150px" title=" R E S H A D E " onclick="document.getElementById('1').play()"><audio id="1"></audio>
+<p style=" color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; width: 150px" onmouseover="style='color: grey; font-size: 21px; text-align: center; background-color: #B32D77; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filte: contrast(130%); width: 150.1px'" onmouseout="style='color: silver; font-size: 21px; text-align: center; background-color: #2e8ea6; border: 2px outset silver; border-radius: 10px; padding: 6px 11px 6px 11px; text-shadow: 0 0 .2px black, .4px .5px .6px black, .8px .9px 3px black, .2px .3px 6px black, .8px .9px .5px black, 1px 1.5px 2px black, .3px .4px 2px black, .4px .8px 6px black, .5px .6px 2px black, 1px 2px 3px black, 1.5px 2.3px 4px black; box-shadow: .5px .6px .6px 1px black, 0 0 2px 2px black; filter: contrast(100%); width: 150.1px'">R E S H A D E</p></summary>
+<div style="color: white; font-size: 19px; background-color: rgba(0,0,0,.8); margin-top: -10px; margin-left: -350px; line-height: 25px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 820px; height: auto; ; border: 1px solid silver">
+<font size=6><b>*** GRAFICKÝ TUNING ***</b></font>
+<font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+  <B><i>RESHADE - SHADERS</i></B>
+
+  Ve hře můžete editovat po stisku - <font color=limegreen>HOME</font> - klávesové zkratky i cesty (<font color=red>Paths</font>) jdou nastavit přímo 
+  ve hře (gameplay).
+  <i><font color="#01579b">Jak načíst skryté efekty</font> - Settings// <font color=limegreen>Load only enabled effects</font> -vyp</i>,
+  nastavte nebo upravte, potom /<font color=limegreen>Reload</font>/ <font color=limegreen>Home</font>.
+
+  Pokud by někomu reshade nefungovalo (<font color="fuchsia">vše by mělo fungovat</font>, umístění hry není rozhodující),
+  nebo by si chtěl nastavení upravit, nebo doinstalovat další shadery, pokračujte podle návodů 
+  níže.&#8681; <img border=0 src=http://sktorrent.eu/torrent/images/smilies/wink.gif> 
+  <font size="2">TIP: pokud nebude obraz správně "roztažený" na celou plochu obrazovky a nepomůže ani v 
+  nastavení graf. karty - <i>Změna měřítka</i> - <b>Celá obrazovka</b>,
+  můžete vyzkoušet plugin <font color="orange">Aspect Ratio</font></font>
+
+  * Reshade uninstall - smažte dxgi.dll ve složce hry *
+
+  <a href="https://reshade.me/" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">link - reshade shaders</span></a>
+  <a href="https://www.youtube.com/watch?v=u64ljsMG9Vc" target="_blank" title=" L I N K " style="text-decoration: underline; text-decoration-color: limegreen" onmouseover="style='text-decoration: underline; text-decoration-color: red'" onmouseout="style='text-decoration: underline; text-decoration-color: limegreen'"><span style="color: red">ReShade Tutorial</span></a>
+<font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+
+<div align="left">
+<details><summary style="cursor: pointer; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: ; border: 2px solid black; width: 380px; background-color: limegreen; margin-top: -40px; text-align: left; position: relative; z-index: 3" onclick="document.getElementById('1').play()"><span style="color: orange; font-size: 17px; text-shadow: 1px 1px 1.2px black"> POKUD RESHADE NEFUNGUJE - KLIK ZDE </font><audio id="1"></audio></summary>
+  <font color="orange" font size="4">VE SLOŽCE HRY VYBERETE:
+
+  (každá hra se nastavuje samostatně)
+  1. Reshade_setup
+  2. Click here... - BROWSE - <font size="4" color="limegreen"> ".\Boom Boom Rocket.exe"</font>
+  3. klik na directx10
+  4. UPDATE
+  5. SKIP
+  6. EDIT Reshade set
+  7. Preset - vyberte <font color="limegreen">ReshadePreset.ini</font>
+  8. Effects <font color="red" size="3"> Paths</font> - vyberte reshade-shaders/Shaders <font size=2 color=orange>(ve složce hry)</font>
+  9. Texture <font color="red" size="3">Paths</font> - vyberte reshade-shaders/Textures <font size=2 color=orange>(ve složce hry)</font>
+  10.Skip Tutorial
+  11.OK a zavřít</font>
+<font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
+
+</details></div></details>
+</div></div>
+
+<br style="line-height: 100px">
+<!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;height:0px;margin-top: -50px"><a href="#seznam"></a></div>
+<!--SEZNAM TORR--><div style="margin-left: -2px"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; box-shadow: gold 0 0 1.5px 1.5px, black 0px 2px 2px 2px, grey 0px 0px 20px 2px, #000 0px 0px 20px 4px, black 0px 0px 5px 7px, orange 0 0 12px 20px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 20px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 27px!important"></embed></div>
+<!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://e-posta.eu/torrent/obrazky/files/kari1989/Obrazky/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
+<!--BAV+SEED--><br style="line-height:50px;cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:50px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/icq/bav.html" style="width: 100%; position:absolute;z-index: -8; margin-top: px;pointer-events: none;cursor:none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;"  frameborder="no" scrolling="no"></embed></div>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -180px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/icq/seed.html" style="height: 669px; width: 100%; position: absolute; z-index: -8;px;pointer-events: none;cursor:none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;" frameborder="no" scrolling="no"></embed></div>
+
+
+<p style="text-size=10px;color:red;margin-top:280px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px;"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px;"></div><div style="text-align:center;z-index:3;position-relative!important;"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center;"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
