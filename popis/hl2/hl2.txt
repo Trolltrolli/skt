@@ -131,9 +131,13 @@ Příjemnou zábavu! :-)
 <!--konec kodu-------------------------->
 </tr></table></div></div></div></center>
 <!--GLOBÁLNÍ NÁHLEDOVÝ OBRÁZEK-->
-<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:51%;transform:translateX(-50%);margin-top:1141px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
+<a id="preview-link" href="" target="_blank" style="position:absolute;z-index:8;top:30px;left:51%;transform:translateX(-50%);margin-top:995px;visibility:hidden;"><img id="preview" src="" title="S C R E E N" style="width:400px;height:auto;border:1px solid silver;box-shadow:1px 1px 5px black;" onmouseover="(()=>{clearTimeout(this.hideTimeout);clearTimeout(this.showTimeout)})()" onmouseout="(()=>{this.hideTimeout=setTimeout(()=>{this.parentNode.style.visibility='hidden'},500)})()"></a>
 
-<br style="line-height: 40px;">
+
+<!--1141-->
+
+
+
 <div style="position:absolute; margin-top:-50px; margin-left:145px;"><a href="https://userstyles.world/style/13724" target="_blank" style="font-family:impact; font-size:18px; color:#e04136; letter-spacing:1px; text-shadow:0 0 1px black, 1px 2px 3px black; text-decoration:underline;" onmouseover="this.style.color='#b82f1a';" onmouseout="this.style.color='#e04136';">ZDE - odkaz na theme pro SKtorrent ve stylu HL2 - návod na stránce, popř. pište</a></div>
 
 <!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;height:0px;margin-top: -50px;"><a href="#seznam"></a></div>
@@ -141,7 +145,10 @@ Příjemnou zábavu! :-)
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important;"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix//nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
 
-<!--BAV+SEED--><br style="line-height:30px;cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
+
+
+
+<!--BAV+SEED--><div style="line-height:30px;cursor:pointer; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;"></div>
 <div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top:50px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/bav.html" style="width: 100%; position:absolute;z-index: -8; margin-top: px;pointer-events: none;cursor:none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;"  frameborder="no" scrolling="no"></embed></div>
 <div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -180px; margin-left: px;"><embed src="https://trolltrolli.github.io/skt/popis/hl2/seed.html" style="height: 669px; width: 100%; position: absolute; z-index: -8;px;pointer-events: none;cursor:none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;" frameborder="no" scrolling="no"></embed></div>
 
