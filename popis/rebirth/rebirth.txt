@@ -31,15 +31,15 @@
 <div style="position: relative;line-height:0px;">
 
 <!--Logo-->
-<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth00.png" style="position:relative;margin-top: 50px;margin-left: -20px;background-color:rgba(0,0,0,.2);padding:20px;"></a>
+<img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth00.png" style="position:relative;margin-top: 50px;margin-left: -20px;background-color:rgba(0,0,0,.2);padding:20px;border-radius:5px;">
 
 
-<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth01.png" style="position:relative;margin-top: 50px;margin-left: -20px;"></a>
+<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth01.png" style="position:relative;margin-top: 50px;margin-left: -20px;"><span style="font-family:impact; font-size: 22px;color: red;transform: rotate(-22deg);position:absolute;margin-top:360px;margin-left: -32px;">LINK</span></a>
 
 
 
 <!--Nabidka---popis----->
-<div style="position: relative;  list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; margin-top: 50px; margin-left: px; background: rgba(0,0,0,0.2); padding: 10px 0px 10px 25px; width:940px;height: 150px; overflow: hidden; backdrop-filter: blur(5px);">
+<div style="position: relative;  list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; margin-top: 50px; margin-left: px; background: rgba(0,0,0,0.2); padding: 10px 0px 10px 25px; width:915px;height: 150px; overflow: hidden; backdrop-filter: blur(5px);border-radius:5px;">
  <p id="text" style="color: rgb(255,255,255) !important; font-size: 18px; text-align: left; -webkit-text-stroke: .37px black; text-shadow: 0 0 1px black, .2px .3px 1.2px black; position: relative; height: 100%; margin-top: -52px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none;line-height:20px; ">
 
 
