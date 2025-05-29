@@ -34,24 +34,25 @@
 <img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth00.png" style="position:relative;margin-top: 50px;margin-left: -20px;background-color:rgba(0,0,0,.2);padding:20px;border-radius:5px;">
 
 
-<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth01.png" style="position:relative;margin-top: 50px;margin-left: -20px;"><span style="font-family:impact; font-size: 22px;color: red;transform: rotate(-22deg);position:absolute;margin-top:360px;margin-left: -32px;">LINK</span></a>
+<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth01.png" style="position:relative;margin-top: 50px;margin-left: -20px;" onmouseover="this.style.Transform=''" onmouseout=""><span style="font-family:impact; font-size: 22px;color: red;transform: rotate(-22deg);position:absolute;margin-top:360px;margin-left: -32px;">LINK</span></a>
 
 
 
 <!--Nabidka---popis----->
-<div style="position: relative;  list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; margin-top: 50px; margin-left: px; background: rgba(0,0,0,0.2); padding: 10px 0px 10px 25px; width:915px;height: 150px; overflow: hidden; backdrop-filter: blur(5px);border-radius:5px;">
+<div style="position: relative;  list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; margin-top: 50px; margin-left: px; background: rgba(0,0,0,0.2); padding: 10px 0px 10px 25px; width:915px;height: 152px; overflow: hidden; backdrop-filter: blur(5px);border-radius:5px;">
  <p id="text" style="color: rgb(255,255,255) !important; font-size: 18px; text-align: left; -webkit-text-stroke: .37px black; text-shadow: 0 0 1px black, .2px .3px 1.2px black; position: relative; height: 100%; margin-top: -52px; list-style-type: none; user-select: none; -webkit-user-select: none; -moz-user-select: none; -webkit-touch-callout: none;line-height:20px; ">
 
 
 <b>ReBirth emuluje dva syntezátory - Roland TB-303, Roland TR-808 a také bicí automat Roland TR-909. Všechny emulace lze používat současně. Každé z emulovaných zařízení má svůj vlastní selektor patternů, což je funkce, kterou původní zařízení postrádají. To umožňuje rychlé přepínání mezi různými hudebními sekvencemi a přeprogramování TB-303 pro hraní různých not. ReBirth také obsahuje mixéry, filtr řízený patterny (PCF) a některé standardní efekty v softwarových syntezátorech, jako je delay, kompresor a distortion. Program také podporuje uživatelské úpravy, které mohou nahradit samply v emulacích bicích automatů a upravit grafické uživatelské rozhraní (Mods). V instalaci ReBirth jsou ve výchozím nastavení zahrnuty čtyři mody (v tomto repacku je 41 modů).
 
-Virtuální ovládací prvky lze přiřadit fyzickým protějškům prostřednictvím MIDI, takže potenciometry, modulační kolečka, fadery a další ovládací prvky dostupné na klávesách a modulech lze použít k tvarování softwarového zvuku. Nouzově lze ovládat i pc klávesnicí.</b></p><button style="position: absolute; bottom: 2px; right: 2px; background: transparent; border: none; color: red; text-shadow: 0 0 1px black, .2px .3px 1.2px black; font-size: 16px; cursor: pointer;" onclick="if (this.parentNode.style.height === '150px') { this.parentNode.style.height = 'auto'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Méně'; } else { this.parentNode.style.height = '150px'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Více'; }">Více</button>
+Virtuální ovládací prvky lze přiřadit fyzickým protějškům prostřednictvím MIDI, takže potenciometry, modulační potenc., fadery a další ovládací prvky dostupné na klávesách a modulech lze použít k tvarování softwarového zvuku. Nouzově lze ovládat i pc klávesnicí.</b></p><button style="position: absolute; bottom: 2px; right: 2px; background: transparent; border: none; color: red; text-shadow: 0 0 1px black, .2px .3px 1.2px black; font-size: 16px; cursor: pointer;" onclick="if (this.parentNode.style.height === '152px') { this.parentNode.style.height = 'auto'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Méně'; } else { this.parentNode.style.height = '152px'; this.parentNode.style.overflow = 'hidden'; this.innerHTML = 'Více'; }">Více</button>
+
 </div>
 </div>
 
 <!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth; top: 300px !important;"></div>
 
-<!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: 110px; z-index: 2;"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="position: relative; cursor: pointer; pointer-events: auto; background-color: silver; filter:contrast(120%); box-shadow: 0 0 0 10px grey; 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5; border-radius: 5px; pointer-events: auto;"></embed></div>
+<!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: 310px; z-index: 2;"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="position: relative; cursor: pointer; pointer-events: auto; background-color: silver; filter:contrast(120%); box-shadow: 0 0 0 10px grey; 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5; border-radius: 5px; pointer-events: auto;"></embed></div>
 
 <!--TL NAHORU--><button style="background-color: #666564; margin-top:40px; margin-left:-35px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
 
@@ -69,16 +70,3 @@ Virtuální ovládací prvky lze přiřadit fyzickým protějškům prostřednic
 </div></div>
 </div></div>
 </center>
-
-
-
-
-
-
-
-
-
-
-
-
-
