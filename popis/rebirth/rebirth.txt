@@ -1,0 +1,70 @@
+<center><!--marioworld--><body style="background: #000 url(https://trolltrolli.github.io/skt/popis/marioworld/back001.jpg) repeat fixed; width: 100%; height:100%; height:auto; background-repeat: no-repeat; background-position: center; background-size:cover; opacity: 1; text-shadow: black .11px .14px .2px; cursor: url(''), default; overflow-x: ; position: absolute !important; z-index :-2;" onmouseover="(function() { if(!this.entered){this.entered=true; var sipka = document.getElementById('sipka'); sipka.style.display = 'block'; var blikani = setInterval(function() { sipka.style.display = (sipka.style.display == 'none') ? 'block' : 'none'; }, 1000); setTimeout(function(){ sipka.style.display = 'none'; clearInterval(blikani); }, 10000); var buttonOn=document.querySelector('button[data-default-color]'); buttonOn.click(); document.querySelector('.marquee1').dispatchEvent(new Event('mouseover')); document.querySelector('.marquee2').dispatchEvent(new Event('mouseover')); document.querySelector('.carousel-back-button').click(); document.querySelector('.carousel-forward-button').click(); document.getElementById('nahoru').scrollIntoView({ behavior: 'smooth' }); } })();Array.from(document.querySelectorAll(document.querySelector('#sel1').dataset.selector)).forEach(function(el) { el.style = 'color: white !important;width:940px!important;width:auto!important;margin: 0 auto !important;margin-left: 5px !important;font-size: 8.5pt;padding: 7px !important;border: 1pt solid #ff6600!important;outline: none;border-radius: 6px;box-shadow: 0.5px 0.5px 0.5px 0.5px grey, -0.5px -0.5px 0.5px 0.5px silver!important;background:rgba(0,0,0,.6)!important;';});Array.from(document.querySelectorAll(document.querySelector('#sel2').dataset.selector)).forEach(function(el) { el.style = 'background: transparent !important;'; });Array.from(document.querySelectorAll(document.querySelector('#sel3').dataset.selector)).forEach(function(el) { el.style =' border: 2px solid rgb(87,87,87) !important; border-radius: 9px; background: black!important; color: white!important;';});Array.from(document.querySelectorAll(document.querySelector('#sel3').dataset.selector)).forEach(function(el) { el.style = 'background: transparent!important; border-radius: 8px; border: none!important;'; });Array.from(document.querySelectorAll(document.querySelector('#sel4').dataset.selector)).forEach(function(el) { el.style ='color: white!important;';});Array.from(document.querySelectorAll(document.querySelector('#sel5').dataset.selector)).forEach(function(el) { el.style =' background: rgba(21,21,21,0.4)!important;';});Array.from(document.querySelectorAll(document.querySelector('#sel6').dataset.selector)).forEach(function(el) { el.style ='color: beige!important';});Array.from(document.querySelectorAll(document.querySelector('#sel7').dataset.selector)).forEach(function(el) { el.style ='border:none!important;background: transparent!important;';});Array.from(document.querySelectorAll(document.querySelector('#sel8').dataset.selector)).forEach(function(el) { el.style ='display:none;';});Array.from(document.querySelectorAll(document.querySelector('#sel9').dataset.selector)).forEach(function(el) { el.style ='background: rgba(0,0,0,.4);';});Array.from(document.querySelectorAll(document.querySelector('#sel10').dataset.selector)).forEach(function(el) { el.style ='margin-top: 10px;color: white; z-index: 10;';});Array.from(document.querySelectorAll(document.querySelector('#sel11').dataset.selector)).forEach(function(el) { el.style ='height:0px;';});Array.from(document.querySelectorAll(document.querySelector('#sel12').dataset.selector)).forEach(function(el) { el.style ='background:rgb(0,0,0,.0)!important;border:none !important;';});Array.from(document.querySelectorAll(document.querySelector('#sel13').dataset.selector)).forEach(function(el) { el.style ='background:none!important;border:none !important;';});Array.from(document.querySelectorAll(document.querySelector('#sel14').dataset.selector)).forEach(function(el) { el.style ='background: rgba(210,210,210,0.45);';})" onpageshow="if(!this.entered){
+    var ev=document.createEvent('MouseEvents');ev.initEvent('mouseover',true,true);this.dispatchEvent(ev);}"></body><!-- DIV BACK 1------><div style="background: #000 url('https://trolltrolli.github.io/skt/popis/marioworld/back001.jpg'); background-repeat: fixed; background-attachment: fixed; width: 100%; height: 100%; overflow: fixed; background-repeat: no-repeat; background-size: cover; background-position:center; opacity: .999; cursor: url(''),default; margin-left: -11px; width: 940px"><!-- DIV BACK 2------><div style="background: #000 url(https://trolltrolli.github.io/skt/popis/marioworld/back001.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size:cover; background-position: center; opacity: .999; cursor: url(''),default; margin-left: 11px !important; margin-top:-13px; position: relative; font-family: Palatino Linotype; width:940px;"><div style="line-height: 0px; display: block;">
+
+<!--selectors-->
+<div style="display: none">
+<div id="sel1" data-selector="td.header"></div>
+<div id="sel2" data-selector="body > center:nth-child(3) > table:nth-child(1),center > table > tbody > tr > td > .lista"></div>
+<div id="sel3" data-selector="html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1).lista"></div>
+<div id="sel4" data-selector="center > table > tbody > tr > td > .lista > tbody > tr > .header a"></div>
+<div id="sel5" data-selector=".greenbox table,.maxwidthclass table"></div>
+<div id="sel6" data-selector=".maxwidthclass a"></div>
+<div id="sel7" data-selector="center > table > tbody > tr > td > .lista"></div>
+<div id="sel8" data-selector="body > center:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > a:nth-child(1) > img:nth-child(1),tbody tr td:nth-child(2) font:nth-child(1) b:nth-child(1),html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2),img[src='/torrent/images/winter/graphics-winter-494254.gif'],body > center:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1)> center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1),body > center:nth-child(3) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1)"></div>
+<div id="sel9" data-selector=" td.lista,html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1).lista,html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(1).lista"></div>
+<div id="sel10" data-selector="html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1) > b:nth-of-type(1),html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > b:nth-of-type(1),html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1) > b:nth-of-type(1)"></div>
+<div id="sel11" data-selector="html:nth-of-type(1) > body:nth-of-type(1) > center:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1)"></div>
+<div id="sel12" data-selector="body > center:nth-child(3) > table:nth-child(2)"></div>
+<div id="sel13" data-selector="body > center:nth-child(3) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1),body > center:nth-child(3) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1)"></div>
+<div id="sel14" data-selector="table.lista"></div>
+</div>
+
+<!--HORNI LISTA----------><div style="margin-top: 20px;"><div style="border:1.3px solid silver;margin-top:-18px;margin-left:-11.7px; width: 945px; box-shadow: 0px 0px 1px 2px grey, 1px 1px 3px 2px black!important;"></div>
+
+<!--BUTTON SEZNAM------><div class="main2" id="prd" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:29px; width:280px; background: #464547; border-radius:5px; margin-top:-36.2px; margin-left:-679px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important;" onmouseover="this.style.backgroundColor='#2b2b2b'" onmouseout="this.style.backgroundColor='#464547'"><a href="#seznam"><p style="color: #F1EBEF; font-size:20px; margin-top: 5px; font-weight: 400; text-shadow:1px 1px 10px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block;text-align: center; margin-left: 4px;" onmouseover="this.style.color='grey'; font-weight: 450;" onmouseout="this.style.color='#F1EBEF'; font-weight: 400;">SEZNAM MÝCH TORRENTŮ</p></a></div>
+
+<!--BUTTON NAVOD---><div class="main" id="dolu" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:27px; width:90px; background: #464547; border-radius:5px; margin-top:-28px; margin-left:842px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important;" onmouseover="this.style.backgroundColor='#2b2b2b'" onmouseout="this.style.backgroundColor='#464547'" onclick="(function() { var buttonOn = document.querySelector('button[data-default-color]'); var menu2 = document.getElementsByName('menu2')[0]; if (buttonOn) { if (buttonOn.getAttribute('data-active') !== 'true') { document.getElementById('nahoru').scrollIntoView({ behavior: 'smooth' }); buttonOn.click(); menu2.click(); } else { document.getElementById('nahoru').scrollIntoView({ behavior: 'smooth' }); menu2.click(); } } })()"><a href="#nahoru"><p style="color: #F1EBEF; font-size:20px; margin-top:5px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration: none; display: inline-block; text-align: center;" onmouseover="this.style.color='grey'; font-weight: 450;" onmouseout="this.style.color='#F1EBEF'; font-weight: 400;">NÁVOD</p></a></div>
+</div>
+
+<!---HREF NAVOD---><div class="main" id="nahoru" style="position: absolute; scroll-behavior: smooth; margin-top: 80px;"></div>
+<!--HREF SEZ--------><div class="main2" id="seznam" style="position: absolute; scroll-behavior: smooth; margin-top: 780px;"></div>
+<div style="position: relative;line-height:0px;">
+
+<!--Logo--><a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth00.png" style="position:relative;margin-top: 50px;margin-left: -20px;"></a>
+<a href="https://en.wikipedia.org/wiki/ReBirth_RB-338" target="_blank" title="link"><img src="https://trolltrolli.github.io/skt/popis/rebirth/rebirth01.png" style="position:relative;margin-top: 20px;margin-left: -20px;"></a>
+
+
+
+<p style="">
+ReBirth emuluje dva syntezátory - Roland TB-303, Roland TR-808 a také bicí automat Roland TR-909. Všechny emulace lze používat současně. Každé z emulovaných zařízení má svůj vlastní selektor patternů, což je funkce, kterou původní zařízení postrádají. To umožňuje rychlé přepínání mezi různými hudebními sekvencemi a přeprogramování TB-303 pro hraní různých not. ReBirth také obsahuje mixéry, filtr řízený patterny (PCF) a některé standardní efekty v softwarových syntezátorech, jako je delay, kompresor a distortion. Program také podporuje uživatelské úpravy, které mohou nahradit samply v emulacích bicích automatů a upravit grafické uživatelské rozhraní (Mods). V instalaci ReBirth jsou ve výchozím nastavení zahrnuty čtyři mody (v tomto repacku je 41 modů).
+
+Virtuální ovládací prvky lze přiřadit fyzickým protějškům prostřednictvím MIDI, takže potenciometry, modulační kolečka, fadery a další ovládací prvky dostupné na klávesách a modulech lze použít k tvarování softwarového zvuku. Nouzově lze ovládat i pc klávesnicí.
+
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
