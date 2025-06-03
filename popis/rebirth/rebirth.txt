@@ -49,7 +49,7 @@
 <td style="padding-right:2px;"><div><input type="button" value="&#9209;" title=" I N F O " style="background: #8f8f8f;background: linear-gradient(180deg, rgba(143, 143, 143, 1) 0%, rgba(138, 138, 138, 1) 13%, rgba(184, 184, 184, 1) 48%, rgba(189, 189, 189, 1) 63%, rgba(74, 74, 74, 1) 100%); border: 1px solid grey; box-shadow: .4px .5px 4px 1px black; -webkit-text-stroke-width: .4px; -webkit-text-stroke-color: black; border: 2px outset grey; border-radius: 1px; color:#824028; display:inline-block;font-size: 18px; line-height: 20px; text-align:center; text-decoration:none; width: 100px; height: 30px; -webkit-text-size-adjust:none; cursor: pointer;padding-bottom:4px;" onmouseover="this.style.filter='contrast(150%)'; this.style.color='#c26442'" onmouseout="if(this.getAttribute('data-active')!=='true'){this.style.color='#824028'}" onclick="var allBtns = document.querySelectorAll('input[type=button][data-menu]');var myMenu = document.getElementById('menu2');var isOpen = myMenu.style.display === 'block';allBtns.forEach(function(b){b.style.color = b.getAttribute('data-default-color');b.setAttribute('data-active','false');document.getElementById(b.getAttribute('data-menu')).style.display = 'none';});if(!isOpen){myMenu.style.display = 'block';this.style.color = '#c26442';this.setAttribute('data-active','true');}else{myMenu.style.display = 'none';this.style.color = this.getAttribute('data-default-color');this.setAttribute('data-active','false');}" data-default-color="#824028" data-menu="menu2" data-active="false"></div>
  
   <!-- INFO WINDOW -->
-<div id="menu2"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:30px;margin-left:-325px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:835px;position:absolute;z-index:6;"><p style="color:grey;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 1.5px 2px 3.2px,black 2px 2.2px 7px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px;text-align:left;">
+<div id="menu2"style="display:none;color:white;font-size:19px;background-color:rgba(0,0,0,.95);margin-top:30px;margin-left:-325px;padding:0 15px;border-radius:5px;border:1px solid silver;box-shadow:black 0 0 1px 1px;width:700px;height:835px;position:absolute;z-index:6;"><p style="color:grey;font-size:19px;font-family:Garamond;letter-spacing:0.15px;line-height:28px;text-shadow:black 0 0 .2px,black 0 0 1px,black .2px .3px 1.2px,black 0 0 8px,grey 2px 3px 4px,black 0 0 4px,black .1px .12px .8px;padding:0 15px;text-align:left;">
 <span style="display: inline-block; border: 1px solid silver; background-color: white; color: grey;">                                         
                                                             I N F O                                                                                   </span>
 
@@ -58,22 +58,24 @@ Název:          ReBirth RB-338 (verze 2.0)
 
 Vývojář:        Propellerhead Software (dnes Reason Studios)
 
-Rok vydání: První alfa verze v říjnu 1996, stabilní verze 2.0 v září 1998
+Rok vydání:  První alfa verze v říjnu 1996, stabilní verze 2.0 v září 1998
 
-Typ:             Softwarový syntezátor a groovebox (emulace dvou Roland TB-303, TR-808 a od verze 2.0 i TR-909)
+Typ:              Softwarový syntezátor a groovebox (emulace dvou Roland TB-303, 
+                      TR-808 a od verze 2.0 i TR-909)
 
 Platformy:    Windows 98 a vyšší, Mac OS 8/9 (později i iOS - iPhone, iPad)
 
+
+
 <u>Základní vlastnosti:</u>
-Věrná emulace legendárních Roland TB-303, TR-808, TR-909
+<span style="font-size:15px;">Věrná emulace legendárních Roland TB-303, TR-808, TR-909
 Možnost programovat patterny, efekty (distortion, delay, kompresor, PCF filtr)
 MIDI podpora, možnost uživatelských modifikací (Mods)
-Vhodné hlavně pro acid house, techno a taneční elektroniku
+Vhodné hlavně pro acid house, techno a taneční elektroniku</span>
 
 <u>Konec vývoje:</u>
-Vývoj desktopové verze ukončen v lednu 1999, oficiální podpora skončila v září 2005. Poté byla poslední verze (2.0.1) zdarma ke stažení na stránkách ReBirth Museum
-Zajímavost: Program byl průkopníkem v softwarové emulaci klasických grooveboxů a umožnil dostupnost těchto zvuků běžným uživatelům počítačů za zlomek ceny originálních strojů
-
+<span style="font-size:15px;">Vývoj desktopové verze ukončen v lednu 1999, oficiální podpora skončila v září 2005. Poté byla poslední verze (2.0.1) zdarma ke stažení na stránkách ReBirth Museum
+Zajímavost: Program byl průkopníkem v softwarové emulaci klasických grooveboxů a umožnil dostupnost těchto zvuků běžným uživatelům počítačů za zlomek ceny originálních strojů</span>
 </p>
 </p></div></td>
 
