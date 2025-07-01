@@ -24,8 +24,11 @@
     </tr>
     <tr>
       <td>
+        <button class="btn" onclick="insertTag('b')">Tučné</button>
+        <button class="btn" onclick="insertTag('i')">Kurzíva</button>
+        <button class="btn" onclick="insertTag('u')">Podtržené</button>
         <select id="backgroundPreset" onchange="insertBackgroundPreset()">
-          <option value="">Pozadí…</option>
+          <option value="">Vyber pozadí…</option>
           <option value="black">Černé</option>
           <option value="red">Červené</option>
           <option value="blue">Modré</option>
@@ -41,46 +44,21 @@
           <option value="maroon">Kaštanové</option>
           <option value="pro">Vlastní (zadej #hex, rgba…)</option>
         </select>
-        <button class="btn" onclick="insertTag('b')">Tučné</button>
-        <button class="btn" onclick="insertTag('i')">Kurzíva</button>
-        <button class="btn" onclick="insertTag('u')">Podtržené</button>
-        <select id="fontPreset" onchange="insertFontPreset()">
-          <option value="">Písmo…</option>
-          <option value="Arial, sans-serif">Arial</option>
-          <option value="Verdana, sans-serif">Verdana</option>
-          <option value="Tahoma, sans-serif">Tahoma</option>
-          <option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
-          <option value="Times New Roman, serif">Times New Roman</option>
-          <option value="Georgia, serif">Georgia</option>
-          <option value="Garamond, serif">Garamond</option>
-          <option value="Courier New, monospace">Courier New</option>
-          <option value="Brush Script MT, cursive">Brush Script MT</option>
-          <option value="Roboto, sans-serif">Roboto</option>
-        </select>
-        <select id="fontSizePreset" onchange="insertFontSizePreset()">
-          <option value="">Velikost…</option>
-          <option value="small">Malé</option>
-          <option value="medium">Střední</option>
-          <option value="large">Velké</option>
-          <option value="xlarge">Extra velké</option>
-          <option value="xxlarge">XXL</option>
-          <option value="pro">Vlastní…</option>
-        </select>
         <select id="colorPreset" onchange="insertColorPreset()">
-          <option value="">Barva písma…</option>
+          <option value="">Vyber barvu písma…</option>
           <option value="color=black">Černá</option>
           <option value="color=red">Červená</option>
           <option value="color=blue">Modrá</option>
           <option value="color=green">Zelená</option>
           <option value="color=orange">Oranžová</option>
-          <option value="color=parple">Fialová</option>
+          <option value="color=purple">Fialová</option>
           <option value="color=gray">Šedá</option>
           <option value="color=yellow">Žlutá</option>
           <option value="color=cyan">Tyrkysová</option>
           <option value="color=pink">Růžová</option>
         </select>
         <select id="shadowPreset" onchange="insertShadowPreset()">
-          <option value="">Stín písma…</option>
+          <option value="">Vyber stín písma…</option>
           <option value="fontshadow=black-soft">Jemný černý</option>
           <option value="fontshadow=black-strong">Silný černý</option>
           <option value="fontshadow=white-soft">Jemný bílý</option>
@@ -90,7 +68,7 @@
           <option value="fontshadow=yellow-glow">Jemný žlutý</option>
           <option value="fontshadow=green-glow">Jemný zelený</option>
           <option value="fontshadow=orange-soft">Jemný oranžový</option>
-          <option value="fontshadow=parple-glow">Jemný fialový</option>
+          <option value="fontshadow=purple-glow">Jemný fialový</option>
           <option value="fontshadow=cyan-soft">Jemný tyrkysový</option>
           <option value="fontshadow=pink-glow">Jemný růžový</option>
           <option value="fontshadow=lime-soft">Jemný limetkový</option>
@@ -142,8 +120,6 @@ function bbcodeToHTML(bbcode) {
     style.bold = tagStack.some(x => x.type === 'b');
     style.italic = tagStack.some(x => x.type === 'i');
     style.underline = tagStack.some(x => x.type === 'u');
-    style.font = tagStack.filter(x => x.type === 'font').pop()?.value || '';
-    style.fontsize = tagStack.filter(x => x.type === 'fontsize').pop()?.value || '';
     return style;
   }
 
@@ -155,8 +131,6 @@ function bbcodeToHTML(bbcode) {
     if (style.bold) styleStr += 'font-weight:bold;';
     if (style.italic) styleStr += 'font-style:italic;';
     if (style.underline) styleStr += 'text-decoration:underline;';
-    if (style.font) styleStr += `font-family:${style.font};`;
-    if (style.fontsize) styleStr += `font-size:${style.fontsize};`;
     return styleStr ? `<span style="${styleStr}">${text}</span>` : text;
   }
 
@@ -186,10 +160,6 @@ function bbcodeToHTML(bbcode) {
         tagStack.push({ type: 'fontshadow', value: shadowPresets[`fontshadow=${value}`] || value });
       } else if (tagName === 'b' || tagName === 'i' || tagName === 'u') {
         tagStack.push({ type: tagName });
-      } else if (tagName === 'font') {
-        tagStack.push({ type: 'font', value: value });
-      } else if (tagName === 'fontsize') {
-        tagStack.push({ type: 'fontsize', value: value });
       }
     } else {
       let tagName = tag.substring(1);
@@ -223,59 +193,6 @@ function insertTag(tag) {
   textarea.selectionStart = start + openTag.length;
   textarea.selectionEnd = end + openTag.length;
   showPreview();
-}
-
-function insertFontPreset() {
-  let preset = document.getElementById('fontPreset').value;
-  if (!preset) return;
-  let textarea = document.getElementById('input');
-  let start = textarea.selectionStart;
-  let end = textarea.selectionEnd;
-  let selected = textarea.value.substring(start, end);
-  let before = textarea.value.substring(0, start);
-  let after = textarea.value.substring(end);
-  let openTag = '[font=' + preset + ']';
-  let closeTag = '[/font]';
-  textarea.value = before + openTag + selected + closeTag + after;
-  textarea.focus();
-  textarea.selectionStart = start + openTag.length;
-  textarea.selectionEnd = end + openTag.length;
-  showPreview();
-  document.getElementById('fontPreset').selectedIndex = 0;
-}
-
-function insertFontSizePreset() {
-  let preset = document.getElementById('fontSizePreset').value;
-  if (!preset) return;
-  let textarea = document.getElementById('input');
-  let start = textarea.selectionStart;
-  let end = textarea.selectionEnd;
-  let selected = textarea.value.substring(start, end);
-  let before = textarea.value.substring(0, start);
-  let after = textarea.value.substring(end);
-
-  let openTag = '';
-  if (preset === "pro") {
-    let size = prompt("Zadej velikost písma (např. 14px, 1.2em, 120%):", "14px");
-    if (!size) return;
-    openTag = `[fontsize=${size}]`;
-  } else {
-    let sizeMap = {
-      "small": "12px",
-      "medium": "16px",
-      "large": "20px",
-      "xlarge": "24px",
-      "xxlarge": "32px"
-    };
-    openTag = `[fontsize=${sizeMap[preset]}]`;
-  }
-  let closeTag = `[/fontsize]`;
-  textarea.value = before + openTag + selected + closeTag + after;
-  textarea.focus();
-  textarea.selectionStart = start + openTag.length;
-  textarea.selectionEnd = end + openTag.length;
-  showPreview();
-  document.getElementById('fontSizePreset').selectedIndex = 0;
 }
 
 function insertColorPreset() {
@@ -318,7 +235,7 @@ function insertBackgroundPreset() {
   textarea.value = before + openTag + selected + after;
   textarea.focus();
   textarea.selectionStart = start + openTag.length;
-  textarea.selectionEnd = end + openTag.length;
+  tarea.selectionEnd = end + openTag.length;
   showPreview();
   document.getElementById('backgroundPreset').selectedIndex = 0;
 }
@@ -374,7 +291,7 @@ function showPreview() {
       if (color && color[1]) {
         currentBg = color[1];
       }
-      // další část je text (může být prázdný)
+      // další část je text
       let text = parts[i+1] || '';
       sections.push({ bg: currentBg, text: text });
       i++; // přeskoč text
