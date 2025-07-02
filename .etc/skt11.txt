@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>BBCode editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: #eee;
+    }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: #333;
+      box-shadow: 0 2px 8px #000;
+    }
+
+    td {
+      padding: 8px;
+    }
+
+    #input {
+      width: 95%;
+      min-height: 60px;
+      background: #444;
+      color: #eee;
+      border: 1px solid #555;
+    }
+
+    #preview {
+      width: 95%;
+      min-height: 60px;
+      border: 1px solid #555;
+      background: #333;
+      margin: 10px auto;
+      padding: 8px;
+    }
+
+    .btn {
+      margin: 2px;
+      padding: 4px 10px;
+      border: 1px solid #666;
+      background: #555;
+      color: #eee;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #666;
+    }
+
+    select {
+      margin: 2px;
+      padding: 4px;
+      background: #555;
+      color: #eee;
+      border: 1px solid #666;
+    }
+
+    select option {
+      background: #333;
+    }
+
+    .align_icon {
+      width: 10px;
+      height: 13px;
+      fill: white;
+    }
+
+    .bg-block {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 0;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+
+    .bg-block>div {
+      background: transparent !important;
+      color: inherit !important;
+    }
+
+    .shape-wrap {
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      margin: 12px 12px 0 0;
+    }
+
+    .shape-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+      opacity: 0.6;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .shape-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      box-sizing: border-box;
+      text-align: center;
+      word-break: break-word;
+      pointer-events: auto;
+      padding: 15px 5px 0 5px;
+    }
+
+    .shape-square .shape-bg {
+      border-radius: 8px;
+    }
+
+    .shape-rectangle .shape-bg {
+      border-radius: 12px;
+    }
+
+    .shape-circle .shape-bg {
+      border-radius: 50%;
+    }
+
+    .shape-ellipse .shape-bg {
+      border-radius: 50%;
+    }
+
+    .shape-triangle .shape-content {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10%;
+      padding-top: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <table>
+      <tr>
+        <td colspan="2"><b>BBCode editor</b></td>
+      </tr>
+      <tr>
+        <td>
+          <select id="backgroundPreset" onchange="insertBackgroundPreset()">
+            <option value="">Pozadí…</option>
+            <option value="black">Černé</option>
+            <option value="red">Červené</option>
+            <option value="blue">Modré</option>
+            <option value="green">Zelené</option>
+            <option value="orange">Oranžové</option>
+            <option value="purple">Fialové</option>
+            <option value="gray">Šedé</option>
+            <option value="yellow">Žluté</option>
+            <option value="cyan">Tyrkysové</option>
+            <option value="pink">Růžové</option>
+            <option value="lime">Limetkové</option>
+            <option value="navy">Tmavě modré</option>
+            <option value="maroon">Kaštanové</option>
+            <option value="pro">Vlastní (zadej #hex, rgba nebo slovní barvu)</option>
+          </select>
+          <button class="btn" onclick="insertTag('left')" title="Zarovnat vlevo"><svg class="align_icon" viewBox="0 0 15 15">
+              <rect x="0" y="3" width="18" height="2" />
+              <rect x="0" y="9" width="8" height="2" />
+              <rect x="0" y="15" width="18" height="2" />
+            </svg></button>
+
+          <button class="btn" onclick="insertTag('center')" title="Zarovnat na střed"><svg class="align_icon" viewBox="0 0 15 15">
+              <rect x="0" y="3" width="24" height="2" />
+              <rect x="3" y="9" width="8" height="2" />
+              <rect x="0" y="15" width="24" height="2" />
+            </svg></button>
+
+          <button class="btn" onclick="insertTag('right')" title="Zarovnat vpravo">
+            <svg class="align_icon" viewBox="0 0 15 15">
+              <rect x="0" y="3" width="18" height="2" />
+              <rect x="6" y="9" width="8" height="2" />
+              <rect x="0" y="15" width="18" height="2" />
+            </svg></button>
+          <button class="btn" onclick="insertTag('b')">Tučné</button>
+          <button class="btn" onclick="insertTag('i')">Kurzíva</button>
+          <button class="btn" onclick="insertTag('u')">Podtržené</button>
+          <select id="fontPreset" onchange="insertFontPreset()">
+            <option value="">Písmo…</option>
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Verdana, sans-serif">Verdana</option>
+            <option value="Tahoma, sans-serif">Tahoma</option>
+            <option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+            <option value="Times New Roman, serif">Times New Roman</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Garamond, serif">Garamond</option>
+            <option value="Courier New, monospace">Courier New</option>
+            <option value="Brush Script MT, cursive">Brush Script MT</option>
+            <option value="Roboto, sans-serif">Roboto</option>
+          </select>
+          <select id="fontSizePreset" onchange="insertFontSizePreset()">
+            <option value="">Velikost…</option>
+            <option value="small">Malé</option>
+            <option value="medium">Střední</option>
+            <option value="large">Velké</option>
+            <option value="xlarge">Extra velké</option>
+            <option value="xxlarge">XXL</option>
+            <option value="pro">Vlastní…</option>
+          </select>
+          <select id="colorPreset" onchange="insertColorPreset()">
+            <option value="">Barva písma…</option>
+            <option value="color=black">Černá</option>
+            <option value="color=red">Červená</option>
+            <option value="color=blue">Modrá</option>
+            <option value="color=green">Zelená</option>
+            <option value="color=orange">Oranžová</option>
+            <option value="color=purple">Fialová</option>
+            <option value="color=gray">Šedá</option>
+            <option value="color=yellow">Žlutá</option>
+            <option value="color=cyan">Tyrkysová</option>
+            <option value="color=pink">Růžová</option>
+          </select>
+          <select id="shadowPreset" onchange="insertShadowPreset()">
+            <option value="">Stín písma…</option>
+            <option value="fontshadow=black-soft">Jemný černý</option>
+            <option value="fontshadow=black-strong">Silný černý</option>
+            <option value="fontshadow=white-soft">Jemný bílý</option>
+            <option value="fontshadow=blue-soft">Jemný modrý</option>
+            <option value="fontshadow=red-strong">Silný červený</option>
+            <option value="fontshadow=gray-blur">Rozmazaný šedý</option>
+            <option value="fontshadow=yellow-glow">Jemný žlutý</option>
+            <option value="fontshadow=green-glow">Jemný zelený</option>
+            <option value="fontshadow=orange-soft">Jemný oranžový</option>
+            <option value="fontshadow=purple-glow">Jemný fialový</option>
+            <option value="fontshadow=cyan-soft">Jemný tyrkysový</option>
+            <option value="fontshadow=pink-glow">Jemný růžový</option>
+            <option value="fontshadow=lime-soft">Jemný limetkový</option>
+            <option value="fontshadow=navy-strong">Silný tmavě modrý</option>
+            <option value="fontshadow=gray-strong">Silný šedý</option>
+            <option value="profi1">Profi styl 1 (jednoduchý)</option>
+            <option value="profi2">Profi styl 2 (více stínů)</option>
+          </select>
+          <select id="shapePreset" onchange="insertShapePreset()">
+            <option value="">Tvar…</option>
+            <option value="square">Čtverec (120x50 green)</option>
+            <option value="rectangle">Obdélník (200x60 blue)</option>
+            <option value="circle">Kruh (60x60 red)</option>
+            <option value="ellipse">Elipsa (100x60 orange)</option>
+            <option value="triangle">Trojúhelník (60x60 yellow)</option>
+            <option value="profi">Profi styl 1(ručně)</option>
+            <option value="profi2">Profi styl 2(ručně)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <textarea id="input" placeholder="Sem piš BBCode..." oninput="showPreview()"></textarea>
+        </td>
+      </tr>
+    </table>
+    <div id="preview"></div>
+    <script>
+      const shadowPresets = {
+        "fontshadow=black-soft": "1px 1px 3px black",
+        "fontshadow=black-strong": "2px 2px 8px black",
+        "fontshadow=white-soft": "1px 1px 4px white",
+        "fontshadow=blue-soft": "1px 1px 6px blue",
+        "fontshadow=red-strong": "2px 2px 8px red",
+        "fontshadow=gray-blur": "0 0 10px gray",
+        "fontshadow=yellow-glow": "0 0 10px yellow",
+        "fontshadow=green-glow": "0 0 10px green",
+        "fontshadow=orange-soft": "1px 1px 6px orange",
+        "fontshadow=purple-glow": "0 0 10px purple",
+        "fontshadow=cyan-soft": "1px 1px 6px cyan",
+        "fontshadow=pink-glow": "0 0 10px pink",
+        "fontshadow=lime-soft": "1px 1px 6px lime",
+        "fontshadow=navy-strong": "2px 2px 8px navy",
+        "fontshadow=gray-strong": "2px 2px 8px gray",
+        "profi1": "2px 2px 6px black",
+        "profi2": "0 1px 2px rgba(0,0,0,0.2), 1px 2px 5px #000, 2px 3px 7px red"
+      };
+      // Validace barvy: hex 3/6 znaků, rgb(a), nebo slovní barva (např. orange)
+      function validColor(c) {
+        if (/^#[0-9a-fA-F]{3}$/.test(c)) {
+          return '#' + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+        }
+        if (/^#[0-9a-fA-F]{6}$/.test(c)) return c;
+        if (/^rgba?\(/.test(c)) return c;
+        if (/^[a-zA-Z]{3,20}$/.test(c)) return c.toLowerCase();
+        return '#fff';
+      }
+
+      function bbcodeToHTML(bbcode) {
+        function parseBB(str, tagStack = []) {
+          let out = '',
+            pos = 0;
+          const singleTypes = ['color', 'fontshadow', 'font', 'fontsize', 'size'];
+          const stackable = ['b', 'i', 'u', 'center', 'left', 'right'];
+          while (pos < str.length) {
+            let open = str.indexOf('[', pos);
+            if (open === -1) {
+              out += applyStyle(str.substring(pos), tagStack);
+              break;
+            }
+            out += applyStyle(str.substring(pos, open), tagStack);
+            let close = str.indexOf(']', open);
+            if (close === -1) {
+              out += applyStyle(str.substring(open), tagStack);
+              break;
+            }
+            let tag = str.substring(open + 1, close);
+            let endTag = tag.startsWith('/');
+            let tagName = endTag ? tag.substring(1) : tag.split('=')[0];
+            let tagValue = tag.includes('=') ? tag.split('=').slice(1).join('=') : '';
+            // ----------- SHAPE (speciální struktura) ------------
+            if (!endTag && tagName === 'shape') {
+              let depth = 1,
+                searchPos = close + 1;
+              let closeTag = `[/${tagName}]`;
+              let openTag = `[${tagName}`;
+              while (depth > 0) {
+                let nextOpen = str.indexOf(openTag, searchPos);
+                let nextClose = str.indexOf(closeTag, searchPos);
+                if (nextClose === -1) {
+                  out += applyStyle(str.substring(open, close + 1), tagStack);
+                  pos = close + 1;
+                  break;
+                }
+                if (nextOpen !== -1 && nextOpen < nextClose) {
+                  depth++;
+                  searchPos = nextOpen + openTag.length;
+                } else {
+                  depth--;
+                  if (depth === 0) {
+                    let inner = str.substring(close + 1, nextClose);
+                    let match = tag.match(/^shape=(square|rectangle|circle|ellipse|triangle)\s+(\d+)\s+(\d+)\s+([^\]\s]+)$/i);
+                    if (match) {
+                      let type = match[1],
+                        w = match[2],
+                        h = match[3],
+                        color = match[4];
+                      out += renderShape(type, w, h, color, parseBB(inner, tagStack));
+                    } else {
+                      out += applyStyle(str.substring(open, close + 1), tagStack);
+                    }
+                    pos = nextClose + closeTag.length;
+                    break;
+                  }
+                  searchPos = nextClose + closeTag.length;
+                }
+              }
+              continue;
+            }
+            // ----------- SINGLE TYPES (font, color, atd.) ----------
+            if (!endTag && singleTypes.includes(tagName)) {
+              let depth = 1,
+                searchPos = close + 1;
+              let closeTag = `[/${tagName}]`;
+              let openTagPattern = new RegExp(`\\[${tagName}(=|\\])`, 'i');
+              while (depth > 0) {
+                let nextOpenRel = str.substring(searchPos).search(openTagPattern);
+                let nextOpen = nextOpenRel !== -1 ? searchPos + nextOpenRel : -1;
+                let nextClose = str.indexOf(closeTag, searchPos);
+                if (nextClose === -1) {
+                  out += applyStyle(str.substring(open, close + 1), tagStack);
+                  pos = close + 1;
+                  break;
+                }
+                if (nextOpen !== -1 && nextOpen < nextClose) {
+                  depth++;
+                  searchPos = nextOpen + tagName.length + 1;
+                } else {
+                  depth--;
+                  if (depth === 0) {
+                    let inner = str.substring(close + 1, nextClose);
+                    let newStack = tagStack.filter(t => t.type !== tagName);
+                    let value = tagValue;
+                    if (tagName === 'fontshadow') {
+                      value = shadowPresets[`fontshadow=${tagValue}`] || tagValue;
+                    }
+                    newStack.push({
+                      type: tagName,
+                      value
+                    });
+                    out += parseBB(inner, newStack);
+                    pos = nextClose + closeTag.length;
+                    break;
+                  }
+                  searchPos = nextClose + closeTag.length;
+                }
+              }
+              continue;
+            }
+            // ---------- STACKABLE TAGS (b, i, u, center...) -----------
+            if (!endTag && stackable.includes(tagName)) {
+              let depth = 1,
+                searchPos = close + 1;
+              let closeTag = `[/${tagName}]`;
+              let openTag = `[${tagName}]`;
+              while (depth > 0) {
+                let nextOpen = str.indexOf(openTag, searchPos);
+                let nextClose = str.indexOf(closeTag, searchPos);
+                if (nextClose === -1) {
+                  out += applyStyle(str.substring(open, close + 1), tagStack);
+                  pos = close + 1;
+                  break;
+                }
+                if (nextOpen !== -1 && nextOpen < nextClose) {
+                  depth++;
+                  searchPos = nextOpen + openTag.length;
+                } else {
+                  depth--;
+                  if (depth === 0) {
+                    let inner = str.substring(close + 1, nextClose);
+                    let newStack = tagStack.slice();
+                    newStack.push({
+                      type: tagName
+                    });
+                    let innerHTML = parseBB(inner, newStack);
+                    if (tagName === 'center') out += `<span style="display:inline-block; width:100%; text-align:center;">${innerHTML}</span>`;
+                    else if (tagName === 'left') out += `<span style="display:inline-block; width:100%; text-align:left;">${innerHTML}</span>`;
+                    else if (tagName === 'right') out += `<span style="display:inline-block; width:100%; text-align:right;">${innerHTML}</span>`;
+
+                    else out += innerHTML;
+                    pos = nextClose + closeTag.length;
+                    break;
+                  }
+                  searchPos = nextClose + closeTag.length;
+                }
+              }
+              continue;
+            }
+            // ---------- Konec nebo neznámý tag ----------
+            pos = close + 1;
+          }
+          return out;
+        }
+
+        function findClosing(str, from, type) {
+          let openTag = `[${type}`;
+          let closeTag = `[/${type}]`;
+          let depth = 1,
+            pos = from;
+          while (depth > 0) {
+            let nextOpen = str.indexOf(openTag, pos);
+            let nextClose = str.indexOf(closeTag, pos);
+            if (nextClose === -1) return -1;
+            if (nextOpen !== -1 && nextOpen < nextClose) {
+              depth++;
+              pos = nextOpen + openTag.length;
+            } else {
+              depth--;
+              if (depth === 0) return nextClose;
+              pos = nextClose + closeTag.length;
+            }
+          }
+          return -1;
+        }
+
+        function applyStyle(text, stack) {
+          if (!text) return '';
+          let style = '';
+          let last = {};
+          // Najdi poslední hodnoty pro jednotlivé styly
+          for (let i = 0; i < stack.length; i++) {
+            let tag = stack[i];
+            if (tag.type === 'color') last.color = tag.value;
+            if (tag.type === 'fontshadow') last.fontshadow = tag.value;
+            if (tag.type === 'font') last.font = tag.value;
+            if (tag.type === 'fontsize') last.fontsize = tag.value;
+          }
+          if (stack.some(t => t.type === 'b')) style += 'font-weight:bold;';
+          if (stack.some(t => t.type === 'i')) style += 'font-style:italic;';
+          if (stack.some(t => t.type === 'u')) style += 'text-decoration:underline;';
+          if (last.color) style += `color:${last.color};`;
+          if (last.fontshadow) style += `text-shadow:${last.fontshadow};`;
+          if (last.font) style += `font-family:${last.font};`;
+          if (last.fontsize) style += `font-size:${last.fontsize};`;
+          // Převod mezer a řádků na HTML entity
+          text = text.replace(/ /g, '&nbsp;').replace(/\n/g, '<br>');
+          // Pokud máme nějaký styl, obalíme do <span>
+          if (style) text = `<span style="${style}">${text}</span>`;
+          // Zarovnání už řeší parser, tady už nikdy NEgeneruj <div style="text-align:...">
+          return text;
+        }
+
+        function renderShape(type, w, h, color, content) {
+          w = parseInt(w);
+          h = parseInt(h);
+          let shapeClass = `shape-wrap shape-${type}`;
+          let contentStyle = `width:${w}px;height:${h}px;transf;`;
+          color = validColor(color);
+          if (type === 'triangle') {
+            let triangleStyle = `
+        width: 0 !important;
+        height: 0 !important;
+        border-left: ${w/2}px solid transparent;
+        border-right: ${w/2}px solid transparent;
+        border-bottom: ${h}px solid ${color};
+        left: 0; top: 0;
+        border-radius: 0;
+        opacity: 0.7;
+        position: absolute;
+        pointer-events: none;
+      `;
+            return `<span style="display:inline-block; white-space:pre;">
+        <span class="${shapeClass}" style="width:${w}px;height:${h}px;">
+          <span class="shape-bg" style="${bgStyle}"></span>
+          <span class="shape-content" style="${contentStyle}">${content}</span>
+        </span>
+      </span>`;
+          } else {
+            let bgStyle = `background:${color};width:${w}px;height:${h}px;`;
+            return `<span class="${shapeClass}" style="width:${w}px;height:${h}px;">
+        <span class="shape-bg" style="${bgStyle}"></span>
+        <span class="shape-content" style="${contentStyle}">${content}</span>
+      </span>`;
+          }
+        }
+        return parseBB(bbcode);
+      }
+
+      function insertTag(tag) {
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = `[${tag}]`;
+        let closeTag = `[/${tag.split('=')[0]}]`;
+        textarea.value = before + openTag + selected + closeTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+      }
+
+      function insertFontPreset() {
+        let preset = document.getElementById('fontPreset').value;
+        if (!preset) return;
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = '[font=' + preset + ']';
+        let closeTag = '[/font]';
+        textarea.value = before + openTag + selected + closeTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+        document.getElementById('fontPreset').selectedIndex = 0;
+      }
+
+      function insertFontSizePreset() {
+        let preset = document.getElementById('fontSizePreset').value;
+        if (!preset) return;
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = '';
+        if (preset === "pro") {
+          let size = prompt("Zadej velikost písma (např. 14px, 1.2em, 120%):", "14px");
+          if (!size) return;
+          openTag = `[fontsize=${size}]`;
+        } else {
+          let sizeMap = {
+            "small": "12px",
+            "medium": "16px",
+            "large": "20px",
+            "xlarge": "24px",
+            "xxlarge": "32px"
+          };
+          openTag = `[fontsize=${sizeMap[preset]}]`;
+        }
+        let closeTag = `[/fontsize]`;
+        textarea.value = before + openTag + selected + closeTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+        document.getElementById('fontSizePreset').selectedIndex = 0;
+      }
+
+      function insertColorPreset() {
+        let preset = document.getElementById('colorPreset').value;
+        if (!preset) return;
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = `[${preset}]`;
+        let closeTag = `[/${preset.split('=')[0]}]`;
+        textarea.value = before + openTag + selected + closeTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+        document.getElementById('colorPreset').selectedIndex = 0;
+      }
+
+      function insertBackgroundPreset() {
+        let preset = document.getElementById('backgroundPreset').value;
+        if (!preset) return;
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = '';
+        if (preset === "pro") {
+          let color = prompt("Zadej barvu pozadí (např. #123456, rgb(100,200,50), rgba(100,200,50,0.5)):", "#");
+          if (!color) return;
+          openTag = `[background=${color}]`;
+        } else {
+          openTag = `[background=${preset}]`;
+        }
+        textarea.value = before + openTag + selected + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+        document.getElementById('backgroundPreset').selectedIndex = 0;
+      }
+
+      function insertShadowPreset() {
+        let preset = document.getElementById('shadowPreset').value;
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let selected = textarea.value.substring(start, end);
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let openTag = '';
+        let closeTag = '';
+        if (preset === "profi1") {
+          openTag = `[fontshadow=2px 2px 6px black]`;
+          closeTag = `[/fontshadow]`;
+        } else if (preset === "profi2") {
+          openTag = `[fontshadow=0 1px 2px rgba(0,0,0,0.2), 1px 2px 5px #000, 2px 3px 7px red]`;
+          closeTag = `[/fontshadow]`;
+        } else if (preset) {
+          openTag = `[${preset}]`;
+          closeTag = `[/${preset.split('=')[0]}]`;
+        } else {
+          return;
+        }
+        textarea.value = before + openTag + selected + closeTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + openTag.length;
+        textarea.selectionEnd = end + openTag.length;
+        showPreview();
+        document.getElementById('shadowPreset').selectedIndex = 0;
+      }
+
+      function insertShapeBBCode() {
+        let textarea = document.getElementById('input');
+        let start = textarea.selectionStart;
+        let end = textarea.selectionEnd;
+        let before = textarea.value.substring(0, start);
+        let after = textarea.value.substring(end);
+        let bbcode = '[shape=square 120 50 #2e8b57][b][color=yellow]Text ve tvaru[/color][/b][/shape]';
+        textarea.value = before + bbcode + after;
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = before.length + bbcode.length;
+        showPreview();
+      }
+
+      function insertShapePreset() {
+        const preset = document.getElementById('shapePreset').value;
+        if (!preset) return;
+        const textarea = document.getElementById('input');
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selected = textarea.value.substring(start, end);
+        const before = textarea.value.substring(0, start);
+        const after = textarea.value.substring(end);
+        let shapeTag = '';
+        let defaultText = 'Text ve tvaru';
+        if (preset === "square") {
+          shapeTag = 'shape=square 120 50 green';
+          defaultText = 'Text ve čtverci';
+        } else if (preset === "rectangle") {
+          shapeTag = 'shape=rectangle 200 60 blue';
+          defaultText = 'Text v obdélníku';
+        } else if (preset === "circle") {
+          shapeTag = 'shape=circle 60 60 red';
+          defaultText = 'Text v kruhu';
+        } else if (preset === "ellipse") {
+          shapeTag = 'shape=ellipse 100 60 orange';
+          defaultText = 'Text v elipse';
+        } else if (preset === "triangle") {
+          shapeTag = 'shape=triangle 60 60 yellow';
+          defaultText = 'Text v trojúhelníku';
+        } else if (preset === "profi") {
+          shapeTag = 'shape=square 150 60 #000000';
+          defaultText = 'Vlastní tvar';
+        } else if (preset === "profi2") {
+          shapeTag = 'shape=square 150 60 rgba(0,0,0,.5)';
+          defaultText = 'Vlastní tvar';
+        }
+        const content = selected || defaultText;
+        const openTag = `[${shapeTag}]`;
+        const closeTag = `[/shape]`;
+        const bbcode = openTag + content + closeTag;
+        textarea.value = before + bbcode + after;
+        // Korektní nastavení pozice kurzoru za vložený obsah
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = before.length + bbcode.length;
+        showPreview();
+        document.getElementById('shapePreset').selectedIndex = 0;
+      }
+
+      function showPreview() {
+        let bbcode = document.getElementById('input').value;
+        // Rozdělíme na bloky podle background
+        let reBg = /\[background=([^\]]+)\]([\s\S]*?)(?=(?:\[background=)|$)/gi;
+        let result = '';
+        let lastIndex = 0;
+        let m;
+        let found = false;
+        while ((m = reBg.exec(bbcode)) !== null) {
+          found = true;
+          let bg = m[1];
+          let content = m[2];
+          result += renderBBBlock(content, bg);
+          lastIndex = reBg.lastIndex;
+        }
+        if (!found) {
+          // žádné background, vše jako jeden blok
+          result = renderBBBlock(bbcode, '#333');
+        } else if (lastIndex < bbcode.length) {
+          result += renderBBBlock(bbcode.substr(lastIndex), '#333');
+        }
+        document.getElementById('preview').innerHTML = result;
+      }
+
+      function renderBBBlock(bbcode, bg) {
+        let html = `<div class="bg-block" style="background:${bg}; text-align:center;"><div>`;
+        html += bbcodeToHTML(bbcode);
+        html += `</div></div>`;
+        return html;
+      }
+      showPreview();
+    </script>
+  </center>
+</body>
+
+</html>
