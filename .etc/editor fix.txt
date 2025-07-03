@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>BBCode editor – čistý náhled s marginem</title>
+  <style>
+    body { background: #181a1b; color: #eee; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .container { max-width: 700px; margin: 40px auto; background: #23272a; border-radius: 8px; box-shadow: 0 0 10px #0008; padding: 24px; }
+    .toolbar { margin-bottom: 10px; }
+    .toolbar button { background: #2c2f33; color: #eee; border: none; padding: 8px 16px; margin-right: 6px; border-radius: 4px; cursor: pointer; font-size: 1em; transition: background 0.2s; }
+    .toolbar button:hover { background: #7289da; }
+    textarea { width: 100%; height: 140px; background: #181a1b; color: #eee; border: 1px solid #444; border-radius: 4px; padding: 10px; font-size: 1.1em; resize: vertical; margin-bottom: 16px; box-sizing: border-box; font-family: 'Consolas', 'Courier New', monospace; white-space: pre-wrap; overflow-wrap: break-word; }
+    .preview { background: #222; color: #eee; border: 1px solid #444; border-radius: 4px; min-height: 80px; padding: 12px; font-size: 1.1em; white-space: pre-wrap; margin-top: 8px; font-family: 'Segoe UI', Arial, sans-serif; }
+    .label { font-size: 1em; color: #aaa; margin-bottom: 4px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="toolbar">
+      <button onclick="insertAlign('left')">[left]</button>
+      <button onclick="insertAlign('center')">[center]</button>
+      <button onclick="insertAlign('right')">[right]</button>
+    </div>
+    <label class="label" for="editor">Editor (mezery na začátku řádku posouvají blok!):</label>
+    <textarea id="editor" spellcheck="false"></textarea>
+    <label class="label">Náhled (jen text, posun funguje):</label>
+    <div class="preview" id="preview"></div>
+  </div>
+  <script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const SPACE_PX = 12; // Kolik px je jedna mezera
+
+    function insertAlign(align) {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const val = editor.value;
+      const selected = val.substring(start, end) || 'text';
+      const tag = `[${align}]${selected}[/${align}]`;
+      editor.value = val.substring(0, start) + tag + val.substring(end);
+      editor.focus();
+      editor.setSelectionRange(start + align.length + 2, start + align.length + 2 + selected.length);
+      updatePreview();
+    }
+
+    // Mezerník vždy vloží mezeru na pozici kurzoru nebo před označený text
+    editor.addEventListener('keydown', function(e) {
+      if (e.key === ' ') {
+        e.preventDefault();
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const val = editor.value;
+        editor.value = val.substring(0, start) + ' ' + val.substring(end);
+        editor.setSelectionRange(start + 1, start + 1);
+        updatePreview();
+      }
+    });
+
+    // Escapování textu pro bezpečné zobrazení
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;");
+    }
+
+    // BBCode parser: každý zarovnávací blok s mezerami na začátku převede na div se stylem
+    function bbcodeToHtml(val) {
+      // Najdi všechny zarovnávací bloky (i s mezerami před tagem)
+      let html = val.replace(/(^|\n)([ ]*)\[(left|center|right)\]([\s\S]*?)\[\/\3\]/gi, function(_, nl, spaces, align, content) {
+        const margin = (spaces || '').length * SPACE_PX;
+        // Ošetři vnitřní nové řádky a escapuj text
+        content = escapeHtml(content).replace(/\n/g, "<br>");
+        return `${nl}<div style="text-align:${align}; margin-left:${margin}px; display:block;">${content}</div>`;
+      });
+      // Zbytek textu (mimo tagy) taky escapuj a zachovej řádky
+      html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+      // Ale už escapované bloky neescapuj znovu (tohle je jednoduché řešení pro ukázku)
+      html = html.replace(/&lt;div style="text-align:(left|center|right); margin-left:\d+px; display:block;"&gt;/g, function(match) {
+        return match.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+      });
+      html = html.replace(/&lt;\/div&gt;/g, "</div>");
+      return html;
+    }
+
+    function updatePreview() {
+      let val = editor.value;
+      preview.innerHTML = bbcodeToHtml(val);
+    }
+
+    editor.addEventListener('input', updatePreview);
+
+    updatePreview();
+  </script>
+</body>
+</html>
