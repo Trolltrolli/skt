@@ -1,0 +1,895 @@
+import datetime, multiprocessing, ffmpeg, yt_dlp, sys, os, re, json, time, random, subprocess
+from pathlib import Path
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QLineEdit, QComboBox, QLabel, QMessageBox, QFileDialog, QProgressBar, QFrame, QScrollArea, QSlider, QGroupBox, QGridLayout, QCheckBox
+from PyQt6.QtCore import Qt, QThread, pyqtSignal
+
+# ----------------------
+# Pomocné funkce
+# ----------------------
+
+def check_dependencies():
+    """Zkontroluje, zda existují yt-dlp.exe, ffmpeg.exe a ffprobe.exe"""
+    bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin')
+    yt_dlp_path = os.path.join(bin_dir, "yt-dlp.exe") if sys.platform == "win32" else os.path.join(bin_dir, "yt-dlp")
+    ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe") if sys.platform == "win32" else os.path.join(bin_dir, "ffmpeg")
+    ffprobe_path = os.path.join(bin_dir, "ffprobe.exe") if sys.platform == "win32" else os.path.join(bin_dir, "ffprobe")
+    
+    creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+    
+    try:
+        subprocess.run([yt_dlp_path, '--version'], check=True, capture_output=True, creationflags=creation_flags)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "yt-dlp"
+    
+    try:
+        subprocess.run([ffmpeg_path, '-version'], check=True, capture_output=True, creationflags=creation_flags)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "ffmpeg"
+    
+    try:
+        subprocess.run([ffprobe_path, '-version'], check=True, capture_output=True, creationflags=creation_flags)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "ffprobe"
+    
+    return None
+
+def check_gpu_support():
+    """Check if ffmpeg supports NVIDIA NVENC, AMD AMF, or Intel QSV."""
+    bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin')
+    ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe") if sys.platform == "win32" else os.path.join(bin_dir, "ffmpeg")
+    
+    try:
+        cmd = [ffmpeg_path, '-hide_banner', '-encoders']
+        # Skryje okno konzole na Windows
+        creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+        
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            check=True,
+            encoding='utf-8',
+            errors='replace',
+            creationflags=creation_flags
+        )
+        
+        # Priorita: NVIDIA NVENC, pak AMD AMF, pak Intel QSV
+        if 'h264_nvenc' in result.stdout:
+            return "nvenc"
+        elif 'h264_amf' in result.stdout:
+            return "amf"
+        elif 'h264_qsv' in result.stdout:
+            return "qsv"
+        else:
+            return "cpu"
+            
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "cpu"
+    except Exception as e:
+        print(f"GPU check failed: {str(e)}")
+        return "cpu"
+
+def get_unique_filepath(filepath):
+    """Najde unikátní cestu k souboru přidáním čísla, pokud již existuje."""
+    if not os.path.exists(filepath):
+        return filepath
+    
+    path_obj = Path(filepath)
+    directory = path_obj.parent
+    filename = path_obj.stem
+    extension = path_obj.suffix
+    counter = 1
+    
+    while True:
+        new_filename = f"{filename} ({counter}){extension}"
+        new_filepath = directory / new_filename
+        if not os.path.exists(new_filepath):
+            return str(new_filepath)
+        counter += 1
+
+def get_original_bitrate(video_path):
+    """Zjistí průměrný bitrate originálního videa v Mbps pomocí ffprobe."""
+    bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin')
+    ffprobe_path = os.path.join(bin_dir, "ffprobe.exe") if sys.platform == "win32" else os.path.join(bin_dir, "ffprobe")
+    
+    try:
+        cmd = [ffprobe_path, '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=bit_rate', '-of', 'default=noprint_wrappers=1:nokey=1', video_path]
+        creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True, encoding='utf-8', errors='replace', creationflags=creation_flags)
+        bitrate_bps = int(result.stdout.strip())
+        return round(bitrate_bps / 1000000, 1) # Z bps na Mbps
+    except Exception:
+        return 5.0 # Default pro 1080p, pokud selže
+
+def calculate_bitrate(compression_preset, duration_s, original_bitrate):
+    """Vypočítá bitrate podle kompresního presetu v procentech."""
+    # Kompresní presety v procentech původního bitrate
+    compression_map = {
+        "None (Original Quality)": {"video_factor": 1.0, "audio_bitrate": 192}, # 100%
+        "Medium Compression": {"video_factor": 0.75, "audio_bitrate": 128}, # 75%
+        "Low Quality": {"video_factor": 0.50, "audio_bitrate": 96}, # 50%
+        "Very Low Quality": {"video_factor": 0.35, "audio_bitrate": 96} # 35%
+    }
+    
+    if compression_preset not in compression_map:
+        compression_preset = "None (Original Quality)"
+    
+    v_factor = compression_map[compression_preset]["video_factor"]
+    a_bitrate = compression_map[compression_preset]["audio_bitrate"]
+    
+    # Uprav video bitrate podle faktoru a délky (delší = mírně nižší)
+    v_bitrate = original_bitrate * v_factor
+    if duration_s > 600: # Nad 10 min
+        length_factor = max(0.8, 1 - (duration_s - 600) / 7200.0) # Klesá k 0.8
+        v_bitrate *= length_factor
+    
+    v_bitrate = max(1.0, round(v_bitrate, 1)) # Min 1 Mbps
+    return v_bitrate, a_bitrate
+
+# ----------------------
+# URL widgety
+# ----------------------
+
+class URLLineWidget(QWidget):
+    line_edited = pyqtSignal()
+    delete_requested = pyqtSignal()
+    
+    def __init__(self, parent=None, initial_url=''):
+        super().__init__(parent)
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(8)
+        
+        self.line_edit = QLineEdit(initial_url, placeholderText="Enter URL...")
+        self.btn_paste = QPushButton("Paste", clicked=self.paste_to_line)
+        self.btn_delete = QPushButton("✕", clicked=self.delete_requested.emit)
+        
+        self.btn_paste.setFixedSize(60, 30)
+        self.btn_delete.setFixedSize(30, 30)
+        self.btn_paste.setStyleSheet("border-radius: 8px; padding: 5px;")
+        self.btn_delete.setStyleSheet("border-radius: 8px; padding: 5px; background-color: #e74c3c;")
+        
+        layout.addWidget(self.line_edit)
+        layout.addWidget(self.btn_paste)
+        layout.addWidget(self.btn_delete)
+        
+        self.line_edit.textChanged.connect(self.line_edited.emit)
+        
+        # Ctrl+A a Delete support
+        self.line_edit.keyPressEvent = self.key_press_event
+    
+    def key_press_event(self, event):
+        if event.key() == Qt.Key.Key_Delete and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
+            self.line_edit.selectAll()
+            self.line_edit.clear()
+        else:
+            QLineEdit.keyPressEvent(self.line_edit, event)
+    
+    def paste_to_line(self):
+        clip = QApplication.clipboard().text().strip()
+        if re.match(r'^https?://\S+', clip):
+            self.line_edit.setText(clip)
+    
+    def get_url(self):
+        return self.line_edit.text().strip()
+    
+    def is_empty(self):
+        return self.get_url() == ""
+
+class MultiURLDialog(QFrame):
+    closed = pyqtSignal(list)
+    
+    def __init__(self, parent=None, urls=None):
+        super().__init__(parent, Qt.WindowType.Dialog)
+        self.setWindowTitle("Enter Multiple URLs")
+        self.setFixedSize(500, 400)
+        
+        self.layout = QVBoxLayout(self)
+        self.layout.setSpacing(12)
+        self.layout.setContentsMargins(15, 15, 15, 15)
+        
+        self.line_widgets = []
+        
+        self.scroll_area = QScrollArea(widgetResizable=True)
+        scroll_content = QWidget()
+        self.scroll_layout = QVBoxLayout(scroll_content)
+        self.scroll_layout.setSpacing(8)
+        self.scroll_layout.addStretch()
+        self.scroll_area.setWidget(scroll_content)
+        self.layout.addWidget(self.scroll_area)
+        
+        if urls:
+            for u in urls:
+                self.add_line(u)
+        self.add_line()
+        
+        btn_layout = QHBoxLayout()
+        btn_layout.setSpacing(12)
+        btn_ok = QPushButton("OK", clicked=self.accept)
+        btn_cancel = QPushButton("Cancel", clicked=self.reject)
+        btn_layout.addStretch()
+        btn_layout.addWidget(btn_ok)
+        btn_layout.addWidget(btn_cancel)
+        self.layout.addLayout(btn_layout)
+    
+    def add_line(self, text=""):
+        widget = URLLineWidget(initial_url=text)
+        widget.line_edited.connect(self.check_last_line)
+        widget.delete_requested.connect(lambda: self.delete_line(widget))
+        self.scroll_layout.insertWidget(self.scroll_layout.count() - 1, widget)
+        self.line_widgets.append(widget)
+    
+    def delete_line(self, widget):
+        if len(self.line_widgets) > 1: # Ponech alespoň jeden řádek
+            self.line_widgets.remove(widget)
+            widget.deleteLater()
+    
+    def check_last_line(self):
+        if not self.line_widgets[-1].is_empty():
+            self.add_line()
+    
+    def accept(self):
+        urls = [w.get_url() for w in self.line_widgets if w.get_url()]
+        self.closed.emit(urls)
+        self.close()
+    
+    def reject(self):
+        self.closed.emit([])
+        self.close()
+
+# ----------------------
+# Info fetch thread
+# ----------------------
+
+class InfoFetchThread(QThread):
+    resolutions_fetched = pyqtSignal(object)
+    error = pyqtSignal(str)
+    status_update = pyqtSignal(str)
+    
+    def __init__(self, url):
+        super().__init__()
+        self.url = url
+        bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin')
+        self.yt_dlp_path = os.path.join(bin_dir, "yt-dlp.exe") if sys.platform == "win32" else os.path.join(bin_dir, "yt-dlp")
+    
+    def run(self):
+        try:
+            self.status_update.emit("Loading video info...")
+            cmd = [self.yt_dlp_path, '--dump-json', self.url]
+            creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+            
+            try:
+                result = subprocess.run(cmd, capture_output=True, text=True, check=True, encoding='utf-8', creationflags=creation_flags)
+            except UnicodeDecodeError:
+                result = subprocess.run(cmd, capture_output=True, check=True, creationflags=creation_flags)
+                stdout = result.stdout.decode('cp1252', errors='replace')
+                result.stdout = stdout
+            
+            video_info = json.loads(result.stdout)
+            
+            # Zpracujeme formáty
+            formats = video_info.get('formats', [])
+            resolutions = set()
+            
+            for f in formats:
+                if f.get('vcodec') != 'none' and f.get('height'):
+                    resolutions.add(f"{f['height']}p")
+            
+            unique_resolutions = sorted(list(resolutions), key=lambda r: int(r[:-1]), reverse=True)
+            
+            if unique_resolutions:
+                self.status_update.emit("Ready to download")
+                self.resolutions_fetched.emit({
+                    "resolutions": unique_resolutions,
+                    "duration": video_info.get('duration', 0),
+                    "fps": video_info.get('fps', 30),
+                    "title": video_info.get('title', 'Unknown Title')
+                })
+            else:
+                self.error.emit("No video streams found for this URL.")
+        
+        except subprocess.CalledProcessError as e:
+            self.error.emit(f"yt-dlp failed: {e.stderr}")
+        except Exception as e:
+            self.error.emit(f"Failed to get video info: {str(e)}")
+
+# ----------------------
+# Download thread
+# ----------------------
+
+class DownloadThread(QThread):
+    progress = pyqtSignal(int, str)
+    finished = pyqtSignal(str, str, bool)
+    error = pyqtSignal(str)
+    
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.params = kwargs
+        self._is_cancelled = False
+        self.process = None
+        
+        bin_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin')
+        self.yt_dlp_path = os.path.join(bin_dir, "yt-dlp.exe") if sys.platform == "win32" else os.path.join(bin_dir, "yt-dlp")
+        self.ffmpeg_path = os.path.join(bin_dir, "ffmpeg.exe") if sys.platform == "win32" else os.path.join(bin_dir, "ffmpeg")
+        
+        # Automatická detekce GPU/CPU
+        self.gpu_mode = check_gpu_support()
+    
+    def cancel(self):
+        self._is_cancelled = True
+        if self.process and self.process.poll() is None:
+            self.progress.emit(100, "Cancelling...")
+            self.process.terminate()
+    
+    def run(self):
+        urls = self.params.get('urls', [])
+        p = self.params
+        
+        for idx, url in enumerate(urls):
+            if self._is_cancelled:
+                break
+            
+            self.progress.emit(0, f"Processing URL {idx+1}/{len(urls)}...")
+            
+            try:
+                title_safe = p.get('title')
+                
+                # Pokud název nemáme (případ více URL), získáme ho
+                if not title_safe:
+                    self.progress.emit(1, f"Fetching title for URL {idx+1}...")
+                    title_cmd = [self.yt_dlp_path, '--get-title', '--encoding', 'utf-8', url]
+                    creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+                    title_result = subprocess.run(title_cmd, capture_output=True, text=True, check=True, encoding='utf-8', errors='replace', creationflags=creation_flags)
+                    title_safe = re.sub(r'[\\/*?:"<>|]', "", title_result.stdout.strip())
+                
+                # -------- MP3 --------
+                if p.get('format_opt') == 'MP3':
+                    self.progress.emit(5, "Downloading and converting to MP3...")
+                    
+                    mp3_path = get_unique_filepath(os.path.join(p['save_path'], f"{title_safe}.mp3"))
+                    
+                    cmd = [self.yt_dlp_path,
+                           '--progress',
+                           '--extract-audio',
+                           '--audio-format', 'mp3',
+                           '-o', mp3_path,
+                           '--ffmpeg-location', self.ffmpeg_path]
+                    
+                    # MP3 bitrate podle výběru
+                    mp3_bitrate = p.get('mp3_bitrate', 320)
+                    cmd += ['--audio-quality', f"{mp3_bitrate}K"]
+                    
+                    cmd.append(url)
+                    self._run_process(cmd)
+                    
+                    if self._is_cancelled:
+                        break
+                    
+                    self.finished.emit(title_safe, f"MP3 ({mp3_bitrate}kbps)", (idx == len(urls) - 1))
+                
+                # -------- MP4 --------
+                else:
+                    compression_mode = p.get('compression_mode', "None (Original Quality)")
+                    
+                    if compression_mode == "None (Original Quality)":
+                        # Direct download
+                        self.progress.emit(5, "Downloading (Original Quality)...")
+                        
+                        final_path = get_unique_filepath(os.path.join(p['save_path'], f"{title_safe}.mp4"))
+                        
+                        cmd = [self.yt_dlp_path,
+                               '--progress',
+                               '-f', f"bestvideo[height<={p.get('video_quality')[:-1]}][ext=mp4]+bestaudio[ext=m4a]/best[height<={p.get('video_quality')[:-1]}]",
+                               '--merge-output-format', 'mp4',
+                               '-o', final_path,
+                               url]
+                        
+                        self._run_process(cmd)
+                        
+                        if self._is_cancelled:
+                            break
+                        
+                        self.finished.emit(title_safe, f"MP4 ({p.get('video_quality')} - Original)", (idx == len(urls) - 1))
+                    
+                    else:
+                        # Custom compression
+                        self.progress.emit(5, "Downloading streams for compression...")
+                        
+                        temp_video_path = os.path.join(p['save_path'], f"temp_{title_safe}_video.mp4")
+                        temp_audio_path = os.path.join(p['save_path'], f"temp_{title_safe}_audio.m4a")
+                        
+                        cmd_video = [self.yt_dlp_path, '--progress', '-f', f"bestvideo[height<={p.get('video_quality')[:-1]}]", '-o', temp_video_path, url]
+                        self._run_process(cmd_video, phase_end=45)
+                        
+                        if self._is_cancelled:
+                            break
+                        
+                        self.progress.emit(45, "Downloading audio...")
+                        cmd_audio = [self.yt_dlp_path, '--progress', '-f', 'bestaudio', '-o', temp_audio_path, url]
+                        self._run_process(cmd_audio, phase_start=45, phase_end=90)
+                        
+                        if self._is_cancelled:
+                            break
+                        
+                        final_path = get_unique_filepath(os.path.join(p['save_path'], f"{title_safe}.mp4"))
+                        self._compress(temp_video_path, temp_audio_path, final_path)
+                        
+                        # Cleanup
+                        try:
+                            os.remove(temp_video_path)
+                        except:
+                            pass
+                        try:
+                            os.remove(temp_audio_path)
+                        except:
+                            pass
+                        
+                        if self._is_cancelled:
+                            break
+                        
+                        self.finished.emit(title_safe, f"MP4 ({p.get('video_quality')} - {compression_mode})", (idx == len(urls) - 1))
+            
+            except InterruptedError:
+                self.error.emit("Process cancelled.")
+                break
+            except Exception as e:
+                self.error.emit(f"Error processing {url}: {str(e)}")
+                break
+    
+    def _run_process(self, cmd, phase_start=0, phase_end=100):
+        creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+        self.process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, encoding='utf-8', creationflags=creation_flags)
+        
+        for line in self.process.stdout:
+            if self._is_cancelled:
+                self.process.terminate()
+                raise InterruptedError()
+            
+            match = re.search(r'\[download\]\s+([0-9\.]+)?%\s+of', line)
+            if match:
+                percent_str = match.group(1)
+                try:
+                    download_percent = float(percent_str)
+                    total_percent = phase_start + (download_percent / 100) * (phase_end - phase_start)
+                    self.progress.emit(int(total_percent), f"Downloading... {download_percent:.1f}%")
+                except:
+                    pass
+        
+        self.process.wait()
+        if self.process.returncode != 0 and not self._is_cancelled:
+            raise RuntimeError(f"yt-dlp failed with code {self.process.returncode}")
+    
+    def _compress(self, video_path, audio_path, final_path):
+        p = self.params
+        
+        # Výpočet cílových bitrate na základě presetu
+        original_bitrate = get_original_bitrate(video_path)
+        v_bitrate, a_bitrate = calculate_bitrate(
+            p.get("compression_mode"),
+            p.get("duration_s", 0),
+            original_bitrate
+        )
+        
+        # Kontrola temp souborů
+        if not os.path.exists(video_path):
+            raise RuntimeError(f"Temp video file not found: {video_path}")
+        if not os.path.exists(audio_path):
+            raise RuntimeError(f"Temp audio file not found: {audio_path}")
+        
+        cmd = [self.ffmpeg_path, "-y", "-i", video_path, "-i", audio_path]
+        
+        # Automatická GPU/CPU volba podle detekce
+        gpu_status = ""
+        if self.gpu_mode == "nvenc":
+            cmd += ["-c:v", "h264_nvenc", "-preset", "medium"]
+            gpu_status = " (NVIDIA NVENC)"
+        elif self.gpu_mode == "amf":
+            cmd += ["-c:v", "h264_amf"]
+            gpu_status = " (AMD AMF)"
+        elif self.gpu_mode == "qsv":
+            cmd += ["-c:v", "h264_qsv", "-preset", "medium"]
+            gpu_status = " (Intel QSV)"
+        else: # Fallback na CPU
+            cmd += ["-c:v", "libx264", "-preset", "medium"]
+            max_threads = max(1, int(multiprocessing.cpu_count() * 0.8))
+            cmd += ["-threads", str(max_threads)]
+            gpu_status = " (CPU)"
+        
+        cmd += ["-pix_fmt", "yuv420p"]
+        
+        # Nastavení bitrate
+        cmd += ["-b:v", f"{v_bitrate}M",
+                "-maxrate", f"{int(v_bitrate * 1.5)}M",
+                "-bufsize", f"{int(v_bitrate * 2)}M"]
+        
+        # Nastavení audia
+        cmd += ["-c:a", "aac",
+                "-b:a", f"{a_bitrate}k",
+                "-ar", "48000"]
+        
+        cmd += ["-movflags", "+faststart", final_path]
+        
+        self.progress.emit(90, f"Compressing with ffmpeg{gpu_status}...")
+        
+        try:
+            creation_flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+            result = subprocess.run(
+                cmd, capture_output=True, text=True,
+                check=True, encoding="utf-8", errors="replace",
+                creationflags=creation_flags
+            )
+        except subprocess.CalledProcessError as e:
+            now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            log_filename = f"ffmpeg_error_log_{now}.txt"
+            with open(log_filename, "w", encoding="utf-8") as f:
+                f.write("Command: " + " ".join(cmd) +
+                        "\n\nSTDOUT:\n" + e.stdout +
+                        "\n\nSTDERR:\n" + e.stderr)
+            raise RuntimeError(
+                f"ffmpeg failed with code {e.returncode}. "
+                f"Details in {log_filename}."
+            ) from e
+
+# ----------------------
+# Hlavní okno (UI)
+# ----------------------
+
+class YouTubeDownloader(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        # Ověření závislostí
+        missing = check_dependencies()
+        if missing:
+            QMessageBox.critical(self, "Chybějící závislost",
+                                 f"Soubor '{missing}.exe' nebyl nalezen. Ujistěte se, že je ve stejné složce jako program, nebo v systémové cestě (PATH). Aplikace se nyní ukončí.")
+            sys.exit(1)
+        
+        self.setWindowTitle("YouTube Downloader Ultimate v4.3 (fixed)")
+        self.setMinimumSize(700, 400)
+        self.setMaximumSize(700, 600)
+        
+        # Detekce GPU
+        gpu_mode = check_gpu_support()
+        gpu_text = {"qsv": "Intel QSV", "nvenc": "NVIDIA NVENC", "amf": "AMD AMF", "cpu": "CPU Only"}[gpu_mode]
+        
+        self.default_resolutions = ["2160p", "1440p", "1080p", "720p", "480p", "360p", "240p"]
+        self.compression_presets = ["None (Original Quality)", "Medium Compression", "Low Quality", "Very Low Quality"]
+        self.mp3_bitrates = ["320", "256", "192", "128", "96"]
+        
+        self.video_duration, self.video_fps, self.video_info = 0, 0, {}
+        self.download_thread, self.info_thread, self.multi_url_dialog = None, None, None
+        self.urls_to_download = []
+        
+        # Cesta pro ukládání
+        videos_path = Path.home() / "Videos"
+        self.save_path = str((videos_path if videos_path.exists() else Path.home() / "Downloads") / "YTDownload")
+        os.makedirs(self.save_path, exist_ok=True)
+        
+        self.center_window()
+        self.init_ui()
+    
+    def center_window(self):
+        screen = QApplication.primaryScreen().geometry()
+        frame_geometry = self.frameGeometry()
+        frame_geometry.moveCenter(screen.center())
+        self.move(frame_geometry.topLeft())
+    
+    def init_ui(self):
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        
+        main_layout = QVBoxLayout(central_widget)
+        main_layout.setSpacing(15)
+        main_layout.setContentsMargins(20, 20, 20, 25)
+        
+        # Title
+        title_label = QLabel(f"🎬 {self.windowTitle()}")
+        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        title_label.setStyleSheet("font-size: 22px; font-weight: bold; color: #2a82da; margin-bottom: 10px;")
+        main_layout.addWidget(title_label)
+        
+        # URL group
+        url_group = QGroupBox("Video Source")
+        url_layout = QVBoxLayout(url_group)
+        
+        url_input_layout = QHBoxLayout()
+        self.url_input = QLineEdit(placeholderText="Enter a YouTube URL or use buttons...")
+        self.url_input.editingFinished.connect(self.fetch_video_info)
+        
+        self.btn_paste = QPushButton("Paste URL", clicked=self.paste_url)
+        self.btn_multi_url = QPushButton("Multiple URLs", clicked=self.open_multi_url_dialog)
+        self.btn_clear = QPushButton("Clear", clicked=self.clear_url)
+        
+        url_input_layout.addWidget(self.url_input)
+        url_input_layout.addWidget(self.btn_paste)
+        url_input_layout.addWidget(self.btn_multi_url)
+        url_input_layout.addWidget(self.btn_clear)
+        
+        url_layout.addLayout(url_input_layout)
+        
+        self.video_info_label = QLabel("")
+        self.video_info_label.setStyleSheet("color: #aaa; font-style: italic; font-size: 11px;")
+        self.video_info_label.setWordWrap(True)
+        url_layout.addWidget(self.video_info_label)
+        
+        main_layout.addWidget(url_group)
+        
+        # Download settings
+        settings_group = QGroupBox("Download Settings")
+        settings_layout = QGridLayout(settings_group)
+        
+        # Format
+        settings_layout.addWidget(QLabel("Format:"), 0, 0)
+        self.format_combo = QComboBox()
+        self.format_combo.addItems(["MP4 (video+audio)", "MP3"])
+        self.format_combo.currentIndexChanged.connect(self.update_ui_visibility)
+        settings_layout.addWidget(self.format_combo, 0, 1, 1, 2)
+        
+        # Video Quality
+        self.video_quality_label = QLabel("Video Quality:")
+        settings_layout.addWidget(self.video_quality_label, 1, 0)
+        self.quality_combo = QComboBox()
+        self.quality_combo.addItems(self.default_resolutions)
+        self.quality_combo.setCurrentText("1080p")
+        settings_layout.addWidget(self.quality_combo, 1, 1, 1, 2)
+        
+        # Compression
+        self.compression_label = QLabel("Compression:")
+        settings_layout.addWidget(self.compression_label, 2, 0)
+        self.compression_combo = QComboBox()
+        self.compression_combo.addItems(self.compression_presets)
+        settings_layout.addWidget(self.compression_combo, 2, 1, 1, 2)
+        
+        # MP3 Bitrate
+        self.mp3_bitrate_label = QLabel("MP3 Bitrate (kbps):")
+        settings_layout.addWidget(self.mp3_bitrate_label, 3, 0)
+        self.mp3_bitrate_combo = QComboBox()
+        self.mp3_bitrate_combo.addItems(self.mp3_bitrates)
+        self.mp3_bitrate_combo.setCurrentText("320")
+        settings_layout.addWidget(self.mp3_bitrate_combo, 3, 1, 1, 2)
+        
+        main_layout.addWidget(settings_group)
+        
+        # Progress bar
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setFormat("Ready to download...")
+        self.progress_bar.setFixedHeight(32)
+        main_layout.addWidget(self.progress_bar)
+        
+        # Buttons
+        btn_layout = QHBoxLayout()
+        self.folder_btn = QPushButton(f"📁 .../{os.path.basename(self.save_path)}", clicked=self.select_folder)
+        self.download_btn = QPushButton("⬇️ Download", clicked=self.start_or_cancel_download)
+        
+        btn_layout.addWidget(self.folder_btn)
+        btn_layout.addWidget(self.download_btn)
+        main_layout.addLayout(btn_layout)
+        
+        # GPU info
+        gpu_mode = check_gpu_support()
+        gpu_text = {"qsv": "Intel QSV", "nvenc": "NVIDIA NVENC", "amf": "AMD AMF", "cpu": "CPU Only"}[gpu_mode]
+        gpu_info = QLabel(f"Encoding: {gpu_text}")
+        gpu_info.setStyleSheet("color: #aaa; font-size: 10px; text-align: center;")
+        gpu_info.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        main_layout.addWidget(gpu_info)
+        
+        self.update_ui_visibility()
+        self.setStyleSheet(self.get_stylesheet())
+    
+    def get_stylesheet(self):
+        return """
+        QMainWindow, QFrame, QWidget { background-color: #2d2d2d; }
+        QGroupBox { font-weight: bold; color: #fff; border: 2px solid #555; border-radius: 12px; margin-top: 8px; padding-top: 10px; }
+        QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 8px; background-color: #2d2d2d; }
+        QLabel { color: #fff; font-size: 12px; font-weight: bold; }
+        QLineEdit, QComboBox { background-color: #404040; border: 2px solid #555; border-radius: 12px; padding: 10px; color: #fff; font-size: 12px; }
+        QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 30px; border-left-width: 1px; border-left-color: #555; border-left-style: solid; border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+        QComboBox::down-arrow { border: 2px solid #8f8f8f; border-radius: 4px; width: 10px; height: 6px; margin: 4px; }
+        QComboBox QAbstractItemView { border: 2px solid #555; border-radius: 10px; background-color: #404040; selection-background-color: #2a82da; outline: none; }
+        QPushButton { background-color: #2a82da; border-radius: 12px; padding: 12px 16px; color: #fff; font-weight: bold; font-size: 12px; border: none; }
+        QPushButton:hover { background-color: #3d95ed; }
+        QPushButton:pressed { background-color: #1e6bb8; }
+        QPushButton:disabled { background-color: #555; color: #999; }
+        QProgressBar { border: 2px solid #555; border-radius: 10px; text-align: center; background-color: #404040; color: white; font-weight: bold; }
+        QProgressBar::chunk { background-color: #2a82da; border-radius: 8px; }
+        """
+    
+    def update_ui_visibility(self):
+        is_mp4 = self.format_combo.currentText() == 'MP4 (video+audio)'
+        is_mp3 = not is_mp4
+        
+        self.video_quality_label.setVisible(is_mp4)
+        self.quality_combo.setVisible(is_mp4)
+        self.compression_label.setVisible(is_mp4)
+        self.compression_combo.setVisible(is_mp4)
+        
+        self.mp3_bitrate_label.setVisible(is_mp3)
+        self.mp3_bitrate_combo.setVisible(is_mp3)
+    
+    def clear_url(self):
+        self.url_input.clear()
+        self.video_info_label.setText("")
+        self.progress_bar.setFormat("Ready to download...")
+        self.progress_bar.setValue(0)
+        self.reset_multi_url_mode()
+    
+    def fetch_video_info(self):
+        url = self.url_input.text().strip()
+        if url and not self.urls_to_download and re.match(r'^https?://(www\.)?(youtube\.com|youtu\.be)/\S+', url):
+            self.progress_bar.setFormat("Loading info...")
+            self.download_btn.setEnabled(False)
+            
+            self.info_thread = InfoFetchThread(url)
+            self.info_thread.resolutions_fetched.connect(self.update_quality_combo)
+            self.info_thread.error.connect(self.info_fetch_error)
+            self.info_thread.status_update.connect(self.progress_bar.setFormat)
+            self.info_thread.start()
+    
+    def update_quality_combo(self, data):
+        self.quality_combo.clear()
+        self.quality_combo.addItems(data["resolutions"])
+        
+        self.video_duration = data.get("duration", 0)
+        self.video_fps = data.get("fps", 30)
+        self.video_info = data
+        
+        title = data.get("title", "Unknown")
+        duration_min = int(self.video_duration / 60) if self.video_duration else 0
+        duration_sec = self.video_duration % 60 if self.video_duration else 0
+        
+        self.video_info_label.setText(
+            f"Video: {title} | Duration: {duration_min:02d}:{duration_sec:02d} | Best: {data['resolutions'][0] if data['resolutions'] else 'N/A'}"
+        )
+        
+        if "1080p" in data["resolutions"]:
+            self.quality_combo.setCurrentText("1080p")
+        elif data["resolutions"]:
+            self.quality_combo.setCurrentIndex(0)
+        
+        self.download_btn.setEnabled(True)
+        self.progress_bar.setFormat("Ready to download...")
+    
+    def info_fetch_error(self, message):
+        self.progress_bar.setFormat("Error fetching info")
+        self.video_info_label.setText(f"Error: {message}")
+        self.download_btn.setEnabled(True)
+        
+        error_detail = (
+            "Nepodařilo se načíst informace o videu.\n\n"
+            "Příčiny mohou být:\n"
+            "1. Neplatná URL adresa.\n"
+            "2. YouTube dočasně blokuje požadavky (zkuste to za pár minut).\n"
+            "3. Video je soukromé nebo regionálně omezené.\n\n"
+            f"Původní chyba: {message}"
+        )
+        QMessageBox.warning(self, "Chyba při načítání metadat", error_detail)
+    
+    def paste_url(self):
+        clip = QApplication.clipboard().text().strip()
+        if re.match(r'^https?://(www\.)?(youtube\.com|youtu\.be)/\S+', clip):
+            # Jen vloží URL do pole. Načítání se spustí až po odkliknutí (editingFinished).
+            self.url_input.setText(clip)
+        else:
+            QMessageBox.information(self, "Invalid URL", "Please copy a valid YouTube URL first.")
+    
+    def open_multi_url_dialog(self):
+        self.reset_to_default_qualities()
+        urls = self.urls_to_download or ([self.url_input.text().strip()] if self.url_input.text().strip() else [])
+        self.multi_url_dialog = MultiURLDialog(self, urls=urls)
+        self.multi_url_dialog.closed.connect(self.handle_multi_url_close)
+        self.multi_url_dialog.show()
+    
+    def handle_multi_url_close(self, urls):
+        if urls:
+            self.urls_to_download = urls
+            self.url_input.setText(f"{len(urls)} videos in queue...")
+            self.url_input.setReadOnly(True)
+            self.video_info_label.setText(f"Multiple videos selected: {len(urls)} URLs in queue")
+        self.multi_url_dialog = None
+    
+    def reset_multi_url_mode(self):
+        self.urls_to_download.clear()
+        self.url_input.setReadOnly(False)
+        self.url_input.clear()
+        self.video_info_label.setText("")
+    
+    def reset_to_default_qualities(self):
+        self.quality_combo.clear()
+        self.quality_combo.addItems(self.default_resolutions)
+        self.quality_combo.setCurrentText("1080p")
+    
+    def select_folder(self):
+        folder = QFileDialog.getExistingDirectory(self, "Select Save Folder", str(Path(self.save_path).parent))
+        if folder:
+            self.save_path = os.path.join(folder, "YTDownload")
+            os.makedirs(self.save_path, exist_ok=True)
+            self.folder_btn.setText(f"📁 .../{os.path.basename(self.save_path)}")
+    
+    def start_or_cancel_download(self):
+        if self.download_thread and self.download_thread.isRunning():
+            self.download_thread.cancel()
+        else:
+            self.start_download()
+    
+    def start_download(self):
+        urls = self.urls_to_download or ([self.url_input.text().strip()] if self.url_input.text().strip() else [])
+        urls = [u.strip() for u in urls if u.strip()]
+        
+        if not urls:
+            QMessageBox.warning(self, "No URLs", "Please enter at least one YouTube URL.")
+            return
+        
+        self.set_ui_for_download(True)
+        self.progress_bar.setValue(0)
+        
+        # Získáme název videa, pokud jde o jedno URL
+        title = self.video_info.get("title") if not self.urls_to_download else None
+        
+        params = {
+            "urls": urls,
+            "save_path": self.save_path,
+            "format_opt": self.format_combo.currentText(),
+            "video_quality": self.quality_combo.currentText(),
+            "compression_mode": self.compression_combo.currentText(),
+            "mp3_bitrate": int(self.mp3_bitrate_combo.currentText()),
+            "duration_s": self.video_duration,
+            "title": title # Přidali jsme název sem
+        }
+        
+        self.download_thread = DownloadThread(**params)
+        self.download_thread.progress.connect(self.update_progress)
+        self.download_thread.finished.connect(self.download_finished)
+        self.download_thread.error.connect(self.download_error)
+        self.download_thread.start()
+    
+    def update_progress(self, percent, status_text):
+        self.progress_bar.setValue(percent)
+        self.progress_bar.setFormat(status_text)
+    
+    def download_finished(self, title, quality, is_last):
+        if is_last:
+            self.progress_bar.setFormat("All videos downloaded! 🎉")
+            self.progress_bar.setValue(100)
+            QMessageBox.information(self, "Complete!", f"All videos have been successfully downloaded.\n\nSaved to: {self.save_path}")
+            
+            try:
+                if sys.platform == "win32":
+                    os.startfile(self.save_path)
+                elif sys.platform == "darwin":
+                    subprocess.Popen(["open", self.save_path])
+                else:
+                    subprocess.Popen(["xdg-open", self.save_path])
+            except Exception:
+                pass
+            
+            self.reset_ui()
+    
+    def download_error(self, msg):
+        QMessageBox.critical(self, "Download Error", msg)
+        self.reset_ui()
+    
+    def set_ui_for_download(self, is_downloading):
+        self.download_btn.setText("❌ Cancel" if is_downloading else "⬇️ Download")
+        self.download_btn.setStyleSheet("background-color: #e74c3c;" if is_downloading else "")
+        
+        for child in self.findChildren(QWidget):
+            if hasattr(child, 'setEnabled') and child not in [self, self.download_btn, self.progress_bar]:
+                child.setEnabled(not is_downloading)
+    
+    def reset_ui(self):
+        self.set_ui_for_download(False)
+        self.reset_multi_url_mode()
+        self.progress_bar.setFormat("Ready to download...")
+        self.progress_bar.setValue(0)
+        self.reset_to_default_qualities()
+
+# ----------------------
+# Main
+# ----------------------
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    downloader = YouTubeDownloader()
+    downloader.show()
+    sys.exit(app.exec())
