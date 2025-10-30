@@ -1,4 +1,4 @@
-<!--Hugo--><body style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo/back0.jpg) repeat fixed; width: 100%; height:100%; height:auto; background-repeat: no-repeat; background-position: center; background-size:cover; opacity:.96; text-shadow: black .11px .14px .2px; cursor: url(''), default; overflow-x: ; position: absolute !important; z-index :-2"></body><!-- DIV BACK 1------><div style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo/back0.jpg) repeat fixed; width: 100%; height: 100%; overflow: fixed; background-repeat: no-repeat; background-size: cover; background-position:center; opacity: .999; cursor: url(''),default; margin-left: -11px; width: 940px"><!-- DIV BACK 2------><div style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo/back0.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size:cover; background-position: center; opacity: .999; cursor: url(''),default; margin-left: 11px!important; margin-top:-13px; font-family: Palatino Linotype; width:940px">
+<!--Hugo--><body style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo2/back0.jpg) repeat fixed; width: 100%; height:100%; height:auto; background-repeat: no-repeat; background-position: center; background-size:cover; opacity:.96; text-shadow: black .11px .14px .2px; cursor: url(''), default; overflow-x: ; position: absolute !important; z-index :-2"></body><!-- DIV BACK 1------><div style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo2/back0.jpg) repeat fixed; width: 100%; height: 100%; overflow: fixed; background-repeat: no-repeat; background-size: cover; background-position:center; opacity: .999; cursor: url(''),default; margin-left: -11px; width: 940px"><!-- DIV BACK 2------><div style="background: #F9F9F9 url(https://trolltrolli.github.io/skt/popis/hugo2/back0.jpg) repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat: no-repeat; background-size:cover; background-position: center; opacity: .999; cursor: url(''),default; margin-left: 11px!important; margin-top:-13px; font-family: Palatino Linotype; width:940px">
 <font face="Showcard Gothic">
 <!--HORNI LISTA----------><div style="border:1.3px solid silver;margin-top:-28px;margin-left:-11.7px; width: 945px; box-shadow: 0px 0px 1px 2px grey, 1px 1px 3px 2px black!important"></div>
 <!--BUTTON NAVOD-------><div class="main" id="dolu" style="user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; scroll-behavior:smooth; height:27px; width:90px; background: #464547; border-radius:5px; margin-top:-46.5px; margin-left:842px; border:1px solid black; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#nahoru"><p style="color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration: none; display: inline-block" onmouseover="style='color: grey; font-size:20px; margin-top:-6.791px; font-weight: 450; text-shadow: 1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'" onmouseout="style='color: #F1EBEF; font-size:20px; margin-top:-7px; font-weight: 400; text-shadow:1px 1px 1px black,2px 2px 3px grey, .5px .5px 5px black; text-decoration:none; display:inline-block; text-align:left'">NÁVOD</p></a></div>
@@ -6,13 +6,13 @@
 
 
 <!---LOGO---><body name="logo" onmouseover="document.getElementById('logo').style=' width: 260px; height: 280x; margin-top: -40px; margin-left: -120px; transform: rotate(2.03turn); transition: all 0.5s linear; transition-property: background-color, font-size, transform, color; transition-timing-function: ease-in-out; transition-duration: 3s; position: absolute'" name="logo">
-<img src="https://trolltrolli.github.io/skt/popis/hugo/logo.png" id="logo" style="width: 260px; height: 280px; margin-top: px; margin-left: px; position: absolute; "></body>
+<img src="https://trolltrolli.github.io/skt/popis/hugo2/logo.png" id="logo" style="width: 260px; height: 280px; margin-top: px; margin-left: px; position: absolute; "></body>
 
-<p style="color: green; font-size: 30px; font-weight: 700; text-shadow: 1px 2px 1.5px black, 0 0 2px black, .5px .7px 2px black; -webkit-text-stroke: .6px black; margin-top: 220px; postion: absolute">HUGO: DOBRODRUŽSTVÍ V DŽUNGLI 2</p>
+<p style="color: green; font-size: 30px; font-weight: 700; text-shadow: 1px 2px 1.5px black, 0 0 2px black, .5px .7px 2px black; -webkit-text-stroke: .6px black; margin-top: 220px; postion: absolute">HUGO: CESTA KOLEM SVĚTA</p>
 
 <p style="color: black; font-size: 19px; text-align: left; margin-top: -70px; margin-left: 50px; -webkit-text-stroke: .35px black; width: 700px"><b>
-Hugo je opět zpátky v džungli se svými přáteli, opičákem Jean Paulem a tukanem Fernandem. Jsou zde i jeho nepřátelé, zlá čarodějnice Scylla a její věrný přisluhovač Don Kroko. Také jsou zde ty otravné opice, které se snaží zabránit Hugovi zachránit jeho krásnou Hugolínu a jejich tři děti Elfíka,
-Elfinku a Elfíňátko.﻿</p>
+V téhle výukové adventuře z Hugo série cestuje Elfinka (dcera Huga) po světě a s pomocí knižního červa jménem Geo hledá tři magické klíče k rodinnému pokladu. Hra kombinuje nenásilné mini-hry (vlajky, doručování dopisů, skládání hudby aj.) s poznáváním zemí a kultur. Více než 20 lokací, tři úrovně obtížnosti, cílené na děti cca 6–12 let. (CZ lokalizace)
+</b></p>
 <!---HREF NÁVOD---><div class="main" id="nahoru" style="scroll-behavior: smooth"></div>
 <!-- BUTTONS ----------------->
 <div><table style="border-collapse: collapse; align: center; text-align: center; margin-top: -50px;" width="50%" height="0" border="0" cellpadding="0" cellspacing="0"><tr>
@@ -27,23 +27,23 @@ Elfinku a Elfíňátko.﻿</p>
 <!--MENU1-->
 <div id="menu1" style="display: none;"><p style="color: white; font-size: 19px; background-color: rgba(0,0,0,.95); margin-top: -35px;.margin-left: -100px; line-height: 28px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 918px; .height: auto; border: 1px solid silver; position: absolute; z-index: 5">
 
-<font color="orange" size="5">HUGO: Dobrodružství v džungli 2 <font size="4">(Jungle Island 2)</font></font>
+<font color="orange" size="5">HUGO: Cesta kolem světa <font size="4">(The Magic Journey)</font></font>
 
 <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
-<a href="https://screentroll-fandom-com.translate.goog/wiki/Jungle_Island_2?_x_tr_sl=auto&_x_tr_tl=cs&_x_tr_hl=cs" target="_blank" title="  P O P I S  " style="color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: red !important" onmouseover="style='color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: limegreen !important'" onmouseout="style='color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: red !important'"><font size="4" color="limegreen">Popis - Wikipedia (translator)</font></a>
+<a href="https://screentroll-fandom-com.translate.goog/wiki/Hugo:_The_Magic_Journey?_x_tr_sl=auto&_x_tr_tl=cs&_x_tr_hl=cs" target="_blank" title="  P O P I S  " style="color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: red !important" onmouseover="style='color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: limegreen !important'" onmouseout="style='color: fuchsia; font-size: 15px; text-decoration: underline; text-decoration-color: red !important'"><font size="4" color="limegreen">Popis – Fandom (translator)</font></a>
 Vývojář:                 	ITE Media
 Vydavatel:             	ITE Media
-Platforma:              Windows
-Rok vydání:           2002
+Platforma:              Windows (PC)
+Rok vydání:           1998
 Dabing:                  čeština
-Žánr:                       dětská, adventura, akční
+Žánr:                       dětská, výuková / adventura (mini-hry)
 Režim:                    singleplayer
-<font color="limegreen">Místo na disku:     650MB</font>
+<font color="limegreen">Min. požadavky:  Pentium 166 MHz, 32 MB RAM</font>
 <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
 
 <font size="3.5">    odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</font>
 
-<embed width="340" height="180" style="border: 4px solid grey; outline: solid black; border-radius: 2px; position: absolute; margin-left: 420px; margin-top: -330px" src="https://www.youtube.com/embed/z6Uei8MisSs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></embed>
+<embed width="340" height="180" style="border: 4px solid grey; outline: solid black; border-radius: 2px; position: absolute; margin-left: 420px; margin-top: -330px" src="https://www.youtube.com/embed/W9bAzh5T7vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></embed>
 
 </p></div>
 
@@ -71,7 +71,7 @@ Režim:                    singleplayer
 </p></div>
 
 <!--MENU3-->
-<div id="menu3" style="display: none;"><div style="color: white; font-size: 19px; background-color: rgba(0,0,0,.95); margin-top: -131px; margin-left: -px; line-height: 25px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1px 2px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 918px; height: auto; border: 1px solid silver; position: absolute; z-index: 5">
+<div id="menu3" style="display: none;"><div style="color: white; font-size: 19px; background-color: rgba(0,0,0,.95); margin-top: -131px; margin-left: -px; line-height: 25px; text-align: left; padding: 0 0px 15px 23px; border: 1px solid black; border-radius: 10px; text-shadow: 0 0 1px black, .2px .3px .7px black, .5px .7px 2px black, .8px .9px 1.5px black, 1px 1.5px 3px black, 2px 3px 6px black, 1.2px 1.8px 3px black; box-shadow: .5px .6px .6px 1px black; width: 918px; height: auto; border: 1px solid silver; position: absolute; z-index: 5">
 
 <font size=6><b>*** GRAFICKÝ TUNING ***</b></font>
 
@@ -117,8 +117,8 @@ Režim:                    singleplayer
 
 
 
-<img src="https://trolltrolli.github.io/skt/popis/hugo/palma2.png" style="position: absolute; margin-top: -301px; margin-left: -450px; transform: scale(57%);pointer-events: none;user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
-<img src="https://trolltrolli.github.io/skt/popis/hugo/palma1.png" style="position: absolute; margin-top: -300px; margin-left: 250px; transform: scale(70%);pointer-events: none;user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
+<img src="https://trolltrolli.github.io/skt/popis/hugo2/palma2.png" style="position: absolute; margin-top: -301px; margin-left: -450px; transform: scale(57%);pointer-events: none;user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
+<img src="https://trolltrolli.github.io/skt/popis/hugo2/palma1.png" style="position: absolute; margin-top: -300px; margin-left: 250px; transform: scale(70%);pointer-events: none;user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none;">
 <!--SEZNAM TORR--><div style="margin-left: -2px; margin-top: -100px"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); box-shadow: #2b1e17 0 0 1.5px 1.5px, black 0px 2px 2px 3px, #606060 0px 0px 10px 5px, #5b5a5a 0px 0px 10px 4px, rgb(64, 64, 64) 0px 0px 5px 7px, rgb(117, 111, 111) 0 0 8px 17px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 10px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 20px, 0 0 20px 20px rgb(13, 13, 13), 0 0 5px 15px black !important; border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px"></embed></div>
 
 <!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.8); margin-top:30px; margin-left:-35px; position: absolute; z-index: 1; box-shadow: .7px .8px 2px 1px black, 1px 1px 5px 5px black!important"><a href="#"><img src="https://trolltrolli.github.io/skt/popis/mix/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
