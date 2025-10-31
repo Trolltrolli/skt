@@ -6,12 +6,11 @@
 
 
 
-<!---LOGO---><body name="logo"><svg width="340" height="360" style="margin-top:-40px;margin-left:-120px;position:absolute;" viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg"><image href="https://trolltrolli.github.io/skt/popis/hugo2/logo.png" width="340" height="360"><animateTransform attributeName="transform" type="rotate" from="0 170 180" to="720 170 180" dur="2s" repeatCount="1" fill="freeze"/></image></svg></body>
+<!---LOGO---><body name="logo"><svg width="340" height="360" style="margin-top:-40px;margin-left:-120px;position:absolute;" viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg"><image href="https://trolltrolli.github.io/skt/popis/hugo2/logo.png" width="340" height="360"><animateTransform attributeName="transform" type="rotate" from="0 170 180" to="720 170 180" dur="1.7s" repeatCount="1" fill="freeze"/></image></svg></body>
 
 
 
-
-<p style="color: green; font-size: 35px; font-weight: 700; text-shadow: 1px 2px 1.5px black, 0 0 2px black, .5px .7px 2px black, 1px 1.3px 3px white; -webkit-text-stroke: .6px black; margin-top: 220px; postion: absolute">HUGO: CESTA KOLEM SVĚTA</p>
+<p style="color: green; font-size: 35px; font-weight: 700; text-shadow: 1px 2px 1.5px black, 0 0 2px black, .5px .7px 2px black, 1px 1.3px 3px white; -webkit-text-stroke: .6px black; margin-top: 200px; postion: absolute">HUGO: CESTA KOLEM SVĚTA</p>
 
 <p style="color: black; font-size: 22px; text-align: left; margin-top: -70px; margin-left: 50px; -webkit-text-stroke: .4px black; width: 700px; text-shadow: .5px .8px 1px black,1px 1px 2px grey, 0 0 5px white;"><b>
 <b>V téhle výukové adventuře z Hugo série cestuje Elfinka (dcera Huga) po světě a s pomocí knižního červa jménem Geo hledá tři magické klíče k rodinnému pokladu. Hra kombinuje nenásilné mini-hry (vlajky, doručování dopisů, skládání hudby aj.) s poznáváním zemí a kultur. Více než 20 lokací, tři úrovně obtížnosti.</b>
