@@ -3,20 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Seznam</title>
-  <script>
-    (function(){
-      try {
-        if (!sessionStorage.getItem('seznam_refreshed')) {
-          sessionStorage.setItem('seznam_refreshed','1');
-          setTimeout(function(){
-            location.replace('seznam.html?r=1');
-          }, 700);
-        }
-      } catch(e){
-        location.replace('seznam.html?r=1');
-      }
-    })();
-  </script>
+
+<script>(function(){try{if(!sessionStorage.getItem('seznam_refreshed')){sessionStorage.setItem('seznam_refreshed','1');setTimeout(function(){location.replace('seznam.html?r=1');},700);}}catch(e){location.replace('seznam.html?r=1');}})();</script>
+
 </head>
 <style>@import url("core/style.css");</style>
 
@@ -1906,8 +1895,6 @@
 </tbody>
 
 </table></div>
-
-
 
 
 <!-- SCRIPT, KTERÝ ZAJIŠTUJE SEŘAZENÍ V TABULKÁCH OD - DO + VYHLEDÁVÁNÍ PODLE NÁZVŮ NEBO PŘÍVLASTKU, DLE VELIKOSTI (MEZERA KB,MB,GB,TB) -->
