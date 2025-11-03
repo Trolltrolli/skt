@@ -25,6 +25,13 @@ font-weight: 300;
 }
 
 
+html, body {
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+embed, object {
+  pointer-events: auto !important;
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 
