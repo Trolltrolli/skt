@@ -33,6 +33,39 @@ embed, object {
   pointer-events: auto !important;
 }
 
+  /* overlay zobrazené jen pokud jsme v rámci (embed) */
+  #open-overlay {
+    position: fixed;
+    inset: 8px 8px auto auto;
+    z-index: 9999;
+    display: none;               /* bude zapnuto JS pokud jsme v embed */
+    gap: 10px;
+    align-items: center;
+    font-family: Verdana, Arial, sans-serif;
+  }
+  #open-overlay .btn {
+    display:inline-block;
+    padding:10px 16px;
+    background:#ffd54f;
+    color:#000;
+    border-radius:6px;
+    font-weight:700;
+    text-decoration:none;
+    box-shadow:0 2px 6px rgba(0,0,0,.35);
+    cursor:pointer;
+  }
+  #open-overlay .hint {
+    color:#fff;
+    background: rgba(0,0,0,0.45);
+    padding:8px 10px;
+    border-radius:6px;
+    font-size:13px;
+  }
+  /* pro mobil větší tlačítko */
+  @media (max-width:640px){
+    #open-overlay .btn{ padding:14px 20px; font-size:18px }
+  }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 
 .container::-webkit-scrollbar {

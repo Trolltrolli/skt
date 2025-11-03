@@ -1882,7 +1882,10 @@
 
 		</tr>
 
-              
+      <div id="open-overlay" aria-hidden="true">
+  <div class="hint">Vypadá to, že jsi na fóru — klikni pro otevření seznamu v nové kartě (spolehlivě funguje i ve Firefoxu)</div>
+  <button id="open-overlay-btn" class="btn" type="button">Otevřít seznam (nová karta)</button>
+</div>        
 
 <!-- KONEC, POD TOHLE UŽ NIC NEVKLÁDEJ, NIC NEMAŽ ANI NEMĚN -->   
 
@@ -1891,6 +1894,38 @@
 </table></div>
 
 
+
+<script>
+(function(){
+  try {
+    // Pokud jsme vložení do jiného rámce (tj. embed), zobraz overlay
+    var embedded = (window.top !== window.self);
+    if(!embedded) return; // běží přímo -> nic nenutíme
+
+    var overlay = document.getElementById('open-overlay');
+    var btn = document.getElementById('open-overlay-btn');
+    overlay.style.display = 'flex';
+    overlay.setAttribute('aria-hidden','false');
+
+    // Po prvním kliknutí otevři novou kartu/okno s touto stránkou (user gesture)
+    btn.addEventListener('click', function(e){
+      try {
+        // otevře aktuální stránku v nové kartě - většinou povoleno jako user gesture
+        window.open(window.location.href, '_blank', 'noopener,noreferrer');
+      } catch(err){ /* ignore */ }
+      // a schovej overlay, aby nebyl po otevření obtěžující
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden','true');
+    });
+
+    // Doplňkově, pokud někdo klikne kamkoli na stránku (někdy embed předá jen body event),
+    // tak taky otevřeme nové okno – ale neprovádějme to auto; zde jen jedno kliknutí přes tlačítko.
+  } catch(e){
+    // nic, bezpečně selhat
+    console.warn('overlay init failed', e);
+  }
+})();
+</script>
 
 <!-- SCRIPT, KTERÝ ZAJIŠTUJE SEŘAZENÍ V TABULKÁCH OD - DO + VYHLEDÁVÁNÍ PODLE NÁZVŮ NEBO PŘÍVLASTKU, DLE VELIKOSTI (MEZERA KB,MB,GB,TB) -->
 <script> document.addEventListener("mousedown", e => {window.focus();}, true);</script>
