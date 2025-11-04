@@ -30,6 +30,16 @@
       border-radius: 10px;
       box-shadow: 0 0 20px 10px black;
     }
+    /* drobný vizuální hint (nepovinné) */
+    .hint {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size:12px;
+      font-family: Arial, sans-serif;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -37,40 +47,97 @@
 <div id="playerContainer"></div>
 
 <script>
-  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=357&autoplay=true";
+  // primární embed: autoplay=true + muted=1 -> vyšší šance, že to prohlížeč pustí automaticky
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=357&autoplay=true&muted=1";
+  const PRIMARY_URL_UNMUTED = "https://fmcloud.pro/embed.php?id=357&autoplay=true&muted=0";
   const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/vivapin2/player_backup.html?autoplay=true";
   const TIMEOUT = 3000;
 
   const container = document.getElementById('playerContainer');
   let mp3Ok = false;
+  let userGestureDone = false;
+  let currentSrc = PRIMARY_URL;
 
-  function loadIframe(src) {
+  function createIframe(src) {
     const iframe = document.createElement('iframe');
     iframe.src = src;
     iframe.allow = "autoplay";
     iframe.className = "player";
-    container.innerHTML = "";
-    container.appendChild(iframe);
+    iframe.setAttribute('sandbox',''); // pokud by fórum přidalo sandbox, necháme to zde prázdné (není to nutné)
+    return iframe;
   }
 
-  // Spustíme přehrávač
+  function loadIframe(src) {
+    currentSrc = src;
+    container.innerHTML = "";
+    container.appendChild(createIframe(src));
+  }
+
+  // Spustíme přehrávač (muted autoplay pokus)
   loadIframe(PRIMARY_URL);
 
-  // Posloucháme zprávy z embed playeru
+  // Posloucháme zprávy z embed playeru (pokud embed nějaké posílá)
   window.addEventListener("message", (event) => {
+    // bezpečnost: event.origin lze v budoucnu zkontrolovat proti seznamu povolených domén
     if (event.data?.mp3_status === "ok") {
       console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
       mp3Ok = true;
     }
+    // některé embedy mohou oznámit, že začaly přehrávat atd.
+    if (event.data?.action === "played") {
+      console.log("ℹ️ Embed hlásí přehrávání.");
+      mp3Ok = true;
+    }
   });
 
-  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva – pokud ne, přepneme na záložní
   setTimeout(() => {
     if (!mp3Ok) {
       console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
       loadIframe(BACKUP_URL);
     }
   }, TIMEOUT);
+
+  // --- AUTOPLAY hack: čekáme na první user gesture a pak se pokusíme o full-volume play ---
+  function onFirstUserGesture() {
+    if (userGestureDone) return;
+    userGestureDone = true;
+    console.log("🔔 Uživatelské gesto detekováno – pokusím se o plný zvuk.");
+
+    // 1) pokusíme se poslat postMessage do embedu (pokud poslouchá)
+    try {
+      const iframe = container.querySelector('iframe.player');
+      if (iframe && iframe.contentWindow) {
+        // standardní "play" action, embed musí podporovat postMessage API
+        iframe.contentWindow.postMessage({ action: 'play' }, '*');
+        iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
+      }
+    } catch (e) {
+      console.warn('postMessage selhalo', e);
+    }
+
+    // 2) pokusíme se iframe nahradit verzí bez muted parametru (reload -> některé embedy pak pustí zvuk)
+    // jen pokud jsme stále na primární URL s muted=1
+    try {
+      if (currentSrc === PRIMARY_URL) {
+        // krátké zpoždění, aby prohlížeč uznal gesto
+        setTimeout(() => {
+          loadIframe(PRIMARY_URL_UNMUTED);
+        }, 120);
+      }
+    } catch(e) {
+      console.warn('reload unmute selhalo', e);
+    }
+  }
+
+  // posloucháme vícero typů gest, aby to chytilo i mobil
+  ['click','touchstart','keydown'].forEach(evt => {
+    window.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
+  });
+
+  // Uživatel si může chtít explicitně kliknout i na box
+  container.addEventListener('click', onFirstUserGesture);
+
 </script>
 
 </body>
