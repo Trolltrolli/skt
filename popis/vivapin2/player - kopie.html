@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function(){
+      try{
+        if(!sessionStorage.getItem('player_refreshed')){
+          sessionStorage.setItem('player_refreshed','1');
+          setTimeout(function(){
+            location.replace('player.html?r=1');
+          },700);
+        }
+      }catch(e){
+        location.replace('player.html?r=1');
+      }
+    })();
+  </script>
+
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    .player {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+    }
+    .hint {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size:12px;
+      font-family: Arial, sans-serif;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="playerContainer"></div>
+
+<script>
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=357&autoplay=true&muted=1";
+  const PRIMARY_URL_UNMUTED = "https://fmcloud.pro/embed.php?id=357&autoplay=true&muted=0";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/vivapin2/player_backup.html?autoplay=true";
+  const TIMEOUT = 3000;
+  const UNMUTE_DELAY = 2500; // po kolika ms zkusit zesílit
+
+  const container = document.getElementById('playerContainer');
+  let mp3Ok = false;
+  let userGestureDone = false;
+  let currentSrc = PRIMARY_URL;
+
+  function createIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    iframe.setAttribute('sandbox','');
+    return iframe;
+  }
+
+  function loadIframe(src) {
+    currentSrc = src;
+    container.innerHTML = "";
+    container.appendChild(createIframe(src));
+  }
+
+  // 🔇 Spustíme přehrávač (muted autoplay pokus)
+  loadIframe(PRIMARY_URL);
+
+  window.addEventListener("message", (event) => {
+    if (event.data?.mp3_status === "ok" || event.data?.action === "played") {
+      mp3Ok = true;
+    }
+  });
+
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("⚠️ Přepínám na záložní player (mute).");
+      loadIframe(BACKUP_URL);
+
+      // 🎧 Po malém čase zkusíme automaticky zrušit mute
+      setTimeout(() => {
+        try {
+          const iframe = container.querySelector('iframe.player');
+          if (iframe && iframe.contentWindow) {
+            console.log("🎵 Pokus o unmute...");
+            iframe.contentWindow.postMessage({ action: 'unmute' }, '*');
+            iframe.contentWindow.postMessage({ command: 'unmute' }, '*');
+            iframe.contentWindow.postMessage({ type: 'unmute' }, '*');
+          }
+        } catch(e) {
+          console.warn('Unmute se nepovedl:', e);
+        }
+      }, UNMUTE_DELAY);
+    }
+  }, TIMEOUT);
+
+  function onFirstUserGesture() {
+    if (userGestureDone) return;
+    userGestureDone = true;
+    console.log("🔔 Uživatelské gesto – přepínám na hlasitý.");
+    if (currentSrc === PRIMARY_URL) {
+      setTimeout(() => loadIframe(PRIMARY_URL_UNMUTED), 120);
+    }
+  }
+
+  ['click','touchstart','keydown'].forEach(evt => {
+    window.addEventListener(evt, onFirstUserGesture, { once: true, passive: true });
+  });
+  container.addEventListener('click', onFirstUserGesture);
+</script>
+
+</body>
+</html>
