@@ -2,21 +2,6 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <script>
-    (function(){
-      try{
-        if(!sessionStorage.getItem('player_refreshed')){
-          sessionStorage.setItem('player_refreshed','1');
-          setTimeout(function(){
-            location.replace('player.html?r=1');
-          },700);
-        }
-      }catch(e){
-        location.replace('player.html?r=1');
-      }
-    })();
-  </script>
-
   <title>Audio Player</title>
   <style>
     body {
