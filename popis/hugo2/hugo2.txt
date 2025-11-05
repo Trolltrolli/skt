@@ -43,7 +43,7 @@ Režim:                    singleplayer
 <font color="limegreen">Min. požadavky:  Pentium 166 MHz, 32 MB RAM</font>
 <font color="silver">------------------------------------------------------------------------------------------------------------------------------</font>
 
-<font size="3.5">    odzkoušeno na sestavě: MSI Z370 Tomahawk, i9900k, geforce GTX 3080/12GB, 64GB ram// Win 11 pro</font>
+<font size="3.5">    odzkoušeno na sestavě: MSI mag Z390 Tomahawk, i9900kf, geforce GTX 3080/12GB, 64GB ram// Win 11 pro</font>
 
 <embed width="340" height="180" style="border: 4px solid grey; outline: solid black; border-radius: 2px; position: absolute; margin-left: 420px; margin-top: -330px" src="https://www.youtube.com/embed/W9bAzh5T7vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></embed>
 
@@ -132,3 +132,6 @@ Režim:                    singleplayer
 
 <p style="text-size=10px;color:red;margin-top:280px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px;"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px;"></div><div style="text-align:center;z-index:3;position-relative!important;"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center;"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
 </center>
+
+
+
