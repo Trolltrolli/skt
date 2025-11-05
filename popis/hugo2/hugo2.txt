@@ -58,7 +58,7 @@ Režim:                    singleplayer
 
 <font color="silver">--------------------------------------------------------------------------------------------------------------------------------------</font>
 
-      Hra je upravena pro Windows 10
+      Hra je odzkoušená a je funkční na Windows 10 i 11
 
       Ovládání:  klávesnice  +  myš
 
