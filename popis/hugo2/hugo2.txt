@@ -62,7 +62,7 @@ Režim:                    singleplayer
 
       Ovládání:  klávesnice  +  myš
 
-      Instalátor funguje i jako unistaller
+      Uninstall najdete ve složce hry (nebo nabídka Start)
   
 <font color="silver">--------------------------------------------------------------------------------------------------------------------------------------</font>
 
