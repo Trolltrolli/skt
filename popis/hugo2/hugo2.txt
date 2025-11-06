@@ -6,7 +6,7 @@
 
 
 
-<!---LOGO---><svg width="340" height="360" style="margin-top:-40px;margin-left:-170px;position:absolute;user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none outline: none; list-style-type: none; " viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg"><image href="https://trolltrolli.github.io/skt/popis/hugo2/logo.png" width="340" height="360"><animateTransform attributeName="transform" type="rotate" from="0 170 180" to="720 170 180" dur="1.4s" repeatCount="1" fill="freeze"/></image></svg>
+<!---LOGO---><svg width="340" height="360" style="margin-top:-40px;margin-left:-170px;position:absolute;" viewBox="0 0 340 360" xmlns="http://www.w3.org/2000/svg"><image href="https://trolltrolli.github.io/skt/popis/hugo2/logo.png" width="340" height="360"><animateTransform attributeName="transform" type="rotate" from="0 170 180" to="720 170 180" dur="1.4s" repeatCount="1" fill="freeze" begin="0s"/>/></image></svg>
 
 
 
