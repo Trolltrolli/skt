@@ -1,0 +1,59 @@
+:root {
+  --density: 70; /* Počet sněhových vloček */
+  --grid-size: 600px; /* Velikost mřížky */
+  --speed: 3s; /* Rychlost animace */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Povolit scrollování */
+  background: linear-gradient(#123 30%, #667); /* Tvoje vlastní pozadí */
+}
+
+body::before,
+body::after {
+  position: absolute;
+  top: 0; /* Začíná nahoře */
+  left: 0;
+  right: 0;
+  bottom: calc(-1 * var(--grid-size)); /* Končí dole */
+  background-image: 
+    radial-gradient(4px 4px at 100px 200px, rgba(255, 255, 255, 0.8) 50%, rgba(0, 0, 0, 0)),
+    radial-gradient(3px 3px at 300px 400px, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0)),
+    radial-gradient(5px 5px at 500px 100px, rgba(255, 255, 255, 0.7) 50%, rgba(0, 0, 0, 0));
+  background-size: var(--grid-size) var(--grid-size);
+  animation: snow var(--speed) linear infinite;
+  content: "";
+  pointer-events: none; /* Ignoruj kliknutí na vločky */
+  z-index: 0; /* Udrž to vzadu */
+  overflow: hidden; /* Aby se scrollování v pseudo-prvcích nezabránilo */
+}
+
+body::after {
+  margin-left: calc(-1 * var(--grid-size) / 3);
+  opacity: 0.4;
+  animation-duration: calc(var(--speed) * 2);
+  animation-direction: normal;
+  filter: blur(3px);
+}
+
+body::before {
+  margin-left: calc(-1 * var(--grid-size) / 2);
+  opacity: 0.65;
+  animation-duration: calc(var(--speed) * 3);
+  animation-direction: normal;
+  filter: blur(1.5px);
+}
+
+@keyframes snow {
+  from {
+    transform: translateY(calc(-1 * var(--grid-size))); /* Začátek nahoře */
+  }
+  to {
+    transform: translateY(var(--grid-size)); /* Konec dole */
+  }
+}
+
+  
