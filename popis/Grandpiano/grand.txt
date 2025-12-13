@@ -1,0 +1,50 @@
+<!-- BODY BACK----><body style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/macro/macrob.jpg) repeat fixed; width: 100%;height:100%; height:auto;background-repeat: no-repeat; background-position:center; background-size:cover; text-shadow:black .2px .22px .2px; opacity:.9;-webkit-box-shadow: 0px 0px 50px 20px #000;cursor: url(''),default;overflow-x:hidden"></body>
+<!-- DIV BACK ------><div style="background:#000 repeat fixed; width:100%; height:100%; overflow:fixed; background-repeat:no-repeat; background-size:cover; background-position:center; opacity:.999; cursor: url(''),default; -webkit-box-shadow:black -2px -2px 2px 10px, black 2px 2px 2px 10px, black 0 0 6px 9px; width:940px">
+<font face="verdena">
+<!--HORNI LISTA----------><div style="border:1.3px solid silver;margin-top:-36px;margin-left:-11.7px;width:957px;box-shadow:0px 0px 1px 2px grey,1px 1px 3px 2px black!important"></div>
+<!--BUTTON NAVOD-------><div class="main" id="dolu" style="scroll-behavior:smooth;height:27px;width:90px;background-color: #474745; background-image:url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Defrag/but.jpg');border-radius:5px;margin-top:-47px;margin-left:855px;border:1px solid black;box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#nahoru"><p style="color:#187dd6;font-size:20px;margin-top:-7px;text-shadow:1px 1px 1px black,2px 2px 3px grey;text-decoration:none;display:inline-block">NÁVOD</p></a></div>
+<!--BUTTON SEZNAM------><div class="main2" id="prd" style="scroll-behavior:smooth;height:29px;width:280px;background-color: #474745; background-image:url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Defrag/but.jpg');border-radius:5px;margin-top:-44.2px;margin-left:-675px;border:1px solid black;box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#seznam"><p style="color:#187dd6;font-size:20px;margin-top:-6px;text-shadow:1px 1px 1px black,2px 2px 3px grey;text-decoration:none;display:inline-block;text-align:left">SEZNAM MÝCH TORRENTŮ</p></a></div>
+</font>
+
+<!---BOARD---><div style="margin-top:30px;border:1px solid silver;border-radius:20px;-webkit-box-shadow:0 0 20px 20px black!important;background: rgb(0,0,0);background: linear-gradient(180deg, rgba(0,0,0,0.6670869031206232) 0%,rgba(68,65,65,0.7651261188068977) 77%,rgba(0,0,0,0.7875350823923319) 100%);width:850px">
+<font face="papyrus">
+<p style="z-index: 2; position: absolute; margin-top: 30px; margin-left: 125px; color: #8a8a8a; font-size:50px; -webkit-text-stroke-width:.2px; -webkit-text-stroke-color:black; text-shadow: black 0 0 6px, black 0 0 5px, black .5px .6px .8px, 1px 1px 8px #000, 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 3px 1px rgba(0, 0, 0, 0.5), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.15), 1px 1px 2px #000,2px 2px 5px black, 1px 2px 7px red; letter-spacing: 0.2em;">T H E  G R A N D  3</p>
+<!---LINK---><div class="slider-wrap"><p style="width:616px; height:145px; margin-top: -20px; margin-left:-15px"><a href="https://www.youtube.com/watch?v=UEpAGwtIbds" target="_blank" title=" L I N K "><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Grandpiano/logoo.png" style="width: 250px; height: 330px; position:relative; z-index: ; margin-to: 50px" onmouseover="style='width: 350px; height: 430px; position: absolute; z-index:1; margin-top: -25px; margin-left: -150px'" onmouseout="style='width: 250px; height: 330px; position: relative; z-index: '"/></p></a></div>
+<div class="main" id="nahoru" style="scroll-behavior:smooth;height:0px;margin-top:-20px"><a href="#dolu"></a></div>
+
+<br style="line-height: 90px;">
+
+<font face="OCR A STD">
+<div style="color:#63b0f2;font-size:19px;margin-top:-30px;margin-left:0px;text-align:left;line-height:30px;-webkit-text-stroke-width:.2px;-webkit-text-stroke-color:black;text-shadow:black 0 0 0,1px 1px 2px black,black 1px 1px 0px,grey 1.2px 1.5px 1px,black 2px 2px 0, black 0 0 4px; letter-spacing: 0.15em;font-weight:900; padding: 10px 30px 20px 35px">
+
+Instalace obsahuje <font color="limegreen">5 typů klavírů</font> v několika presetech se zvukem na profesionální úrovni.
+Je zde možnost hrát přímo přes aplikaci, nebo jej můžete použít jako <font color="red">VST</font> plugin pro práci v DAW (dig. audio studiu), apod. 
+
+<font color="orange"><u><b>Nainstalujte:</b></u></font>
+1. eLicenser Control Center 6.11.10.2261
+2. Soft-eLicenser bundle b15
+3. The_Grand_3_Application_3.2_Installer_win
+4. LibraryManager
+5. Ve složce <i>Content The Grand 3</i> rozklikněte první soubor <font color="red">FCP_SMT_001_TG3_BD1_Set_1.vstsound</font> a tím by se měly všechny banky přidat do knihovny (Library manager). Když v knihoně kliknete na <font color="fuchsia"><b>GRAND</b></font>, tak se vám zobrazí nainstalované nástroje (klavíry).
+<div style="border-top: 1px solid silver; margin-top: 5px"></div>
+6. Majitelé kvalitnějších zvukových karet s podporou ASIO si nainstalují aktuální ovladače (asio driver).
+Pokud nevlastníte <i>zvukovou kartu s podporou nízké latence (ASIO)</i>, nainstalujte <font color="green">Generic_Lower_Latency_ASIO_Driver_64bit</font>. 
+Jedná se vlastně o ASIO driver, který se virtuálně snaží snížit zpoždění signálu mezi vstupem a výstupem. 
+<div style="border-top: 1px solid silver; margin-top: 5px"></div>
+V samotném programu správně nastavte <font color="white">⚙</font>. Vyberte asio driver, který chcete využívat, nastavte zpoždění - nižší = menší zpoždění, ale možnost chyb a praskání <font color="red">(Advanced/ control panel)</font>, nastavte vstup a výstupy.
+Koukněte na český videonávod - klik na logo - obrázek <a href="#" style="text-decoration: underline; text-decoration-color: red; color: orange" onmouseover="style='text-decoration: underline; text-decoration-color: red; color: limegreen'" onmouseout="style='text-decoration: underline; text-decoration-color: red; color: orange'">nahoře</a> v popisu.
+
+  🄷🄾🅃🄾🅅🄾! :-) 
+
+</div></div>
+
+<br style="line-height: 70px;">
+
+<!--HREF SEZ----------><div class="main2" id="seznam" style="scroll-behavior:smooth;height:0px;margin-top:-50px"><a href="#seznam"></a></div></font>
+<!--SEZNAM TORR--><div style="margin-left: -2px"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="892" height="347" style="background-color: silver; filter:contrast(120%); border-left: 1px solid silver; border-top: 6px solid slategray; border-bottom: 8px solid grey; border-right: 6px solid #566573; border-radius: 5px; box-shadow: gold 0 0 1.5px 1.5px, black 0px 2px 2px 2px, grey 0px 0px 20px 2px, #000 0px 0px 20px 4px, black 0px 0px 5px 7px, orange 0 0 12px 20px, 2px 2px 2px 1px black, 1px 1px 5px 5px black, 2px 2px 20px 10px black, 1px 1px 35px 25px black, black 0 0 5px 20px, black .5px .5px 2px 27px, black 0 0 2px 30px!important"></embed></div>
+<!--TL NAHORU--><button style="background-color: rgba(70,130,180,0.1); margin-top:30px; margin-left:-30px; position: absolute; z-index: 1; box-shadow:2px 2px 2px 1px black,1px 1px 5px 5px black!important"><a href="#"><img src="https://e-posta.eu/torrent/obrazky/files/kari1989/Obrazky/nahorubila.gif" title="Zpět nahoru" width="33" height="33"></a></button>
+<!--BAV+SEED--><br style="line-height:30px;">
+<embed src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Grandpiano/bav.html" style="width: 100%; margin-top: px"></embed>
+<div style="display: flex; justify-content: center;background: transprent; height: auto; overflow-y: hidden; margin-top: -145px; margin-left: px"><embed style="height: 669px; width: 100%; position: absolute; z-index: -8" src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Grandpiano/seed.html" frameborder="no" scrolling="no"></embed></div>
+<p style="text-size=10px;color:red;margin-top:255px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px">
+PRO SPRÁVNÉ ZOBRAZENÍ NA MOBILNÍCH ZAŘÍZENÍCH JE POTŘEBA V PROHLÍŽEČI ZMĚNIT ZOBRAZENÍ NA VERZI PRO PC</P><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px"></div><div style="text-align:center;z-index:3;position-relative!important"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px">
