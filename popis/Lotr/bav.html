@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  </head>
+<body>
+<!-- partial:index.partial.html -->
+  <style>
+    body {
+      background: transparent;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    .marquee {
+      font-family: Showcard Gothic;
+      text-align: center;
+      transform: translateX(100%);
+      animation: cssmarquee 20s linear infinite;
+      color: #5c1014;
+      font-size: 40px;
+      margin-top: 20px;
+      text-align: left;
+      line-height: 30px;
+      letter-spacing: 0.25em;
+      font-weight: 900;
+      -webkit-text-stroke-width: .2px;
+      -webkit-text-stroke-color: black;
+       text-shadow: gold .1px .1px .4px,
+           red 0 0 .6px, 
+           red .3px .3px .6px,
+           #fff .6px .9px 1.2px,
+           black .2px .3px 10px,
+           orange 0 0 5px,
+           gold .2px .3px 1px;  
+    }
+
+    @keyframes cssmarquee {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+  <div class="marquee">
+    <div class="text">
+      <img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/mix/king.gif" />&nbsp;&nbsp;BAV SE!&nbsp;&nbsp;<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/mix/king.gif" />
+    </div>
+  </div>
+<!-- partial -->
+  </body>
+</html>
+
+
