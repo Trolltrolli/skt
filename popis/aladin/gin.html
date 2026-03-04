@@ -24,6 +24,7 @@ position:absolute;
 width:100px;
 height:130px;
 pointer-events:none;
+transition: transform 0.2s linear;
 }
 
 </style>
@@ -40,12 +41,12 @@ pointer-events:none;
 const gin = document.getElementById("gin")
 const stage = document.getElementById("stage")
 
-let x = 220
-let y = 100
+let x = 200
+let y = 120
 
-/* pomalý pohyb */
-let dx = (Math.random()*0.4)+0.2
-let dy = (Math.random()*0.4)+0.2
+/* tvoje pomalá rychlost */
+let dx = (Math.random()*0.5)+0.5
+let dy = (Math.random()*0.5)+0.5
 
 function move(){
 
@@ -61,6 +62,13 @@ dx = -dx
 
 if(y <= 0 || y >= maxY){
 dy = -dy
+}
+
+/* otočení podle směru */
+if(dx > 0){
+gin.style.transform = "scaleX(-1)"
+}else{
+gin.style.transform = "scaleX(1)"
 }
 
 gin.style.left = x + "px"
