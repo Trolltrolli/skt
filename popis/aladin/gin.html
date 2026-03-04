@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+background:transparent;
+}
+
+#stage{
+width:850px;
+height:560px;
+position:relative;
+overflow:hidden;
+}
+
+#gin{
+position:absolute;
+width:100px;
+height:130px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stage">
+<img id="gin" src="https://trolltrolli.github.io/skt/popis/aladin/img/aladin_gin.png">
+</div>
+
+<script>
+
+const gin = document.getElementById("gin")
+const stage = document.getElementById("stage")
+
+let x = 200
+let y = 120
+
+let dx = (Math.random()*3)+2
+let dy = (Math.random()*3)+2
+
+function move(){
+
+x += dx
+y += dy
+
+const maxX = stage.clientWidth - gin.clientWidth
+const maxY = stage.clientHeight - gin.clientHeight
+
+if(x <= 0 || x >= maxX){
+dx = -dx
+}
+
+if(y <= 0 || y >= maxY){
+dy = -dy
+}
+
+gin.style.left = x + "px"
+gin.style.top = y + "px"
+
+requestAnimationFrame(move)
+
+}
+
+move()
+
+</script>
+
+</body>
+</html>
