@@ -23,6 +23,7 @@ overflow:hidden;
 position:absolute;
 width:100px;
 height:130px;
+pointer-events:none;
 }
 
 </style>
@@ -42,8 +43,9 @@ const stage = document.getElementById("stage")
 let x = 200
 let y = 120
 
-let dx = (Math.random()*3)+2
-let dy = (Math.random()*3)+2
+/* pomalý pohyb */
+let dx = (Math.random()*1)+1
+let dy = (Math.random()*1)+1
 
 function move(){
 
