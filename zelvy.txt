@@ -9,8 +9,8 @@
 
 
 
-<div style="border:2px solid #425c46; width: 680px; height: 2px; margin-left: 30px;"></div>
-<!--movie1----><p style="font-size: 18px; color: #c4641a; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black; margin-top: 10px;"><b>Želví nindžové  / Teenage Mutant Ninja Turtles</b></p>
+<div style="border:2px solid #425c46; width: 500px; height: 2px; margin-left: 30px;"></div>
+<!--movie1----><p style="font-size: 18px; color: #c4641a; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black; margin-top: 0px;"><b>Želví nindžové  / Teenage Mutant Ninja Turtles</b></p>
 <p style="font-size: 15px; color: #7ffa7d; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black, 0 0 3px white; -webkit-text-stroke: 0.2px black; text-align: left; width: 500px; height: auto; margin-left: 30px; margin-top: -20px;filter:">Akční / Dobrodružný / Komedie / Krimi / Sci-Fi
 USA / Hongkong, 1990, 93 min
 Režie: Steve Barron
@@ -235,11 +235,11 @@ Forced                                   : Ne
 
 
 
-<div style="border:2px solid #425c46; width: 680px; height: 2px; margin-left: 30px;"></div>
+<div style="border:2px solid #425c46; width: 500px; height: 2px; margin-left: 30px;"></div>
 
-<!--movie2----><p style="font-size:18px;color: #3471c7;text-shadow:1px 2px 3px rgba(0,20,10,.6),2px 2.5px 2px black,0 0 3px black;margin-left: -95px;text-indent:0px;"><span><b>Želví nindžové 2: Tajemství kapalin</span>
-<span style="margin-left: 210px;">Teenage Mutant Ninja Turtles II: The Secret of the Ooze</b></span></p>
-<p style="font-size: 15px; color: #7ffa7d; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black, 0 0 3px white; -webkit-text-stroke: 0.2px black; text-align: left; width: 500px; height: auto; margin-left: 50px; margin-top: -20px;filter:">Akční / Dobrodružný / Komedie / Rodinný / Sci-Fi
+<!--movie2----><p style="font-size:18px;color: #3471c7;text-shadow:1px 2px 3px rgba(0,20,10,.6),2px 2.5px 2px black,0 0 3px black;margin-left: -120px;text-indent:0px;"><span><b>Želví nindžové 2: Tajemství kapalin</span>
+<span style="margin-left: 185px;">Teenage Mutant Ninja Turtles II: <font size="3">The Secret of the Ooze</font></b></span></p>
+<p style="font-size: 15px; color: #7ffa7d; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black, 0 0 3px white; -webkit-text-stroke: 0.2px black; text-align: left; width: 500px; height: auto; margin-left: 30px; margin-top: -20px;filter:">Akční / Dobrodružný / Komedie / Rodinný / Sci-Fi
 USA / Hongkong, 1991, 88 min
 Režie: Michael Pressman
 Scénář: Todd W. Langen
@@ -414,12 +414,11 @@ Original source medium                   : Blu-ray
 
 
 
-<div style="border:2px solid #425c46; width: 650px; height: 2px; margin-left: 10px;"></div>
+<div style="border:2px solid #425c46; width: 500px; height: 2px; margin-left: 10px;"></div>
 
-
-<!--movie3----><p style="font-size:18px;color: #9b0ecf;text-shadow:1px 2px 3px rgba(0,20,10,.6),2px 2.5px 2px black,0 0 3px black;margin-left: 96px;text-indent:0px;"><span><b>Želví nindžové III / Teenage Mutant Ninja Turtles III:</span>
-<span style="margin-left: -275px;">Turtles in Time</b></span></p>
-<p style="font-size: 15px; color: #7ffa7d; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black, 0 0 3px white; -webkit-text-stroke: 0.2px black; text-align: left; width: 500px; height: auto; margin-left: 50px; margin-top: -20px;filter:">Akční / Dobrodružný / Komedie / Rodinný / Fantasy / Sci-Fi
+<!--movie3----><p style="font-size:18px;color: #9b0ecf;text-shadow:1px 2px 3px rgba(0,20,10,.6),2px 2.5px 2px black,0 0 3px black;margin-left: 10px;text-indent:0px;"><span><b>Želví nindžové III /  <font size="3">Teenage Mutant Ninja Turtles III:</font></span>
+<span style="margin-left: -260px;">Turtles in Time</b></span></p>
+<p style="font-size: 15px; color: #7ffa7d; text-shadow: 1px 2px 3px rgba(0,20,10,.6), 2px 2.5px 2px black, 0 0 3px black, 0 0 3px white; -webkit-text-stroke: 0.2px black; text-align: left; width: 500px; height: auto; margin-left: 0px; margin-top: -20px;filter:">Akční / Dobrodružný / Komedie / Rodinný / Fantasy / Sci-Fi
 USA / Hongkong, 1993, 96 min
 Režie: Stuart Gillard
 Scénář: Stuart Gillard
@@ -592,7 +591,7 @@ Original source medium                   : Blu-ray
 
 
 
-<div style="border:2px solid #425c46; width: 650px; height: 2px; margin-left: 10px;"></div>
+<div style="border:2px solid #425c46; width: 500px; height: 2px; margin-left: 10px;"></div>
 
 
 <!--konec-->
