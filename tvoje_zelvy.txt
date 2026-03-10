@@ -2,7 +2,7 @@
 
 <!--title----><p style="font-size:30px; font-family: Impact; color: #ad2b2b;letter-spacing:0.8px;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000, 0 0 3px black;"><b>Želví nindžové 1-3 filmů / Teenage Mutant Ninja Turtles 1-3 movie (1990-1993) (CZ/EN) [2160p][HDR10/DV][HEVC]</b></p>
 
-<!--rat--><img src="https://e-posta.eu/torrent/obrazky/files/Bourak/upload/mistr-triska-52920-removebg-preview.png" style="width: 17%; height: 17%;margin-top: -20px; margin-bottom: -17px;"/>
+<!--rat--><img src="https://e-posta.eu/torrent/obrazky/files/Bourak/upload/mistr-triska-52920-removebg-preview.png" style="width: 17%; height: 17%;margin-top: -20px; margin-bottom: -17px; margin-left: 40px;"/>
 <!--cover--><img src="https://e-posta.eu/torrent/obrazky/files/Bourak/upload/cover.png" style="max-width: 450px; height: 95%; filter: drop-shadow(1px 1px 6px rgba(50,80,50,0.7)) drop-shadow(1px 1px 5px rgba(0,40,30,0.4));margin-left: 20px;"/>
 
 
