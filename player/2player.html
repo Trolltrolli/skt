@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Audio Player</title>
+
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  width:940px;
+  height:128px;
+  overflow:hidden;
+  background:black;
+}
+
+.player{
+  width:940px;
+  height:128px;
+  border-radius:10px;
+  box-shadow:0 0 20px 10px black;
+  background:#111;
+  display:flex;
+  align-items:center;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+audio{
+  width:100%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+  <audio id="audio" controls preload="auto"></audio>
+</div>
+
+<script>
+
+const audio = document.getElementById("audio");
+const params = new URLSearchParams(location.search);
+const mp3 = params.get("mp3");
+
+if(mp3){
+  audio.src = mp3;
+}
+
+function forcePlay(){
+  const p = audio.play();
+  if(p){
+    p.catch(()=>{});
+  }
+}
+
+/* pokus o autoplay */
+forcePlay();
+
+/* pojistka když browser zdržuje načtení */
+audio.addEventListener("loadeddata",forcePlay);
+
+/* ještě jeden pokus po chvíli */
+setTimeout(forcePlay,800);
+setTimeout(forcePlay,2000);
+
+</script>
+
+</body>
+</html>
