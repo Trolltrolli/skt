@@ -44,122 +44,223 @@ const audio = document.getElementById("audio");
 const params = new URLSearchParams(location.search);
 const mp3 = params.get("mp3");
 
-let started=false;
+let started = false;
 
 if(mp3){
   audio.src = mp3;
   audio.load();
 }
 
-function playAttempt(reason){
+/* ------------------------------------------------ */
+/* CORE PLAY ATTEMPT */
+/* ------------------------------------------------ */
+
+function tryPlay(reason){
 
   if(started) return;
 
   const p = audio.play();
 
   if(p){
+
     p.then(()=>{
-      started=true;
-      console.log("PLAY OK:",reason);
-    }).catch(()=>{
+      started = true;
+      console.log("PLAY SUCCESS:",reason);
+      cleanup();
+    })
+
+    .catch(()=>{
       console.log("PLAY FAIL:",reason);
     });
+
   }
+
 }
 
-/* základní pokusy */
+/* ------------------------------------------------ */
+/* CLEANUP */
+/* ------------------------------------------------ */
 
-setTimeout(()=>playAttempt("initial"),200);
-setTimeout(()=>playAttempt("retry1"),800);
-setTimeout(()=>playAttempt("retry2"),2000);
+function cleanup(){
 
+  window.removeEventListener("focus",focusPlay);
+  document.removeEventListener("visibilitychange",tabReturn);
 
-/* lifecycle */
+  events.forEach(e=>{
+    document.removeEventListener(e,userGesture);
+  });
 
-audio.addEventListener("loadedmetadata",()=>playAttempt("metadata"));
-audio.addEventListener("canplay",()=>playAttempt("canplay"));
-audio.addEventListener("progress",()=>playAttempt("progress"));
+}
 
+/* ------------------------------------------------ */
+/* NORMAL ATTEMPTS */
+/* ------------------------------------------------ */
 
-/* focus */
-
-window.addEventListener("focus",()=>playAttempt("focus"));
-
-
-/* návrat na tab */
-
-document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden){
-    playAttempt("tab-return");
-  }
-});
+setTimeout(()=>tryPlay("initial"),200);
+setTimeout(()=>tryPlay("retry1"),800);
+setTimeout(()=>tryPlay("retry2"),1500);
 
 
-/* interakce */
+/* ------------------------------------------------ */
+/* LIFECYCLE */
+/* ------------------------------------------------ */
 
-["mousemove","scroll","click","keydown"].forEach(e=>{
-  document.addEventListener(e,()=>playAttempt(e),{once:true});
-});
+audio.addEventListener("loadedmetadata",()=>tryPlay("metadata"));
+audio.addEventListener("loadeddata",()=>tryPlay("loadeddata"));
+audio.addEventListener("canplay",()=>tryPlay("canplay"));
 
 
-/* MUTED HACK */
+/* ------------------------------------------------ */
+/* ULTRA LOW VOLUME START */
+/* ------------------------------------------------ */
 
-function mutedStart(){
+function lowVolumeStart(){
 
   if(started) return;
 
-  audio.muted=true;
+  audio.volume = 0.001;
 
   audio.play().then(()=>{
 
-    started=true;
-
-    console.log("muted autoplay ok");
-
-    /* necháme to běžet potichu pár sekund */
+    console.log("low volume start ok");
 
     setTimeout(()=>{
-      audio.muted=false;
-    },4000);
+
+      audio.volume = 1;
+
+      audio.play().catch(()=>{});
+
+      started = true;
+
+      cleanup();
+
+    },2500);
 
   }).catch(()=>{});
 
 }
 
-setTimeout(mutedStart,1200);
+setTimeout(lowVolumeStart,1000);
 
 
-/* AUDIO CONTEXT HACK */
+/* ------------------------------------------------ */
+/* MUTED START */
+/* ------------------------------------------------ */
+
+function mutedStart(){
+
+  if(started) return;
+
+  audio.muted = true;
+
+  audio.play().then(()=>{
+
+    console.log("muted start ok");
+
+    setTimeout(()=>{
+
+      audio.muted = false;
+
+      /* znovu play po unmute */
+
+      audio.play().catch(()=>{});
+
+      /* malý time nudge */
+
+      audio.currentTime += 0.001;
+
+      started = true;
+
+      cleanup();
+
+    },3000);
+
+  }).catch(()=>{});
+
+}
+
+setTimeout(mutedStart,1800);
+
+
+/* ------------------------------------------------ */
+/* FOCUS */
+/* ------------------------------------------------ */
+
+function focusPlay(){
+  tryPlay("focus");
+}
+
+window.addEventListener("focus",focusPlay);
+
+
+/* ------------------------------------------------ */
+/* TAB RETURN */
+/* ------------------------------------------------ */
+
+function tabReturn(){
+
+  if(!document.hidden){
+    tryPlay("tab return");
+  }
+
+}
+
+document.addEventListener("visibilitychange",tabReturn);
+
+
+/* ------------------------------------------------ */
+/* USER GESTURE */
+/* ------------------------------------------------ */
+
+const events = ["mousemove","scroll","click","keydown"];
+
+function userGesture(){
+  tryPlay("user gesture");
+}
+
+events.forEach(e=>{
+  document.addEventListener(e,userGesture,{once:true});
+});
+
+
+/* ------------------------------------------------ */
+/* AUDIO CONTEXT */
+/* ------------------------------------------------ */
 
 try{
 
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const src = ctx.createMediaElementSource(audio);
 
-  const source = ctx.createMediaElementSource(audio);
-
-  source.connect(ctx.destination);
+  src.connect(ctx.destination);
 
   function resumeCtx(){
+
     ctx.resume().then(()=>{
-      playAttempt("audioContext");
+      tryPlay("audiocontext");
     });
+
   }
 
-  window.addEventListener("focus",resumeCtx);
   document.addEventListener("click",resumeCtx,{once:true});
+  window.addEventListener("focus",resumeCtx);
 
 }catch(e){}
 
 
-/* watchdog */
+/* ------------------------------------------------ */
+/* WATCHDOG */
+/* ------------------------------------------------ */
 
 setInterval(()=>{
 
-  if(!started){
-    playAttempt("watchdog");
+  if(started) return;
+
+  if(audio.paused){
+    tryPlay("watchdog");
   }
 
-},3000);
+},2500);
 
 </script>
 
