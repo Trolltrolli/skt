@@ -46,7 +46,6 @@ const mp3 = params.get("mp3");
 
 if(mp3){
   audio.src = mp3;
-  audio.load();
 }
 
 function forcePlay(){
@@ -56,34 +55,15 @@ function forcePlay(){
   }
 }
 
-/* první pokus */
+/* pokus o autoplay */
 forcePlay();
 
-/* po načtení audia */
-audio.addEventListener("loadeddata", forcePlay);
-audio.addEventListener("loadedmetadata", forcePlay);
-audio.addEventListener("canplay", forcePlay);
+/* pojistka když browser zdržuje načtení */
+audio.addEventListener("loadeddata",forcePlay);
 
-/* focus stránky */
-window.addEventListener("focus", forcePlay);
-
-/* návrat na tab */
-document.addEventListener("visibilitychange", ()=>{
-  if(!document.hidden){
-    forcePlay();
-  }
-});
-
-/* pohyb myši */
-document.addEventListener("mousemove", forcePlay, {once:true});
-
-/* kliknutí */
-document.addEventListener("click", forcePlay, {once:true});
-
-/* časové pokusy */
-setTimeout(forcePlay,500);
-setTimeout(forcePlay,1200);
-setTimeout(forcePlay,2500);
+/* ještě jeden pokus po chvíli */
+setTimeout(forcePlay,800);
+setTimeout(forcePlay,2000);
 
 </script>
 
