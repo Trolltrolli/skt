@@ -57,21 +57,17 @@ const mp3 = params.get("mp3");
 
 if(mp3){
   audio.src = mp3;
-  audio.load();
 }
 
 /* tichý start */
+
 window.addEventListener("load", () => {
 
   audio.muted = true;
-
-  audio.play().catch(()=>{
-    console.log("autoplay blocked");
-  });
+  audio.play().catch(()=>{});
 
 });
 
-/* odemknutí zvuku */
 
 function unlockAudio(){
 
@@ -82,28 +78,20 @@ function unlockAudio(){
 
   unlocker.remove();
 
-  console.log("audio unlocked");
-
 }
 
-/* rozšířený seznam user gesture eventů */
+/* chytáme gesture na celém dokumentu */
 
 [
-"click",
-"dblclick",
-"mousedown",
-"mouseup",
 "pointerdown",
-"pointerup",
+"mousedown",
 "touchstart",
-"touchend",
-"contextmenu",
 "keydown",
-"keyup",
-"keypress",
-"wheel"
+"click"
 ].forEach(e=>{
-  window.addEventListener(e, unlockAudio, { once:true });
+
+  document.body.addEventListener(e, unlockAudio, { once:true });
+
 });
 
 </script>
