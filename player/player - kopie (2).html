@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Audio Player</title>
+
+<style>
+
+html, body {
+  margin:0;
+  padding:0;
+  width:940px;
+  height:128px;
+  overflow:hidden;
+  background:black;
+}
+
+.player-container{
+  width:940px;
+  height:128px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  padding:20px;
+  box-sizing:border-box;
+}
+
+audio{
+  width:100%;
+}
+
+#global-unlocker{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:transparent;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="global-unlocker"></div>
+
+<div class="player-container">
+<audio id="audio" controls preload="auto" autoplay muted playsinline></audio>
+</div>
+
+<script>
+
+const audio = document.getElementById("audio");
+const unlocker = document.getElementById("global-unlocker");
+
+let unlocked = false;
+
+const params = new URLSearchParams(location.search);
+const mp3 = params.get("mp3");
+
+if(mp3){
+  audio.src = mp3;
+  audio.load();
+}
+
+/* tichý start */
+
+window.addEventListener("load", () => {
+
+  audio.muted = true;
+
+  audio.play().catch(()=>{
+    console.log("autoplay blocked");
+  });
+
+});
+
+
+function unlockAudio(){
+
+  if(unlocked) return;
+  unlocked = true;
+
+  audio.muted = false;
+  audio.volume = 1;
+
+  audio.play().catch(()=>{});
+
+  if(unlocker) unlocker.remove();
+
+  console.log("audio unlocked");
+
+}
+
+
+/* gesture capture */
+
+[
+"pointerdown",
+"mousedown",
+"touchstart",
+"keydown",
+"click"
+].forEach(e=>{
+
+  document.addEventListener(e, unlockAudio, { once:true });
+
+});
+
+</script>
+
+</body>
+</html>
