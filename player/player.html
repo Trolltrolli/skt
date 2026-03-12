@@ -2,122 +2,109 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<title>Audio Player 2025 Global Hack</title>
+<title>Audio Player</title>
 
 <style>
-/* Základní rozvržení přehrávače */
+
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 940px;
-  height: 128px;
-  overflow: hidden;
-  background: black;
-  font-family: sans-serif;
+  margin:0;
+  padding:0;
+  width:940px;
+  height:128px;
+  overflow:hidden;
+  background:black;
 }
 
-.player-container {
-  position: relative;
-  width: 940px;
-  height: 128px;
-  background: #111;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+.player-container{
+  width:940px;
+  height:128px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  padding:20px;
+  box-sizing:border-box;
 }
 
-audio {
-  width: 100%;
+audio{
+  width:100%;
 }
 
-/* HACK: Neviditelná vrstva přes CELOU OBRAZOVKU */
-/* Zastaví první klik uživatele kdekoli a odemkne audio */
-#global-unlocker {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  background: rgba(0,0,0,0); /* Zcela průhledné */
-  cursor: default;
+#global-unlocker{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:transparent;
 }
 
-#global-unlocker.hidden {
-  display: none;
-}
 </style>
 </head>
 
 <body>
 
-<!-- Tato vrstva odchytí úplně první kliknutí uživatele -->
 <div id="global-unlocker"></div>
 
 <div class="player-container">
-  <audio id="audio" controls preload="auto"></audio>
+<audio id="audio" controls preload="auto"></audio>
 </div>
 
 <script>
+
 const audio = document.getElementById("audio");
 const unlocker = document.getElementById("global-unlocker");
+
 const params = new URLSearchParams(location.search);
 const mp3 = params.get("mp3");
 
-if (mp3) {
+if(mp3){
   audio.src = mp3;
   audio.load();
 }
 
-/**
- * LOGIKA ODBLOKOVÁNÍ
- */
-function unlockEverything() {
-  // 1. Nastavíme hlasitost a vypneme mute
-  audio.muted = false;
-  audio.volume = 1.0;
+/* tichý start */
+window.addEventListener("load", () => {
 
-  // 2. Spustíme přehrávání
-  audio.play().then(() => {
-    console.log("Audio odblokováno globálním kliknutím.");
-    
-    // 3. Odstraníme neviditelnou vrstvu, aby nepřekážela
-    unlocker.classList.add("hidden");
-    
-    // 4. Volitelně: Pokud je to v iframe, pošleme zprávu ven (pokud potřeba)
-  }).catch(err => {
-    console.log("Kliknutí proběhlo, ale play selhal:", err);
-  });
-}
-
-// Navázání na hlavní interakční eventy
-unlocker.addEventListener("mousedown", unlockEverything, { once: true });
-unlocker.addEventListener("touchstart", unlockEverything, { once: true });
-unlocker.addEventListener("keydown", unlockEverything, { once: true });
-
-/**
- * POKUS O TICHÝ START (na pozadí)
- * Některé prohlížeče povolí začít stahovat data, když je muted.
- */
-window.addEventListener('load', () => {
   audio.muted = true;
-  audio.play().catch(() => {
-    console.log("Čekám na první kliknutí pro zapnutí zvuku...");
+
+  audio.play().catch(()=>{
+    console.log("autoplay blocked");
   });
+
 });
 
-/**
- * POJISTKA PRO AUDIO CONTEXT
- */
-try {
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  const ctx = new AudioContext();
-  unlocker.addEventListener("mousedown", () => {
-    if (ctx.state === 'suspended') ctx.resume();
-  }, { once: true });
-} catch (e) {}
+/* odemknutí zvuku */
+
+function unlockAudio(){
+
+  audio.muted = false;
+  audio.volume = 1;
+
+  audio.play().catch(()=>{});
+
+  unlocker.remove();
+
+  console.log("audio unlocked");
+
+}
+
+/* rozšířený seznam user gesture eventů */
+
+[
+"click",
+"dblclick",
+"mousedown",
+"mouseup",
+"pointerdown",
+"pointerup",
+"touchstart",
+"touchend",
+"contextmenu",
+"keydown",
+"keyup",
+"keypress",
+"wheel"
+].forEach(e=>{
+  window.addEventListener(e, unlockAudio, { once:true });
+});
 
 </script>
 
