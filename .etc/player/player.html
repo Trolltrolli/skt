@@ -1,61 +1,102 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>Audio Player</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-    }
-    .player {
-      width: 940px;
-      height: 128px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 20px 10px black;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Audio Player</title>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.player{
+  width:940px;
+  height:128px;
+  border-radius:10px;
+  box-shadow:0 0 20px 10px black;
+  background:#111;
+  display:flex;
+  align-items:center;
+  padding:20px;
+}
+
+audio{
+  width:100%;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-family:sans-serif;
+  background:rgba(0,0,0,0.7);
+  cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
-<div id="playerContainer"></div>
+<div class="player">
+  <audio id="audio" controls preload="auto"></audio>
+</div>
+
+<div id="overlay" class="overlay" style="display:none">
+Klikni pro spuštění přehrávání
+</div>
 
 <script>
-  const PRIMARY_URL = "https://trolltrolli.top/embed.php?id=2&autoplay=true";
-  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/hl2/player_backup.html?autoplay=true";
-  const TIMEOUT = 3000;
 
-  const container = document.getElementById('playerContainer');
-  let mp3Ok = false;
+const TIMEOUT = 2000;
+const audio = document.getElementById("audio");
+const overlay = document.getElementById("overlay");
 
-  function loadIframe(src) {
-    const iframe = document.createElement('iframe');
-    iframe.src = src;
-    iframe.allow = "autoplay";
-    iframe.className = "player";
-    container.innerHTML = "";
-    container.appendChild(iframe);
+const params = new URLSearchParams(location.search);
+const mp3 = params.get("mp3");
+
+if(mp3){
+  audio.src = mp3;
+}
+
+let autoplayStarted = false;
+
+function tryAutoplay(){
+  const p = audio.play();
+
+  if(p !== undefined){
+    p.then(()=>{
+      autoplayStarted = true;
+      overlay.style.display="none";
+      console.log("Autoplay OK");
+    }).catch(()=>{
+      console.log("Autoplay blokován");
+      overlay.style.display="flex";
+    });
   }
+}
 
-  // Spustíme přehrávač
-  loadIframe(PRIMARY_URL);
+tryAutoplay();
 
-  // Posloucháme zprávy z embed playeru
-  window.addEventListener("message", (event) => {
-    if (event.data?.mp3_status === "ok") {
-      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
-      mp3Ok = true;
-    }
-  });
+setTimeout(()=>{
+  if(!autoplayStarted){
+    console.log("Autoplay timeout");
+    overlay.style.display="flex";
+  }
+},TIMEOUT);
 
-  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
-  setTimeout(() => {
-    if (!mp3Ok) {
-      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
-      loadIframe(BACKUP_URL);
-    }
-  }, TIMEOUT);
+overlay.addEventListener("click",()=>{
+  audio.play();
+  overlay.style.display="none";
+});
+
 </script>
 
 </body>
