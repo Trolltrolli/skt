@@ -5,13 +5,13 @@
 <title>Audio Player</title>
 
 <style>
-body{
+html,body{
   margin:0;
+  padding:0;
+  width:940px;
+  height:128px;
+  overflow:hidden;
   background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
 }
 
 .player{
@@ -23,22 +23,11 @@ body{
   display:flex;
   align-items:center;
   padding:20px;
+  box-sizing:border-box;
 }
 
 audio{
   width:100%;
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-family:sans-serif;
-  background:rgba(0,0,0,0.7);
-  cursor:pointer;
 }
 </style>
 </head>
@@ -49,16 +38,9 @@ audio{
   <audio id="audio" controls preload="auto"></audio>
 </div>
 
-<div id="overlay" class="overlay" style="display:none">
-Klikni pro spuštění přehrávání
-</div>
-
 <script>
 
-const TIMEOUT = 2000;
 const audio = document.getElementById("audio");
-const overlay = document.getElementById("overlay");
-
 const params = new URLSearchParams(location.search);
 const mp3 = params.get("mp3");
 
@@ -66,36 +48,22 @@ if(mp3){
   audio.src = mp3;
 }
 
-let autoplayStarted = false;
-
-function tryAutoplay(){
+function forcePlay(){
   const p = audio.play();
-
-  if(p !== undefined){
-    p.then(()=>{
-      autoplayStarted = true;
-      overlay.style.display="none";
-      console.log("Autoplay OK");
-    }).catch(()=>{
-      console.log("Autoplay blokován");
-      overlay.style.display="flex";
-    });
+  if(p){
+    p.catch(()=>{});
   }
 }
 
-tryAutoplay();
+/* pokus o autoplay */
+forcePlay();
 
-setTimeout(()=>{
-  if(!autoplayStarted){
-    console.log("Autoplay timeout");
-    overlay.style.display="flex";
-  }
-},TIMEOUT);
+/* pojistka když browser zdržuje načtení */
+audio.addEventListener("loadeddata",forcePlay);
 
-overlay.addEventListener("click",()=>{
-  audio.play();
-  overlay.style.display="none";
-});
+/* ještě jeden pokus po chvíli */
+setTimeout(forcePlay,800);
+setTimeout(forcePlay,2000);
 
 </script>
 
