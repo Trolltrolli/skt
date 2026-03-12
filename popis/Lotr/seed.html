@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Text Jumping effect</title>
 
 <style>
 
-html,body{
-    margin:0;
+html, body{
     width:100%;
     height:300px;
+    background:transparent;
+    -webkit-font-smoothing:antialiased;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:transparent;
-    -webkit-font-smoothing:antialiased;
+    position:absolute;
 }
 
 h1{
@@ -22,27 +26,32 @@ h1{
 
 h1 span{
     display:inline-block;
-
-    animation:bounce .7s ease infinite alternate;
     transform:translateY(20px);
+    animation:bounce .7s ease infinite alternate;
+    will-change:transform;
 
     color:#5c1014;
     font-size:40px;
-    letter-spacing:.25em;
+    letter-spacing:0.25em;
     font-weight:900;
-    font-family:"Showcard Gothic",sans-serif;
+    -webkit-text-stroke:.2px black;
+    font-family:"Showcard Gothic";
     text-align:center;
 
-    -webkit-text-stroke:.2px black;
-
-    /* výrazně lehčí shadow */
+    /* původní glow + zlatá aura */
     text-shadow:
-        red 0 0 2px,
-        #fff 0 0 2px,
-        black 0 0 6px;
+        gold .1px .1px .4px,
+        red 0 0 .6px,
+        red .3px .3px .6px,
+        #fff .6px .9px 1.2px,
+        black .2px .3px 10px,
+        orange 0 0 .1px,
+        gold 0 0 6px,
+        gold 0 0 12px;
 }
 
 /* delay animace */
+
 h1 span:nth-child(2){animation-delay:.1s;}
 h1 span:nth-child(3){animation-delay:.2s;}
 h1 span:nth-child(4){animation-delay:.3s;}
@@ -65,11 +74,6 @@ h1 span:nth-child(19){animation-delay:.12s;}
 @keyframes bounce{
     100%{
         transform:translateY(-20px);
-
-        text-shadow:
-            red 0 0 4px,
-            #fff 0 0 4px,
-            black 0 0 10px;
     }
 }
 
