@@ -35,7 +35,7 @@ audio{
 <body>
 
 <div class="player">
-  <audio id="audio" controls preload="auto"></audio>
+<audio id="audio" controls preload="auto"></audio>
 </div>
 
 <script>
@@ -44,46 +44,122 @@ const audio = document.getElementById("audio");
 const params = new URLSearchParams(location.search);
 const mp3 = params.get("mp3");
 
+let started=false;
+
 if(mp3){
   audio.src = mp3;
   audio.load();
 }
 
-function forcePlay(){
+function playAttempt(reason){
+
+  if(started) return;
+
   const p = audio.play();
+
   if(p){
-    p.catch(()=>{});
+    p.then(()=>{
+      started=true;
+      console.log("PLAY OK:",reason);
+    }).catch(()=>{
+      console.log("PLAY FAIL:",reason);
+    });
   }
 }
 
-/* první pokus */
-forcePlay();
+/* základní pokusy */
 
-/* po načtení audia */
-audio.addEventListener("loadeddata", forcePlay);
-audio.addEventListener("loadedmetadata", forcePlay);
-audio.addEventListener("canplay", forcePlay);
+setTimeout(()=>playAttempt("initial"),200);
+setTimeout(()=>playAttempt("retry1"),800);
+setTimeout(()=>playAttempt("retry2"),2000);
 
-/* focus stránky */
-window.addEventListener("focus", forcePlay);
+
+/* lifecycle */
+
+audio.addEventListener("loadedmetadata",()=>playAttempt("metadata"));
+audio.addEventListener("canplay",()=>playAttempt("canplay"));
+audio.addEventListener("progress",()=>playAttempt("progress"));
+
+
+/* focus */
+
+window.addEventListener("focus",()=>playAttempt("focus"));
+
 
 /* návrat na tab */
-document.addEventListener("visibilitychange", ()=>{
+
+document.addEventListener("visibilitychange",()=>{
   if(!document.hidden){
-    forcePlay();
+    playAttempt("tab-return");
   }
 });
 
-/* pohyb myši */
-document.addEventListener("mousemove", forcePlay, {once:true});
 
-/* kliknutí */
-document.addEventListener("click", forcePlay, {once:true});
+/* interakce */
 
-/* časové pokusy */
-setTimeout(forcePlay,500);
-setTimeout(forcePlay,1200);
-setTimeout(forcePlay,2500);
+["mousemove","scroll","click","keydown"].forEach(e=>{
+  document.addEventListener(e,()=>playAttempt(e),{once:true});
+});
+
+
+/* MUTED HACK */
+
+function mutedStart(){
+
+  if(started) return;
+
+  audio.muted=true;
+
+  audio.play().then(()=>{
+
+    started=true;
+
+    console.log("muted autoplay ok");
+
+    /* necháme to běžet potichu pár sekund */
+
+    setTimeout(()=>{
+      audio.muted=false;
+    },4000);
+
+  }).catch(()=>{});
+
+}
+
+setTimeout(mutedStart,1200);
+
+
+/* AUDIO CONTEXT HACK */
+
+try{
+
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const source = ctx.createMediaElementSource(audio);
+
+  source.connect(ctx.destination);
+
+  function resumeCtx(){
+    ctx.resume().then(()=>{
+      playAttempt("audioContext");
+    });
+  }
+
+  window.addEventListener("focus",resumeCtx);
+  document.addEventListener("click",resumeCtx,{once:true});
+
+}catch(e){}
+
+
+/* watchdog */
+
+setInterval(()=>{
+
+  if(!started){
+    playAttempt("watchdog");
+  }
+
+},3000);
 
 </script>
 
