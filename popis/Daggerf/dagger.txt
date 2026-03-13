@@ -1,0 +1,111 @@
+<body style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/daggerbb.jpg) repeat fixed;width: 100%;height:100%;height:auto;background-repeat: no-repeat;background-position:center;background-size:cover;opacity:.95;text-shadow:black .4px .4px 0;-webkit-box-shadow: 0px 0px 50px 20px #000;cursor: url('https://e-posta.eu/torrent/obrazky/files/kari1989/Obrazky/Brave/Brave_arr.png'),default;overflow-x:hidden;position:absolute!important;z-index:-2"></body>
+<div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/daggerbb.jpg) repeat fixed;width:100%;height:100%;overflow:fixed;background-repeat:no-repeat;background-size:cover;background-position:center;opacity:0.99;cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_cursw.png'),default;margin-left:-11px;width:940px">
+<div style="background: #000 url(https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/daggerbb.jpg) repeat fixed;width:100%;height:100%;overflow:fixed;background-repeat:no-repeat;background-size:cover;background-position:center;opacity:1;cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_cursw.png'),default;margin-left:11px!important;margin-top:-13px;width:940px">
+<div><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="953" height="23" style="margin-left:-12px;margin-top:-17px;border-radius:0px;position:relative;z-index:1"><embed width="100%" height="126" frameborder="no" scrolling="no" src="https://friendsmusic.monster/embed.php?id=305&autoplay=true" oncanplay="$(this)[0].play()" style="margin-left:-12px"></embed>
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="953" height="23" style="margin-left:-12px;margin-top:-16px;border-radius:0px;position:relative;z-index:1">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="116" height="15" style="margin-left:-948px;margin-top:-88px;border-radius:0px;transform:rotate(90deg)">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="116" height="15" style="margin-left:875px;margin-top:-88px;border-radius:0px;transform:rotate(90deg)"></div>
+<div style="margin-top:-130px;margin-left:390px;position:absolute!important;z-index:0"><audio id="1"><source src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo2/dia1.mp3"></audio><buton onclick="document.getElementById('1').play()"></audio><buton onclick="document.getElementById('1').play()"><a href="https://www.dfworkshop.net/" target="_blank" title="-LINK-"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_link.png" title="-LINK-" width="150" height="65" onmouseover="this.width=160;" onmouseout="this.width=150" align="center" style="border:1px solid black; background: rgb(0,0,0);background: linear-gradient(172deg, rgba(0,0,0,0.613212008436187) 0%, rgba(40,40,40,0.6748366582961309) 44%, rgba(116,116,116,0.6944445014333859) 67%, rgba(226,226,226,0.9633520644585959) 100%);border-radius:20px;-webkit-box-shadow:black 2px 2px 10px 5px"></a></buton></div>
+<div style="margin-top:-30px;position:absolute!important;z-index:0;"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/blood/index.html" width="920" height="2800" style="opacity:.7"></embed></div>
+<div style="margin-left:60px;margin-top:-100px;filter:contrast(120%)"><embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/candle/index2.html" width="892" height="600" style="opacity:1"></embed></div>
+<br style = "line-height:25px;">
+<div style="position:relative!important;z-index:2;-webkit-box-shadow:black 2px 2px 10px 10px;width:445px;height:250px;margin-top:-130px"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="455" height="15" style="margin-left:0px;margin-top:-6px;border-radius:2px;filter:contrast(120%)">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_vyd.png" width="448" height="240" align="center" style="border:1px solid black;  background: rgb(0,0,0);background: linear-gradient(172deg, rgba(0,0,0,0.613212008436187) 0%, rgba(40,40,40,0.6748366582961309) 44%, rgba(116,116,116,0.6944445014333859) 67%, rgba(226,226,226,0.9633520644585959) 100%); border-radius:2px;margin-top:0px">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="455" height="15" style="margin-left:0px;margin-top:-8px;border-radius:2px;filter:contrast(120%)">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="250" height="15" style="margin-left:-430px;margin-top:-140px;border-radius:2px;transform:rotate(90deg);filter:contrast(120%)">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="250" height="15" style="margin-left:322px;margin-top:-140px;border-radius:2px;transform:rotate(90deg);filter:contrast(120%)"></div><br /><br /><br />
+<br style = "line-height:30px;">
+<div style="position:relative!important;z-index:2;width:880px;height:560px">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban.png" width="885" height="75" style="margin-left:0px;margin-top:px;">
+<p style="margin-left:0px;margin-top:-15px;overflow:scroll;overflow-x: hidden;cursor: url('https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dolu.png'),default;resize:vertical;max-width:880px;max-height:880px;width:880;min-height:460px;height:460px;background:rgb(0,0,0);background: linear-gradient(172deg,rgba(0,0,0,0.613212008436187) 0%,rgba(40,40,40,0.6748366582961309) 44%, rgba(116,116,116,0.6944445014333859) 67%,rgba(226,226,226,0.9633520644585959) 100%); border:1px solid black;border-radius:10px"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_text.png" width="810" height="1300" style="margin-left:30px;margin-top:-10px"></p>
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="878" height="25" style="margin-left:-5px;margin-top:-15px;border-radius:2px">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="500" height="30" style="margin-left:-850px;margin-top:-265px;border-radius:2px;transform:rotate(90deg)">
+<img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban1.png" width="502" height="30" style="margin-left:620px;margin-top:-268px;border-radius:2px;transform:rotate(90deg)">
+<br style = "line-height:90px;">
+<div style="display:block;position:relative!important;z-index:2;margin-left:0px;margin-top:0px;cursor:pointer; background: rgb(0,0,0);background: linear-gradient(172deg, rgba(0,0,0,0.613212008436187) 0%, rgba(40,40,40,0.6748366582961309) 44%, rgba(116,116,116,0.6944445014333859) 67%, rgba(226,226,226,0.9633520644585959) 100%);border-radius:20px;-webkit-box-shadow:black 2px 2px 10px 5px"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/dagger_inst.png" title="-INSTALL-" width="540" height="70" onmouseover="this.width=560;" onmouseout="this.width=540" align="center" class="BoWPartnerbild" title=" -mediaINFO- " width="0" height="0" class="BoWPartnerbild" " onClick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';            this.innerText = 'MediaInfo'; this.value = 'MediaInfo'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = 'MediaInfo'; this.value = 'MediaInfo'; }" /></div><div class="alt2" style="margin:2px;"><div style="display: NONE;"><font face="monospace"><p style=";font-size:18px;color:white;line-height: 22px;text-align:left;padding:15px;text-shadow:0px 1px 1px #000;width:600x;background:rgb(0,0,0,.9);border:1px solid black;border-radius:10px;margin-top:20px;position:absolute!important;z-index:10">
+
+Spusťte instalaci...
+Zvolte cestu - kam instalovat.
+Vyčkejte, až do úplného konce instalace. Instalátor ukazuje 100%, ale pořád vesele pracuje.
+Na ploše se vám vytvoří zástupce. Hru spusťte a nastavte cestu pro Unity:
+
+NAPŘ:
+<font color="green">C:\Program Files (x86)\Daggerfall Unity\DISK\DAGGER</font>
+Není to nic složitého. Jednoduše poznáte, že vše je ok, když menu zezelená. Potvrdíte.
+Pak zvolíte NASTAVENÍ - TEST - OK
+Můžete se kouknout na mody, popř. je vypnout nebo nastavovat.
+<b>mods: enabled  - Save and Close</b>
+Opět se vrátíte do okna s nastavením a můžete donastavit grafiku, apod <b>-Advanced-</b>.
+
+Volba - <i>Always show this window</i> - zruší zobrazení této nabídky (launcher). 
+Ale pozor! Pokud ji budete chtít znovu vyvolat, musíte ji zapnout v .ini.
+<a href="https://forums.dfworkshop.net/viewtopic.php?f=5&t=2360&p=27552#p27552" target="_blank">umístění .ini</a>
+
+<b>PLAY!... :)</b>
+
+Ve hře rozhodně doporučuju <font color="red">Reshade-shadres</font>. Screen níže (v popisu) je ze hry s přidanými shadery. Pod screenem je návod k nastavení RESHADE...
+
+Klávesnici jsem nastavil cca podle Oblivionu. F5 save, F9 load... 
+<b>Po loadingu musíte potvrdit kliknutím!</b>
+Gamepad má stejné okno nastavení, jako klávesnice. Takže buď - a nebo. :D
+
+Tip: ovládání je jinačí oproti Oblivionu nebo Skyrimu - spíš bych ho srovnánal s mobilním Blades.
+Tlačíko směru plus klik na myši. A samozřejmě spravnou zbraň.
+Vybral jsem si železný meč a krysa byla tvrdší, než skála... :lol:
+--
+Mody jsou ze stránky <a href="https://www.nexusmods.com/daggerfallunity" target="_blank">NEXUSMODS</a>
+Ideální je stáhnout si Vertex - downloader. Ten udělá skoro vše za vás. :-)
+<i>Ručně se mody instalují do složky: ...\Daggerfall Unity\DaggerfallUnity_Data\StreamingAssets\Mods</i>
+
+
+<b>BAV SE! :)</b>
+
+
+</font</p></div></div></div>
+<br style = "line-height:280px;">
+<p style="font-style:italic;font-size:23px;color:black;text-shadow:1px 2px 5px white;position:relative!important;z-index:1"><b>SCREEN</b></p><div class="slider-wrap"><p style=" width:616px;height:120px;margin-top:-165px;margin-top:-15px;margin-left:10px"><a href="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen.jpg" target="_blank" title="-SCREEN-"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen.jpg" width="250" height="140" name="scr4" onmouseover="scr4.width='600';scr4.height='380';" onmouseout="scr4.width='250';scr4.height='140'" style="border:3px solid black;box-shadow:2px 4px 15px 10px black;position:relative!important;z-index:0" /></p></a></div>
+<br style = "line-height:60px;">
+<p style="font-style:italic;font-size:23px;color:black;text-shadow:1px 2px 5px white;position:relative!important;z-index:0"><b>RESHADE</b></p><div><div style="position:relative!important;z-index:0;margin-top:-20px;margin-left:10px;cursor: pointer"><img src="https://e-posta.eu/torrent/obrazky/files/kari1989/Reshade/ReShade_icon.png"  width="130" height="130" onmouseover="this.width=135;" onmouseout="this.width=130" align="center" class="BoWPartnerbild" title=" -RESHADE - GRAFICKÝ TUNING- " class="BoWPartnerbild" <input type="button" value="" onClick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';            this.innerText = 'MediaInfo'; this.value = 'MediaInfo'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = 'MediaInfo'; this.value = 'MediaInfo'; }"></buton></div><div class="alt2" style="margin:2px;"><div style="display: NONE;"><font face="monospace"><p style=";font-size:18px;color:white;line-height: 22px;text-align:left;padding:15px;text-shadow:0px 1px 1px #000;width:600x;background:rgb(0,0,0,.9);border:1px solid black;border-radius:10px;position:absolute!important;z-index:10;margin-left:40px">
+
+       <font size=6><b>*** GRAFICKÝ TUNING ***</b></font>
+
+       <font size=5 color=orange>Hra RESHADE-SHADERS již obsahuje</font>
+       VE SLOŽCE HRY VYBERETE:
+       1. Reshade_setup
+       2. Click here... - BROWSE - DaggerfallUnity.exe 
+       3. klik na openGL
+       4. UPDATE
+       5. SKIP
+       6. EDIT Reshade set
+       7. Preset - vyberte DREAM 2020 R3 - Prefer Looks.ini
+       8. Effects <font color=red size=5>Paths</font> - vyberte reshade-shaders/Shaders
+       9. Texture <font color=red size=5>Paths</font> - vyberte reshade-shaders/Textures
+       10.Skip Tutorial
+       11.OK a zavřít
+       
+       Ve hře můžete editovat po stisku - CTRL+F2 - klávesové zkratky i cesty 
+       (<font color=red>paths</font>) jdou nastavit přímo ve hře (gameplay),
+       ale je potřeba předtím stisknout 
+       <font color=limegreen>ENTER/ nastavit/ reload/ CTRL+F2/ ENTER a hrajem :D</font>
+
+       Ideální efekty jsou: 
+       
+       <a href="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen3.jpg" target="_blank" title="-LINK-"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen3.jpg" width="350" height="200" target="_blank" title="-LINK-" style="border:1px solid black;border-radius:20px;-webkit-box-shadow:black 2px 2px 10px 5px"></a>
+
+       Nastavení Reshade přímo ve hře:
+
+       <a href="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen2.jpg" target="_blank" title="-LINK-"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Daggerf/screen2.jpg" width="350" height="200" target="_blank" title="-LINK-" style="border:1px solid black;border-radius:20px;-webkit-box-shadow:black 2px 2px 10px 5px"></a>
+    
+       <a href="https://reshade.me/">link - reshade shaders</a>
+       <a href="www.youtube.com/watch?v=u64ljsMG9Vc">ReShade Tutorial</a>
+   
+</font></p></buton></div></div></div>
+<br style = "line-height:40px;">
+<embed type="text/html" src="https://friendsmusic.monster/managerfiles/trolltrolli/torrexplore/seznam.html" width="892" height="347" style="background-color: slategray;filter:contrast(120%);border-top: 6px solid slategrey;border-bottom: 8px solid grey;border-right: 6px solid darkgrey;border-radius: 5px;box-shadow:black 0px 2px 2px 2px,#b35900 0px 0px 20px 2px,#f1ff54 0px 0px 20px 4px,black 0px 0px 5px 7px,#cf3c06 0 0 30px 20px"></embed>
+<br style = "line-height:60px;"></font>
+<div><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Diablo3/wcr3ban.png" width="953" height="75" style="margin-left:-482px;margin-top:200px;border-radius:0px;position:absolute!important;z-index:0"></div>
+<marquee behavior="scroll" direction="right" scrollamount="3">:king:   <img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Topazv/topazv_bav.png" " width="220" height="75" style="margin-top:60px">   :king:</marquee>
+<div style="position:absolute!important;z-index:0;margin-top:-180px"><marquee direction="up" width="850" height="350" scrollamount="6" behavior="alternate"><marquee behavior="alternate"><img src="https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Topazv/topazv_seed.png" " width="600" height="65" title="-DÍKY-"></marquee></marquee></div>
+<p style="text-size=10px;color:red;margin-top:260px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px">PRO SPRÁVNÉ ZOBRAZENÍ NA MOBILNÍCH ZAŘÍZENÍCH JE POTŘEBA V PROHLÍŽEČI ZMĚNIT ZOBRAZENÍ NA VERZI PRO PC</P><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:247px"></div>
+<div style="margin-left:-10px"><img src="https://www.webfreecounter.com/hit.php?id=grvepfxpa&nd=6&style=11" border="0" alt="visitor counter"></div>
+<div style="text-align:center"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;">
