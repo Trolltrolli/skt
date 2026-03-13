@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Player</title>
+<style>
+html,body{
+margin:0;
+padding:0;
+background:black;
+width:940px;
+height:128px;
+overflow:hidden;
+}
+audio{
+width:100%;
+}
+</style>
+</head>
+
 <body>
 
-<audio id="a" autoplay src="https://badasstechie.github.io/Clips/Siren.mp3"></audio>
-
-<script>
-const a = document.getElementById("a");
-a.volume = 0;
-</script>
+<audio id="audio" autoplay muted loop playsinline controls
+src="https://badasstechie.github.io/Clips/Siren.mp3">
+</audio>
 
 </body>
 </html>
