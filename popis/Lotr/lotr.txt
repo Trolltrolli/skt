@@ -74,7 +74,7 @@ Zkoušel jsem i emul. pro xbox-one gamepad, ale hra se pak trhala (x360ce). Kdyb
 Emulator by se určitě hodil, protože hra neuměla všechny tlačítka gamepadu, ale pařit jde i bez toho. :-)
 
 <font color="limegreen">Folder save a settings----------------------</font>
-C:\Users\tvojedokumenty\Documenty\LOTR The Return of the King (tm) Data
+<font size="4">C:\Users\tvojedokumenty\Documenty\LOTR The Return of the King (tm) Data</font>
 
 
 Příjemnou zábavu! 🎮 :-) 🎮
@@ -144,11 +144,6 @@ Příjemnou zábavu! 🎮 :-) 🎮
 
 
 <p style="text-size=10px;color:red;margin-top:280px;margin-left:-35px;position:absolute!important;z-index:-1;text-align:center;width:900px;"></p><div style="position:absolute!important;z-index:-1;margin-left:843px;margin-top:235px;"></div><div style="text-align:center;z-index:3;position-relative!important;"><font face="rockwell"><span style="font-size:17px;color:limegreen;text-shadow:1px 2px 1px#000;"></div><div style="text-align:center;"><font face="rockwell"><span style="font-size:19px;color:limegreen;text-shadow:1px 2px 1px#000, black .5px .5px 3px;">
-
-
-
-
-
 
 
 
