@@ -1,1 +1,47 @@
-<!DOCTYPE html> <html lang="cs"> <head> <meta charset="UTF-8"> <title>Player</title> <style> html,body{ margin:0; padding:0; background:black; width:940px; height:128px; overflow:hidden; } audio{ width:100%; } </style> </head> <body> <audio id="audio" autoplay muted loop playsinline controls src="https://badasstechie.github.io/Clips/Siren.mp3"> </audio> </body> </html>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Player</title>
+
+<style>
+html,body{
+margin:0;
+padding:0;
+background:black;
+width:940px;
+height:128px;
+overflow:hidden;
+}
+
+audio{
+width:100%;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="audio" autoplay muted loop playsinline controls
+src="https://badasstechie.github.io/Clips/Siren.mp3"></audio>
+
+<script>
+
+const audio = document.getElementById("audio");
+
+/* funkce která odmute audio */
+function unlockAudio(){
+    audio.muted = false;
+    audio.volume = 1;
+}
+
+/* browser bere tyhle akce jako user gesture */
+document.addEventListener("mousemove", unlockAudio, {once:true});
+document.addEventListener("click", unlockAudio, {once:true});
+document.addEventListener("keydown", unlockAudio, {once:true});
+document.addEventListener("touchstart", unlockAudio, {once:true});
+
+</script>
+
+</body>
+</html>
