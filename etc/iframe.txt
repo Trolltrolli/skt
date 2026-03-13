@@ -1,0 +1,14 @@
+<!-- AUDIO---------><embed src="https://trolltrolli.github.io/skt/player/player.html" width="940" height="128" style="position:relative; z-index:9999; margin-left:-10px; margin-top:5px; border:1px solid silver; border-radius:10px; box-shadow:0 0 20px 20px black; opacity:.8; pointer-events:auto; transform:translateZ(0); will-change:transform; isolation:isolate;"></embed>
+
+
+
+
+
+<body style="position:relative;width:940px;height:128px;" onmouseover="this.onmouseover=null;i=document.createElement('iframe');i.src='https://www.youtube.com/embed/HNMxLEk_pkQ?autoplay=1';i.width=560;i.height=315;i.allow='autoplay';this.appendChild(i)">
+</body>
+
+<body style="position:relative;width:940px;height:128px;" onmouseover="this.onmouseover=null;i=document.createElement('iframe');i.src='https://www.youtube.com/embed/HNMxLEk_pkQ?autoplay=1&mute=1';i.width=940;i.height=128;i.style.position='absolute';i.style.top='0';i.style.left='0';i.style.border='0';i.allow='autoplay';this.appendChild(i)">
+<div style="position:absolute;top:0;left:0;width:940px;height:128px;z-index:5;cursor:pointer;" onclick="this.style.display='none'"></div>
+</body>
+
+
