@@ -6,34 +6,27 @@
 
 <style>
 
-html, body {
-  margin:0;
-  padding:0;
-  width:940px;
-  height:128px;
-  overflow:hidden;
-  background:black;
+html,body{
+margin:0;
+padding:0;
+width:940px;
+height:128px;
+overflow:hidden;
+background:black;
 }
 
-.player-container{
-  width:940px;
-  height:128px;
-  background:#111;
-  display:flex;
-  align-items:center;
-  padding:20px;
-  box-sizing:border-box;
+.player{
+width:940px;
+height:128px;
+background:#111;
+display:flex;
+align-items:center;
+padding:20px;
+box-sizing:border-box;
 }
 
 audio{
-  width:100%;
-}
-
-#global-unlocker{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:transparent;
+width:100%;
 }
 
 </style>
@@ -41,55 +34,77 @@ audio{
 
 <body>
 
-<div id="global-unlocker"></div>
-
-<div class="player-container">
-<audio id="audio" controls preload="auto"></audio>
+<div class="player">
+<audio id="audio" controls preload="auto"
+src="https://trolltrolli.github.io/skt/popis/Lotr/music.mp3"
+autoplay muted playsinline></audio>
 </div>
 
 <script>
 
 const audio = document.getElementById("audio");
-const unlocker = document.getElementById("global-unlocker");
 
-const params = new URLSearchParams(location.search);
-const mp3 = params.get("mp3");
+/* pokus o okamžitý start */
 
-if(mp3){
-  audio.src = mp3;
-  audio.load();
-}
+audio.muted = true;
 
-/* tichý start */
-window.addEventListener("load", () => {
+audio.play().catch(()=>{});
 
-  audio.muted = true;
+/* WebAudio fallback */
 
-  audio.play().catch(()=>{
-    console.log("autoplay blocked");
-  });
+let ctx;
+let source;
 
-});
+async function startAudio(){
 
-/* odemknutí zvuku */
+if(!ctx){
 
-function unlockAudio(){
+ctx = new (window.AudioContext||window.webkitAudioContext)();
 
-  audio.muted = false;
-  audio.volume = 1;
+const res = await fetch(audio.src);
+const buf = await res.arrayBuffer();
+const decoded = await ctx.decodeAudioData(buf);
 
-  /* znovu spustíme play */
-  audio.play().catch(()=>{});
+source = ctx.createBufferSource();
+source.buffer = decoded;
+source.loop = true;
+source.connect(ctx.destination);
 
-  unlocker.remove();
-
-  console.log("audio unlocked");
+source.start();
 
 }
 
-["pointerdown","mousedown","touchstart","keydown"]
-.forEach(e=>{
-  window.addEventListener(e, unlockAudio, { once:true });
+}
+
+/* zkusíme hned */
+
+startAudio().catch(()=>{});
+
+/* když browser blokuje → čekáme na interakci */
+
+[
+"pointerdown",
+"mousedown",
+"touchstart",
+"keydown",
+"click"
+].forEach(e=>{
+
+document.addEventListener(e, async ()=>{
+
+try{
+
+audio.muted=false;
+await audio.play();
+
+if(ctx && ctx.state==="suspended"){
+await ctx.resume();
+}
+
+}catch{}
+
+},{once:true});
+
 });
 
 </script>
