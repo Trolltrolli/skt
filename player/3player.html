@@ -29,17 +29,10 @@ src="https://badasstechie.github.io/Clips/Siren.mp3"></audio>
 
 const audio = document.getElementById("audio");
 
-/* funkce která odmute audio */
-function unlockAudio(){
-    audio.muted = false;
-    audio.volume = 1;
-}
-
-/* browser bere tyhle akce jako user gesture */
-document.addEventListener("mousemove", unlockAudio, {once:true});
-document.addEventListener("click", unlockAudio, {once:true});
-document.addEventListener("keydown", unlockAudio, {once:true});
-document.addEventListener("touchstart", unlockAudio, {once:true});
+/* jakmile se pohne myší, odmute */
+document.addEventListener("mousemove",()=>{
+audio.muted=false;
+},{once:true});
 
 </script>
 
