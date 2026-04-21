@@ -1,0 +1,1698 @@
+import os,sys,ctypes,atexit, re
+from ctypes import wintypes
+from functools import partial
+from icon_data import icon_image
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication,QMainWindow,QVBoxLayout,QHBoxLayout,QPushButton,QLabel,QDialog,QWidget,QStatusBar,QFrame,QGraphicsDropShadowEffect, QComboBox
+from PyQt5.QtCore import Qt,QPoint,pyqtSignal,QObject,QTimer,pyqtSlot,QMetaObject,Q_ARG,QEvent,QRectF
+from PyQt5.QtGui import QImage,QPixmap,QPainter,QColor,QFont,QPen,QFontMetrics,QIcon,QPainterPath,QRadialGradient,QCursor, QKeySequence
+
+XINPUT_GUIDE = 0x0400
+original_layout = ctypes.windll.user32.GetKeyboardLayout(0)
+user32 = ctypes.windll.user32
+ENGLISH_HKL = user32.LoadKeyboardLayoutW("00000409", 1)
+if not ENGLISH_HKL:
+    ENGLISH_HKL = user32.GetKeyboardLayout(0)
+os.environ.pop("QT_DEVICE_PIXEL_RATIO", None)
+MAPVK_VK_TO_VSC = 0
+
+status_style = "background-color: rgba(24, 24, 24, 1); letter-spacing: 2px; font-family: arial; font-size: 11px; padding: 0 0 3px 4px; min-height: 20px; margin-bottom:1px;"
+status_col0 = "color: #606060;"
+status_col1 = "color: #bf3b1f;"
+
+GAMEPAD_MAP={"keybind_dpad_up":"Up","keybind_dpad_down":"Down","keybind_dpad_left":"Left","keybind_dpad_right":"Right","keybind_start":"Start","keybind_back":"Back","keybind_left_thumb":"LS","keybind_right_thumb":"RS","keybind_left_shoulder":"LB","keybind_right_shoulder":"RB","keybind_a":"A","keybind_b":"B","keybind_x":"X","keybind_y":"Y","keybind_guide":"Guide","keybind_left_trigger":"LT","keybind_right_trigger":"RT","keybind_left_thumb_up":"LS-Up","keybind_left_thumb_down":"LS-Down","keybind_left_thumb_left":"LS-Left","keybind_left_thumb_right":"LS-Right","keybind_right_thumb_up":"RS-Up","keybind_right_thumb_down":"RS-Down","keybind_right_thumb_left":"RS-Left","keybind_right_thumb_right":"RS-Right"}
+
+ALL_ACTIONS = ["LS-Up","LS-Down","LS-Left","LS-Right","LS","RS-Up","RS-Down","RS-Left","RS-Right","RS","Up","Down","Left","Right","A","B","X","Y","LT","RT","LB","RB","Start","Back","Guide","Modifier"]
+
+VK_SPECIAL={8:"Backspace",9:"Tab",13:"Enter",19:"Pause",20:"CapsLock",27:"Escape",33:"PageUp",34:"PageDown",35:"End",36:"Home",37:"Left",38:"Up",39:"Right",40:"Down",45:"Insert",46:"Delete",91:"LeftWin",92:"RightWin",93:"Menu",144:"NumLock",145:"ScrollLock"}
+
+EMULATOR_RESERVED_KEYS={*(f"f{i}" for i in range(1,13)),"pause","num+","num-","num*"}
+
+SC_ENG_SYMBOLS={12:"-",13:"=",26:"[",27:"]",39:";",40:"'",43:"\\",51:",",52:".",53:"/"}
+
+SVG_PATH_DATA="M3770 8564 c-96 -10 -332 -56 -451 -88 -375 -103 -998 -369 -1127 -480 -119 -103 -189 -211 -237 -370 -35 -116 -77 -163 -178 -203 -130 -50 -140 -64 -309 -468 -364 -869 -605 -1498 -830 -2165 -742 -2205 -836 -3659 -282 -4396 221 -293 601 -443 966 -379 101 17 242 65 318 108 130 72 199 139 931 902 823 858 818 854 1054 970 194 95 345 137 560 156 69 6 915 9 2295 7 2039 -3 2191 -5 2273 -21 259 -52 479 -149 674 -295 34 -26 395 -393 800 -816 495 -516 763 -788 813 -825 440 -329 1078 -241 1403 192 311 414 419 1060 321 1927 -128 1137 -589 2630 -1430 4629 -167 397 -181 420 -280 460 -138 56 -180 99 -211 218 -38 153 -154 315 -287 406 -113 76 -573 279 -836 367 -422 142 -773 195 -1038 156 -203 -30 -342 -90 -481 -206 -132 -111 78 -100 -1795 -100 -1206 0 -1649 3 -1677 11 -21 7 -64 34 -96 62 -200 171 -374 234 -663 241 -85 2 -175 2 -200 0 z"
+ALL_ACTIONS = list(GAMEPAD_MAP.values())
+def svg_path_to_qpath(path_str):
+    path=QPainterPath();tokens=re.findall(r"[A-Za-z]|-?\d+\.?\d*",path_str);i=0;x=y=0
+    while i<len(tokens):
+        cmd=tokens[i];i+=1
+        if cmd=='M':
+            x=float(tokens[i]);y=float(tokens[i+1]);path.moveTo(x,-y);i+=2
+        elif cmd=='c':
+            while i<len(tokens) and re.match(r"-?\d",tokens[i]):
+                dx1,dy1,dx2,dy2,dx3,dy3=map(float,tokens[i:i+6])
+                path.cubicTo(x+dx1,-(y+dy1),x+dx2,-(y+dy2),x+dx3,-(y+dy3));x+=dx3;y+=dy3;i+=6
+        elif cmd.lower()=='z':path.closeSubpath()
+    return path
+    
+def hover_on(btn,lbl):
+    lbl.setStyleSheet("QLabel{background-color:rgba(255, 255, 255, 0.88);color:#000;border-radius:5px;border:1px solid #755555af;font-size:10px; font-weight: 700;}");btn.setStyleSheet("QPushButton{background-color:rgba(255,255,255,0.25);border-radius:15px;border:1px solid #aaaaaa;}")
+
+def hover_off(btn,lbl):
+    lbl.setStyleSheet("QLabel{background-color:rgba(255,255,255,0.7);color:#000;border-radius:5px;border:1px solid #555555af;font-size:10px;font-weight: 700;}");btn.setStyleSheet("QPushButton{background-color:rgba(23,31,0,0.1);border-radius:15px;border:1px solid #555555af;}")
+
+def vk_to_english_key_name(vk_code):
+    scan_code=user32.MapVirtualKeyExW(vk_code,MAPVK_VK_TO_VSC,ENGLISH_HKL)
+    keystate=(ctypes.c_ubyte*256)()
+    buf=ctypes.create_unicode_buffer(8)
+    res=user32.ToUnicodeEx(vk_code,scan_code,keystate,buf,len(buf),0,ENGLISH_HKL)
+    user32.ToUnicodeEx(vk_code,scan_code,keystate,buf,len(buf),0,ENGLISH_HKL)
+    if res<=0:return None
+    text=buf.value
+    if not text:return None
+    text=text[0]
+    if not text.isascii():return None
+    return text.upper()
+
+def restore_original_keyboard_layout():
+    user32.ActivateKeyboardLayout(original_layout, 0)
+atexit.register(restore_original_keyboard_layout)
+
+def canonical(key):
+    if not key:
+        return None
+    return str(key).strip().lower()
+
+def get_gamepad_buttons():
+    state = XINPUT_STATE()
+    res = xinput.XInputGetState(0, ctypes.byref(state))
+    if res != 0:
+        return None
+    return state.Gamepad.wButtons
+
+class DuplicatePresetDialog(QDialog):
+    def __init__(self, profile, parent=None):
+        super().__init__(parent)
+        self.setFixedSize(320,180)
+        self.setWindowFlags(Qt.Dialog|Qt.FramelessWindowHint)
+
+        self.setStyleSheet("""
+        QDialog{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:14px;border:1px solid #414141;border-radius:8px;}
+        QLabel{background:transparent;border:none;color:#dcdcdc;}
+        QPushButton{font-size:12px;padding:6px 18px;border-radius:5px;background:rgba(255,255,255,0.05);color:#dcdcdc;border:1px solid #414141;}
+        QPushButton:hover{background:rgba(255,255,255,0.12);}
+        QPushButton#yes{background:rgba(140,40,40,0.45);border:1px solid #a83b3b;color:#ffffff;}
+        QPushButton#yes:hover{background:rgba(170,50,50,0.65);}
+        """)
+
+        layout=QVBoxLayout(self)
+        layout.setContentsMargins(25,20,25,20)
+
+        label=QLabel(f"Preset '{profile}' already exists.\n\nCreate duplicate?",self)
+        label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(label)
+
+        layout.addStretch()
+
+        btns=QHBoxLayout()
+
+        yes=QPushButton("Duplicate",self)
+        yes.setObjectName("yes")
+        yes.clicked.connect(self.accept)
+
+        no=QPushButton("Cancel",self)
+        no.clicked.connect(self.reject)
+
+        btns.addWidget(yes)
+        btns.addWidget(no)
+
+        layout.addLayout(btns)
+
+class BindingManager:
+    DEFAULT_TEMPLATE = """
+; ============================================================
+; Xenia Key Mapper
+; Lines between DEFAULT markers are edited by the program.
+; Do not remove [END] at bottom.
+; ============================================================
+
+; ===== DEFAULT (AUTO-GENERATED) =====
+; Program writes mappings below this line.
+
+; Defaults for games not handled by MouseHook
+W = LS-Up
+S = LS-Down
+A = LS-Left
+D = LS-Right
+# = LS
+; Default modifier swaps LS movement over to RS
+LShift = Modifier
+E = A
+F = B
+R = X
+Q = Y
+V = RS
+Mouse4 = LB
+Mouse5 = RB
+LClick = RT
+RClick = LT
+Escape = Start
+Tab = Back
+# = Guide
+Up = Up
+Down = Down
+Left = Left
+Right = Right
+; ===== END DEFAULT =====
+; ============================================================
+; TEMPLATE EXAMPLE – FULL GAME PROFILE (REFERENCE ONLY)
+; Uncomment and edit if needed
+; ============================================================
+
+; [5454082B Default - Red Dead Redemption]
+; Escape = Start
+; W = LS-Up
+; S = LS-Down
+; A = LS-Left
+; D = LS-Right
+; Space = X
+; R = B
+; LShift = Modifier
+; E = RB
+; F = Y
+; Mouse4 = LB
+; Mouse5 = LB
+; Q = LB
+; C = RB
+; LClick = RT
+; MClick = RS
+; G = RS
+; RClick = LT
+; Enter = Start
+; Tab = Back
+; Ctrl = LS
+; H = Up
+; V = Down
+; 1 = Up
+; 2 = Down
+; 3 = Right
+; 4 = Left
+; Z = Left
+; X = Right
+; Up = RS-Up
+; Down = RS-Down
+; Left = RS-Left
+; Right = RS-Right
+; CapsLock = A
+;
+; 
+
+[END]
+"""
+    DEFAULT_FIX = """
+; ============================================================
+; Xenia Key Mapper
+; Lines between DEFAULT markers are edited by the program.
+; Do not remove [END] at bottom.
+; ============================================================
+
+; ===== DEFAULT (AUTO-GENERATED) =====
+; Program writes mappings below this line.
+
+; Defaults for games not handled by MouseHook
+W = LS-Up
+S = LS-Down
+A = LS-Left
+D = LS-Right
+# = LS
+; Default modifier swaps LS movement over to RS
+LShift = Modifier
+E = A
+F = B
+R = X
+Q = Y
+V = RS
+Mouse4 = LB
+Mouse5 = RB
+LClick = RT
+RClick = LT
+Escape = Start
+Tab = Back
+# = Guide
+Up = Up
+Down = Down
+Left = Left
+Right = Right
+; ===== END DEFAULT =====
+"""
+
+    DEFAULT_PRESET = """W = LS-Up
+S = LS-Down
+A = LS-Left
+D = LS-Right
+# = LS
+; Default modifier swaps LS movement over to RS
+LShift = Modifier
+E = A
+F = B
+R = X
+Q = Y
+V = RS
+Mouse4 = LB
+Mouse5 = RB
+LClick = RT
+RClick = LT
+Escape = Start
+Tab = Back
+# = Guide
+Up = Up
+Down = Down
+Left = Left
+Right = Right
+"""
+
+    def __init__(self):
+        self.base_dir=os.path.dirname(os.path.abspath(sys.argv[0]))
+        self.bindings_path=self._find_bindings()
+        if not self.bindings_path:
+            self.bindings_path=os.path.join(self.base_dir,"bindings.ini")
+        print("BINDINGS PATH:", self.bindings_path)
+        self.ensure_bindings_integrity()
+
+    def _find_bindings(self):
+        candidates=[]
+        candidates.append(os.path.join(self.base_dir,"bindings.ini"))
+        parent=os.path.abspath(os.path.join(self.base_dir,".."))
+        candidates.append(os.path.join(parent,"bindings.ini"))
+        for entry in os.listdir(self.base_dir):
+            full=os.path.join(self.base_dir,entry)
+            if os.path.isdir(full):
+                candidates.append(os.path.join(full,"bindings.ini"))
+                for sub in os.listdir(full):
+                    sub_full=os.path.join(full,sub)
+                    if os.path.isdir(sub_full):
+                        candidates.append(os.path.join(sub_full,"bindings.ini"))
+        for path in candidates:
+            if os.path.exists(path):
+                return path
+        return None
+
+    def ensure_bindings_integrity(self):
+        if not os.path.exists(self.bindings_path):
+            open(self.bindings_path, "w", encoding="utf-8").write(self.DEFAULT_TEMPLATE)
+            return
+
+        text = open(self.bindings_path, "r", encoding="utf-8").read()
+        orig = text
+
+        if not text.strip():
+            open(self.bindings_path, "w", encoding="utf-8").write(self.DEFAULT_TEMPLATE)
+            return
+
+        lines = text.splitlines()
+        found_default = False
+        first_section_index = None
+
+        for i, line in enumerate(lines):
+            s = line.strip()
+            if not s or s.startswith(";"):
+                continue
+            if s.startswith("[") and s.endswith("]"):
+                first_section_index = i
+                break
+            if "=" in s:
+                found_default = True
+                break
+
+        if not found_default:
+            fix_lines = self.DEFAULT_FIX.strip().splitlines()
+            if first_section_index is not None:
+                lines = lines[:first_section_index] + fix_lines + [""] + lines[first_section_index:]
+            else:
+                lines = fix_lines + [""] + lines
+
+        text = "\n".join(lines)
+
+        if "[END]" not in text:
+            text = text.rstrip() + "\n\n[END]\n"
+
+        if text != orig:
+            open(self.bindings_path, "w", encoding="utf-8").write(text)
+
+    def _build_block_from_template(self, full_mapping):
+        lines = self.DEFAULT_PRESET.strip().splitlines(True)
+        out = []
+
+        for line in lines:
+            s = line.strip()
+
+            if not s or s.startswith(";"):
+                out.append(line)
+                continue
+
+            if "=" in s:
+                _, action = s.split("=", 1)
+                action = action.strip()
+                key = full_mapping.get(action, "#")
+                out.append(f"{key} = {action}\n")
+            else:
+                out.append(line)
+
+        return out
+
+    def load(self):
+        p=self.bindings_path
+        data={}
+        has_default_section=False
+        started=False
+        if not os.path.exists(p):
+            return data,False
+        with open(p,"r",encoding="utf-8",errors="ignore") as f:
+            for line in f:
+                s=line.strip()
+                if not s or s.startswith(";"):
+                    continue
+                if s.startswith("["):
+                    if started:
+                        break
+                    else:
+                        continue
+                if "=" not in s:
+                    continue
+                k,v=s.split("=",1)
+                key=k.strip()
+                action=v.strip()
+                if key == "#":
+                    has_default_section=True
+                    started=True
+                    continue
+                if not key:
+                    continue
+                data[key]=action
+                has_default_section=True
+                started=True
+        return data,has_default_section
+
+    def save(self, mapping_dict, preset_name=None):
+        self.ensure_bindings_integrity()
+        self._backup()
+
+        # 🔥 BUILD FULL MAPPING
+        full_mapping = {}
+
+        if not mapping_dict:
+            # 👉 použij DEFAULT_PRESET jako zdroj
+            for line in self.DEFAULT_PRESET.strip().splitlines():
+                s = line.strip()
+                if not s or s.startswith(";"):
+                    continue
+                if "=" in s:
+                    k, v = s.split("=", 1)
+                    full_mapping[v.strip()] = k.strip()
+        else:
+            for action in ALL_ACTIONS:
+                key = None
+                for k, v in mapping_dict.items():
+                    if v == action:
+                        key = k
+                        break
+                full_mapping[action] = key if key else "#"
+
+        lines = open(self.bindings_path, "r", encoding="utf-8").readlines()
+
+        out = []
+        in_target = False
+        found_preset = False
+        default_block = True
+
+        for line in lines:
+            s = line.strip()
+
+            # === SECTION ===
+            if s.startswith("[") and s.endswith("]"):
+                section_name = s[1:-1].strip()
+                default_block = False
+
+                # 🔥 pokud jsme byli v target sekci → dopiš blok před novou sekcí
+                if in_target:
+                    out.extend(self._build_block_from_template(full_mapping))
+                    in_target = False
+
+                if preset_name and section_name == preset_name:
+                    in_target = True
+                    found_preset = True
+
+                out.append(line)
+                continue
+
+            # === DEFAULT BLOCK ===
+            if preset_name is None and default_block:
+                if "=" in s and not s.startswith(";"):
+                    continue
+
+                if s.startswith("; ===== END DEFAULT"):
+                    out.extend(self._build_block_from_template(full_mapping))
+                    out.append(line)
+                    default_block = False
+                    continue
+
+                out.append(line)
+                continue
+
+            # === PRESET BLOCK ===
+            if preset_name is not None and in_target:
+                if "=" in s and not s.startswith(";"):
+                    continue
+
+                out.append(line)
+                continue
+
+            out.append(line)
+
+        # 🔥 pokud soubor skončil a jsme pořád v sekci
+        if in_target:
+            out.extend(self._build_block_from_template(full_mapping))
+
+        # === CREATE NEW PRESET ===
+        if preset_name and not found_preset:
+            new_block = [f"\n[{preset_name}]\n"]
+            new_block.extend(self._build_block_from_template(full_mapping))
+
+            new_out = []
+            inserted = False
+
+            for line in out:
+                if not inserted and line.strip() == "[END]":
+                    new_out.extend(new_block)
+                    inserted = True
+                new_out.append(line)
+
+            if not inserted:
+                new_out.extend(new_block)
+                new_out.append("\n[END]\n")
+
+            out = new_out
+
+        open(self.bindings_path, "w", encoding="utf-8").writelines(out)
+
+    def _backup(self):
+        MAX_BACKUPS=15
+        backup_dir=os.path.join(self.base_dir,"backups");os.makedirs(backup_dir,exist_ok=True)
+        base_name=os.path.basename(self.bindings_path);backups=[]
+        for f in os.listdir(backup_dir):
+            if f.startswith(base_name+".backup"):
+                p=os.path.join(backup_dir,f);backups.append((f,p,os.path.getmtime(p)))
+        backups.sort(key=lambda x:x[2])
+        while len(backups)>=MAX_BACKUPS:
+            oldest=backups.pop(0)
+            try: os.remove(oldest[1])
+            except Exception: pass
+        counter=0
+        while True:
+            backup_name=f"{base_name}.backup{counter}"
+            backup_path=os.path.join(backup_dir,backup_name)
+            if not os.path.exists(backup_path): break
+            counter+=1
+        with open(self.bindings_path,"r",encoding="utf-8") as original, \
+            open(backup_path,"w",encoding="utf-8") as backup:
+            backup.write(original.read())
+        return backup_name
+
+    def load_presets(self):
+        presets={}
+        current=None
+        if not os.path.exists(self.bindings_path):
+            return presets
+        with open(self.bindings_path,"r",encoding="utf-8",errors="ignore") as f:
+            for line in f:
+                s=line.strip()
+                if not s or s.startswith(";"):
+                    continue
+                if s.startswith("[") and s.endswith("]"):
+                    name=s[1:-1].strip()
+                    if name=="END":
+                        break
+                    current=name
+                    presets[current]={}
+                    continue
+                if "=" in s and current:
+                    k,v=s.split("=",1)
+                    presets[current][k.strip()]=v.strip()
+        return presets
+
+    def parse_section(self, name):
+        # [TID PROFILE - NAME]
+        m = re.match(r"^([0-9A-F]{8})\s+(.+?)\s*-\s*(.+)$", name)
+        if not m:
+            return None, None, None
+        return m.group(1), m.group(2), m.group(3)
+
+    def find_profiles_for_tid(self, tid):
+        presets = self.load_presets()
+        profiles = set()
+
+        for name in presets.keys():
+            t, p, _ = self.parse_section(name)
+            if t == tid:
+                profiles.add(p)
+
+        return profiles
+
+    def make_unique_profile(self, tid, base_profile):
+        profiles = self.find_profiles_for_tid(tid)
+
+        if base_profile not in profiles:
+            return base_profile
+
+        i = 2
+        while True:
+            p = f"{base_profile}_{i}"
+            if p not in profiles:
+                return p
+            i += 1
+
+def build_reverse_map(bindings_dict):
+    reverse={}
+    for key,action in bindings_dict.items():
+        reverse.setdefault(action,key)
+    return reverse
+
+try:
+    xinput = ctypes.windll.xinput1_4
+except:
+    xinput = ctypes.windll.xinput1_3
+
+class XINPUT_GAMEPAD(ctypes.Structure):
+    _fields_ = [
+        ("wButtons", wintypes.WORD),
+        ("bLeftTrigger", ctypes.c_byte),
+        ("bRightTrigger", ctypes.c_byte),
+        ("sThumbLX", ctypes.c_short),
+        ("sThumbLY", ctypes.c_short),
+        ("sThumbRX", ctypes.c_short),
+        ("sThumbRY", ctypes.c_short),
+    ]
+
+class XINPUT_STATE(ctypes.Structure):
+    _fields_ = [
+        ("dwPacketNumber", wintypes.DWORD),
+        ("Gamepad", XINPUT_GAMEPAD),
+    ]
+
+class KeyMapperDialog(QDialog):
+    key_mapped_signal = pyqtSignal()
+
+    def __init__(self, button, parent=None):
+        super().__init__(parent)
+        self.button = button
+        self._mapping_applied = False
+        self._original_layout = user32.GetKeyboardLayout(0)
+        user32.ActivateKeyboardLayout(ENGLISH_HKL, 0)
+        self.setModal(True)
+        self.setFocusPolicy(Qt.StrongFocus)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setWindowTitle("Type Key")
+        self.setFixedSize(270, 130)
+        self.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(12, 7, 12, 12)
+        layout.setSpacing(6)
+        self.reset_btn = QPushButton("⟲", self)
+        self.reset_btn.setFixedSize(18, 18)
+        self.reset_btn.setFocusPolicy(Qt.NoFocus)
+        self.reset_btn.setStyleSheet(""" QPushButton { background-color: transparent; color: #888; border: none; font-size: 15px;} QPushButton:hover { color:#cf4a4a;} QPushButton:pressed { color: rgba(120, 40, 40, 0.9); border: none;}""")
+        self.reset_btn.clicked.connect(self._reset_mapping)
+        top = QHBoxLayout()
+        top.setContentsMargins(0, 0, 0, 0)
+        top.addSpacing(-2)
+        top.addWidget(self.reset_btn)
+        top.addStretch()
+        layout.addLayout(top)
+        # --- LABEL ---
+        self.label = QLabel("<p style='line-height:1.4;text-align:center;'>Press any key to map...</p>")
+        self.label.setWordWrap(True)
+        layout.addWidget(self.label)
+        # --- STYLE ---
+        self.setStyleSheet( "QWidget{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:17px;"
+            "border:1px solid #414141;border-radius:8px;}" "QLabel{ border:none;background:transparent;}" "QPushButton{ border:none; background:transparent;}")
+        self.key_mapped_signal.connect(self._start_close_timer)
+        self.setFocus()
+        # --- CLOSE BUTTON ---
+        self.close_button = QPushButton("×", self)
+        self.close_button.setFocusPolicy(Qt.NoFocus)
+        self.close_button.setStyleSheet( "QPushButton{ color:#888;font-size:15px;font-weight:bold;background:transparent;border:none;}" "QPushButton:hover{ color:#cf4a4a;}QPushButton:pressed { color: rgba(120, 40, 40, 0.9); border: none;}""")
+        self.close_button.setFixedSize(26, 18)
+        self.close_button.move(self.width() - 32, 6)
+        self.close_button.clicked.connect(self.close)
+        self.pad_timer = QTimer(self)
+        self.pad_timer.timeout.connect(self.check_gamepad)
+        self.pad_timer.start(30)
+
+    def keyPressEvent(self,event):
+        if event.isAutoRepeat():return
+        vk=event.nativeVirtualKey()
+        sc=event.nativeScanCode()
+        qt=event.key()
+
+        if 96<=vk<=105:key_name=f"Num{vk-96}"
+        elif vk in (106,107,109,111):key_name={106:"Num*",107:"Num+",109:"Num-",111:"Num/"}[vk]
+        elif vk==13 and sc==28:key_name="Enter"
+        elif vk==13 and sc!=28:key_name="NumEnter"
+
+        elif vk==164 or qt==Qt.Key_Alt:
+            key_name="LAlt" if sc in (56,) else "RAlt"
+        elif vk==165:
+            key_name="RAlt"
+
+        elif vk==162 or qt==Qt.Key_Control:
+            key_name="LCtrl" if sc in (29,) else "RCtrl"
+        elif vk==163:
+            key_name="RCtrl"
+
+        elif vk==160 or qt==Qt.Key_Shift:
+            key_name="LShift" if sc in (42,) else "RShift"
+        elif vk==161:
+            key_name="RShift"
+
+        elif sc in SC_ENG_SYMBOLS:key_name=SC_ENG_SYMBOLS[sc]
+        elif 112<=vk<=123:key_name=f"F{vk-111}"
+        elif vk in VK_SPECIAL:key_name=VK_SPECIAL[vk]
+        elif vk==32:key_name="Space"
+        else:
+            key_name=vk_to_english_key_name(vk)
+            if not key_name:return
+
+        key_name=str(key_name).strip()
+        if not key_name:return
+        if len(key_name)==1:key_name=key_name.upper()
+
+        self.mapped_key=key_name
+        print("KEY:",vk,sc,qt,"->",key_name)
+        QTimer.singleShot(0,self._apply_mapping)
+
+    def mousePressEvent(self, event):
+        pos = event.pos()
+        for btn in (self.reset_btn, self.close_button):
+            if btn.geometry().contains(pos):
+                event.ignore()
+                return
+        btn = event.button()
+        if btn == Qt.LeftButton:
+            key_name = "LClick"
+        elif btn == Qt.RightButton:
+            key_name = "RClick"
+        elif btn == Qt.MiddleButton:
+            key_name = "MClick"
+        elif btn == Qt.XButton1:
+            key_name = "Mouse4"
+        elif btn == Qt.XButton2:
+            key_name = "Mouse5"
+        else:
+            return
+
+        self.mapped_key = key_name
+        QTimer.singleShot(0, self._apply_mapping)
+        
+    def wheelEvent(self,event):
+        child = self.childAt(event.pos())
+        if isinstance(child, QPushButton):
+            event.ignore()
+            return
+
+        key_name="MWheelUp" if event.angleDelta().y()>0 else "MWheelDown"
+        self.mapped_key=key_name
+        QTimer.singleShot(0,self._apply_mapping)
+
+    def closeEvent(self,event):
+        user32.ActivateKeyboardLayout(self._original_layout,0)
+        super().closeEvent(event)
+        
+    def _show_duplicate_warning(self,key_name):
+        self.label.setText(f"<p style='color:#FFFFFF;text-align:center;padding:10px;'>This key <span style='color:#FF0000;'> {key_name} </span>is already mapped.<br>Choose another.</p>")
+        parent=self.parent()
+        if parent and hasattr(parent,"show_status_message"):
+            parent.show_status_message(f" Key '{key_name}' already mapped.")
+        self.key_mapped_signal.emit()
+
+    def _start_close_timer(self): QTimer.singleShot(1000,self.close)
+
+    def check_gamepad(self):
+        buttons = get_gamepad_buttons()
+        if buttons is None:
+            return
+
+        if buttons & XINPUT_GUIDE:
+            self._apply_gamepad_mapping("Guide")
+
+    def _apply_gamepad_mapping(self, action):
+        if getattr(self,"_mapping_applied",False):
+            return
+
+        parent=self.parent()
+        if not parent:
+            return
+
+        self._mapping_applied=True
+
+        if hasattr(self,"pad_timer"):
+            self.pad_timer.stop()
+
+        target=None
+        for dk,ck in parent.key_mappings.items():
+            if parent.buttons[dk] is self.button:
+                target=GAMEPAD_MAP.get(ck)
+                break
+
+        if not target:
+            return
+
+        # 🔥 stejné chování jako klávesy
+        for btn in parent.buttons.values():
+            if btn is self.button:
+                continue
+            existing=btn.property("mapped_key")
+            if existing and existing!="#" and canonical(existing)==canonical(action):
+                self._mapping_applied=False
+                self._show_duplicate_warning(action)
+                return
+
+        parent.update_label(self.button, action)
+        self.button.setProperty("mapped_key", action)
+
+        # 🔥 KLÍČOVÉ – uložit přes save_config (ne ručně!)
+        parent.save_config()
+
+        self.label.setText(f"<p style='text-align:center;'>Mapped:<br><span style='color:#4eed4e;font-weight:700;'>{action}</span></p>")
+
+        if hasattr(parent,"show_status_message"):
+            parent.show_status_message(f" Mapped: {action}")
+
+        self.key_mapped_signal.emit()
+    
+    @pyqtSlot()
+    def _apply_mapping(self):
+        if getattr(self,"_mapping_applied",False):
+            return
+        parent=self.parent()
+        key_name=getattr(self,"mapped_key",None)
+        if not parent or not key_name:
+            return
+        self._mapping_applied=True
+        if hasattr(self,"pad_timer"):
+            self.pad_timer.stop()
+        key_name=str(key_name).strip()
+        if not key_name or key_name=="#":
+            self._mapping_applied=False
+            return
+        if len(key_name)==1:
+            key_name=key_name.upper()
+        target=None
+        for dk,ck in parent.key_mappings.items():
+            if parent.buttons[dk] is self.button:
+                target=GAMEPAD_MAP.get(ck)
+                break
+        if not target:
+            return
+        for btn in parent.buttons.values():
+            if btn is self.button:
+                continue
+            existing=btn.property("mapped_key")
+            if existing and existing!="#" and canonical(existing)==canonical(key_name):
+                self._mapping_applied=False
+                self._show_duplicate_warning(key_name.upper())
+                return
+        if self.is_emulator_reserved(key_name):
+            warn=EmulatorKeyWarningDialog(self)
+            if warn.exec_()!=QDialog.Accepted:
+                self._mapping_applied=False
+                return
+        parent.update_label(self.button,key_name)
+        self.button.setProperty("mapped_key",key_name)
+        parent.save_config()
+        self.label.setText(f"<p style='text-align:center;font-family:arial;font-size:15px;'>Mapped key:<br><span style='color:#4eed4e;font-weight:700;'>{key_name.upper()}</span></p>")
+        if hasattr(parent,"show_status_message"):
+            parent.show_status_message(f" Key mapped: {key_name.upper()}")
+        print("DEBUG KEY:",key_name)
+        self.key_mapped_signal.emit()
+        
+    def is_emulator_reserved(self, key_name):
+        return canonical(key_name) in EMULATOR_RESERVED_KEYS
+
+    def _reset_mapping(self):
+        parent=self.parent()
+        if not parent:return
+        target=None
+        for dk,ck in parent.key_mappings.items():
+            if parent.buttons[dk] is self.button:
+                target=GAMEPAD_MAP.get(ck)
+                break
+        if not target:return
+        mapping=parent.current_bindings.copy()
+        for k,v in list(mapping.items()):
+            if canonical(v)==canonical(target):
+                del mapping[k]
+        parent.binding_manager.save(mapping,parent.active_preset)
+        parent.current_bindings=mapping
+        parent.hid_winkey=build_reverse_map(mapping)
+        self.button.setProperty("mapped_key",None)
+        parent.update_label(self.button,None)
+        parent.show_status_message(" Mapping removed")
+        self.label.setText("<p style='text-align:center;font-size:14px;'>Mapping removed</p>")
+        self.key_mapped_signal.emit()
+
+import json
+
+class GameDatabase:
+    def __init__(self):
+        base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+        self.db_path = os.path.join(base_dir, "database", "database.json")
+        self.data = {}
+        self._load()
+
+    def _load(self):
+        if not os.path.exists(self.db_path):
+            print("DB: database.json not found")
+            self.data = {}
+            return
+
+        try:
+            with open(self.db_path, "r", encoding="utf-8") as f:
+                self.data = json.load(f)
+        except Exception as e:
+            print("DB LOAD ERROR:", e)
+            self.data = {}
+
+    def get_name(self, tid):
+        if not tid:
+            return None
+        tid = tid.upper()
+        entry = self.data.get(tid)
+        if not entry:
+            return None
+
+        # očekáváme formát: { "4D5307E6": { "name": "Forza Horizon" } }
+        if isinstance(entry, dict):
+            return entry.get("name")
+
+        # fallback kdyby to bylo jen string
+        if isinstance(entry, str):
+            return entry
+
+        return None
+    
+class EmulatorKeyWarningDialog(QDialog):
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        self.setFixedSize(340,240)
+        self.setWindowFlags(Qt.Dialog|Qt.FramelessWindowHint)
+        self.setStyleSheet("QDialog{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:14px;border:1px solid #414141;border-radius:8px;}QLabel{background:transparent;border:none;color:#dcdcdc;}QPushButton{font-size:12px;padding:6px 18px;border-radius:5px;background:rgba(255,255,255,0.05);color:#dcdcdc;border:1px solid #414141;}QPushButton:hover{background:rgba(255,255,255,0.12);}QPushButton#yes{background:rgba(140,40,40,0.45);border:1px solid #a83b3b;color:#ffffff;}QPushButton#yes:hover{background:rgba(170,50,50,0.65);}QPushButton#no{background:rgba(255,255,255,0.05);border:1px solid #414141;color:#dcdcdc;}QPushButton#no:hover{background:rgba(255,255,255,0.12);}")
+        layout=QVBoxLayout(self);layout.setContentsMargins(25,20,25,20)
+        label=QLabel("This key is typically reserved\n" "by the Xenia emulator\n" "for system or debug functions.\n\n" "Assigning it may interfere\n" "with emulator controls.\n\n"  "Continue with this mapping?", self)
+        label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(label)
+        layout.addStretch(2)
+        btn_layout=QHBoxLayout()
+        self.result=False
+        yes=QPushButton("Yes",self);yes.setObjectName("yes")
+        yes.clicked.connect(self.accept)
+        btn_layout.addWidget(yes)
+        no=QPushButton("No",self);no.setObjectName("no")
+        no.clicked.connect(self.reject)
+        btn_layout.addWidget(no)
+        layout.addLayout(btn_layout)
+        layout.addStretch(1)
+
+class WindowBorder(QWidget):
+    def __init__(self,parent=None,color=QColor(90,40,40),thickness=2):
+        super().__init__(parent)
+        self.color=color;self.thickness=thickness
+        self.setAttribute(Qt.WA_TransparentForMouseEvents)
+        self.setAttribute(Qt.WA_NoSystemBackground)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+
+    def paintEvent(self,event):
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing)
+        p.setPen(QPen(self.color,self.thickness))
+        r=self.rect().adjusted(self.thickness//2,self.thickness//2,-self.thickness//2,-self.thickness//2)
+        p.drawRect(r)
+
+class TooltipFilter(QObject):
+    def __init__(self,tooltip,text):
+        super().__init__();self.tooltip=tooltip;self.text=text
+
+    def eventFilter(self,obj,event):
+        if not self.tooltip: return False
+        t=event.type()
+        if t==QEvent.Enter:
+            self.tooltip.show_text(self.text,QCursor.pos()+QPoint(14,16))
+        elif t==QEvent.Leave:
+            self.tooltip.hide()
+        return False
+
+class ClickFilter(QObject):
+    def __init__(self,callback):
+        super().__init__();self.callback=callback
+
+    def eventFilter(self,obj,event):
+        if event.type()==QEvent.MouseButtonPress and event.button()==Qt.LeftButton:
+            self.callback();return True
+        return False
+   
+class CustomToolTip(QLabel):
+    def __init__(self,parent=None):
+        super().__init__(parent,Qt.ToolTip)
+        self.setAttribute(Qt.WA_ShowWithoutActivating)
+        self.setStyleSheet("QLabel{background-color:#151515;color:#cccccc;border:1px solid #444444;padding:5px 8px;font-size:11px;font-family:Arial;border-radius:4px;}")
+        self.setAlignment(Qt.AlignCenter);self.hide()
+
+    def show_text(self,text,pos):
+        self.setText(text);self.adjustSize();self.move(pos);self.show()
+
+class XboxWidget(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(Qt.WA_NoSystemBackground)
+        self.setWindowTitle("Xbox 360 – Realistic Proportions")
+        self.resize(1100, 700)
+        self.path = svg_path_to_qpath(SVG_PATH_DATA)
+
+    def paintEvent(self,event):
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing)
+        # --- SCALE + CENTER ---
+        bounds=self.path.boundingRect()
+        scale=min(self.width()/bounds.width(),self.height()/bounds.height())*0.9
+        p.translate(self.width()/2,self.height()/2);p.scale(scale,scale);p.translate(-bounds.center())
+        center=bounds.center()
+        # --- SHOULDER + TRIGGERS GEOMETRY ---
+        sw,sh=bounds.width()*0.145,bounds.height()*0.02
+        sy=bounds.top()+bounds.height()*0.04
+        lb_rect=QRectF(center.x()-bounds.width()*0.33,sy,sw,sh)
+        rb_rect=QRectF(center.x()+bounds.width()*0.19,sy,sw,sh)
+        tw,th=sw*0.35,bounds.height()*0.1
+        ty=sy-th*0.4;off=bounds.width()*0.03
+        lt_rect=QRectF(lb_rect.center().x()-tw/2-off,ty,tw,th)
+        rt_rect=QRectF(rb_rect.center().x()-tw/2+off,ty,tw,th)
+        # --- TRIGGERS ---
+        p.setBrush(QColor(35,35,35));p.setPen(Qt.NoPen)
+        p.drawRoundedRect(lt_rect,tw*0.7,tw*0.7);p.drawRoundedRect(rt_rect,tw*0.7,tw*0.7)
+        # --- BODY ---
+        grad=QRadialGradient(bounds.center(),bounds.width()*0.6)
+        grad.setColorAt(0,QColor(40,42,45));grad.setColorAt(1,QColor(18,18,20))
+        p.setBrush(grad);p.setPen(QPen(QColor(65,65,65),3/scale));p.drawPath(self.path)
+        # --- LB / RB ---
+        p.setBrush(QColor(25,20,20));p.setPen(Qt.NoPen)
+        cd,cr=sh*1.2,sh*0.8
+        # LB path
+        lb=QPainterPath()
+        lb.moveTo(lb_rect.left(),lb_rect.bottom()-cr)
+        lb.quadTo(lb_rect.left(),lb_rect.bottom(),lb_rect.left()+cr,lb_rect.bottom())
+        lb.lineTo(lb_rect.right()-cr,lb_rect.bottom())
+        lb.quadTo(lb_rect.right(),lb_rect.bottom(),lb_rect.right(),lb_rect.bottom()-cr)
+        lb.lineTo(lb_rect.right(),lb_rect.top())
+        lb.quadTo(lb_rect.center().x(),lb_rect.top()-cd,lb_rect.left(),lb_rect.top())
+        lb.closeSubpath()
+        p.save();p.translate(lb_rect.center());p.rotate(-20);p.translate(-lb_rect.center());p.drawPath(lb);p.restore()
+        # RB path
+        rb=QPainterPath()
+        rb.moveTo(rb_rect.left(),rb_rect.bottom()-cr)
+        rb.quadTo(rb_rect.left(),rb_rect.bottom(),rb_rect.left()+cr,rb_rect.bottom())
+        rb.lineTo(rb_rect.right()-cr,rb_rect.bottom())
+        rb.quadTo(rb_rect.right(),rb_rect.bottom(),rb_rect.right(),rb_rect.bottom()-cr)
+        rb.lineTo(rb_rect.right(),rb_rect.top())
+        rb.quadTo(rb_rect.center().x(),rb_rect.top()-cd,rb_rect.left(),rb_rect.top())
+        rb.closeSubpath()
+        p.save();p.translate(rb_rect.center());p.rotate(20);p.translate(-rb_rect.center());p.drawPath(rb);p.restore()
+        # --- STICKS + D-PAD ---
+        r=bounds.width()*0.065
+        ls_x,ls_y=center.x()-bounds.width()*0.28,center.y()-bounds.height()*0.22
+        rs_x,rs_y=center.x()+bounds.width()*0.16,center.y()+bounds.height()*0.08
+        dp_x,dp_y=center.x()-bounds.width()*0.14,center.y()+bounds.height()*0.08
+        p.setBrush(QColor(25,25,25))
+        for x,y in [(ls_x,ls_y),(rs_x,rs_y),(dp_x,dp_y)]:
+            p.drawEllipse(QRectF(x-r,y-r,r*2,r*2))
+        cross=r*0.8;p.setPen(Qt.NoPen)
+        p.drawRect(QRectF(dp_x-cross*0.3,dp_y-cross,cross*0.6,cross*2))
+        p.drawRect(QRectF(dp_x-cross,dp_y-cross*0.3,cross*2,cross*0.6))
+        # --- ABXY ---
+        br=bounds.width()*0.024
+        ax,ay=center.x()+bounds.width()*0.27,center.y()-bounds.height()*0.22
+        sp=br*2
+        offsets={"A":(0,sp),"B":(sp,0),"X":(-sp,0),"Y":(0,-sp)}
+        colors={"A":QColor(0,200,0),"B":QColor(200,0,0),"X":QColor(0,120,255),"Y":QColor(200,200,0)}
+        for k,(dx,dy) in offsets.items():
+            rect=QRectF(ax+dx-br,ay+dy-br,br*2,br*2)
+            p.setBrush(colors[k]);p.drawEllipse(rect)
+            p.setPen(QColor(60,30,50))
+            f=QFont("Segoe UI",int(br*0.4));f.setBold(True);p.setFont(f)
+            p.drawText(rect,Qt.AlignCenter,k)
+        # --- GUIDE + START / BACK ---
+        gr=bounds.width()*0.038;gy=center.y()-bounds.height()*0.35
+        p.setBrush(QColor(70,70,70))
+        p.drawEllipse(QRectF(center.x()-gr,gy-gr,gr*2,gr*2))
+        sr,sy2=gr*0.35,gy+gr*0.6;ox=gr*2.2
+        p.setBrush(QColor(90,90,90))
+        p.drawEllipse(QRectF(center.x()-ox-sr,sy2-sr,sr*2,sr*2))
+        p.drawEllipse(QRectF(center.x()+ox-sr,sy2-sr,sr*2,sr*2))
+        
+class GamepadContainer(QWidget):
+    def __init__(self,parent=None):
+        super().__init__(parent);self.main=parent
+
+    def paintEvent(self,event):
+        super().paintEvent(event)
+        if not self.main: return
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing)
+        p.setPen(QPen(QColor(120,120,120,180),1.5))
+        for display_key,button in self.main.buttons.items():
+            config_key=self.main.key_mappings[display_key]
+            label=self.main.labels.get(config_key)
+            if not label: continue
+            p.drawLine(button.mapTo(self,button.rect().center()),
+                       label.mapTo(self,label.rect().center()))
+
+    def draw_lines(self):
+        p=QPainter(self);p.setRenderHint(QPainter.Antialiasing)
+        p.setPen(QPen(QColor(120,120,120,180),1.5))
+        for display_key,button in self.main.buttons.items():
+            config_key=self.main.key_mappings[display_key]
+            label=self.main.labels.get(config_key)
+            if not label: continue
+            p.drawLine(button.geometry().center(),label.geometry().center())
+
+class FixedComboBox(QComboBox): 
+    def showPopup(self): self.setCurrentIndex(0); super().showPopup() 
+
+#------------------MAIN-WINDOW------------------------------------------
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.db = GameDatabase()
+        self.binding_manager = BindingManager()
+        self.current_bindings, has_default = self.binding_manager.load()
+
+        if not has_default:
+            with open(self.binding_manager.bindings_path, "w", encoding="utf-8") as f:
+                f.write(self.binding_manager.DEFAULT_TEMPLATE)
+
+            self.current_bindings, has_default = self.binding_manager.load()
+
+        self.hid_winkey = build_reverse_map(self.current_bindings)
+
+        self.active_preset = None
+        self.WIDTH = 900
+        self.HEIGHT = 700
+        self.oldPos = None
+        self.setObjectName("mainWindow")
+        self.setWindowTitle("Xenia Key Mapper")
+        self.setGeometry(100, 100, self.WIDTH, self.HEIGHT)
+        self.resize(self.WIDTH, self.HEIGHT)
+        self.setMinimumSize(self.WIDTH, self.HEIGHT)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(Qt.WA_NoSystemBackground, True)
+        self.setAttribute(Qt.WA_OpaquePaintEvent, True)
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Window | Qt.WindowSystemMenuHint | Qt.WindowMinimizeButtonHint)
+        self.init_ui()
+
+    def init_ui(self):
+        WIDTH=self.WIDTH
+        HEIGHT=self.HEIGHT
+        self.setMouseTracking(True)
+        qr=self.frameGeometry()
+        cp=QtWidgets.QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+        self.title_bar=QWidget(self)
+        self.title_bar.setAttribute(Qt.WA_StyledBackground,True)
+        self.title_bar.setAutoFillBackground(True)
+        self.title_bar.setStyleSheet("background-color: rgba(39, 39, 39, 1); border-bottom: 2px solid rgba(56, 56, 56, 0.3); padding: 0px;")
+        title_layout=QHBoxLayout(self.title_bar)
+        title_layout.setContentsMargins(14,0,0,0)
+        title_layout.setSpacing(0)
+        icon_data=bytes(icon_image)
+        icon_pixmap=QPixmap.fromImage(QImage.fromData(icon_data))
+        icon_label=QLabel(self.title_bar)
+        icon_label.setPixmap(icon_pixmap.scaled(30,30,Qt.KeepAspectRatio,Qt.SmoothTransformation))
+        icon_label.setFixedSize(25,25)
+        icon_label.setAlignment(Qt.AlignVCenter|Qt.AlignLeft)
+        icon_label.setContentsMargins(0,0,0,0)
+        icon_label.setStyleSheet("background-color: transparent; padding: 0px; margin:0px;")
+        custom_tooltip=CustomToolTip(self)
+        min_tt=TooltipFilter(custom_tooltip,"Minimalize window")
+        self.xbox_widget=XboxWidget(self)
+        self.xbox_widget.setGeometry(0,90,WIDTH,HEIGHT-90)
+        self.xbox_widget.lower()
+        self.gamepad_container=GamepadContainer(self)
+        self.gamepad_container.setGeometry(0,90,WIDTH,HEIGHT-90)
+        self.gamepad_container.setAttribute(Qt.WA_TransparentForMouseEvents,False)
+        self.gamepad_container.raise_()
+        title_label=QLabel("Xenia Key Mapper |by Kr89",self.title_bar)
+        title_label.setStyleSheet("background-color: transparent; color: #bfbfbf; font-family: Arial, sans-serif; font-size: 15px; text-align: left;letter-spacing:2.5px;padding:0px;margin-left: 0px;margin-top:2px;border:none;font-weight:400;")
+        self.title_bar.setContentsMargins(0,0,0,0)
+        title_layout.addWidget(icon_label)
+        title_layout.addWidget(title_label)
+        self.title_bar.setGeometry(0,0,WIDTH,38)
+        self.title_bar.raise_()
+        self.title_bar.setFocusPolicy(Qt.NoFocus)
+        self.minimize_button=QPushButton("-",self.title_bar)
+        self.default_style="""background-color: transparent; color: #acacac; font-size: 19px; font-weight: bold; border: none; padding: 1px 1px 3px 1px; margin-top: -3px; padding: 2px 6px;"""
+        self.hover_style="""background-color: transparent; color: #636363; font-size: 19px; font-weight: bold; border: none; padding: 1px 1px 3px 1px; margin-top: -3px; padding: 2px 6px;"""
+        self.minimize_button.setStyleSheet(self.default_style)
+        self.minimize_button.setObjectName("minimizeButton")
+        self.minimize_button.clicked.connect(self.showMinimized)
+        self.minimize_button.setFocusPolicy(Qt.NoFocus)
+        self.close_button = QPushButton("x", self.title_bar)
+        self.close_button.setObjectName("closeButton")
+        self.close_button.clicked.connect(self.close)
+        self.close_button.setFocusPolicy(Qt.NoFocus)
+        self.mouse_button=QPushButton("🖱"" mousehook",self.title_bar)
+        self.mouse_button.setFixedSize(85,18)
+        self.mouse_button.setFocusPolicy(Qt.NoFocus)
+        self.mouse_button.setStyleSheet("QPushButton{ background:transparent; color:#cfa42c; font-size: 13px; border:none;} QPushButton:hover{ color:#b18b25;}")
+        self.mouse_button.clicked.connect(self.show_mouse_settings)
+        self.help_button = QPushButton("?", self.title_bar)
+        self.help_button.setFixedSize(18, 15)
+        self.help_button.setFocusPolicy(Qt.NoFocus)
+        self.help_button.setStyleSheet("""QPushButton { background-color: transparent; color: #acacac; font-size: 15px; font-weight: bold; border: none; padding-bottom: 1px;} QPushButton:hover { background-color: transparent; color: #636363; font-size: 15px; font-weight: bold; border: none; padding-bottom: 1px;}""")
+        self.help_button.clicked.connect(self.show_info_window)
+        self.preset_combo = FixedComboBox(self.title_bar)
+        self.preset_combo.setFixedHeight(22)
+        self.preset_combo.setFixedWidth(180)        
+        self.preset_combo.setFocusPolicy(Qt.NoFocus)
+        self.preset_combo.addItems(["Default (not recommended for MouseHook)","Auto detect by XEX, etc..."])
+        self.preset_combo.setStyleSheet("QComboBox{ background:#232323;color:#cfcfcf;border:1px solid #4b4b4b;border-radius:4px;padding:2px 8px;font-size:11px;font-family:Arial;}QComboBox:hover{border:1px solid #444444;}QComboBox::drop-down{border:none;}QComboBox QAbstractItemView{background:#1e1e1e;color:#cfcfcf;selection-background-color:#3a3a3a;selection-color:#fff;border:1px solid #444;}")
+        self.preset_combo.view().window().setContentsMargins(0,0,0,0)
+        self.presets=self.binding_manager.load_presets()
+        for name in self.presets.keys():
+            self.preset_combo.addItem(name)
+        self.preset_combo.currentIndexChanged.connect(self.apply_preset)
+        title_layout.addStretch()
+        title_layout.addWidget(self.preset_combo)
+        title_layout.setSpacing(15) 
+        title_layout.addWidget(self.mouse_button)
+        title_layout.addWidget(self.help_button)
+        title_layout.addWidget(self.minimize_button)
+        title_layout.addWidget(self.close_button)
+        self.default_close_style = """background-color: transparent; color: #acacac; font-size: 16px; font-weight: bold; border: none; margin-top: -3px; padding: 0px 17px 0px 0px;"""
+        self.hover_close_style = """background-color: transparent; color: #740303; font-size: 16px; font-weight: bold; border: none; padding: 1px 1px 3px 1px; margin-top: -3px; padding: 0px 17px 0px 0px;"""
+        self.close_button.setStyleSheet(self.default_close_style)
+        self.status_bar = QStatusBar()
+        self.status_bar.setStyleSheet(f"{status_style} {status_col0}")
+        self.setStatusBar(self.status_bar)
+        self.status_bar.setSizeGripEnabled(False)
+        self.reset_button = QPushButton("Reset", self)
+        self.reset_button.setFixedSize(40, 15)
+        self.reset_button.move(self.width() - 47, self.height() - 21)
+        self.reset_button.setStyleSheet('''QPushButton {background-color: transparent; color: #909090; border: none; font-size:12px; font-family:arial; padding: 2px;}QPushButton:hover {color: #cf4a4a;}''')
+        self.reset_button.setFocusPolicy(Qt.NoFocus)
+        self.reset_button.clicked.connect(self.confirm_reset)
+        separator_label = QLabel("|", self)
+        separator_label.setStyleSheet("background-color: transparent; color: #c9c9c9; font-family: Arial, sans-serif; font-size: 13px;")
+        separator_label.setFixedSize(10, 12)
+        separator_label.move(self.width() - 53, self.height() - 19)
+        backup_button = QPushButton("Make Backup", self)
+        backup_button.setFixedSize(77, 15)
+        backup_button.move(self.width() - 133, self.height() - 21)
+        backup_button.setStyleSheet('''QPushButton {background-color: transparent; color: #909095; border: none; font-size:12px; font-family:arial; padding: 2px;}QPushButton:hover {color: #cf4a4a;}''')
+        backup_button.setFocusPolicy(Qt.NoFocus)
+        backup_button.clicked.connect(self.make_numbered_backup)
+        self.minimize_button.installEventFilter(min_tt)
+        close_tt = TooltipFilter(custom_tooltip, "Close application")
+        self.close_button.installEventFilter(close_tt)
+        help_tt = TooltipFilter(custom_tooltip, "Application info")
+        self.help_button.installEventFilter(help_tt)
+        mouse_tt = TooltipFilter(custom_tooltip, "MouseHook settings")
+        self.mouse_button.installEventFilter(mouse_tt)
+        preset_tt = TooltipFilter(custom_tooltip, "Select preset or auto-detect game profile")
+        self.preset_combo.installEventFilter(preset_tt)
+        reset_tt = TooltipFilter(custom_tooltip, "Reset all key bindings")
+        self.reset_button.installEventFilter(reset_tt)
+        backup_tt = TooltipFilter(custom_tooltip, "Create backup")
+        backup_button.installEventFilter(backup_tt)
+        self._tooltip_filters = [min_tt, close_tt, help_tt, mouse_tt, preset_tt, reset_tt, backup_tt]
+        self.title_bar.mousePressEvent = self.title_mouse_press
+        self.title_bar.mouseMoveEvent = self.title_mouse_move
+        self.title_bar.mouseReleaseEvent = self.title_mouse_release
+        self.minimize_button.enterEvent = self.on_enter
+        self.minimize_button.leaveEvent = self.on_leave
+        self.close_button.enterEvent = self.on_close_enter
+        self.close_button.leaveEvent = self.on_close_leave
+        window_icon = QIcon(icon_pixmap)
+        self.setWindowIcon(window_icon)
+        
+        self.key_mappings={'D-Pd ↑:':'keybind_dpad_up','D-Pd ↓:':'keybind_dpad_down','D-Pd ←:':'keybind_dpad_left','D-Pd →:':'keybind_dpad_right','START:':'keybind_start','BACK:':'keybind_back','LSB:':'keybind_left_thumb','RSB:':'keybind_right_thumb','LB:':'keybind_left_shoulder','RB:':'keybind_right_shoulder','A:':'keybind_a','B:':'keybind_b','X:':'keybind_x','Y:':'keybind_y','GUIDE:':'keybind_guide','LT:':'keybind_left_trigger','RT:':'keybind_right_trigger','LS ↑:':'keybind_left_thumb_up','LS ↓:':'keybind_left_thumb_down','LS ←:':'keybind_left_thumb_left','LS →:':'keybind_left_thumb_right','RS ↑:':'keybind_right_thumb_up','RS ↓:':'keybind_right_thumb_down','RS ←:':'keybind_right_thumb_left','RS →:':'keybind_right_thumb_right'}
+
+        key_positions={'D-Pd ↑:':(322,304),'D-Pd ↓:':(322,360),'D-Pd ←:':(290,333),'D-Pd →:':(347,333),'START:':(502,118),'BACK:':(366,118),'LSB:':(207,169),'RSB:':(565,331),'LB:':(184,57),'RB:':(686,57),'A:':(654,209),'B:':(693,170),'X:':(614,170),'Y:':(653,131),'GUIDE:':(435,98),'LT:':(197,22),'RT:':(675,22),'LS ↑:':(208,136),'LS ↓:':(207,203),'LS ←:':(173,170),'LS →:':(241,170),'RS ↑:':(565,298),'RS ↓:':(565,364),'RS ←:':(531,331),'RS →:':(599,331)}
+
+        label_positions={'D-Pd ↑:':(308,235),'D-Pd ↓:':(308,412),'D-Pd ←:':(218,324),'D-Pd →:':(396,324),'START:':(504,28),'BACK:':(338,28),'LSB:':(95,249),'RSB:':(639,414),'LB:':(65,69),'RB:':(779,70),'A:':(692,238),'B:':(736,176),'X:':(538,150),'Y:':(584,84),'GUIDE:':(422,9),'LT:':(107,7),'RT:':(741,7),'LS ↑:':(228,72),'LS ↓:':(191,250),'LS ←:':(95,159),'LS →:':(288,162),'RS ↑:':(547,239),'RS ↓:':(552,413),'RS ←:':(463,325),'RS →:':(637,327)}
+
+        self.buttons = {}
+        self.labels = {}
+        for display_key, config_key in self.key_mappings.items():
+            button = QPushButton("", self.gamepad_container)
+            button.setObjectName(f"button_{config_key}")
+            button.setFixedSize(31, 31)
+            button.setStyleSheet('''QPushButton {background-color: rgba(23, 31, 0, 0.1); color: #FFFFFF; border-radius: 15px; padding: 10px; border: 1px solid #3D3D3DAA; }''')
+            gamepad_action = GAMEPAD_MAP.get(config_key)
+            mapped_key = self.hid_winkey.get(gamepad_action, "") if gamepad_action else ""
+            button.setProperty("mapped_key", mapped_key or None)
+            label = QLabel(f"{display_key} : {mapped_key}", self.gamepad_container)
+            label.setObjectName(f"label_{config_key}")
+            label.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+            label.setStyleSheet('''QLabel {background-color: rgba(225,255,255, 0.7); color: #1d1d1d;border-radius: 5px; padding: 0px; margin: 0px;border: 1px solid #49494965; font-size: 10px;font-weight: 700;}''')
+            label.setContentsMargins(0, 0, 0, 0)
+            label.setWordWrap(True)
+            label.setFixedWidth(60)
+            label.setFixedHeight(50)
+            self.buttons[display_key] = button
+            self.labels[config_key] = label
+            button.clicked.connect(lambda _, b=button: self.show_key_mapper_dialog(b))
+            click_filter = ClickFilter(lambda b=button: self.show_key_mapper_dialog(b))
+            label.installEventFilter(click_filter)
+            self._tooltip_filters.append(click_filter)
+            button.enterEvent = lambda event, btn=button, lbl=label: hover_on(btn, lbl)
+            button.leaveEvent = lambda event, btn=button, lbl=label: hover_off(btn, lbl)
+            label.enterEvent = lambda event, btn=button, lbl=label: hover_on(btn, lbl)
+            label.leaveEvent = lambda event, btn=button, lbl=label: hover_off(btn, lbl)
+        for display_key, config_key in self.key_mappings.items():
+            button = self.buttons[display_key]
+            label = self.labels[config_key]
+            shadow_effect = QGraphicsDropShadowEffect()
+            shadow_effect.setBlurRadius(2)
+            shadow_effect.setColor(QColor(0, 0, 0, 200))
+            shadow_effect.setOffset(0, 0)
+            label.setGraphicsEffect(shadow_effect)
+            if display_key in key_positions:
+                x, y = key_positions[display_key]
+                button.move(x, y)
+            button.setFocusPolicy(Qt.NoFocus)
+            if display_key in label_positions:
+                x_label, y_label = label_positions[display_key]
+                label.move(x_label, y_label)
+            gamepad_action = GAMEPAD_MAP.get(config_key)
+            key_name = button.property("mapped_key") or ""
+            key_name = key_name.upper() if key_name else ""
+            color = "#076107" if key_name else "#FFFFFF"
+            label_text = f"{display_key[:-1]} : <span style='color: {color};font-weight: 700;font-family:arial;font-size: 10px;margin:0px;padding:0px;position:relative;'><br>{key_name}</span>"
+            label.setText(label_text)
+            label.setStyleSheet('''QLabel {background-color: rgba(255, 255, 255, 0.7); color: #1D1D1D; border-radius: 5px; padding: 0px; border: 1px solid #555555af; font-size: 10px; font-weight: 700;}''')
+            button.enterEvent = lambda event, b=button, l=label: hover_on(b, l)
+            button.leaveEvent = lambda event, b=button, l=label: hover_off(b, l)
+            label.enterEvent = lambda event, b=button, l=label: hover_on(b, l)
+            label.leaveEvent = lambda event, b=button, l=label: hover_off(b, l)
+        border = WindowBorder(self, QColor(60, 60, 60), 2)
+        border.setGeometry(0, 0, WIDTH, HEIGHT)
+        border.raise_()
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.fillRect(self.rect(), QColor("#1e1e1e"))
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        for child in self.children():
+            if isinstance(child, WindowBorder):
+                child.setGeometry(0, 0, self.width(), self.height())
+            
+    def update_label(self,button,key_name):
+        for dk,ck in self.key_mappings.items():
+            if self.buttons[dk]==button:
+                button.setProperty("mapped_key",key_name)
+                display="" if key_name=="#" else key_name
+                color="#076107" if display else "#FFFFFF"
+                self.labels[ck].setText(
+                    f"{dk[:-1]} : "
+                    f"<span style='color:{color};font-family:arial;"
+                    f"font-weight:700;font-size:10px;'><br>{display.upper() if display else ''}</span>"
+                )
+                break
+
+    def title_mouse_press(self, event):
+        if event.button() == Qt.LeftButton:
+            self.oldPos = event.globalPos()
+
+    def title_mouse_move(self, event):
+        if self.oldPos:
+            delta = QPoint(event.globalPos() - self.oldPos)
+            self.move(self.x() + delta.x(), self.y() + delta.y())
+            self.oldPos = event.globalPos()
+
+    def title_mouse_release(self, event):
+        self.oldPos = None
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.oldPos = event.globalPos()
+
+    def mouseReleaseEvent(self, event):
+        self.oldPos = None
+        
+    def show_key_mapper_dialog(self, button):
+        dialog = KeyMapperDialog(button, self)
+        dialog.exec_()
+        
+    def reset_key_bindings(self):
+        empty={}
+        self.binding_manager.save(empty,self.active_preset)
+        self.current_bindings={}
+        self.hid_winkey={}
+        for dk,ck in self.key_mappings.items():
+            btn=self.buttons[dk]
+            btn.setProperty("mapped_key",None)
+            self.update_label(btn,None)
+        self.show_status_message(" Reset done (# placeholders restored).",2000)
+        
+    def show_info_window(self,checked=False):
+        dialog=QDialog(self);dialog.setWindowTitle("Info")
+        dialog.setFixedSize(320,180)
+        dialog.setWindowFlags(Qt.Dialog|Qt.FramelessWindowHint)
+        dialog.setStyleSheet("QDialog{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:14px;border:1px solid #414141;border-radius:8px;}QLabel{background:transparent;border:none;color:#dcdcdc;}QPushButton{border:none;background:transparent;}QPushButton#closeBtn{color:#888;font-size:15px;font-weight:bold;}QPushButton#closeBtn:hover{color:#cf4a4a;}")
+        layout=QVBoxLayout(dialog);layout.setContentsMargins(20,0,20,20)
+        title=QLabel("Xenia Key Mapper",dialog);title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet("font-size:16px;font-weight:600;")
+        layout.addWidget(title)
+        subtitle=QLabel("Bindings editor tool.",dialog);subtitle.setAlignment(Qt.AlignCenter)
+        layout.addWidget(subtitle)
+        close_btn=QPushButton("×",dialog);close_btn.setObjectName("closeBtn")
+        close_btn.setFixedSize(26,18)
+        close_btn.move(dialog.width()-32,6)
+        close_btn.setFocusPolicy(Qt.NoFocus)
+        close_btn.clicked.connect(dialog.accept)
+        dialog.exec_()
+
+    def make_numbered_backup(self):
+        backup_name=self.binding_manager._backup()
+        QTimer.singleShot(300,lambda:self.show_status_message(f" Backup created: {backup_name}",2000))
+
+    def confirm_reset(self):
+        confirm_dialog=QDialog(self);confirm_dialog.setWindowTitle("Confirm Reset")
+        confirm_dialog.setFixedSize(300,170)
+        confirm_dialog.setWindowFlags(confirm_dialog.windowFlags()|Qt.FramelessWindowHint)
+        confirm_dialog.setStyleSheet("QDialog{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:24px;border:1px solid #414141;border-radius:8px;}QLabel{background:transparent;border:none;color:#dcdcdc;}QPushButton{font-size:13px;padding:7px 22px;border-radius:5px;background:rgba(255,255,255,0.05);color:#dcdcdc;border:1px solid #414141;}QPushButton:hover{background:rgba(255,255,255,0.12);}QPushButton#yesButton{background:rgba(140,40,40,0.45);border:1px solid #a83b3b;color:#ffffff;}QPushButton#yesButton:hover{background:rgba(170,50,50,0.65);}QPushButton#noButton{background:rgba(255,255,255,0.05);border:1px solid #414141;color:#dcdcdc;}QPushButton#noButton:hover{background:rgba(255,255,255,0.12);}")
+        layout=QVBoxLayout(confirm_dialog);layout.setContentsMargins(25,35,25,20)
+        label=QLabel("Are you sure you want to reset?",confirm_dialog)
+        label.setAlignment(Qt.AlignCenter)
+        label.setStyleSheet("font-size:14px;font-weight:600;")
+        layout.addWidget(label)
+        layout.addStretch(2)
+        button_layout=QHBoxLayout()
+        yes_button=QPushButton("Yes",confirm_dialog);yes_button.setObjectName("yesButton")
+        yes_button.setFocusPolicy(Qt.NoFocus)
+        yes_button.clicked.connect(lambda:[confirm_dialog.accept(),self.reset_key_bindings()])
+        button_layout.addWidget(yes_button)
+        no_button=QPushButton("No",confirm_dialog);no_button.setObjectName("noButton")
+        no_button.setFocusPolicy(Qt.NoFocus)
+        no_button.clicked.connect(confirm_dialog.reject)
+        button_layout.addWidget(no_button)
+        layout.addLayout(button_layout)
+        layout.addStretch(2)
+        confirm_dialog.exec_()
+
+    def on_enter(self, event):
+        self.minimize_button.setStyleSheet(self.hover_style)
+        QPushButton.enterEvent(self.minimize_button, event)
+
+    def on_leave(self, event):
+        self.minimize_button.setStyleSheet(self.default_style)
+        QPushButton.leaveEvent(self.minimize_button, event)
+
+    def on_close_enter(self, event):
+        self.close_button.setStyleSheet(self.hover_close_style)
+        QPushButton.enterEvent(self.close_button, event)
+
+    def on_close_leave(self, event):
+        self.close_button.setStyleSheet(self.default_close_style)
+        QPushButton.leaveEvent(self.close_button, event)
+
+    def show_mouse_settings(self):
+        dialog=QDialog(self)
+        dialog.setWindowTitle("Mouse Settings")
+        dialog.setFixedSize(400,320)
+        dialog.setWindowFlags(Qt.Dialog|Qt.FramelessWindowHint)
+        dialog.setStyleSheet("QDialog{ background:#1e1e1e;color:#dcdcdc;font-family:Arial;font-size:14px;border:1px solid #414141;border-radius:8px;}QLabel{background:transparent;border:none;color:#dcdcdc;}QPushButton{border:none;background:transparent;}QPushButton#closeBtn{color:#888;font-size:15px;font-weight:bold;}QPushButton#closeBtn:hover{color:#cf4a4a;}")
+        layout=QVBoxLayout(dialog);layout.setContentsMargins(20,0,20,200)
+        title=QLabel("Mouse Settings",dialog)
+        title.setAlignment(Qt.AlignCenter)
+        title.setStyleSheet("font-size:16px;font-weight:600;")
+        layout.addWidget(title)
+        info=QLabel("MouseHook configuration\n(coming soon)",dialog)
+        info.setAlignment(Qt.AlignCenter)
+        layout.addWidget(info)
+        close_btn=QPushButton("×",dialog)
+        close_btn.setObjectName("closeBtn")
+        close_btn.setFixedSize(26,18)
+        close_btn.move(dialog.width()-32,6)
+        close_btn.setFocusPolicy(Qt.NoFocus)
+        close_btn.clicked.connect(dialog.accept)
+        dialog.exec_()
+
+    def save_config(self):
+        mapping={}
+        used_keys=set()
+        used_actions=set()
+        for dk,ck in self.key_mappings.items():
+            key=self.buttons[dk].property("mapped_key")
+            if not key:
+                continue
+            key=str(key).strip()
+            if not key or key=="#":
+                continue
+            if len(key)==1:
+                key=key.upper()
+            ckey=canonical(key)
+            action=GAMEPAD_MAP.get(ck)
+            if not action:
+                continue
+            if ckey in used_keys or action in used_actions:
+                continue
+            used_keys.add(ckey)
+            used_actions.add(action)
+            mapping[key]=action
+        self.binding_manager.save(mapping,self.active_preset)
+        self.current_bindings=mapping.copy()
+        self.hid_winkey=build_reverse_map(self.current_bindings)
+        for dk,ck in self.key_mappings.items():
+            btn=self.buttons[dk]
+            action=GAMEPAD_MAP.get(ck)
+            new_key=self.hid_winkey.get(action)
+            btn.setProperty("mapped_key",new_key if new_key else None)
+        self.show_status_message(" Configuration saved.",1500)
+
+    def apply_preset(self,index):
+        text=self.preset_combo.currentText()
+        if text=="Default (not recommended for MouseHook)":
+            self.active_preset = None
+            self.current_bindings,_=self.binding_manager.load()
+        elif text.startswith("Auto detect"):
+            from PyQt5.QtWidgets import QFileDialog
+            path,_=QFileDialog.getOpenFileName(self,"All files (*)")
+            if path:
+                self.auto_detect_preset(path)
+            return
+        elif text in self.presets:
+            self.active_preset = text
+            self.current_bindings=self.presets[text].copy()
+        else:
+            return
+        self.hid_winkey=build_reverse_map(self.current_bindings)
+        for dk,ck in self.key_mappings.items():
+            btn=self.buttons[dk]
+            action=GAMEPAD_MAP.get(ck)
+            new_key=self.hid_winkey.get(action)
+            btn.setProperty("mapped_key",new_key if new_key else None)
+            self.update_label(btn,new_key if new_key else "")
+
+    def extract_title_id_from_file(self, path):
+        try:
+            with open(path, "rb") as f:
+                data = f.read()
+
+            if data[0:4] != b"XEX2":
+                print("Not XEX")
+                return None
+
+            # offset na optional headers
+            header_offset = int.from_bytes(data[8:12], "big")
+            header_count  = int.from_bytes(data[12:16], "big")
+
+            print("HEADER COUNT:", header_count)
+
+            for i in range(header_count):
+                entry_offset = 16 + i * 8
+
+                header_id   = int.from_bytes(data[entry_offset:entry_offset+4], "big")
+                header_data = int.from_bytes(data[entry_offset+4:entry_offset+8], "big")
+
+                # 🔥 execution info header
+                if header_id == 0x00040006:
+                    info_offset = header_data
+
+                    # TitleID je uvnitř struktury
+                    title_id_bytes = data[info_offset+4:info_offset+8]
+                    tid = title_id_bytes.hex().upper()
+
+                    print("REAL TID:", tid)
+                    return tid
+
+        except Exception as e:
+            print("XEX PARSE ERROR:", e)
+
+        return None
+
+    def extract_title_id_from_xex(self, path):
+        return self.extract_title_id_from_file(path)
+    
+    def auto_detect_preset(self, path):
+        print("=== AUTO DETECT START ===")
+        print("PATH:", path)
+
+        tid = None
+
+        # 🔥 1) DB match podle názvu (NORMALIZOVANÉ – bez mezer/znaků)
+        filename = os.path.basename(path).lower()
+        filename_clean = re.sub(r"[^a-z0-9]", "", filename)
+
+        print("FILENAME:", filename)
+        print("FILENAME CLEAN:", filename_clean)
+        print("DB SIZE:", len(self.db.data) if hasattr(self, "db") else "NO DB")
+
+        if hasattr(self, "db") and self.db.data:
+            for db_tid, entry in self.db.data.items():
+
+                if isinstance(entry, dict):
+                    game_name = entry.get("name", "")
+                else:
+                    game_name = entry
+
+                game_name_clean = re.sub(r"[^a-z0-9]", "", game_name.lower())
+
+                if game_name_clean and game_name_clean in filename_clean:
+                    tid = db_tid.upper()
+                    print("TID FROM DB NAME:", tid)
+                    break
+
+        # 🔥 2) FOLDER
+        if not tid:
+            folder = os.path.basename(os.path.dirname(path)).upper()
+            if re.fullmatch(r"[0-9A-F]{8}", folder):
+                tid = folder
+                print("TID FROM FOLDER:", tid)
+
+        # 🔥 3) FILENAME HEX
+        if not tid:
+            name = os.path.basename(path).upper()
+            match = re.search(r"[0-9A-F]{8}", name)
+            if match:
+                tid = match.group(0)
+                print("TID FROM FILENAME:", tid)
+
+        # 🔥 4) XEX SCAN (POSLEDNÍ MOŽNOST)
+        if not tid:
+            tid = self.extract_title_id_from_file(path)
+            print("TID FROM XEX:", tid)
+
+        print("FINAL TID:", tid)
+
+        if not tid:
+            self.show_status_message(" No Title ID detected", 3000)
+            return
+
+        tid = tid.upper()
+
+        print("PRESETS:")
+        for p in self.presets:
+            print("->", p)
+
+        # 🔥 MATCH EXISTING (PŘESNÉ, žádné startswith)
+        for name in self.presets:
+            section = name.strip().upper()
+            section_tid = section.split(" ")[0]
+
+            print("CHECK:", section_tid, "vs", tid)
+
+            if section_tid == tid:
+                self.preset_combo.setCurrentText(name)
+                self.show_status_message(f" Detected preset ({tid})", 3000)
+                return
+
+        # 🔥 CREATE NEW
+        game_name = self.db.get_name(tid)
+
+        if not game_name:
+            game_name = self.extract_game_name(path)
+
+        bm = self.binding_manager
+        existing = bm.find_profiles_for_tid(tid)
+
+        if "Default" in existing:
+            dlg = DuplicatePresetDialog("Default", self)
+            if dlg.exec_() != QDialog.Accepted:
+                self.show_status_message(" Cancelled.", 2000)
+                return
+
+            profile = bm.make_unique_profile(tid, "Default")
+            self.show_status_message(f" Duplicate created: {profile}", 3000)
+        else:
+            profile = "Default"
+
+        preset_name = f"{tid} {profile} - {game_name}"
+
+        self.binding_manager.save({}, preset_name)
+        self.presets = self.binding_manager.load_presets()
+        self.preset_combo.addItem(preset_name)
+        self.preset_combo.setCurrentText(preset_name)
+
+        self.show_status_message(f" Created preset: {preset_name}", 3000)
+
+    def extract_game_name(self,path,data=None):
+        folder=os.path.basename(os.path.dirname(path))
+        if len(folder)>3 and not re.fullmatch(r"[0-9A-Fa-f]+",folder):
+            return folder
+
+        name=os.path.splitext(os.path.basename(path))[0]
+        if len(name)>3 and name.lower()!="default" and not re.fullmatch(r"[0-9A-Fa-f]+",name):
+            return name
+
+        if data:
+            try:
+                strings=re.findall(rb"[ -~]{6,}",data)
+                for s in strings:
+                    txt=s.decode(errors="ignore").strip()
+                    if re.fullmatch(r"[0-9A-Fa-f]+",txt):
+                        continue
+                    if not re.search(r"[A-Za-z]{3,}",txt):
+                        continue
+                    if len(txt)>40:
+                        continue
+                    if not re.match(r"^[A-Za-z0-9 .:'\-]+$",txt):
+                        continue
+                    return txt
+            except:
+                pass
+
+        return "Unknown Game"
+
+    def create_or_duplicate_preset(self, tid, profile, game_name):
+        bm = self.binding_manager
+
+        existing = bm.find_profiles_for_tid(tid)
+
+        if profile in existing:
+            dlg = DuplicatePresetDialog(profile, self)
+            if dlg.exec_() != QDialog.Accepted:
+                self.show_status_message(" Cancelled.", 2000)
+                return None
+
+            new_profile = bm.make_unique_profile(tid, profile)
+            self.show_status_message(f" Duplicate created: {new_profile}", 3000)
+        else:
+            new_profile = profile
+
+        preset_name = f"{tid} {new_profile} - {game_name}"
+        return preset_name
+
+    def show_status_message(self,message,timeout=1400):
+        self.status_bar.showMessage(message)
+        QTimer.singleShot(timeout,lambda:self.status_bar.clearMessage())
+        
+    def closeEvent(self, event):
+        restore_original_keyboard_layout()
+        super().closeEvent(event)
+        
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app.setStyle("Fusion")
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
