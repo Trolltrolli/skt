@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RETEXT TEST COMPARISON</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    padding:24px;
+    background:#151515;
+    color:#ddd;
+    font-family:Arial,sans-serif;
+}
+
+h1{
+    margin:0 0 24px;
+    font-size:22px;
+    color:#fff;
+}
+
+.group{
+    margin-bottom:36px;
+}
+
+.title{
+    margin-bottom:10px;
+    padding:8px 12px;
+    background:#252525;
+    border-left:4px solid #777;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.box{
+    background:#202020;
+    border:1px solid #333;
+    padding:8px;
+}
+
+.label{
+    margin-bottom:7px;
+    color:#aaa;
+    font-size:12px;
+}
+
+img{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#000;
+}
+
+@media(max-width:900px){
+    .row{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<h1>RETEXT TEST COMPARISON</h1>
+
+<div id="content"></div>
+
+<script>
+const files=[
+    "test",
+    "output_pre",
+    "output_ai",
+    "04_mask",
+    "05_overlay",
+    "06_change"
+];
+
+const labels={
+    test:"SOURCE",
+    output_pre:"PREPROCESS",
+    output_ai:"AI RESULT",
+    "04_mask":"MASK",
+    "05_overlay":"OVERLAY",
+    "06_change":"CHANGE"
+};
+
+const content=document.getElementById("content");
+
+for(const name of files){
+
+    const a=name+"_a.png";
+    const b=name+"_b.png";
+
+    const group=document.createElement("div");
+    group.className="group";
+
+    const title=document.createElement("div");
+    title.className="title";
+    title.textContent=labels[name]||name;
+
+    const row=document.createElement("div");
+    row.className="row";
+
+    const boxA=document.createElement("div");
+    boxA.className="box";
+
+    const labelA=document.createElement("div");
+    labelA.className="label";
+    labelA.textContent="A — OKO";
+
+    const imgA=document.createElement("img");
+    imgA.src=a;
+    imgA.alt=a;
+
+    boxA.append(labelA,imgA);
+
+    const boxB=document.createElement("div");
+    boxB.className="box";
+
+    const labelB=document.createElement("div");
+    labelB.className="label";
+    labelB.textContent="B — ZEĎ";
+
+    const imgB=document.createElement("img");
+    imgB.src=b;
+    imgB.alt=b;
+
+    boxB.append(labelB,imgB);
+
+    row.append(boxA,boxB);
+    group.append(title,row);
+    content.append(group);
+}
+</script>
+
+</body>
+</html>
