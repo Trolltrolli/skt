@@ -80,41 +80,41 @@ if(!dragRow||e.pointerId!==dragPointerId)return;
 const el=document.elementFromPoint(e.clientX,e.clientY),target=el?.closest('tr');
 if(!target||target===dragRow||target===dragPlaceholder||target.parentNode!==tbody)return;
 const r=target.getBoundingClientRect(),after=e.clientY>r.top+r.height/2;
-if(after){if(target.nextElementSibling!==dragPlaceholder)target.insertAdjacentElement('afterend',dragPlaceholder)}
-else{if(target.previousElementSibling!==dragPlaceholder)target.insertAdjacentElement('beforebegin',dragPlaceholder)}
-$$(':scope > tr',tbody).forEach(x=>x.classList.remove('tx-drag-over'));target.classList.add('tx-drag-over')
+if(after){if(target.nextSibling!==dragPlaceholder)tbody.insertBefore(dragPlaceholder,target.nextSibling)}
+else if(target!==dragPlaceholder.nextSibling)tbody.insertBefore(dragPlaceholder,target)
+tbody.querySelectorAll('.tx-drag-over').forEach(x=>x.classList.remove('tx-drag-over'));target.classList.add('tx-drag-over')
 }
 function endRowDrag(e){
-if(!dragRow||e.pointerId!==dragPointerId)return;
-const row=dragRow,ph=dragPlaceholder;
-if(ph&&ph.parentNode===tbody)ph.parentNode.insertBefore(row,ph);
-row.style.display='';row.classList.remove('tx-dragging');$$(':scope > tr',tbody).forEach(x=>x.classList.remove('tx-drag-over'));
-ph?.remove();dragRow=null;dragPlaceholder=null;dragPointerId=null;dirty=true;renumberRows();refreshAllActions()
+if(!dragRow)return;
+if(dragPointerId!=null&&e.pointerId!=null&&e.pointerId!==dragPointerId)return;
+tbody.querySelectorAll('.tx-drag-over').forEach(x=>x.classList.remove('tx-drag-over'));
+if(dragPlaceholder){tbody.insertBefore(dragRow,dragPlaceholder);dragPlaceholder.remove()}
+dragRow.style.display='';dragRow.classList.remove('tx-dragging');dragRow=null;dragPlaceholder=null;dragPointerId=null;dirty=true;renumberRows();refreshAllActions()
 }
 function refreshRowActions(row){
-let a=row.querySelector(':scope > td:nth-child(2) .tx-row-actions');
-if(!a){const h=row.querySelector(':scope > td:nth-child(2)');if(!h)return;a=document.createElement('div');a.className='tx-row-actions';h.appendChild(a)}
-a.innerHTML='';if(!unlocked)return;
-const add=makeButton('tx-add','+','Přidat řádek pod tento',()=>insertRowAfter(row)),move=makeButton('tx-move','↕','Přesunout řádek',()=>{});
-move.addEventListener('pointerdown',e=>startRowDrag(e,row));
-const edit=makeButton('tx-edit','✎','Upravit řádek',()=>beginRowEdit(row)),del=makeButton('tx-delete','×','Smazat celý řádek',()=>deleteRow(row));
-a.append(add,move,edit,del)
+let box=row.querySelector('.tx-row-actions');if(!box){box=document.createElement('div');box.className='tx-row-actions';const cell=row.cells[1];if(cell){cell.appendChild(box)}}
+box.innerHTML='';
+box.appendChild(makeButton('tx-add','+','Přidat řádek pod tento',()=>insertRowAfter(row)));
+const move=makeButton('tx-move','↕','Přesunout řádek',()=>{});move.addEventListener('pointerdown',e=>startRowDrag(e,row));box.appendChild(move);
+box.appendChild(makeButton('tx-edit','✎','Upravit řádek',()=>beginRowEdit(row)));
+box.appendChild(makeButton('tx-delete','×','Smazat řádek',()=>deleteRow(row)))
 }
-function refreshAllActions(){$$(':scope > tr',tbody).forEach(refreshRowActions)}
+function refreshAllActions(){getRowsData();$$(':scope > tr',tbody).forEach(refreshRowActions);setEditabilityState()}
 function insertRowAfter(row){
 if(!unlocked)return;
 if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
-const r=createRow({image:'',name:'',torrent:'',title:'',genre:'',type:'',size:'',idt:''});r.dataset.newRow='true';row.insertAdjacentElement('afterend',r);dirty=true;renumberRows();refreshRowActions(r);beginRowEdit(r)
+const n=createRow({image:'',name:'',torrent:'',title:'',genre:'',type:'',size:'',idt:''});n.dataset.newRow='true';row.after(n);dirty=true;refreshRowActions(n);renumberRows();beginRowEdit(n)
 }
 function deleteRow(row){
 if(!unlocked)return;
-if(editingRow===row){cancelRowEdit(row);return}
-const n=rowToData(row).name||'tento řádek';if(!window.confirm(`Opravdu smazat „${n}“?\n\nAkce se projeví po uložení kliknutím na zámek.`))return;row.remove();dirty=true;renumberRows()
+if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
+if(!confirm('Opravdu chceš tento řádek smazat?'))return;
+row.remove();dirty=true;renumberRows();refreshAllActions()
 }
 function setEditabilityState(){
-if(unlocked){table.classList.add('tx-unlocked');originalSearchDisplay=$('.fancySearchRow')?.style.display||'';$$('.fancySearchRow').forEach(r=>r.style.display='none')}
-else{table.classList.remove('tx-unlocked');if(editingRow)finishRowEdit(editingRow,true);$$('.fancySearchRow').forEach(r=>r.style.display=originalSearchDisplay||'')}
-refreshAllActions();updateLockButton();updateBackupButton();updateHeaderEditButtons()
+table.classList.toggle('tx-unlocked',unlocked);updateLockButton();updateBackupButton();updateHeaderEditButtons();
+if(unlocked){originalSearchDisplay=originalSearchDisplay||getComputedStyle($('.fancy-search')||document.body).display;const s=$('.fancy-search');if(s)s.style.display='none'}
+else{const s=$('.fancy-search');if(s&&originalSearchDisplay)s.style.display=originalSearchDisplay}
 }
 function showPasswordDialog(){
 return new Promise(resolve=>{
@@ -127,22 +127,13 @@ function closePasswordDialog(result){
 const o=$('#txPasswordOverlay');o.classList.remove('visible');
 if(modalResolve){const r=modalResolve;modalResolve=null;r(result)}
 }
-async function requestUnlock(){
-const password=await showPasswordDialog();
-return!!password&&password.password===INTERNAL_PASSWORD
-}
-function restoreLastBackup(){
-if(unlocked){setStatus('Nejdřív uzamkni a ulož aktuální úpravy.','error');return}
-const b=loadJson(STORAGE_BACKUPS,[]);if(!b.length||!Array.isArray(b[0].rows)){setStatus('Backup zatím není k dispozici.','error');return}
-if(!window.confirm('Obnovit poslední uložený backup?\n\nAktuální stav se před obnovou uloží jako nový backup.'))return;
-addBackup(loadJson(STORAGE_DATA,null)||snapshot());const backup=b[0];tbody.innerHTML='';backup.rows.forEach(d=>tbody.appendChild(createRow(d)));renumberRows();saveCurrentData();dirty=false;refreshAllActions();setStatus('Poslední backup byl obnoven.','ok')
-}
+async function requestUnlock(){const password=await showPasswordDialog();return!!password&&password.password===INTERNAL_PASSWORD}
 async function toggleLock(){
-if(!(await requestUnlock())){setStatus('Nesprávné heslo.','error');return}
 if(unlocked){
 if(editingRow)finishRowEdit(editingRow,true);
 renumberRows();addBackup(loadJson(STORAGE_DATA,null)||snapshot());saveCurrentData();dirty=false;unlocked=false;setEditabilityState();setStatus('Uloženo. Vytvořen nový backup.','ok');return
 }
+if(!(await requestUnlock())){setStatus('Nesprávné heslo.','error');return}
 unlocked=true;setEditabilityState();setStatus('Režim úprav odemčen.','ok')
 }
 function updateLockButton(){
@@ -154,11 +145,9 @@ const ok=$('#txHeaderEditOk'),cancel=$('#txHeaderEditCancel'),active=!!(unlocked
 if(ok)ok.style.display=active?'inline-block':'none';
 if(cancel)cancel.style.display=active?'inline-block':'none'
 }
-function setStatus(text,kind=''){
-const s=$('#txEditStatus');if(!s)return;s.textContent=text;s.className=`tx-edit-status ${kind}`;clearTimeout(setStatus.timer);setStatus.timer=setTimeout(()=>{s.textContent='';s.className='tx-edit-status'},2500)
-}
+function setStatus(text,kind=''){const s=$('#txEditStatus');if(!s)return;s.textContent=text;s.className=`tx-edit-status ${kind}`;clearTimeout(setStatus.timer);setStatus.timer=setTimeout(()=>{s.textContent='';s.className='tx-edit-status'},2500)}
 function buildUi(){
-const host=document.createElement('div');host.id='txEditorUi';host.innerHTML=`<div id="txEditStatus" class="tx-edit-status"></div><div id="txPasswordOverlay" class="tx-password-overlay" role="dialog" aria-modal="true" aria-labelledby="txPasswordTitle"><div class="tx-password-box"><div id="txPasswordTitle" class="tx-password-title"></div><div id="txPasswordHint" class="tx-password-hint"></div><input id="txPasswordInput" class="tx-password-input" type="password" autocomplete="current-password"><div id="txPasswordSecondWrap" class="tx-password-second"><input id="txPasswordInput2" class="tx-password-input" type="password" autocomplete="new-password" placeholder="Zopakovat heslo"></div><div class="tx-password-actions"><button id="txPasswordCancel" type="button">Zrušit</button><button id="txPasswordConfirm" type="button">Potvrdit</button></div></div></div>`;
+const host=document.createElement('div');host.id='txEditorUi';host.innerHTML=`<div id="txEditStatus" class="tx-edit-status"></div><div id="txPasswordOverlay" class="tx-password-overlay" role="dialog" aria-modal="true" aria-labelledby="txPasswordTitle"><div class="tx-password-box"><div id="txPasswordTitle" class="tx-password-title"></div><div id="txPasswordHint" class="tx-password-hint"></div><input id="txPasswordInput" class="tx-password-input" type="password" autocomplete="current-password"><div id="txPasswordSecondWrap" class="tx-password-second"><input id="txPasswordInput2" class="tx-password-input" type="password" autocomplete="new-password" placeholder="Zopakovat heslo"></div><div class="tx-password-actions"><button id="txPasswordCancel" type="button">Zrušit</button><button id="txPasswordConfirm" type="button">Odemknout</button></div></div></div>`;
 document.body.appendChild(host);
 const titleCell=table.querySelector('thead th:nth-child(2)'),wrap=table.closest('.tg-wrap');
 if(titleCell&&wrap){
@@ -166,29 +155,37 @@ titleCell.classList.add('tx-editor-header-cell');
 const headerActions=document.createElement('div');headerActions.id='txHeaderActions';
 headerActions.innerHTML=`<button id="txHeaderEditOk" class="tx-header-btn tx-header-edit-ok" type="button" aria-label="Potvrdit editaci řádku" title="Potvrdit editaci řádku">✓</button><button id="txHeaderEditCancel" class="tx-header-btn tx-header-edit-cancel" type="button" aria-label="Zrušit editaci řádku" title="Zrušit editaci řádku">↶</button><button id="txLockButton" class="tx-header-btn tx-header-lock" type="button" aria-label="Odemknout úpravy" title="Odemknout úpravy"><span class="tx-lock-shape"><i></i></span></button><button id="txBackupButton" class="tx-header-btn tx-header-backup" type="button" aria-label="Obnovit poslední backup" title="Obnovit poslední backup">↶</button>`;
 wrap.appendChild(headerActions);
-const stop=e=>e.stopPropagation();['pointerdown','mousedown','click','dblclick'].forEach(t=>headerActions.addEventListener(t,stop,false));headerActions.addEventListener('keydown',stop,false);
-function positionHeaderActions(){
-const wr=wrap.getBoundingClientRect(),cr=titleCell.getBoundingClientRect(),l=cr.right-wr.left-headerActions.offsetWidth-3;
-headerActions.style.left=`${Math.max(0,l)}px`;headerActions.style.right='auto';headerActions.style.top=`${Math.max(1,cr.top-wr.top+(cr.height-headerActions.offsetHeight)/2)}px`
-}
-requestAnimationFrame(positionHeaderActions);window.addEventListener('resize',positionHeaderActions);window.addEventListener('scroll',positionHeaderActions,{passive:true})
-}
-if(wrap&&!$('#txSeed')){
+const stop=e=>{e.stopPropagation()};['pointerdown','mousedown','click','dblclick'].forEach(t=>headerActions.addEventListener(t,stop));
 const seed=document.createElement('div');seed.id='txSeed';seed.innerHTML='<div class="tx-seed-track"><div class="tx-seed-text">SEED VĚTŠINOU VEČER</div></div>';wrap.appendChild(seed);
-const imgCell=table.querySelector('thead th:nth-child(1)'),titleHeader=table.querySelector('thead th:nth-child(2)');
-function positionSeed(){
-const wr=wrap.getBoundingClientRect(),ir=imgCell?.getBoundingClientRect(),tr=titleHeader?.getBoundingClientRect();if(!ir||!tr)return;
+const positionHeader=()=>{
+const wr=wrap.getBoundingClientRect(),hr=titleCell.getBoundingClientRect();
+headerActions.style.left=`${Math.max(0,hr.right-wr.left-108)}px`;
+headerActions.style.top=`${Math.max(0,hr.top-wr.top)}px`
+};
+const positionSeed=()=>{
+const wr=wrap.getBoundingClientRect(),ir=table.querySelector('thead th:first-child')?.getBoundingClientRect(),tr=titleCell?.getBoundingClientRect();
+if(!ir||!tr)return;
 seed.style.left=`${Math.max(0,ir.right-wr.left+8)}px`;seed.style.top=`${Math.max(0,tr.top-wr.top)}px`;seed.style.width='150px';seed.style.height=`${Math.max(20,tr.height)}px`
-}
-requestAnimationFrame(positionSeed);window.addEventListener('resize',positionSeed);window.addEventListener('scroll',positionSeed,{passive:true})
+};
+requestAnimationFrame(()=>{positionHeader();positionSeed()});window.addEventListener('resize',()=>{positionHeader();positionSeed()});window.addEventListener('scroll',()=>{positionHeader();positionSeed()},{passive:true})
 }
 $('#txHeaderEditOk').addEventListener('click',()=>{if(editingRow)finishRowEdit(editingRow,true)});
 $('#txHeaderEditCancel').addEventListener('click',()=>{if(editingRow)cancelRowEdit(editingRow)});
-$('#txLockButton').addEventListener('click',toggleLock);$('#txBackupButton').addEventListener('click',restoreLastBackup);
+$('#txLockButton').addEventListener('click',toggleLock);
+$('#txBackupButton').addEventListener('click',restoreLastBackup);
 $('#txPasswordCancel').addEventListener('click',()=>closePasswordDialog(null));
-$('#txPasswordConfirm').addEventListener('click',()=>{const p=$('#txPasswordInput').value;closePasswordDialog({password:p})});
+$('#txPasswordConfirm').addEventListener('click',()=>{const p=$('#txPasswordInput').value,s=$('#txPasswordInput2').value;closePasswordDialog({password:p,password2:s})});
 ['#txPasswordInput','#txPasswordInput2'].forEach(sel=>$(sel).addEventListener('keydown',e=>{if(e.key==='Enter')$('#txPasswordConfirm').click();if(e.key==='Escape')$('#txPasswordCancel').click()}));
 $('#txHeaderEditOk').style.display='none';$('#txHeaderEditCancel').style.display='none';$('#txBackupButton').style.display='none'
+}
+function restoreLastBackup(){
+if(!unlocked)return;
+if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
+const b=loadJson(STORAGE_BACKUPS,[]);
+if(!Array.isArray(b)||!b.length){setStatus('Žádný backup není k dispozici.','error');return}
+if(!confirm('Obnovit poslední backup? Aktuální neuložené změny budou nahrazeny.'))return;
+const s=b[0];if(!s||!Array.isArray(s.rows))return;
+tbody.innerHTML='';s.rows.forEach(d=>tbody.appendChild(createRow(d)));renumberRows();refreshAllActions();dirty=true;setStatus('Poslední backup obnoven.','ok')
 }
 function installImagePreview(){
 const preview=document.createElement('img');preview.className='tx-image-preview';preview.alt='';document.body.appendChild(preview);let active=null;
@@ -261,7 +258,8 @@ td:nth-child(2) .tx-edit-input[data-field="title"]{top:60px}
 #txHeaderActions{width:108px}
 .tx-editor-header-cell{padding-right:112px!important}
 #txSeed{left:0;width:150px}
-}`;
+}
+`;
 document.head.appendChild(style)
 }
 function init(){
@@ -271,7 +269,10 @@ addStyles();installImagePreview();buildUi();restoreSavedData();renumberRows();re
 window.addEventListener('pointermove',moveRowDrag,{passive:false});
 window.addEventListener('pointerup',endRowDrag);
 window.addEventListener('pointercancel',endRowDrag);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&unlocked&&!$('#txPasswordOverlay').classList.contains('visible')){if(editingRow)cancelRowEdit(editingRow);else toggleLock()}});
+document.addEventListener('keydown',e=>{
+if(e.key==='Escape'&&unlocked&&!$('#txPasswordOverlay').classList.contains('visible')){
+if(editingRow)cancelRowEdit(editingRow);else toggleLock()
+}});
 window.addEventListener('beforeunload',e=>{if(unlocked&&dirty){e.preventDefault();e.returnValue=''}})
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
