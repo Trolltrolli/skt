@@ -163,18 +163,18 @@ headerActions.style.left=`${Math.max(0,hr.right-wr.left-108)}px`;
 headerActions.style.top=`${Math.max(0,hr.top-wr.top)}px`
 };
 const positionSeed=()=>{
-const wr=wrap.getBoundingClientRect(),ir=table.querySelector('thead th:first-child')?.getBoundingClientRect(),tr=titleCell?.getBoundingClientRect();
+const wr=wrap.getBoundingClientRect(),ir=table.querySelector('thead th:nth-child(1)')?.getBoundingClientRect(),tr=titleCell?.getBoundingClientRect();
 if(!ir||!tr)return;
 seed.style.left=`${Math.max(0,ir.right-wr.left+8)}px`;seed.style.top=`${Math.max(0,tr.top-wr.top)}px`;seed.style.width='150px';seed.style.height=`${Math.max(20,tr.height)}px`
 };
 requestAnimationFrame(()=>{positionHeader();positionSeed()});window.addEventListener('resize',()=>{positionHeader();positionSeed()});window.addEventListener('scroll',()=>{positionHeader();positionSeed()},{passive:true})
 }
+$('#txLockButton').addEventListener('click',toggleLock);
 $('#txHeaderEditOk').addEventListener('click',()=>{if(editingRow)finishRowEdit(editingRow,true)});
 $('#txHeaderEditCancel').addEventListener('click',()=>{if(editingRow)cancelRowEdit(editingRow)});
-$('#txLockButton').addEventListener('click',toggleLock);
 $('#txBackupButton').addEventListener('click',restoreLastBackup);
 $('#txPasswordCancel').addEventListener('click',()=>closePasswordDialog(null));
-$('#txPasswordConfirm').addEventListener('click',()=>{const p=$('#txPasswordInput').value,s=$('#txPasswordInput2').value;closePasswordDialog({password:p,password2:s})});
+$('#txPasswordConfirm').addEventListener('click',()=>{const p=$('#txPasswordInput').value;closePasswordDialog({password:p})});
 ['#txPasswordInput','#txPasswordInput2'].forEach(sel=>$(sel).addEventListener('keydown',e=>{if(e.key==='Enter')$('#txPasswordConfirm').click();if(e.key==='Escape')$('#txPasswordCancel').click()}));
 $('#txHeaderEditOk').style.display='none';$('#txHeaderEditCancel').style.display='none';$('#txBackupButton').style.display='none'
 }
@@ -201,7 +201,12 @@ function addStyles(){
 const style=document.createElement('style');style.textContent=`
 .tg-wrap{position:relative!important}
 #${TABLE_ID}{border-collapse:separate!important;border-spacing:0!important}
-.tx-editor-header-cell{position:relative!important;padding-right:112px!important;overflow:visible!important}
+#${TABLE_ID}>thead{position:sticky!important;top:0!important;z-index:9000!important}
+#${TABLE_ID}>thead>tr>th{position:sticky!important;top:0!important;z-index:9001!important}
+#${TABLE_ID}>thead>tr>th:first-child{z-index:9002!important}
+#${TABLE_ID}>thead>tr>th:nth-child(2){z-index:9003!important}
+#${TABLE_ID}>thead>tr>th:nth-child(3),#${TABLE_ID}>thead>tr>th:nth-child(4),#${TABLE_ID}>thead>tr>th:nth-child(5),#${TABLE_ID}>thead>tr>th:nth-child(6){z-index:9002!important}
+.tx-editor-header-cell{position:sticky!important;top:0!important;padding-right:112px!important;overflow:visible!important}
 #txHeaderActions{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:flex-end;gap:2px;width:108px;height:29px;box-sizing:border-box;z-index:1000000;padding:1px;border:1px solid transparent;border-radius:5px;background:transparent;box-shadow:none}
 .tx-header-btn{width:25px;pointer-events:auto;height:23px;padding:0;margin:0;border:1px solid #111;border-radius:4px;background:linear-gradient(#555,#222);color:#ddd;box-shadow:0 1px 3px #000;cursor:pointer}
 .tx-header-btn:hover{filter:brightness(1.25)}
@@ -257,7 +262,6 @@ td:nth-child(2) .tx-edit-input[data-field="title"]{top:60px}
 @media(max-width:900px){
 #txHeaderActions{width:108px}
 .tx-editor-header-cell{padding-right:112px!important}
-#txSeed{left:0;width:150px}
 }
 `;
 document.head.appendChild(style)
