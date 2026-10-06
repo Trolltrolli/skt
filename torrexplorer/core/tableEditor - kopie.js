@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 const TABLE_ID='tg-uIa8n',STORAGE_DATA='torrexplorer.table.v3',STORAGE_BACKUPS='torrexplorer.backups.v3',INTERNAL_PASSWORD='789456',MAX_BACKUPS=5,IMG_BASE='https://trolltrolli.github.io/skt/torrexplorer/covery_seznam/';
-let table=null,tbody=null,unlocked=false,dirty=false,modalResolve=null,originalSearchDisplay='',dragRow=null,dragPlaceholder=null,dragPointerId=null,editingRow=null,lockHoldTimer=null,lockHoldFired=false;
+let table=null,tbody=null,unlocked=false,dirty=false,modalResolve=null,originalSearchDisplay='',dragRow=null,dragPlaceholder=null,dragPointerId=null,editingRow=null;
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function escapeHtml(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 function cleanText(v){return String(v??'').replace(/\u00a0/g,' ').trim()}
@@ -17,9 +17,11 @@ function saveJson(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true
 function saveCurrentData(){saveJson(STORAGE_DATA,snapshot())}
 function addBackup(state=null){const s=state||loadJson(STORAGE_DATA,null)||snapshot();if(!s||!Array.isArray(s.rows))return;const b=loadJson(STORAGE_BACKUPS,[]);b.unshift(s);saveJson(STORAGE_BACKUPS,b.slice(0,MAX_BACKUPS))}
 function restoreSavedData(){const s=loadJson(STORAGE_DATA,null);if(!s||!Array.isArray(s.rows)||!s.rows.length)return false;tbody.innerHTML='';s.rows.forEach(d=>tbody.appendChild(createRow(d)));renumberRows();return true}
+function getRowClass(i){return i%2===0?'tg-rf0l':'tg-feyg'}
+function applyRowClasses(row,i){const c=getRowClass(i);row.querySelectorAll(':scope > td').forEach(td=>{td.classList.remove('tg-rf0l','tg-feyg');td.classList.add(c)})}
 function createRow(data={}){
 const row=document.createElement('tr'),image=normaliseSavedImagePath(data.image||''),name=data.name||'',torrent=data.torrent||'#',title=data.title||'';
-row.innerHTML=`<td><a href="${escapeHtml(image||'#')}" target="_blank" rel="noopener noreferrer"><img class="center" src="${escapeHtml(image||'core/noimage.png')}" alt=""></a></td><td data-sortvalue="${escapeHtml((name[0]||'').toUpperCase())}"><a style="text-decoration:none" href="${escapeHtml(torrent)}" target="_blank" title="${escapeHtml(title)}" rel="noopener noreferrer"><span style="color:#fff;font-size:15px;float:left"><font itemprop="name">&nbsp;${escapeHtml(name)}</font></span></a></td><td>${escapeHtml(data.genre||'')}</td><td>${escapeHtml(data.type||'')}</td><td>${escapeHtml(data.size||'')}</td><td><span class="tx-id-value">${escapeHtml(data.idt||'')}</span></td>`;
+row.innerHTML=`<td class="tg-rf0l"><a href="${escapeHtml(image||'#')}" target="_blank" rel="noopener noreferrer"><img class="center" src="${escapeHtml(image||'core/noimage.png')}" alt=""></a></td><td class="tg-rf0l" data-sortvalue="${escapeHtml((name[0]||'').toUpperCase())}"><a style="text-decoration:none" href="${escapeHtml(torrent)}" target="_blank" title="${escapeHtml(title)}" rel="noopener noreferrer"><span style="color:#fff;font-size:15px;float:left"><font itemprop="name">&nbsp;${escapeHtml(name)}</font></span></a></td><td class="tg-rf0l">${escapeHtml(data.genre||'')}</td><td class="tg-rf0l">${escapeHtml(data.type||'')}</td><td class="tg-rf0l">${escapeHtml(data.size||'')}</td><td class="tg-rf0l"><span class="tx-id-value">${escapeHtml(data.idt||'')}</span></td>`;
 return row
 }
 function updateRowFromData(row,data){
@@ -33,6 +35,7 @@ const rows=$$(':scope > tr',tbody),mw=Math.max(3,...rows.map(r=>cleanText(r.cell
 rows.forEach((row,i)=>{
 if(row.dataset.editing==='true'){const input=row.querySelector('[data-field="idt"]');if(input)input.value=String(rows.length-i).padStart(w,'0')}
 else if(row.cells[5]){let h=row.cells[5].querySelector('.tx-id-value');if(!h){h=document.createElement('span');h.className='tx-id-value';row.cells[5].innerHTML='';row.cells[5].appendChild(h)}h.textContent=String(rows.length-i).padStart(w,'0')}
+applyRowClasses(row,i)
 })
 }
 function fieldInput(field,value='',type='text',placeholder=''){
@@ -157,35 +160,16 @@ const seed=document.createElement('div');seed.id='txSeed';seed.innerHTML='<div c
 const positionHeader=()=>{
 const wr=wrap.getBoundingClientRect(),hr=titleCell.getBoundingClientRect();
 headerActions.style.left=`${Math.max(0,hr.right-wr.left-108)}px`;
-headerActions.style.top=`${Math.max(0,hr.top-wr.top+3)}px`
+headerActions.style.top=`${Math.max(0,hr.top-wr.top)}px`
 };
 const positionSeed=()=>{
 const wr=wrap.getBoundingClientRect(),ir=table.querySelector('thead th:nth-child(1)')?.getBoundingClientRect(),tr=titleCell?.getBoundingClientRect();
 if(!ir||!tr)return;
-seed.style.left=`${Math.max(0,ir.right-wr.left+4)}px`;seed.style.top=`${Math.max(0,tr.top-wr.top)}px`;seed.style.width='118px';seed.style.height=`${Math.max(20,tr.height)}px`
+seed.style.left=`${Math.max(0,ir.right-wr.left+8)}px`;seed.style.top=`${Math.max(0,tr.top-wr.top)}px`;seed.style.width='150px';seed.style.height=`${Math.max(20,tr.height)}px`
 };
 requestAnimationFrame(()=>{positionHeader();positionSeed()});window.addEventListener('resize',()=>{positionHeader();positionSeed()});window.addEventListener('scroll',()=>{positionHeader();positionSeed()},{passive:true})
 }
-const lockButton=$('#txLockButton');
-lockButton.addEventListener('pointerdown',e=>{
-if(unlocked)return;
-lockHoldFired=false;
-clearTimeout(lockHoldTimer);
-lockHoldTimer=setTimeout(()=>{
-lockHoldTimer=null;
-lockHoldFired=true;
-toggleLock()
-},2000)
-});
-['pointerup','pointercancel','pointerleave'].forEach(t=>lockButton.addEventListener(t,()=>{
-clearTimeout(lockHoldTimer);
-lockHoldTimer=null
-}));
-lockButton.addEventListener('click',e=>{
-if(unlocked){toggleLock();return}
-if(!lockHoldFired)e.preventDefault();
-lockHoldFired=false
-});
+$('#txLockButton').addEventListener('click',toggleLock);
 $('#txHeaderEditOk').addEventListener('click',()=>{if(editingRow)finishRowEdit(editingRow,true)});
 $('#txHeaderEditCancel').addEventListener('click',()=>{if(editingRow)cancelRowEdit(editingRow)});
 $('#txBackupButton').addEventListener('click',restoreLastBackup);
@@ -217,8 +201,6 @@ function addStyles(){
 const style=document.createElement('style');style.textContent=`
 .tg-wrap{position:relative!important}
 #${TABLE_ID}{border-collapse:separate!important;border-spacing:0!important}
-#${TABLE_ID}>tbody>tr:nth-child(odd)>td{background:#1a1a1a;background-image:-webkit-linear-gradient(top,rgba(40,40,40,.88) 3%,rgba(65,65,65,.73) 17%,rgba(68,68,68,.33) 89%,rgba(68,68,68,.88) 42%,rgba(63,63,63,.79) 45%,rgba(61,61,61,.75) 77%,rgba(56,56,56,.17) 86%,rgba(27,27,27,1) 100%)}
-#${TABLE_ID}>tbody>tr:nth-child(even)>td{background-color:#565657;background-image:-webkit-linear-gradient(top,rgba(40,40,40,.88) 3%,rgba(65,65,65,.73) 17%,rgba(68,68,68,.33) 89%,rgba(68,68,68,.88) 42%,rgba(63,63,63,.79) 45%,rgba(61,61,61,.75) 77%,rgba(56,56,56,.17) 86%,rgba(27,27,27,1) 100%)}
 #${TABLE_ID}>thead{position:sticky!important;top:0!important;z-index:9000!important}
 #${TABLE_ID}>thead>tr>th{position:sticky!important;top:0!important;z-index:9001!important}
 #${TABLE_ID}>thead>tr>th:first-child{z-index:9002!important}
@@ -227,21 +209,19 @@ const style=document.createElement('style');style.textContent=`
 .tx-editor-header-cell{position:sticky!important;top:0!important;padding-right:112px!important;overflow:visible!important}
 #txHeaderActions{position:absolute;pointer-events:auto;display:flex;align-items:center;justify-content:flex-end;gap:2px;width:108px;height:29px;box-sizing:border-box;z-index:1000000;padding:1px;border:1px solid transparent;border-radius:5px;background:transparent;box-shadow:none}
 .tx-header-btn{width:25px;pointer-events:auto;height:23px;padding:0;margin:0;border:1px solid #111;border-radius:4px;background:linear-gradient(#555,#222);color:#ddd;box-shadow:0 1px 3px #000;cursor:pointer}
-.tx-header-lock{background:transparent;border:none;box-shadow:none}
-.tx-header-lock:hover{background:transparent!important;border:none!important;box-shadow:none!important;filter:none!important}
 .tx-header-btn:hover{filter:brightness(1.25)}
 .tx-header-edit-ok{color:#55ff55!important;font:bold 18px/21px Arial}
 .tx-header-edit-cancel{color:#ff5555!important;font:bold 18px/21px Arial}
 .tx-header-backup{display:none}
 .tx-header-lock.unlocked{border-color:#9b7a1b;background:linear-gradient(#6b5a24,#29230e)}
-.tx-lock-shape{display:block;position:relative;width:13px;height:13px;margin:auto;border:2px solid #222;border-radius:3px;box-sizing:border-box;box-shadow:inset 0 0 3px #000}
-.tx-lock-shape i{position:absolute;width:4px;height:4px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:#333}
+.tx-lock-shape{display:block;position:relative;width:13px;height:13px;margin:auto;border:2px solid #aaa;border-radius:3px;box-sizing:border-box;box-shadow:inset 0 0 3px #000}
+.tx-lock-shape i{position:absolute;width:4px;height:4px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:#aaa}
 .tx-header-lock.unlocked .tx-lock-shape{border-color:#ffd45a}
 .tx-header-lock.unlocked .tx-lock-shape i{background:#ffd45a;box-shadow:0 0 5px #ffd45a}
-#txSeed{position:absolute;left:0;top:0;width:118px;height:24px;overflow:hidden;pointer-events:none;z-index:10000;border:0;box-sizing:border-box}
+#txSeed{position:absolute;left:0;top:0;width:150px;height:24px;overflow:hidden;pointer-events:none;z-index:50;border:0;box-sizing:border-box}
 .tx-seed-track{position:absolute;inset:0;overflow:hidden;white-space:nowrap}
 .tx-seed-text{position:absolute;top:3px;left:100%;will-change:transform;color:red;font-size:11px;line-height:15px;white-space:nowrap;text-shadow:0 0 1px #000,1px 1px 2px #010a17,1px 0 0 darkred,0 0 .5px silver;animation:txSeedScroll 5s linear infinite}
-@keyframes txSeedScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-100% - 118px))}}
+@keyframes txSeedScroll{0%{transform:translateX(0)}100%{transform:translateX(-150px)}}
 .tx-row-actions{display:none;position:absolute;right:4px;top:50%;transform:translateY(-50%);width:106px;height:24px;overflow:visible;gap:2px;z-index:200;align-items:center;justify-content:flex-end}
 #${TABLE_ID}.tx-unlocked td:nth-child(2){position:relative}
 #${TABLE_ID}.tx-unlocked .tx-row-actions{display:flex}
@@ -250,7 +230,7 @@ const style=document.createElement('style');style.textContent=`
 .tx-add{color:#fff}
 .tx-move{color:#ddd;font-size:18px;cursor:grab}
 .tx-move:active{cursor:grabbing}
-.tx-edit{color:#ddd;background:transparent}
+.tx-edit{color:#ddd}
 .tx-delete{color:#ff5555;font-size:20px}
 .tx-dragging{opacity:.35}
 .tx-drag-over>td{box-shadow:inset 0 2px 0 #d1aa43,inset 0 -2px 0 #d1aa43}
@@ -264,7 +244,7 @@ td:nth-child(2) .tx-edit-input[data-field="torrent"]{top:31px}
 td:nth-child(2) .tx-edit-input[data-field="title"]{top:60px}
 .tx-img-edit{position:static;min-width:0;width:100%}
 .tx-img-edit .tx-edit-input{left:3px;width:calc(100% - 6px)}
-.tx-edit-preview{position:absolute;left:calc(50% + 5px);top:31px;transform:translateX(-50%);width:45px;height:45px;object-fit:contain;margin:0;border:1px solid #555;background:#111;z-index:501}
+.tx-edit-preview{position:absolute;left:50%;top:31px;transform:translateX(-50%);width:45px;height:45px;object-fit:contain;margin:0;border:1px solid #555;background:#111;z-index:501}
 #${TABLE_ID} img.center:hover{position:static!important;transform:none!important;width:22px!important;height:24px!important;padding-left:0!important;top:auto!important;border:2px solid #000!important;box-shadow:2px 2px 3px #000!important}
 .tx-image-preview{position:fixed;display:none;left:0;top:0;width:auto;height:auto;max-width:520px;max-height:75vh;object-fit:contain;margin:0;padding:0;border:2px solid #111;border-radius:4px;background:#111;box-shadow:0 8px 35px #000,0 0 12px rgba(0,0,0,.8);z-index:10000000;pointer-events:none}
 .tx-password-overlay{display:none;position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.72);align-items:center;justify-content:center}
@@ -276,7 +256,7 @@ td:nth-child(2) .tx-edit-input[data-field="title"]{top:60px}
 .tx-password-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:5px}
 .tx-password-actions button{padding:7px 12px;border:1px solid #666;border-radius:4px;background:#292929;color:#eee;cursor:pointer}
 .tx-password-actions button:last-child{background:#4c421d;border-color:#a98b36}
-.tx-edit-status{position:fixed;right:18px;top:16px;z-index:99998;color:#ddd;font:12px Arial;text-shadow:0 1px #000;pointer-events:none}
+.tx-edit-status{position:fixed;right:10px;top:10px;z-index:99998;color:#ddd;font:12px Arial;text-shadow:0 1px #000;pointer-events:none}
 .tx-edit-status.ok{color:#8fe88f}
 .tx-edit-status.error{color:#ff7777}
 @media(max-width:900px){
@@ -288,8 +268,16 @@ document.head.appendChild(style)
 }
 function init(){
 table=document.getElementById(TABLE_ID);if(!table)return;
-tbody=table.querySelector('tbody');if(!tbody)return;
+tbody=table.tBodies[0];if(!tbody)return;
 addStyles();installImagePreview();buildUi();restoreSavedData();renumberRows();refreshAllActions();updateHeaderEditButtons();
+window.addEventListener('pointermove',moveRowDrag,{passive:false});
+window.addEventListener('pointerup',endRowDrag);
+window.addEventListener('pointercancel',endRowDrag);
+document.addEventListener('keydown',e=>{
+if(e.key==='Escape'&&unlocked&&!$('#txPasswordOverlay').classList.contains('visible')){
+if(editingRow)cancelRowEdit(editingRow);else toggleLock()
+}});
+window.addEventListener('beforeunload',e=>{if(unlocked&&dirty){e.preventDefault();e.returnValue=''}})
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
