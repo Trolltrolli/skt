@@ -99,12 +99,12 @@ box.appendChild(makeButton('tx-delete','×','Smazat řádek',()=>deleteRow(row))
 function refreshAllActions(){getRowsData();$$(':scope > tr',tbody).forEach(refreshRowActions);setEditabilityState()}
 function insertRowAfter(row){
 if(!unlocked)return;
-if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
+if(editingRow){setStatus('Nejdřív dokonči úpravu řádku','error');return}
 const n=createRow({image:'',name:'',torrent:'',title:'',genre:'',type:'',size:'',idt:''});n.dataset.newRow='true';row.after(n);dirty=true;refreshRowActions(n);renumberRows();beginRowEdit(n)
 }
 function deleteRow(row){
 if(!unlocked)return;
-if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
+if(editingRow){setStatus('Nejdřív dokonči úpravu řádku','error');return}
 if(!confirm('Opravdu chceš tento řádek smazat?'))return;
 row.remove();dirty=true;renumberRows();refreshAllActions()
 }
@@ -117,7 +117,7 @@ function showPasswordDialog(){
 return new Promise(resolve=>{
 modalResolve=resolve;
 const o=$('#txPasswordOverlay'),t=$('#txPasswordTitle'),h=$('#txPasswordHint'),c=$('#txPasswordConfirm'),s=$('#txPasswordSecondWrap'),i=$('#txPasswordInput'),i2=$('#txPasswordInput2');
-t.textContent='Odemknout úpravy';h.textContent='Zadej interní heslo pro úpravy.';c.textContent='Potvrdit';s.hidden=true;i.value='';i2.value='';o.classList.add('visible');setTimeout(()=>i.focus(),30)
+t.textContent='Odemknout úpravy';h.textContent='Zadej interní heslo pro úpravy';c.textContent='Potvrdit';s.hidden=true;i.value='';i2.value='';o.classList.add('visible');setTimeout(()=>i.focus(),30)
 })
 }
 function closePasswordDialog(result){
@@ -128,10 +128,10 @@ async function requestUnlock(){const password=await showPasswordDialog();return!
 async function toggleLock(){
 if(unlocked){
 if(editingRow)finishRowEdit(editingRow,true);
-renumberRows();addBackup(loadJson(STORAGE_DATA,null)||snapshot());saveCurrentData();dirty=false;unlocked=false;setEditabilityState();setStatus('Uloženo. Vytvořen nový backup.','ok');return
+renumberRows();addBackup(loadJson(STORAGE_DATA,null)||snapshot());saveCurrentData();dirty=false;unlocked=false;setEditabilityState();setStatus('Uloženo. Vytvořen nový backup','ok');return
 }
-if(!(await requestUnlock())){setStatus('Nesprávné heslo.','error');return}
-unlocked=true;setEditabilityState();setStatus('Režim úprav odemčen.','ok')
+if(!(await requestUnlock())){setStatus('Nesprávné heslo','error');return}
+unlocked=true;setEditabilityState();setStatus('Režim úprav odemčen','ok')
 }
 function updateLockButton(){
 const b=$('#txLockButton');if(!b)return;b.classList.toggle('unlocked',unlocked);b.title=unlocked?'Uložit změny a uzamknout':'Odemknout úpravy';b.setAttribute('aria-label',b.title)
@@ -198,8 +198,8 @@ function restoreLastBackup(){
 if(!unlocked)return;
 if(editingRow){setStatus('Nejdřív dokonči úpravu řádku.','error');return}
 const b=loadJson(STORAGE_BACKUPS,[]);
-if(!Array.isArray(b)||!b.length){setStatus('Žádný backup není k dispozici.','error');return}
-if(!confirm('Obnovit poslední backup? Aktuální neuložené změny budou nahrazeny.'))return;
+if(!Array.isArray(b)||!b.length){setStatus('Žádný backup není k dispozici','error');return}
+if(!confirm('Obnovit poslední backup? Aktuální neuložené změny budou nahrazeny'))return;
 const s=b[0];if(!s||!Array.isArray(s.rows))return;
 tbody.innerHTML='';s.rows.forEach(d=>tbody.appendChild(createRow(d)));renumberRows();refreshAllActions();dirty=true;setStatus('Poslední backup obnoven.','ok')
 }
@@ -276,7 +276,7 @@ td:nth-child(2) .tx-edit-input[data-field="title"]{top:60px}
 .tx-password-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:5px}
 .tx-password-actions button{padding:7px 12px;border:1px solid #666;border-radius:4px;background:#292929;color:#eee;cursor:pointer}
 .tx-password-actions button:last-child{background:#4c421d;border-color:#a98b36}
-.tx-edit-status{position:fixed;right:18px;top:16px;z-index:99998;color:#ddd;font:12px Arial;text-shadow:0 1px #000;pointer-events:none}
+.tx-edit-status{position:fixed;right:55px;top:38px;z-index:99998;color:#ddd;font:12px Arial;text-shadow:0 1px #000;pointer-events:none}
 .tx-edit-status.ok{color:#8fe88f}
 .tx-edit-status.error{color:#ff7777}
 @media(max-width:900px){
