@@ -5,15 +5,13 @@ embed,object{pointer-events:auto!important}
 
 .container::-webkit-scrollbar{display:none}
 
-.container{-ms-overflow-style:none;scrollbar-width:none;background:#000}
+.container{-ms-overflow-style:none;scrollbar-width:none;background:#000;margin-left:-20px;}
 
 .center{display:block;margin-left:auto;margin-right:auto;width:22px;height:24px;border:2px solid #000;box-shadow:2px 2px 3px #000}
 
 .tg-wrap{margin-top:-11px}
 
-.tg{background:#000;border-spacing:0;margin:0 auto;min-width:100%;max-width:100%;border-left:2px solid #444;border-right:1px solid #444;border-bottom:1px solid #444}
-
-/**.tg{background:#000;border-spacing:0;margin:0 auto;min-width:max(880px,100% - 80px);max-width:max(880px,100% - 80px);border-left:2px solid #444;border-right:1px solid #444;border-bottom:1px solid #444}**/
+.tg{background:#000;border-spacing:0;margin:0 auto;min-width:max(880px,100% - 80px);max-width:max(880px,100% - 80px);border-left:2px solid #444;border-right:1px solid #444;border-bottom:1px solid #444}
 
 .tg td{background:#000;border-style:solid;border-radius:3px;border-width:0;color:#fff;text-shadow:0 0 1px #000;font-famil:Arial;font-size:12px;overflow:hidden;padding:0 4px;word-break:normal}
 
