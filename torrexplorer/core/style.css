@@ -5,7 +5,7 @@ embed,object{pointer-events:auto!important}
 
 .container::-webkit-scrollbar{display:none}
 
-.container{-ms-overflow-style:none;scrollbar-width:none;background:#000;margin-left:-10px;}
+.container{-ms-overflow-style:none;scrollbar-width:none;background:#000;margin-left:-5px;}
 
 .center{display:block;margin-left:auto;margin-right:auto;width:22px;height:24px;border:2px solid #000;box-shadow:2px 2px 3px #000}
 
