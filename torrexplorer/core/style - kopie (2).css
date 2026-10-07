@@ -1,0 +1,26 @@
+@font-face{font-family:"font";src:local("font"),local("font"),url("./1.ttf");font-weight:bold}
+@font-face{font-family:"font2";src:local("font2"),local("font2"),url("./+2.ttf");font-weight:300}
+html,body{pointer-events:auto!important;user-select:auto!important}
+embed,object{pointer-events:auto!important}
+
+.container::-webkit-scrollbar{display:none}
+
+.container{-ms-overflow-style:none;scrollbar-width:none;background:#000;margin-left:20px;}
+
+.center{display:block;margin-left:auto;margin-right:auto;width:22px;height:24px;border:2px solid #000;box-shadow:2px 2px 3px #000}
+
+.tg-wrap{margin-top:-11px}
+
+.tg{background:#000;border-spacing:0;margin:0 auto;min-width:max(880px,100% - 80px);max-width:max(880px,100% - 80px);border-left:2px solid #444;border-right:1px solid #444;border-bottom:1px solid #444}
+
+.tg td{background:#000;border-style:solid;border-radius:3px;border-width:0;color:#fff;text-shadow:0 0 1px #000;font-famil:Arial;font-size:12px;overflow:hidden;padding:0 4px;word-break:normal}
+
+.tg th{background:#000;border-color:grey;border-style:solid;border-radius:2px;box-shadow:1px -2px 6px #000,-2px 0 3px #000;border-width:0;color:#fff;font-famil:"font1";font-size:12px;font-weight:bold;overflow:hidden;padding:0 4px;word-break:normal}
+
+.tg>tbody>tr:nth-child(odd)>td{background:#1a1a1a;background-image:-webkit-linear-gradient(top,rgba(40,40,40,.88) 3%,rgba(65,65,65,.73) 17%,rgba(68,68,68,.33) 89%,rgba(68,68,68,.88) 42%,rgba(63,63,63,.79) 45%,rgba(61,61,61,.75) 77%,rgba(56,56,56,.17) 86%,rgba(27,27,27,1) 100%);border-color:#000;font-size:12px;font-family:"font2";text-shadow:-1px -1px 1px #000,3px 3px 50px #000,0 0 2px #000,2px 2px 6px #000,2px 4px 4px #000;font-weight:200;text-align:center;vertical-align:middle;line-height:30px;border:1px solid #000}
+
+.tg>tbody>tr:nth-child(even)>td{background-color:#565657;background-image:-webkit-linear-gradient(top,rgba(40,40,40,.88) 3%,rgba(65,65,65,.73) 17%,rgba(68,68,68,.33) 89%,rgba(68,68,68,.88) 42%,rgba(63,63,63,.79) 45%,rgba(61,61,61,.75) 77%,rgba(56,56,56,.17) 86%,rgba(27,27,27,1) 100%);border-color:#000;font-size:12px;font-family:"font2";color:#fff;text-shadow:-1px -1px 1px #000,3px 3px 50px #000,0 0 2px #000,2px 2px 6px #000,2px 2px 4px #000;font-weight:200;text-align:center;vertical-align:middle;line-height:30px;border:1px solid #000}
+
+.tg .tg-7twg{background:#000;border-color:#000;color:#fff;border-radius:4px;background-image:linear-gradient(to top,#0a0a0a 19%,#010101 43%,#0d0d0d 45%,#333 77%,#383838 86%,#1b1b1b 100%,#5b5b5b 3%);-webkit-text-stroke-width:.5px;-webkit-text-stroke-color:#000;text-shadow:4px 4px 6px #000,2px 4px 20px #282929,0 0 2px #000,0 1px 4px #fff,0 -2px 10px #ff0,0 -10px 34px #ff8000,0 3px 17px #f00,9px 8px 8px rgba(206,89,55,.53);font-family:"font";font-size:16px;font-weight:normal;text-align:center;vertical-align:middle;line-height:30px;border-top:2px solid #000;border-right:3px solid #1c1c1c;border-bottom:1px solid #1c1c1c}
+
+@media screen and (max-width:767px){.tg{width:auto!important}.tg col{width:auto!important}.tg-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:auto 0}}
