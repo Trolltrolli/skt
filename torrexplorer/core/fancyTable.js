@@ -90,7 +90,7 @@
 					if(!settings.globalSearch){
 						var q = elm.fancyTable.searchArr[n];
 						if(q && !instance.isSearchMatch(data,q)) match = false;
-					}else if(search && !excluded){
+					}else if(search && n===1){
 						data = settings.matchCase ? data : data.toUpperCase();
 						if(data.indexOf(needle) !== -1) globalMatch = true;
 					}
