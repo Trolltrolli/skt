@@ -99,9 +99,6 @@ export default {
             const tbody =
                 body?.tbody;
 
-            const backupTbody =
-                body?.backupTbody;
-
             if (
                 typeof tbody !== 'string' ||
                 !tbody.trim()
@@ -112,28 +109,6 @@ export default {
                         error: 'Missing TBODY'
                     },
                     400,
-                    origin
-                );
-            }
-
-            if (typeof backupTbody !== 'string' || !backupTbody.trim()) {
-                return json(
-                    {
-                        ok: false,
-                        error: 'Missing backup TBODY'
-                    },
-                    400,
-                    origin
-                );
-            }
-
-            if (backupTbody.length > 5000000) {
-                return json(
-                    {
-                        ok: false,
-                        error: 'Backup TBODY too large'
-                    },
-                    413,
                     origin
                 );
             }
@@ -264,98 +239,6 @@ export default {
                 oldHtml.slice(
                     tbodyEnd
                 );
-
-            // Vytvoříme backup.html ze stejné šablony s posledním uloženým stavem.
-            const backupHtml =
-                oldHtml.slice(
-                    0,
-                    tbodyStart
-                ) +
-                backupTbody +
-                oldHtml.slice(
-                    tbodyEnd
-                );
-
-            const backupFile =
-                'torrexplorer/backup.html';
-
-            const backupApiUrl =
-                `https://api.github.com/repos/${REPO}/contents/${backupFile}?ref=${BRANCH}`;
-
-            const backupCurrentResponse =
-                await fetch(
-                    backupApiUrl,
-                    {
-                        method: 'GET',
-                        headers
-                    }
-                );
-
-            let backupSha = null;
-
-            if (backupCurrentResponse.ok) {
-                const backupCurrent =
-                    await backupCurrentResponse.json();
-                backupSha =
-                    backupCurrent.sha || null;
-            } else if (backupCurrentResponse.status !== 404) {
-                const error =
-                    await backupCurrentResponse.text();
-
-                return json(
-                    {
-                        ok: false,
-                        error: 'Backup read failed',
-                        details: error
-                    },
-                    502,
-                    origin
-                );
-            }
-
-            const backupWriteBody = {
-                message:
-                    'Update Torrexplorer backup.html',
-                content:
-                    textToBase64(backupHtml),
-                branch:
-                    BRANCH
-            };
-
-            if (backupSha) {
-                backupWriteBody.sha =
-                    backupSha;
-            }
-
-            const backupUpdateResponse =
-                await fetch(
-                    `https://api.github.com/repos/${REPO}/contents/${backupFile}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            ...headers,
-                            'Content-Type':
-                                'application/json'
-                        },
-                        body:
-                            JSON.stringify(backupWriteBody)
-                    }
-                );
-
-            const backupResultText =
-                await backupUpdateResponse.text();
-
-            if (!backupUpdateResponse.ok) {
-                return json(
-                    {
-                        ok: false,
-                        error:
-                            `Backup write failed: ${backupResultText}`
-                    },
-                    502,
-                    origin
-                );
-            }
 
             // Zapíšeme celý výsledný seznam.html
             const updateResponse =
