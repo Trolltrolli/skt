@@ -201,32 +201,18 @@
 </div>
 <script>
 (function() {
-  var params = new URLSearchParams(window.location.search);
-  var retried = params.get('skt_retry') === '1';
-  var started = Date.now();
-
-  function editorReady() {
-    return !!document.getElementById('txEditorUi') &&
-           !!document.getElementById('txLockButton');
-  }
-
-  function checkEditor() {
-    if (editorReady()) return;
-    if (Date.now() - started < 5000) {
-      setTimeout(checkEditor, 250);
-      return;
+  try {
+    if (!sessionStorage.getItem('seznam_refreshed')) {
+      sessionStorage.setItem('seznam_refreshed', '1');
+      setTimeout(function(){
+        location.replace('seznam.html?r=1');
+      }, 800);
     }
-    if (!retried) {
-      params.set('skt_retry', '1');
-      var query = params.toString();
-      window.location.replace(window.location.pathname +
-        (query ? '?' + query : '') + window.location.hash);
-    }
+  } catch(e) {
+    setTimeout(function(){
+      location.replace('seznam.html?r=1');
+    }, 800);
   }
-
-  window.addEventListener('load', function() {
-    setTimeout(checkEditor, 1000);
-  }, { once: true });
 })();
 </script>
 <script> </script>
