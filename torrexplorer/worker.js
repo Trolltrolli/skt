@@ -229,6 +229,21 @@ export default {
                 );
             }
 
+            // Záloha je celý PŘEDCHOZÍ seznam.html, který jsme právě načetli z GitHubu.
+            // Při každém uložení se tedy backup.html přepíše předchozí verzí.
+            const backupHtml = oldHtml;
+            const backupFile = 'torrexplorer/backup.html';
+            const backupApiUrl = `https://api.github.com/repos/${REPO}/contents/${backupFile}?ref=${BRANCH}`;
+            const backupCurrentResponse = await fetch(backupApiUrl,{method:'GET',headers});
+            let backupSha = null;
+            if(backupCurrentResponse.ok){const backupCurrent=await backupCurrentResponse.json();backupSha=backupCurrent.sha||null}
+            else if(backupCurrentResponse.status!==404){const error=await backupCurrentResponse.text();return json({ok:false,error:'Backup read failed',details:error},502,origin)}
+            const backupWriteBody={message:'Update Torrexplorer backup.html',content:textToBase64(backupHtml),branch:BRANCH};
+            if(backupSha)backupWriteBody.sha=backupSha;
+            const backupUpdateResponse=await fetch(`https://api.github.com/repos/${REPO}/contents/${backupFile}`,{method:'PUT',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify(backupWriteBody)});
+            const backupResultText=await backupUpdateResponse.text();
+            if(!backupUpdateResponse.ok)return json({ok:false,error:`Backup write failed: ${backupResultText}`},502,origin);
+
             // Nahradíme pouze obsah tbody
             const newHtml =
                 oldHtml.slice(
