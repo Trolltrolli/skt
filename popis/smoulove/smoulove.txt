@@ -1,0 +1,95 @@
+<!--smoulove--><body style="background: #000 url(https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_back.jpg) no-repeat center center fixed; width: 100%; height: 100%; background-size: cover; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-attachment: fixed; border: 0; border-radius: 0; opacity: .93; text-shadow: #303030 0 1px 1px; box-shadow: none; z-index: -10; cursor: url('https://trolltrolli.github.io/skt/popis/cubase/cubasemys.png'),default; overflow-x: hidden;"></body>
+<div style="background: linear-gradient(180deg, rgba(32,71,130,1) 0%, rgba(111,174,221,0.798739564185049) 51%, rgba(48,213,230,0.6390756986388305) 100%) repeat fixed; width: 931px; min-height: 100%; position: relative; margin: 0 auto; overflow: hidden; box-sizing: border-box; background-repeat: no-repeat; background-size: cover; background-position: center; border: 0; border-radius: 0; opacity: 0.99; cursor: url('https://trolltrolli.github.io/skt/popis/cubase/cubasemys.png'),default; -webkit-box-shadow: 0px 5px 5px 10px grey, inset 0px 4px 15px 0px black, 0px 5px 8px 10px rgba(0,0,0,0); box-shadow: 0px 5px 8px 20px #252525, inset 4px 4px 15px 0px #000000, 5px 5px 15px 5px rgba(0,0,0,0), 0px 5px 5px 15px #4074b5, 1px 5px 2px 22px black;"><audio autoplay="autoplay" loop="loop" style="display: none;"><source src="https://trolltrolli.github.io/skt/popis/smoulove/mp3/smurfs_cricket.mp3"></audio>
+<div style="position: fixed; top: 150; right: 0; bottom: 0; left: 0; width: 100vw; height: 100vh; margin: 0; padding: 0; background-image: url('https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_bats.gif'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-attachment: fixed; z-index: 1; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"></div>
+<div style="border: 1px inset black; width: 926px; height: 70px; background-color: rgba(0,0,0,0.4); margin-left: -1.5px; margin-top: -24px; border-radius: 7px; box-shadow: 2px 1px 2px 2px black">
+<div style="display: block; margin-left: 25px; margin-top: 0px; opacity: 0.85; position: absolute; z-index: 1; cursor: pointer"><audio id="1"><source src="https://trolltrolli.github.io/skt/popis/smoulove/mp3/smurfs_thunder.mp3"></audio><a href="https://www.csfd.cz/film/350937-smoulove-strasidelny-special/prehled/" target="_blank" title="-CSFD-" onclick="var a=document.getElementById('1');a.currentTime=0;a.play()"><img src="https://trolltrolli.github.io/skt/popis/smoulove/but/button1.png" width="240" height="55" title="-CSFD-" style="opacity: 0.85; cursor: pointer; border: 0;" onmouseover="this.style.transform='scale(1.03)';this.style.transition='0.1s';" onmouseout="this.style.transform='scale(1)';"></a></div>
+
+<div style="display: block; margin-left: 620px; margin-top: -25px; opacity: 0.85; position: relative; z-index: 2; cursor: pointer"><audio id="3"><source src="https://trolltrolli.github.io/skt/popis/smoulove/mp3/smurfs_bats.mp3"></audio><buton><div><img src="https://trolltrolli.github.io/skt/popis/smoulove/but/button3.png" title="-SCREEN-" width="240" height="55" onmouseover="this.width=242;" onmouseout="this.width=240" align="center" class="BoWPartnerbild" onclick="var a=document.getElementById('3');a.currentTime=0;a.play();var g=document.getElementById('box_gallery');var m=document.getElementById('box_info');if(m)m.style.display='none';if(g)g.style.display=(g.style.display=='block')?'none':'block';" /></div><div class="alt2" style="margin: 2px;"><div id="box_gallery" style="display: none;"><div class="slider-wrap"><p style="width: 616px; height: 120px; margin-top: 50px; margin-left: -620px"><a href="https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_scr.jpg" target="_blank" title="-SCREEN-"><img src="https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_scr.jpg" width="250" height="140" name="scr2" onmouseover="scr2.width='600';scr2.height='380';" onmouseout="scr2.width='250';scr2.height='140'" style="box-shadow: 2px 2px 3px 3px black;" /></p></a></div></div></div><buton></div></div>
+
+<div style="display: block; margin-left: 5px; margin-top: -83px; opacity: 0.85; cursor: pointer"><audio id="2"><source src="https://trolltrolli.github.io/skt/popis/smoulove/mp3/smurfs_scream.mp3"></audio><buton><div><img src="https://trolltrolli.github.io/skt/popis/smoulove/but/button2.png" title="-MEDIAinfo-" width="240" height="55" onmouseover="this.width=242;" onmouseout="this.width=240" align="center" class="BoWPartnerbild" onclick="var a=document.getElementById('2');a.currentTime=0;a.play();var m=document.getElementById('box_info');var g=document.getElementById('box_gallery');if(g)g.style.display='none';if(m)m.style.display=(m.style.display=='block')?'none':'block';" /></div><div class="alt2" style="margin: 2px;"><div id="box_info" style="display: none;"><font face="monospace"><p style="font-size: 17px; color: white; line-height: 22px; text-align: left; padding: 25px; column-count: 2; -webkit-text-stroke-width: .4px; -webkit-text-stroke-color: black; text-shadow: 0px 0px 1px #000,2px 3px 6px grey,3px 3px 10px black,1px 0px 1px fuchsia,-2px -3px 5px blue,0px 0px 3px white; background-color: rgba(0,0,0,0.8); margin-top: 14px; border-radius: 20px; width: 680px;"
+      General
+      Complete name : Šmoulové 
+      strašidelný speciál.mkv
+      Format : Matroska
+      Format version : Version 1
+      File size : 1.45 GiB
+      Duration : 20 min 7 s
+      Overall bit rate : 10.3 Mb/s
+      Encoded date : UTC 2021-10-15 
+      22:24:49
+      Writing application:
+      WonderShare 
+      Matroska Muxer
+      Writing library : 
+      WonderShare 
+      Matroska Muxer
+      Video #1
+      ID : 1
+      Format : AVC
+      Format/Info : 
+      Advanced Video Codec
+      Format profile : High@L4
+      Format settings : 
+      CABAC / 1 Ref Frames
+      Format settings, CABAC : Yes
+      Format settings, ReFrames : 
+      1 frame
+      Format settings, GOP : 
+      M=1, N=30
+      Codec ID : V_MPEG4/ISO/AVC
+      Duration : 20 min 7 s
+      Width : 1 920 pixels  (resc)
+      Height : 1 080 pixels (resc)
+      Display aspect ratio : 16:9
+      Frame rate mode : Constant
+      Frame rate :
+      25.000 FPS
+      Color space : YUV
+      Chroma subsampling : 4:2:0
+      Bit depth : 8 bits
+      Scan type : Progressive
+      Default : Yes
+      Forced : No
+      Color range : Limited
+      Color primaries : BT.709
+      Transfer characteristics : 
+      BT.709
+      Matrix coefficients : BT.709
+      Audio #2
+      ID : 2
+      Format : AAC
+      Format/Info : 
+      Advanced Audio Codec
+      Format profile : LC
+      Codec ID : A_AAC-2
+      Duration : 20 min 7 s
+      Channel(s) : 2 channels
+      Channel positions : Front: L R
+      Sampling rate : 44.1 kHz
+      Frame rate : 
+      43.066 FPS (1024 SPF)
+      Compression mode : Lossy
+      Default : Yes
+      Forced : No
+</p></div></div><buton></div>
+
+<div style="margin-top: 50px; margin-right: -80px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><img src="https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_logo.png" width="840" height="480" style="pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;" draggable="false"/></div>
+<div style="margin-top: 0px; margin-left: -1.5px; background-color: rgba(0,0,0,0.4); border-radius: 7px; border: 1px inset black; width: 927px; height: 330px; box-shadow: black 2px 1px 2px 2px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><img src="https://trolltrolli.github.io/skt/popis/smoulove/img/smurfs_text.png" width="890" height="270" style="margin-top: 35px; margin-left: 6px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;" draggable="false"/></div>
+
+<!--SEZNAM TORR--><div style="margin-left: -2px"><embed type="text/html" src="https://trolltrolli.github.io/skt/torrexplorer/seznam.html" width="892" height="347" style="background-color: slategray; border-top: 6px solid slategrey; border-bottom: 8px solid grey; border-right: 6px solid darkgrey; border-radius: 5px; box-shadow: -5px 0px 20px 2px #b35900, #ff8000 -1px -3px 10px 10px, GREY -5px 10px 20px 0px, 12px 13px 20px 10px rgba(0,0,0,0.6),0px 5px 5px 8px black, 0px 1px 1px 9px black, 0px 2px 2px 22px black; -1px 2px 2px 70px black;">
+</embed></div>
+
+<!--BAV+SEED--><div style="line-height: 50px; pointer-events: none; cursor: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"></div>
+<div style="display: flex; justify-content: center; background: transparent; height: auto; overflow-y: hidden; margin-top: 0px; margin-left: 0px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><embed src="https://trolltrolli.github.io/skt/popis/smoulove/bav.html" style="width: 100%; position: absolute; z-index: -8; margin-top: 0px; pointer-events: none; cursor: none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"  frameborder="no" scrolling="no"></embed></div>
+<div style="display: flex; justify-content: center; background: transparent; height: auto; overflow-y: hidden; margin-top: 15px; margin-left: 0px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><embed src="https://trolltrolli.github.io/skt/popis/smoulove/seed.html" style="height: 669px; width: 100%; position: absolute; z-index: -8; pointer-events: none; cursor: none; outline: none; list-style-type: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;" frameborder="no" scrolling="no"></embed></div>
+<p style="text-size=10px; color: red; margin-top: 280px; margin-left: -35px; position: absolute!important; z-index: -1; text-align: center; width: 900px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"></p><div style="position: absolute!important; z-index: -1; margin-left: 843px; margin-top: 235px; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"></div><div style="text-align: center; z-index: 3; position-relative!important; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><font face="rockwell"><span style="font-size: 17px; color: limegreen; text-shadow: 1px 2px 1px#000;"></div><div style="text-align: center; pointer-events: none; user-select: none; -webkit-user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-touch-callout: none; outline: none; list-style-type: none;"><font face="rockwell"><span style="font-size: 19px; color: limegreen; text-shadow: 1px 2px 1px#000, black .5px .5px 3px;">
+
+
+
+
+
+
+
+
+
+<!--END-->
