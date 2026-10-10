@@ -43,7 +43,7 @@ Emulator_nastavení.exe a hru vyberte
 </p>
 </div>
 </div></div><buton></div>
-<div style="position: relative!important; z-index: 0"><p style="color: #d15c08; font-size: 9.3px; text-shadow: white 0 0 .2px, black .5px .5px 1px, black .5px .5px 5px, black .6px .6px 5px; margin-top: -60px; margin-left: 5px">odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</p></div>
+<div style="position: relative!important; z-index: 0"><p style="color: #d15c08; font-size: 9.3px; text-shadow: white 0 0 .2px, black .5px .5px 1px, black .5px .5px 5px, black .6px .6px 5px; margin-top: -70px; margin-left: 15px">odzkoušeno na sestavě: MSI Z270 Tomahawk, i56600k, geforce GTX 1060/6GB, 16GB ram// Win 10 pro 64bit</p></div>
 </div>
 
 <!---RESHADE---><div style="margin-top:20px;margin-left:30px">
