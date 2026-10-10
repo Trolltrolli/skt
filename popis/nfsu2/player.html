@@ -1,53 +1,77 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NFSU2 Audio Player</title>
-<style>
-*{box-sizing:border-box}
-html,body{width:940px;height:128px;margin:0;padding:0;overflow:hidden;background:transparent}
-body{font-family:Segoe UI,Arial,sans-serif;color:#e8edf2}
-.player{width:940px;height:128px;display:grid;grid-template-columns:54px minmax(0,1fr);grid-template-rows:1fr 36px;column-gap:16px;row-gap:8px;padding:14px 18px;background:linear-gradient(145deg,#252a30,#15191e);border:1px solid #3a424b;border-radius:10px;box-shadow:0 0 20px 10px #0008;overflow:hidden}
-.play{grid-row:1/3;align-self:center;flex:0 0 48px;width:48px;height:48px;border:1px solid #596572;border-radius:50%;background:linear-gradient(145deg,#3a424b,#252b32);color:#f4f7fa;display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
-.play:hover,.control:hover{background:#46515d;border-color:#8794a2}.play:active{transform:scale(.96)}.play:focus-visible,.control:focus-visible,input:focus-visible{outline:2px solid #9cc8ff;outline-offset:2px}
-.play svg,.control svg{width:19px;height:19px;fill:currentColor}
-.content{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
-.titleline{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
-.title{font-size:13px;font-weight:600;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status{font-size:11px;color:#9da8b4;white-space:nowrap}
-.timeline{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;align-items:center;gap:10px;font-size:10px;font-variant-numeric:tabular-nums;color:#aab4bf}
-input[type=range]{appearance:none;-webkit-appearance:none;width:100%;height:4px;border:0;border-radius:5px;background:#424b55;cursor:pointer;outline:none;margin:0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#dce5ee;border:2px solid #303740;box-shadow:0 0 0 1px #8997a5}
-input[type=range]::-moz-range-thumb{width:9px;height:9px;border-radius:50%;background:#dce5ee;border:2px solid #303740;box-shadow:0 0 0 1px #8997a5}
-.bottom{display:flex;align-items:center;gap:10px;min-width:0}.volume{display:flex;align-items:center;gap:8px;margin-left:auto;width:180px}.control{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;border:1px solid #414b56;border-radius:7px;background:#252b32;color:#dbe3eb;cursor:pointer}.control svg{width:16px;height:16px}.volume input{width:100%}.vol-label{font-size:10px;color:#9da8b4;min-width:28px;text-align:right}
-@media(max-width:940px){html,body,.player{max-width:100%}}
-</style>
+  <meta charset="UTF-8">
+  <script>
+    (function(){
+      try{
+        if(!sessionStorage.getItem('player_refreshed')){
+          sessionStorage.setItem('player_refreshed','1');
+          setTimeout(function(){
+            location.replace('player.html?r=1');
+          },700);
+        }
+      }catch(e){
+        location.replace('player.html?r=1');
+      }
+    })();
+  </script>
+
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    .player {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+    }
+  </style>
 </head>
 <body>
-<div class="player" id="player">
-  <button class="play" id="playButton" type="button" aria-label="Přehrát" title="Přehrát">
-    <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
-  </button>
-  <div class="content">
-    <div class="titleline"><div class="title">Need for Speed: Underground 2</div><div class="status" id="status">Připraveno k přehrání</div></div>
-    <div class="timeline"><span id="currentTime">0:00</span><input id="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Pozice přehrávání"><span id="duration">0:00</span></div>
-  </div>
-  <div class="bottom">
-    <button class="control" id="muteButton" type="button" aria-label="Ztlumit zvuk" title="Ztlumit zvuk"><svg id="volumeIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm12.5 3a3.5 3.5 0 0 0-2-3.16v6.32a3.5 3.5 0 0 0 2-3.16zM13.5 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg></button>
-    <div class="volume"><input id="volume" type="range" min="0" max="1" value="0.8" step="0.01" aria-label="Hlasitost"><span class="vol-label" id="volumeValue">80%</span></div>
-  </div>
-  <audio id="audioPlayer" src="audio.mp3" preload="metadata" playsinline></audio>
-</div>
+
+<div id="playerContainer"></div>
+
 <script>
-(()=>{const audio=document.getElementById('audioPlayer'),button=document.getElementById('playButton'),icon=document.getElementById('playIcon'),status=document.getElementById('status'),seek=document.getElementById('seek'),current=document.getElementById('currentTime'),duration=document.getElementById('duration'),volume=document.getElementById('volume'),volumeValue=document.getElementById('volumeValue'),muteButton=document.getElementById('muteButton'),volumeIcon=document.getElementById('volumeIcon');let seeking=false,lastVolume=.8;
-const playSvg='<path d="M8 5.5v13l10-6.5z"/>',pauseSvg='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>',soundSvg='<path d="M3 9v6h4l5 4V5L7 9H3zm12.5 3a3.5 3.5 0 0 0-2-3.16v6.32a3.5 3.5 0 0 0 2-3.16zM13.5 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/>',muteSvg='<path d="M3 9v6h4l5 4V5L7 9H3zm13.59 3 3.7-3.7-1.42-1.42-3.7 3.7-3.7-3.7-1.42 1.42 3.7 3.7-3.7 3.7 1.42 1.42 3.7-3.7 3.7 3.7 1.42-1.42-3.7-3.7z"/>';
-function fmt(t){if(!Number.isFinite(t)||t<0)return'0:00';t=Math.floor(t);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')}
-function setPlaying(on){icon.innerHTML=on?pauseSvg:playSvg;button.setAttribute('aria-label',on?'Pozastavit':'Přehrát');button.title=on?'Pozastavit':'Přehrát';if(on)status.textContent='Právě se přehrává';else if(!audio.error&&audio.currentTime>0&&!audio.ended)status.textContent='Pozastaveno'}
-async function toggle(){if(audio.paused){try{await audio.play();setPlaying(true)}catch(e){status.textContent='Klikni znovu nebo zkontroluj audio.mp3';setPlaying(false)}}else{audio.pause();setPlaying(false)}}
-button.addEventListener('click',toggle);audio.addEventListener('play',()=>setPlaying(true));audio.addEventListener('pause',()=>setPlaying(false));audio.addEventListener('ended',()=>{setPlaying(false);status.textContent='Přehrávání dokončeno'});audio.addEventListener('error',()=>{status.textContent='Nelze načíst audio.mp3';setPlaying(false)});audio.addEventListener('loadedmetadata',()=>{duration.textContent=fmt(audio.duration);seek.value=0});audio.addEventListener('timeupdate',()=>{if(!seeking&&Number.isFinite(audio.duration)&&audio.duration>0)seek.value=Math.round(audio.currentTime/audio.duration*1000);current.textContent=fmt(audio.currentTime)});seek.addEventListener('input',()=>{seeking=true;if(Number.isFinite(audio.duration)&&audio.duration>0)current.textContent=fmt(Number(seek.value)/1000*audio.duration)});seek.addEventListener('change',()=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=Number(seek.value)/1000*audio.duration;seeking=false});
-function updateVolume(){audio.volume=Number(volume.value);if(!audio.muted&&audio.volume>0)lastVolume=audio.volume;volumeValue.textContent=Math.round((audio.muted?0:audio.volume)*100)+'%';volumeIcon.innerHTML=(audio.muted||audio.volume===0)?muteSvg:soundSvg;muteButton.title=(audio.muted||audio.volume===0)?'Zapnout zvuk':'Ztlumit zvuk';muteButton.setAttribute('aria-label',muteButton.title)}
-volume.addEventListener('input',()=>{audio.muted=false;updateVolume()});muteButton.addEventListener('click',()=>{if(audio.muted||audio.volume===0){audio.muted=false;audio.volume=lastVolume||.8;volume.value=audio.volume}else{lastVolume=audio.volume;audio.muted=true}updateVolume()});audio.volume=.8;updateVolume();
-})();
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=346&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/nfsu2/player_backup.html?autoplay=true";
+  const TIMEOUT = 3000;
+
+  const container = document.getElementById('playerContainer');
+  let mp3Ok = false;
+
+  function loadIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    container.innerHTML = "";
+    container.appendChild(iframe);
+  }
+
+  // Spustíme přehrávač
+  loadIframe(PRIMARY_URL);
+
+  // Posloucháme zprávy z embed playeru
+  window.addEventListener("message", (event) => {
+    if (event.data?.mp3_status === "ok") {
+      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      mp3Ok = true;
+    }
+  });
+
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      loadIframe(BACKUP_URL);
+    }
+  }, TIMEOUT);
 </script>
+
 </body>
 </html>
