@@ -37,8 +37,8 @@
 <div id="playerContainer"></div>
 
 <script>
-  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=346&autoplay=true";
-  const BACKUP_URL = "./player_backup.html?autoplay=true";
+  const PRIMARY_URL = "";
+  const BACKUP_URL = "./player_audio.html?autoplay=true";
   const TIMEOUT = 5000;
 
   const container = document.getElementById('playerContainer');
@@ -59,7 +59,7 @@
   // Posloucháme zprávy z embed playeru
   window.addEventListener("message", (event) => {
     if (event.data?.mp3_status === "ok") {
-      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      console.log("");
       mp3Ok = true;
     }
   });
@@ -67,7 +67,7 @@
   // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
   setTimeout(() => {
     if (!mp3Ok) {
-      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      console.log("");
       loadIframe(BACKUP_URL);
     }
   }, TIMEOUT);
