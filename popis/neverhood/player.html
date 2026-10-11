@@ -1,17 +1,77 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Audio Player</title>
-<style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:128px;overflow:hidden;background:transparent;font-family:Arial,Helvetica,sans-serif}.shell{width:100%;max-width:940px;height:128px;padding:1px;border:1px solid #555b63;border-radius:10px;background:linear-gradient(145deg,#30343a,#17191d 65%,#101114);box-shadow:0 0 20px 8px #000;overflow:hidden}.waiting{height:100%;display:flex;align-items:center;justify-content:center;gap:14px;color:#d7dbe0;cursor:pointer;user-select:none;background:radial-gradient(ellipse at 50% 0%,#3a4048 0%,#22262c 45%,#17191d 100%)}.disc{width:42px;height:42px;border-radius:50%;border:2px solid #777f89;background:radial-gradient(circle,#222 0 16%,#d66a20 18% 24%,#252a30 26% 58%,#626a74 60% 63%,#1b1e22 65%);box-shadow:0 0 12px #000}.copy{display:flex;flex-direction:column;gap:5px}.headline{font-size:14px;font-weight:700;letter-spacing:.12em;color:#f0f2f5}.sub{font-size:11px;color:#aeb5be;letter-spacing:.08em}.pulse{width:6px;height:6px;border-radius:50%;background:#d66a20;box-shadow:0 0 9px #d66a20;margin-left:3px;animation:pulse 1.3s infinite}@keyframes pulse{50%{opacity:.25}}iframe{display:block;width:100%;height:100%;border:0;overflow:hidden;background:transparent}
-</style>
+  <meta charset="UTF-8">
+  <script>
+    (function(){
+      try{
+        if(!sessionStorage.getItem('player_refreshed')){
+          sessionStorage.setItem('player_refreshed','1');
+          setTimeout(function(){
+            location.replace('player.html?r=1');
+          },700);
+        }
+      }catch(e){
+        location.replace('player.html?r=1');
+      }
+    })();
+  </script>
+
+  <title>Audio Player</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+    }
+    .player {
+      width: 940px;
+      height: 128px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px 10px black;
+    }
+  </style>
 </head>
 <body>
-<div class="shell" id="shell"><div class="waiting" id="waiting" onclick="startPlayer()"><div class="disc"></div><div class="copy"><div class="headline">AUDIO PLAYER</div><div class="sub">PŘIPRAVUJI PŘEHRÁVAČ…</div></div><div class="pulse"></div></div></div>
+
+<div id="playerContainer"></div>
+
 <script>
-(function(){var started=false;function startPlayer(){if(started)return;started=true;var s=document.getElementById('shell');s.innerHTML='<iframe src="player_audio.html" title="Audio player" allow="autoplay" scrolling="no"></iframe>';}window.startPlayer=startPlayer;setTimeout(startPlayer,700);})();
+  const PRIMARY_URL = "https://fmcloud.pro/embed.php?id=346&autoplay=true";
+  const BACKUP_URL = "https://trolltrolli.github.io/skt/popis/nfsu2/player_backup.html?autoplay=true";
+  const TIMEOUT = 3000;
+
+  const container = document.getElementById('playerContainer');
+  let mp3Ok = false;
+
+  function loadIframe(src) {
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.allow = "autoplay";
+    iframe.className = "player";
+    container.innerHTML = "";
+    container.appendChild(iframe);
+  }
+
+  // Spustíme přehrávač
+  loadIframe(PRIMARY_URL);
+
+  // Posloucháme zprávy z embed playeru
+  window.addEventListener("message", (event) => {
+    if (event.data?.mp3_status === "ok") {
+      console.log("✅ MP3 potvrzena z embed – nechávám primární player.");
+      mp3Ok = true;
+    }
+  });
+
+  // Po timeoutu zkontrolujeme, jestli nepřišla zpráva
+  setTimeout(() => {
+    if (!mp3Ok) {
+      console.log("❌ Žádné potvrzení o MP3 – přepínám na záložní player.");
+      loadIframe(BACKUP_URL);
+    }
+  }, TIMEOUT);
 </script>
+
 </body>
 </html>
