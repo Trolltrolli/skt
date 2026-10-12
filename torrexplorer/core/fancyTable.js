@@ -35,12 +35,11 @@
 		this.captureSearchLayout=function(elm){
 			var r=elm.getBoundingClientRect(),row=$(elm).find("thead tr:not(.fancySearchRow):first"),cols=[];
 			row.find("th").each(function(){cols.push(this.getBoundingClientRect().width)});
-			estm.fancyTable.searchLayout={width:r.width,cols:cols,createdColgroup:false,oldCols:[],oldTableLayout:elm.style.tableLayout};
+			elm.fancyTable.searchLayout={width:r.width,cols:cols,createdColgroup:false,oldCols:[]};
 		};
 		this.applySearchLayout=function(elm){
 			var l=elm.fancyTable.searchLayout;
 			if(!l)return;
-			element.style.tableLayout="fixed";
 			elm.style.width=l.width+"px";
 			elm.style.minWidth=l.width+"px";
 			elm.style.maxWidth=l.width+"px";
@@ -65,7 +64,6 @@
 		this.releaseSearchLayout=function(elm){
 			var l=elm.fancyTable.searchLayout;
 			if(!l)return;
-			element.style.tableLayout=l.oldTableLayout||"";
 			elm.style.width="";
 			elm.style.minWidth="";
 			elm.style.maxWidth="";
