@@ -26,10 +26,5 @@ embed,object{pointer-events:auto!important}
 
 @media screen and (max-width:767px){.tg{width:max(880px,calc(100% - 80px));min-width:max(880px,calc(100% - 80px));max-width:max(880px,calc(100% - 80px))}.tg col{width:auto!important}.tg-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:auto 0}}
 
-/* Sjednoceni vysky hlavicky a globalniho vyhledavani */
-.tg{border-collapse:separate;border-spacing:0}
-.tg>thead>tr:first-child{height:30px!important}
-.tg>thead>tr:first-child>th{height:30px!important;min-height:30px!important;max-height:30px!important;box-sizing:border-box!important;padding-top:0!important;padding-bottom:0!important;line-height:26px!important;vertical-align:middle!important}
-.tg>thead>tr.fancySearchRow{height:30px!important;min-height:30px!important;max-height:30px!important}
-.tg>thead>tr.fancySearchRow>th{height:30px!important;min-height:30px!important;max-height:30px!important;box-sizing:border-box!important;padding:0!important;line-height:26px!important;vertical-align:middle!important;overflow:hidden!important}
-.tg>thead>tr.fancySearchRow input{display:block!important;height:24px!important;min-height:24px!important;max-height:24px!important;box-sizing:border-box!important;line-height:20px!important;margin:0 0 0 5px!important;padding:0 4px!important}
+/* Vyhledavaci radek zustava v beznem toku tabulky. */
+#tg-uIa8n>thead>tr.fancySearchRow>th{position:static!important;top:auto!important;border-bottom:1px solid #000!important}

@@ -249,7 +249,7 @@
 						if(elm.fancyTable.search || (elm.fancyTable.searchArr && elm.fancyTable.searchArr.some(function(x){return !!x}))) instance.applySearchLayout(elm); else instance.releaseSearchLayout(elm);
 						instance.tableUpdate(elm);
 					});
-					var th = $("<th>",{ style:"padding:0px; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); position: sticky;top: 30px;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 2px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
+					var th = $("<th>",{ style:"padding:0px; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); position: static;top: auto;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
 					$(searchField).appendTo($(th));
 					$(th).appendTo($(searchHeader));
 				} else {
