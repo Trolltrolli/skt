@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+
+<body>
+
+<style>
+
+body{
+background:transparent!important;
+overflow:hidden;
+height:100%;
+width:100%;
+margin:0;
+}
+
+.marquee{
+background:transparent!important;
+width:100%;
+white-space:nowrap;
+transform:translateX(100%);
+animation:cssmarquee 20s linear infinite;
+}
+
+.marquee img{
+display:inline-block;
+vertical-align:middle;
+margin:0 10px;
+}
+
+@keyframes cssmarquee{
+
+0%{
+transform:translateX(100%);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
+}
+
+</style>
+
+<div class="marquee">
+<div class="text">
+
+<img src="https://trolltrolli.github.io/skt/popis/mix/king.gif">
+<img src="https://trolltrolli.github.io/skt/popis/aladin/img/bav.png">
+<img src="https://trolltrolli.github.io/skt/popis/mix/king.gif">
+
+</div>
+</div>
+
+</body>
+</html>
