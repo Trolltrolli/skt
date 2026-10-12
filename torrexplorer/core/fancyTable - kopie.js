@@ -35,12 +35,11 @@
 		this.captureSearchLayout=function(elm){
 			var r=elm.getBoundingClientRect(),row=$(elm).find("thead tr:not(.fancySearchRow):first"),cols=[];
 			row.find("th").each(function(){cols.push(this.getBoundingClientRect().width)});
-			estm.fancyTable.searchLayout={width:r.width,cols:cols,createdColgroup:false,oldCols:[],oldTableLayout:elm.style.tableLayout};
+			elm.fancyTable.searchLayout={width:r.width,cols:cols,createdColgroup:false,oldCols:[]};
 		};
 		this.applySearchLayout=function(elm){
 			var l=elm.fancyTable.searchLayout;
 			if(!l)return;
-			element.style.tableLayout="fixed";
 			elm.style.width=l.width+"px";
 			elm.style.minWidth=l.width+"px";
 			elm.style.maxWidth=l.width+"px";
@@ -65,7 +64,6 @@
 		this.releaseSearchLayout=function(elm){
 			var l=elm.fancyTable.searchLayout;
 			if(!l)return;
-			element.style.tableLayout=l.oldTableLayout||"";
 			elm.style.width="";
 			elm.style.minWidth="";
 			elm.style.maxWidth="";
@@ -251,7 +249,7 @@
 						if(elm.fancyTable.search || (elm.fancyTable.searchArr && elm.fancyTable.searchArr.some(function(x){return !!x}))) instance.applySearchLayout(elm); else instance.releaseSearchLayout(elm);
 						instance.tableUpdate(elm);
 					});
-					var th = $("<th>",{ style:"padding:0px; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); position: sticky;top: 30px;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 2px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
+					var th = $("<th>",{ style:"padding:0px; background-image: linear-gradient(to bottom, #2c2c2c, #333333, #3a3a3a, #414141, #484848); position: static;top: auto;border-left: 0px solid #000;border-right: 0px solid #000;border-top: 2px solid #000;border-bottom: 1px solid #000;" }).attr("colspan",elm.fancyTable.nColumns);
 					$(searchField).appendTo($(th));
 					$(th).appendTo($(searchHeader));
 				} else {

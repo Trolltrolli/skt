@@ -143,7 +143,7 @@
 		this.reinit = function(elm){
 			$(this).each(function(){
 				$(this).find("th a").contents().unwrap();
-				$(this).find("tr.fancySearchRow").remove();
+				$(this).find("tr.fancySearchRow,tr.fancySearchPlaceholder").remove();
 			});
 			$(this).fancyTable(this.settings);
 		};
@@ -271,7 +271,7 @@
 						n++;
 					});
 				}
-				searchHeader.appendTo($(elm).find("thead"));
+				var searchThead=$(elm).find("thead"),searchPlaceholder=searchThead.find("tr.fancySearchPlaceholder");if(searchPlaceholder.length){searchPlaceholder.replaceWith(searchHeader);}else{searchHeader.appendTo(searchThead);}
 			}
 			// Sort
 			instance.tableSort(elm);
