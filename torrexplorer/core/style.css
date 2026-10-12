@@ -28,3 +28,13 @@ embed,object{pointer-events:auto!important}
 
 /* Vyhledavaci radek zustava v beznem toku tabulky. */
 #tg-uIa8n>thead>tr.fancySearchRow>th{position:static!important;top:auto!important;border-bottom:1px solid #000!important}
+
+/* 1) Search bar: make the input/row a little taller. */
+#tg-uIa8n>thead>tr.fancySearchRow input{
+    height:28px!important;
+    min-height:28px!important;
+    max-height:28px!important;
+    box-sizing:border-box!important;
+}
+
+/* 2) The title header cell inherits the same border/shadow style as the other header cells. */
