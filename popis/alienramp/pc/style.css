@@ -1,17 +1,42 @@
+html,
 body {
-  background:transparent;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: transparent;
   font-family: "VT323";
   font-size: 15pt;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  position: fixed;
+  overflow: hidden;
 }
-   a:hover {
-        background: orange;
-        opacity: .7;
-        width:.2px;
-        border: 1px solid #fc6603;
-    }
+
+a:hover {
+  background: orange;
+  opacity: .7;
+  width: .2px;
+  border: 1px solid #fc6603;
+}
+
+.pcd-viewport {
+  position: relative;
+  width: 100%;
+  height: 920px;
+  overflow: hidden;
+}
+
+/* Fixed-size coordinate canvas, scaled by pcd.html to fit the embed. */
+.pcd-stage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 990px;
+  height: 920px;
+  transform: translateX(-50%);
+  transform-origin: top left;
+}
+
 .oldscreeneffect {
   background: radial-gradient(ellipse at center, #000 50%, #003D02 100%);
   background-size: 100% 4px;
@@ -19,41 +44,52 @@ body {
   opacity: 0.9;
 }
 
-.pccase, .cpu {
-  background: b6b6b6;
+.pccase,
+.cpu {
+  position: absolute;
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+  margin: 0;
+  background: #b6b6b6;
   background-image: url("../sk.jpg");
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: -120px;
-  bottom: 0;
+  border: 5px solid #3D3B3B;
+  box-shadow: 0 0 0 3px #787877;
+}
+
+.pccase {
+  left: 165px;
+  top: 95px;
   width: 650px;
   height: 600px;
-  margin: auto;
-  border: 5px solid #3D3B3B;
-  box-shadow: 0px 0px 0px 3px #787877;
   border-radius: 5px;
 }
-.pccase .pccaselower, .cpu .pccaselower {
+
+.pccase .pccaselower,
+.cpu .pccaselower {
   height: 80px;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0 10px 0;
   padding: 15px 20px 20px 10px;
   border-top: 5px solid #3D3B3B;
   font-size: 50pt;
   font-weight: bold;
 }
-.pccase .pccaselower .pccaseonoffbutton, .cpu .pccaselower .pccaseonoffbutton {
+
+.pccase .pccaselower .pccaseonoffbutton,
+.cpu .pccaselower .pccaseonoffbutton {
   display: none;
   float: right;
   width: 50px;
   height: 50px;
-  margin: 5px 35px 0px 0px;
+  margin: 5px 35px 0 0;
   border: 3px solid black;
   border-radius: 50%;
 }
-.pccase .pccaselower .innercirclecase, .cpu .pccaselower .innercirclecase {
+
+.pccase .pccaselower .innercirclecase,
+.cpu .pccaselower .innercirclecase {
   display: none;
-  background-color: gray;
   width: 50%;
   height: 50%;
   margin: auto;
@@ -62,35 +98,37 @@ body {
   border-radius: 50%;
   background-color: silver;
 }
+
 .screen {
   height: 450px;
-  margin: 35px 35px 0px 35px;
+  margin: 35px 35px 0 35px;
   border: 3px solid #222121;
   border-radius: 20px;
-  box-shadow: inset 0px 0px 10px 10px #000;
+  box-shadow: inset 0 0 10px 10px #000;
 }
+
 .screen .screentext {
   color: #00FE1A;
   margin: 20px 30px;
-  text-shadow: 0px 0px 10px #FFFFFF;
+  text-shadow: 0 0 10px #FFFFFF;
   opacity: 0.6;
 }
 
 .cpu {
+  left: 65px;
   top: 720px;
   width: 850px;
   height: 171.4285714286px;
-  border-radius: 3px;
-  border: 5px solid #3D3B3B;
-  box-shadow: 0px 0px 0px 3px #787877;
   border-radius: 1px;
-  margin-top: -.2px;
 }
-.cpu .pcbaseleft, .cpu .pcbaseright {
+
+.cpu .pcbaseleft,
+.cpu .pcbaseright {
   float: left;
   width: 425px;
   height: 171.4285714286px;
 }
+
 .cpu .logo {
   float: left;
   height: 141.4285714286px;
@@ -98,16 +136,18 @@ body {
   font-size: 50pt;
   font-weight: bold;
 }
+
 .cpu .onoffbutton {
   display: none;
   float: right;
   width: 85.7142857143px;
   height: 85.7142857143px;
-  margin: 15px 35px 0px 0px;
+  margin: 15px 35px 0 0;
   border: 1px solid black;
-  border-radius: 0%;
+  border-radius: 0;
   background: silver;
-  }
+}
+
 .cpu .onoffbutton .innercircle {
   display: none;
   width: 50%;
@@ -118,6 +158,7 @@ body {
   text-align: center;
   font-size: 60pt;
 }
+
 .cpu .onoffbutton .innerline {
   display: none;
   background-color: black;
@@ -127,6 +168,7 @@ body {
   margin-top: -30px;
   border-radius: 50%;
 }
+
 .cpu .onoffled {
   background-color: limegreen;
   float: right;
@@ -137,9 +179,11 @@ body {
   margin-top: 120px;
   margin-left: 59px;
 }
+
 .cpu .pcbaseright {
   float: right;
 }
+
 .cpu .disquette {
   background-color: #3E3D3D;
   width: 390px;
@@ -149,6 +193,7 @@ body {
   border: 5px solid #848484;
   border-radius: 7px;
 }
+
 .cpu .disquette .disqueteline {
   background-color: black;
   width: 370px;
@@ -156,6 +201,7 @@ body {
   margin: auto;
   margin-top: 30px;
 }
+
 .cpu .disquette .disquetesquare {
   background-color: #111111;
   width: 80px;
@@ -166,6 +212,7 @@ body {
   border-radius: 10px;
 }
 
+/* Keep the console input interactive. */
 input {
   opacity: 1 !important;
   background-color: transparent;
@@ -182,4 +229,29 @@ input {
 
 input:focus {
   outline: none;
+}
+
+/* The three loose pads are positioned on the same canvas as the computer. */
+.pad4 {
+  position: absolute;
+  left: 735px;
+  top: 60px;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  transform: rotate(-8deg);
+}
+
+.pad1 {
+  position: absolute;
+  left: 160px;
+  top: 565px;
+  transform: rotate(12deg);
+}
+
+.pad2 {
+  position: absolute;
+  left: 580px;
+  top: 587px;
+  transform: rotate(-2deg);
 }
