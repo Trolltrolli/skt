@@ -1,0 +1,185 @@
+body {
+  background:transparent;
+  font-family: "VT323";
+  font-size: 15pt;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: fixed;
+}
+   a:hover {
+        background: orange;
+        opacity: .7;
+        width:.2px;
+        border: 1px solid #fc6603;
+    }
+.oldscreeneffect {
+  background: radial-gradient(ellipse at center, #000 50%, #003D02 100%);
+  background-size: 100% 4px;
+  background-repeat: repeat-y;
+  opacity: 0.9;
+}
+
+.pccase, .cpu {
+  background: b6b6b6;
+  background-image: url("https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Dos/sk.jpg");
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -120px;
+  bottom: 0;
+  width: 650px;
+  height: 600px;
+  margin: auto;
+  border: 5px solid #3D3B3B;
+  box-shadow: 0px 0px 0px 3px #787877;
+  border-radius: 5px;
+}
+.pccase .pccaselower, .cpu .pccaselower {
+  height: 80px;
+  margin: 10px 0px 10px 0px;
+  padding: 15px 20px 20px 10px;
+  border-top: 5px solid #3D3B3B;
+  font-size: 50pt;
+  font-weight: bold;
+}
+.pccase .pccaselower .pccaseonoffbutton, .cpu .pccaselower .pccaseonoffbutton {
+  display: none;
+  float: right;
+  width: 50px;
+  height: 50px;
+  margin: 5px 35px 0px 0px;
+  border: 3px solid black;
+  border-radius: 50%;
+}
+.pccase .pccaselower .innercirclecase, .cpu .pccaselower .innercirclecase {
+  display: none;
+  background-color: gray;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  margin-top: 7px;
+  border: 5px solid black;
+  border-radius: 50%;
+  background-color: silver;
+}
+.screen {
+  height: 450px;
+  margin: 35px 35px 0px 35px;
+  border: 3px solid #222121;
+  border-radius: 20px;
+  box-shadow: inset 0px 0px 10px 10px #000;
+}
+.screen .screentext {
+  color: #00FE1A;
+  margin: 20px 30px;
+  text-shadow: 0px 0px 10px #FFFFFF;
+  opacity: 0.6;
+}
+
+.cpu {
+  top: 720px;
+  width: 850px;
+  height: 171.4285714286px;
+  border-radius: 3px;
+  border: 5px solid #3D3B3B;
+  box-shadow: 0px 0px 0px 3px #787877;
+  border-radius: 1px;
+  margin-top: -.2px;
+}
+.cpu .pcbaseleft, .cpu .pcbaseright {
+  float: left;
+  width: 425px;
+  height: 171.4285714286px;
+}
+.cpu .logo {
+  float: left;
+  height: 141.4285714286px;
+  padding: 10px 20px 20px 10px;
+  font-size: 50pt;
+  font-weight: bold;
+}
+.cpu .onoffbutton {
+  display: none;
+  float: right;
+  width: 85.7142857143px;
+  height: 85.7142857143px;
+  margin: 15px 35px 0px 0px;
+  border: 1px solid black;
+  border-radius: 0%;
+  background: silver;
+  }
+.cpu .onoffbutton .innercircle {
+  display: none;
+  width: 50%;
+  height: 50%;
+  margin: 10px 25px 10px 10px;
+  border: 12px solid black;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 60pt;
+}
+.cpu .onoffbutton .innerline {
+  display: none;
+  background-color: black;
+  width: 10px;
+  height: 60px;
+  margin: auto;
+  margin-top: -30px;
+  border-radius: 50%;
+}
+.cpu .onoffled {
+  background-color: limegreen;
+  float: right;
+  margin: 20px 54px 20px 30px;
+  width: 40px;
+  height: 15px;
+  border: 1px solid #000000;
+  margin-top: 120px;
+  margin-left: 59px;
+}
+.cpu .pcbaseright {
+  float: right;
+}
+.cpu .disquette {
+  background-color: #3E3D3D;
+  width: 390px;
+  height: 65px;
+  margin-left: 420px;
+  margin-top: 7px;
+  border: 5px solid #848484;
+  border-radius: 7px;
+}
+.cpu .disquette .disqueteline {
+  background-color: black;
+  width: 370px;
+  height: 10px;
+  margin: auto;
+  margin-top: 30px;
+}
+.cpu .disquette .disquetesquare {
+  background-color: #111111;
+  width: 80px;
+  height: 55px;
+  margin: auto;
+  margin-top: -35px;
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+input {
+  opacity: 1 !important;
+  background-color: transparent;
+  position: relative;
+  width: 83%;
+  top: -39px;
+  left: 29px;
+  bottom: 1px;
+  border-style: none;
+  border-image: none;
+  font-family: "VT323";
+  font-size: 15pt;
+}
+
+input:focus {
+  outline: none;
+}

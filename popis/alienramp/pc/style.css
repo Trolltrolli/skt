@@ -21,7 +21,7 @@ body {
 
 .pccase, .cpu {
   background: b6b6b6;
-  background-image: url("https://friendsmusic.monster/managerfiles/trolltrolli/SKT/Dos/sk.jpg");
+  background-image: url("../sk.jpg");
   position: fixed;
   left: 0;
   right: 0;
