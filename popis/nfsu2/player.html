@@ -4,18 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<script>
-(function(){
-  try{
-    if(!sessionStorage.getItem('player_refreshed')){
-      sessionStorage.setItem('player_refreshed','1');
-      setTimeout(function(){
-        location.replace('player.html?r=1');
-      },700);
-    }
-  }catch(e){}
-})();
-</script>
+
 
 <title>Audio Player</title>
 
@@ -67,7 +56,6 @@ input{margin: 0; pointer-events: none}
   var TIMEOUT=5000;
   var container=document.getElementById('playerContainer');
   var fake=document.getElementById('fPlayer');
-  var mp3Ok=false;
   var finished=false;
 
   fetch('./name.txt?ts='+Date.now(),{cache:'no-store'})
@@ -90,14 +78,8 @@ input{margin: 0; pointer-events: none}
       console.warn('Nepodařilo se načíst name.txt.',e);
     });
 
-  window.addEventListener('message',function(event){
-    if(event.data&&event.data.mp3_status==='ok'){
-      mp3Ok=true;
-    }
-  });
-
   function loadRealPlayer() {
-    if(finished||mp3Ok)return;
+    if(finished)return;
     finished=true;
 
     var iframe=document.createElement('iframe');
