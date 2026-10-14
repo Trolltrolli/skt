@@ -26,7 +26,6 @@ a:hover {
   overflow: hidden;
 }
 
-/* Fixed-size coordinate canvas, scaled by pcd.html to fit the embed. */
 .pcd-stage {
   position: absolute;
   top: 0;
@@ -240,7 +239,7 @@ input:focus {
   z-index: 1;
   width: 150px;
   height: 150px;
-  transform: rotate(-8deg);
+  transform: translateY(20px) rotate(-9deg);
 }
 
 .pad1 {
