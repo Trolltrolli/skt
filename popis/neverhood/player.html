@@ -51,18 +51,12 @@ function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zv
 
 var userImpulseReceived = false;
 
-// Sledujeme kliknutí a pohyb myši (move) mimo player – sbírají impulz
+// Kliknutí mimo player
 document.addEventListener('click', function(e){
     if(!done && !fake.contains(e.target)){
         userImpulseReceived = true;
     }
 });
-
-document.addEventListener('pointermove', function(e){
-    if(!done && !fake.contains(e.target)){
-        userImpulseReceived = true;
-    }
-}, { once: true });
 
 function showReal(fromClick){
     if(!done){
@@ -70,6 +64,7 @@ function showReal(fromClick){
         fake.style.display='none';
         real.style.display='flex';
     }
+    // Pokud proběhl přímý klik, nebo byl zaznamenán impulz (klik/move mimo)
     if(fromClick || userImpulseReceived){
         a.muted=false;
         syncMute();
@@ -80,6 +75,8 @@ function showReal(fromClick){
     var q=a.play();
     if(q&&q.catch){
         q.catch(function(){
+            // Pojistka: pokud prohlížeč zablokuje autoplay kvůli pohybu myši, 
+            // ztlumíme zvuk a zkusíme to spustit alespoň tiše, aby se přehrávání nezastavilo
             a.muted = true;
             syncMute();
             var q2 = a.play();
@@ -88,22 +85,14 @@ function showReal(fromClick){
     }
 }
 
-// Zjistíme, jestli přicházíme z fóra s parametrem autoplay=true
-var urlParams = new URLSearchParams(window.location.search);
-var isAutoplayRequested = urlParams.get('autoplay') === 'true';
+// Přímý klik na fakePlayer
+fake.addEventListener('click',function(){showReal(true);});
+fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
 
-if (isAutoplayRequested) {
-    // Pokud je to z fóra, rovnou nastartujeme s impulzem
-    showReal(true);
-} else {
-    // Běžný režim na webu
-    fake.addEventListener('click',function(){showReal(true);});
-    fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
-
-    setTimeout(function(){
-        showReal(false);
-    }, TIMEOUT);
-}
+// Časovač pro automatické přepnutí po limitu
+setTimeout(function(){
+    showReal(false);
+},TIMEOUT);
 
 p.onclick=function(){if(a.paused){var q=a.play();if(q&&q.catch)q.catch(function(){});}else a.pause();};
 m.onclick=function(){a.muted=!a.muted;syncMute();if(!a.paused&&!a.muted){var q=a.play();if(q&&q.catch)q.catch(function(){});}};
