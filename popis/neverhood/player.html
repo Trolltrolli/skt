@@ -51,7 +51,7 @@ function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zv
 
 var userImpulseReceived = false;
 
-// Kliknutí mimo player
+// Sledujeme pouze kliknutí mimo player jako impulz
 document.addEventListener('click', function(e){
     if(!done && !fake.contains(e.target)){
         userImpulseReceived = true;
@@ -64,7 +64,6 @@ function showReal(fromClick){
         fake.style.display='none';
         real.style.display='flex';
     }
-    // Pokud proběhl přímý klik, nebo byl zaznamenán impulz (klik/move mimo)
     if(fromClick || userImpulseReceived){
         a.muted=false;
         syncMute();
@@ -75,8 +74,6 @@ function showReal(fromClick){
     var q=a.play();
     if(q&&q.catch){
         q.catch(function(){
-            // Pojistka: pokud prohlížeč zablokuje autoplay kvůli pohybu myši, 
-            // ztlumíme zvuk a zkusíme to spustit alespoň tiše, aby se přehrávání nezastavilo
             a.muted = true;
             syncMute();
             var q2 = a.play();
