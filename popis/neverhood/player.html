@@ -48,10 +48,60 @@ a.volume=.75;
 function fmt(x){if(!isFinite(x)||x<0)return'0:00';var mm=Math.floor(x/60),ss=Math.floor(x%60);return mm+':'+(ss<10?'0':'')+ss;}
 function syncPlay(){p.textContent=a.paused?'▶':'Ⅱ';p.setAttribute('aria-label',a.paused?'Přehrát':'Pozastavit');}
 function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zvuk':'Ztlumit';m.setAttribute('aria-label',m.title);}
-function showReal(fromClick){if(!done){done=true;fake.style.display='none';real.style.display='flex';}if(fromClick){a.muted=false;syncMute();}else if(a.muted){a.muted=false;syncMute();}var q=a.play();if(q&&q.catch)q.catch(function(){});}
+
+var userImpulseReceived = false;
+
+// Kliknutí mimo player
+document.addEventListener('click', function(e){
+    if(!done && !fake.contains(e.target)){
+        userImpulseReceived = true;
+    }
+});
+
+// Pohyb myši (move/hover) mimo player – ošetřeno přes { once: true }, 
+// takže se zachytí hned první pohyb myši a dál to nezatěžuje prohlížeč.
+document.addEventListener('pointermove', function(e){
+    if(!done && !fake.contains(e.target)){
+        userImpulseReceived = true;
+    }
+}, { once: true });
+
+function showReal(fromClick){
+    if(!done){
+        done=true;
+        fake.style.display='none';
+        real.style.display='flex';
+    }
+    // Pokud proběhl přímý klik, nebo byl zaznamenán impulz (klik/move mimo)
+    if(fromClick || userImpulseReceived){
+        a.muted=false;
+        syncMute();
+    }else if(a.muted){
+        a.muted=false;
+        syncMute();
+    }
+    var q=a.play();
+    if(q&&q.catch){
+        q.catch(function(){
+            // Pojistka: pokud prohlížeč zablokuje autoplay kvůli pohybu myši, 
+            // ztlumíme zvuk a zkusíme to spustit alespoň tiše, aby se přehrávání nezastavilo
+            a.muted = true;
+            syncMute();
+            var q2 = a.play();
+            if(q2 && q2.catch) q2.catch(function(){});
+        });
+    }
+}
+
+// Přímý klik na fakePlayer
 fake.addEventListener('click',function(){showReal(true);});
 fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
-setTimeout(function(){showReal(false);},TIMEOUT);
+
+// Časovač pro automatické přepnutí po limitu
+setTimeout(function(){
+    showReal(false);
+},TIMEOUT);
+
 p.onclick=function(){if(a.paused){var q=a.play();if(q&&q.catch)q.catch(function(){});}else a.pause();};
 m.onclick=function(){a.muted=!a.muted;syncMute();if(!a.paused&&!a.muted){var q=a.play();if(q&&q.catch)q.catch(function(){});}};
 v.oninput=function(){a.volume=Number(v.value);if(a.volume>0&&a.muted){a.muted=false;syncMute();}};
