@@ -65,38 +65,36 @@ function showReal(fromClick){
     var q=a.play();
     if(q&&q.catch){
         q.catch(function(){
-            a.muted = true;
-            syncMute();
-            var q2 = a.play();
-            if(q2 && q2.catch) q2.catch(function(){});
+            // Pokud by to přece jen v nějakém prohlížeči zazlobilo, zkusíme to spustit alespoň ztlumené, 
+            // ale pro autoplay=true z fóra to teď díky přímé detekci nastartuje nahlas.
+            if (!isAutoplayRequested) {
+                a.muted = true;
+                syncMute();
+                var q2 = a.play();
+                if(q2 && q2.catch) q2.catch(function(){});
+            }
         });
     }
 }
 
-// Zjistíme, zda URL obsahuje požadavek na autoplay (např. ?id=332&autoplay=true)
+// Zjistíme, zda jde o autoplay spuštěný z fóra přes onmouseover
 var urlParams = new URLSearchParams(window.location.search);
 var isAutoplayRequested = urlParams.get('autoplay') === 'true';
 
-// 1. Přímý klik na fakePlayer
-fake.addEventListener('click',function(){showReal(true);});
-fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
-
-// 2. Kliknutí kdekoliv uvnitř iframe
-document.addEventListener('click',function(e){
-    if(!done && !fake.contains(e.target)){
-        showReal(true);
-    }
-});
-
-// Pokud hlavní stránka fóra vyvolala onmouseover/onclick, iframe se vytvořil 
-// s parametrem autoplay=true. Můžeme tedy realPlayer rovnou nastartovat hned!
 if (isAutoplayRequested) {
-    // Malá pojistka (0.1s), aby se stihl vykreslit DOM
-    setTimeout(function(){
-        showReal(true);
-    }, 100);
+    // OKAMŽITĚ zapneme reálný přehrávač se zvukem, žádné čekání ani časovače!
+    showReal(true);
 } else {
-    // Standardní časový limit, pokud by parametr chyběl
+    // Standardní chování, když je stránka otevřená napřímo
+    fake.addEventListener('click',function(){showReal(true);});
+    fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
+
+    document.addEventListener('click',function(e){
+        if(!done && !fake.contains(e.target)){
+            showReal(true);
+        }
+    });
+
     setTimeout(function(){
         showReal(false);
     }, TIMEOUT);
