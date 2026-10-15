@@ -51,20 +51,17 @@ function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zv
 
 var userImpulseReceived = false;
 
-// Kliknutí mimo player
-document.addEventListener('click', function(e){
+// Funkce pro zachycení interakce (kliknutí nebo dotyk/interakce mimo player uvnitř iframe)
+function registerImpulse(e){
     if(!done && !fake.contains(e.target)){
         userImpulseReceived = true;
     }
-});
+}
 
-// Pohyb myši (move/hover) mimo player – ošetřeno přes { once: true }, 
-// takže se zachytí hned první pohyb myši a dál to nezatěžuje prohlížeč.
-document.addEventListener('pointermove', function(e){
-    if(!done && !fake.contains(e.target)){
-        userImpulseReceived = true;
-    }
-}, { once: true });
+document.addEventListener('click', registerImpulse);
+// Místo neposedného pointermove používáme pointerdown (reálný stisk/interakce), 
+// který iframe i prohlížeče akceptují jako plnohodnotný spouštěč zvuku.
+document.addEventListener('pointerdown', registerImpulse, { once: true });
 
 function showReal(fromClick){
     if(!done){
@@ -72,7 +69,7 @@ function showReal(fromClick){
         fake.style.display='none';
         real.style.display='flex';
     }
-    // Pokud proběhl přímý klik, nebo byl zaznamenán impulz (klik/move mimo)
+    // Pokud proběhl přímý klik nebo uživatel kdekoli v iframe interagoval (klik/dotyk)
     if(fromClick || userImpulseReceived){
         a.muted=false;
         syncMute();
@@ -83,8 +80,6 @@ function showReal(fromClick){
     var q=a.play();
     if(q&&q.catch){
         q.catch(function(){
-            // Pojistka: pokud prohlížeč zablokuje autoplay kvůli pohybu myši, 
-            // ztlumíme zvuk a zkusíme to spustit alespoň tiše, aby se přehrávání nezastavilo
             a.muted = true;
             syncMute();
             var q2 = a.play();
