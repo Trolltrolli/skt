@@ -49,41 +49,58 @@ function fmt(x){if(!isFinite(x)||x<0)return'0:00';var mm=Math.floor(x/60),ss=Mat
 function syncPlay(){p.textContent=a.paused?'▶':'Ⅱ';p.setAttribute('aria-label',a.paused?'Přehrát':'Pozastavit');}
 function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zvuk':'Ztlumit';m.setAttribute('aria-label',m.title);}
 
+var userImpulseReceived = false;
+
+// Kliknutí mimo player
+document.addEventListener('click', function(e){
+    if(!done && !fake.contains(e.target)){
+        userImpulseReceived = true;
+    }
+});
+
+// Pohyb myši (move/hover) mimo player – ošetřeno přes { once: true }, 
+// takže se zachytí hned první pohyb myši a dál to nezatěžuje prohlížeč.
+document.addEventListener('pointermove', function(e){
+    if(!done && !fake.contains(e.target)){
+        userImpulseReceived = true;
+    }
+}, { once: true });
+
 function showReal(fromClick){
     if(!done){
         done=true;
         fake.style.display='none';
         real.style.display='flex';
     }
-    if(fromClick){
+    // Pokud proběhl přímý klik, nebo byl zaznamenán impulz (klik/move mimo)
+    if(fromClick || userImpulseReceived){
+        a.muted=false;
+        syncMute();
+    }else if(a.muted){
         a.muted=false;
         syncMute();
     }
     var q=a.play();
-    if(q&&q.catch)q.catch(function(){});
+    if(q&&q.catch){
+        q.catch(function(){
+            // Pojistka: pokud prohlížeč zablokuje autoplay kvůli pohybu myši, 
+            // ztlumíme zvuk a zkusíme to spustit alespoň tiše, aby se přehrávání nezastavilo
+            a.muted = true;
+            syncMute();
+            var q2 = a.play();
+            if(q2 && q2.catch) q2.catch(function(){});
+        });
+    }
 }
 
-// 1. KLIKNUTÍ (reálná interakcja -> odemkne i zvuk `fromClick = true`)
+// Přímý klik na fakePlayer
 fake.addEventListener('click',function(){showReal(true);});
 fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
 
-document.addEventListener('click',function(e){
-    if(!done && !fake.contains(e.target)){
-        showReal(true);
-    }
-});
-
-// 2. HOVER / POHYB MYŠI (pouze ukáže player a spustí přehrávání, 
-// ale protože to není přímý klik, prohlížeč může vyžadovat, aby to jelo jako muted, 
-// nebo se zvuk zapne hned, jak uživatel následně klikne).
-document.addEventListener('pointermove',function(e){
-    if(!done && !fake.contains(e.target)){
-        showReal(false); // false zajistí, že to prohlížeč kvůli pravidlům pro autoplay nevyhodí
-    }
-},{once:true});
-
-// 3. ČASOVÝ LIMIT (pokud se nic nestane)
-setTimeout(function(){showReal(false);},TIMEOUT);
+// Časovač pro automatické přepnutí po limitu
+setTimeout(function(){
+    showReal(false);
+},TIMEOUT);
 
 p.onclick=function(){if(a.paused){var q=a.play();if(q&&q.catch)q.catch(function(){});}else a.pause();};
 m.onclick=function(){a.muted=!a.muted;syncMute();if(!a.paused&&!a.muted){var q=a.play();if(q&&q.catch)q.catch(function(){});}};
