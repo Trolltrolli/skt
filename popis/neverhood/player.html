@@ -49,28 +49,13 @@ function fmt(x){if(!isFinite(x)||x<0)return'0:00';var mm=Math.floor(x/60),ss=Mat
 function syncPlay(){p.textContent=a.paused?'▶':'Ⅱ';p.setAttribute('aria-label',a.paused?'Přehrát':'Pozastavit');}
 function syncMute(){m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zvuk':'Ztlumit';m.setAttribute('aria-label',m.title);}
 
-var userImpulseReceived = false;
-
-// Funkce pro zachycení interakce (kliknutí nebo dotyk/interakce mimo player uvnitř iframe)
-function registerImpulse(e){
-    if(!done && !fake.contains(e.target)){
-        userImpulseReceived = true;
-    }
-}
-
-document.addEventListener('click', registerImpulse);
-// Místo neposedného pointermove používáme pointerdown (reálný stisk/interakce), 
-// který iframe i prohlížeče akceptují jako plnohodnotný spouštěč zvuku.
-document.addEventListener('pointerdown', registerImpulse, { once: true });
-
 function showReal(fromClick){
     if(!done){
         done=true;
         fake.style.display='none';
         real.style.display='flex';
     }
-    // Pokud proběhl přímý klik nebo uživatel kdekoli v iframe interagoval (klik/dotyk)
-    if(fromClick || userImpulseReceived){
+    if(fromClick){
         a.muted=false;
         syncMute();
     }else if(a.muted){
@@ -88,14 +73,34 @@ function showReal(fromClick){
     }
 }
 
-// Přímý klik na fakePlayer
+// Zjistíme, zda URL obsahuje požadavek na autoplay (např. ?id=332&autoplay=true)
+var urlParams = new URLSearchParams(window.location.search);
+var isAutoplayRequested = urlParams.get('autoplay') === 'true';
+
+// 1. Přímý klik na fakePlayer
 fake.addEventListener('click',function(){showReal(true);});
 fake.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();showReal(true);}});
 
-// Časovač pro automatické přepnutí po limitu
-setTimeout(function(){
-    showReal(false);
-},TIMEOUT);
+// 2. Kliknutí kdekoliv uvnitř iframe
+document.addEventListener('click',function(e){
+    if(!done && !fake.contains(e.target)){
+        showReal(true);
+    }
+});
+
+// Pokud hlavní stránka fóra vyvolala onmouseover/onclick, iframe se vytvořil 
+// s parametrem autoplay=true. Můžeme tedy realPlayer rovnou nastartovat hned!
+if (isAutoplayRequested) {
+    // Malá pojistka (0.1s), aby se stihl vykreslit DOM
+    setTimeout(function(){
+        showReal(true);
+    }, 100);
+} else {
+    // Standardní časový limit, pokud by parametr chyběl
+    setTimeout(function(){
+        showReal(false);
+    }, TIMEOUT);
+}
 
 p.onclick=function(){if(a.paused){var q=a.play();if(q&&q.catch)q.catch(function(){});}else a.pause();};
 m.onclick=function(){a.muted=!a.muted;syncMute();if(!a.paused&&!a.muted){var q=a.play();if(q&&q.catch)q.catch(function(){});}};
