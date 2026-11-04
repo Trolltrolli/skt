@@ -148,7 +148,7 @@
 			$(this).fancyTable(this.settings);
 		};
 		this.tableSort = function (elm) {
-			if(typeof elm.fancyTable.sortColumn !== "undefined" && elm.fancyTable.sortColumn < elm.fancyTable.nColumns){
+			if(typeof elm.fancyTable.sortColumn !== "undefined" && elm.fancyTable.sortColumn >= 0 && elm.fancyTable.sortColumn < elm.fancyTable.nColumns){
 				$(elm).find("thead th div.sortArrow").each(function(){
 					$(this).remove();
 				});
