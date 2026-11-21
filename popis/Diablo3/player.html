@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diablo III – Main Theme</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:128px;overflow:hidden;background:transparent;font-family:Arial,Helvetica,sans-serif;color:#eee}
+.player{width:940px;max-width:100%;height:128px;padding:12px 16px;border:1px solid #514635;border-radius:11px;background:linear-gradient(145deg,#34302a,#171615 62%,#0b0a09);box-shadow:0 0 18px 7px #000,0 0 5px 1px #8a4c13;display:flex;flex-direction:column;justify-content:center;gap:12px;overflow:hidden}
+.top{display:flex;align-items:center;gap:10px;min-width:0}
+.disc{width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:2px solid #8a7553;background:radial-gradient(circle,#171310 0 15%,#d89b43 18% 23%,#28221a 26% 58%,#83704e 60% 63%,#15120f 66%);box-shadow:0 0 9px #000}
+.meta{min-width:0;flex:1}
+.name{font-size:13px;font-weight:700;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:1px 1px 2px #000}
+.controls{display:flex;align-items:center;gap:9px;width:100%;min-width:0}
+.btn{width:29px;height:28px;flex:0 0 29px;border:1px solid #625743;border-radius:6px;background:linear-gradient(#51483a,#211d18);color:#f4e8d0;font-size:13px;cursor:pointer;padding:0}
+.btn:hover{background:linear-gradient(#6a5a42,#30271d);border-color:#d39a46}
+.time{font-size:10px;color:#c3b8a5;font-variant-numeric:tabular-nums;white-space:nowrap}
+.seek{flex:1;min-width:30px;accent-color:#d29a43;height:4px;cursor:pointer}
+.vol{width:75px;flex:0 1 75px;min-width:38px;accent-color:#d29a43;height:4px;cursor:pointer}
+.volume-icon{font-size:11px;color:#c8b99f;white-space:nowrap}
+button,input{outline:none}
+button:focus-visible,input:focus-visible{outline:1px solid #e3b15d;outline-offset:2px}
+@media(max-width:520px){.player{padding:10px;gap:10px}.controls{gap:6px}.vol{width:48px;flex-basis:48px}.volume-icon{display:none}}
+</style>
+</head>
+<body>
+<div class="player">
+  <div class="top"><div class="disc"></div><div class="meta"><div class="name">Diablo III – Main Theme</div></div></div>
+  <div class="controls">
+    <button class="btn" id="play" type="button" title="Přehrát / pozastavit" aria-label="Přehrát">▶</button>
+    <span class="time" id="current">0:00</span>
+    <input class="seek" id="seek" type="range" min="0" max="1000" value="0" aria-label="Pozice skladby">
+    <span class="time" id="duration">0:00</span>
+    <span class="volume-icon">VOL</span>
+    <input class="vol" id="volume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Hlasitost">
+    <button class="btn" id="mute" type="button" title="Ztlumit / zapnout zvuk" aria-label="Ztlumit">♪</button>
+  </div>
+</div>
+<audio id="audio" src="./Diablo%20III%20-%20Main%20Theme.mp3" preload="metadata" loop></audio>
+<script>
+(function(){
+  var a=document.getElementById('audio'),p=document.getElementById('play'),m=document.getElementById('mute'),v=document.getElementById('volume'),s=document.getElementById('seek'),c=document.getElementById('current'),d=document.getElementById('duration');
+  a.volume=.75;
+  function fmt(x){if(!isFinite(x)||x<0)return'0:00';var mm=Math.floor(x/60),ss=Math.floor(x%60);return mm+':'+(ss<10?'0':'')+ss;}
+  function sync(){p.textContent=a.paused?'▶':'Ⅱ';p.setAttribute('aria-label',a.paused?'Přehrát':'Pozastavit');}
+  p.addEventListener('click',function(){if(a.paused){var q=a.play();if(q&&q.catch)q.catch(function(){c.textContent='Klikni znovu';});}else a.pause();});
+  m.addEventListener('click',function(){a.muted=!a.muted;m.textContent=a.muted?'×':'♪';m.title=a.muted?'Zapnout zvuk':'Ztlumit';});
+  v.addEventListener('input',function(){a.volume=Number(v.value);if(a.volume>0&&a.muted){a.muted=false;m.textContent='♪';m.title='Ztlumit';}});
+  a.addEventListener('play',sync);a.addEventListener('pause',sync);
+  a.addEventListener('loadedmetadata',function(){d.textContent=fmt(a.duration);});
+  a.addEventListener('durationchange',function(){d.textContent=fmt(a.duration);});
+  a.addEventListener('timeupdate',function(){c.textContent=fmt(a.currentTime);if(isFinite(a.duration)&&a.duration>0&&!s._dragging)s.value=Math.round(a.currentTime/a.duration*1000);});
+  s.addEventListener('input',function(){s._dragging=true;if(isFinite(a.duration)&&a.duration>0)c.textContent=fmt(Number(s.value)/1000*a.duration);});
+  s.addEventListener('change',function(){if(isFinite(a.duration)&&a.duration>0)a.currentTime=Number(s.value)/1000*a.duration;s._dragging=false;});
+  a.addEventListener('error',function(){c.textContent='Audio nedostupné';});
+  if(new URLSearchParams(location.search).get('autoplay')==='true'){var q=a.play();if(q&&q.catch)q.catch(function(){});}
+})();
+</script>
+</body>
+</html>
